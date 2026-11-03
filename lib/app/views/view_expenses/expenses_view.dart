@@ -137,6 +137,14 @@ class ExpensesView extends StatelessWidget {
                 subtitle: '500 örnek harcama, 20\'şer yüklenir',
                 onTap: () => context.router.push(const PagedListRoute()),
               ),
+              const Gap(10),
+              _EntryCard(
+                key: const Key('expensesView_pagedGrid'),
+                icon: Icons.grid_view_rounded,
+                title: 'Sayfalı ızgara',
+                subtitle: 'Aynı 500 kayıt, kartlar hâlinde',
+                onTap: () => context.router.push(const PagedGridRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

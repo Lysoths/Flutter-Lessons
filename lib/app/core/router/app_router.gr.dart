@@ -320,6 +320,22 @@ class NewExpenseRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PagedGridView]
+class PagedGridRoute extends PageRouteInfo<void> {
+  const PagedGridRoute({List<PageRouteInfo>? children})
+    : super(PagedGridRoute.name, initialChildren: children);
+
+  static const String name = 'PagedGridRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PagedGridView();
+    },
+  );
+}
+
+/// generated route for
 /// [PagedListView]
 class PagedListRoute extends PageRouteInfo<void> {
   const PagedListRoute({List<PageRouteInfo>? children})

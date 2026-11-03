@@ -5,6 +5,7 @@ import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/core/repository/dummy_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
+import 'package:flutter_ders/app/views/view_paged_grid/widgets/expense_grid_card.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_state.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -199,6 +200,48 @@ void main() {
         find.textContaining(RegExp(r'^#\d+ ·')).evaluate().length,
         lessThan(40),
       );
+    });
+
+    testWidgets('ızgara: 2 sütun, kaydırdıkça sayfalar gelir', (tester) async {
+      tester.view.physicalSize = const Size(1440, 3120);
+      tester.view.devicePixelRatio = 3.75;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(const HarcamaApp());
+      await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('expensesView_pagedGrid')),
+        200,
+        scrollable: find
+            .byWidgetPredicate(
+              (w) => w is Scrollable && w.axisDirection == AxisDirection.down,
+            )
+            .first,
+      );
+      await tester.tap(find.byKey(const Key('expensesView_pagedGrid')));
+      await settle(tester);
+
+      expect(counter(tester), '20 / 500 kayıt');
+      // Telefon genişliğinde iki sütun: 1 ve 2 yan yana, 3 alt satırda.
+      final one = tester.getTopLeft(find.byKey(const Key('gridCard_1')));
+      final two = tester.getTopLeft(find.byKey(const Key('gridCard_2')));
+      final three = tester.getTopLeft(find.byKey(const Key('gridCard_3')));
+      expect(two.dy, one.dy);
+      expect(two.dx, greaterThan(one.dx));
+      expect(three.dy, greaterThan(one.dy));
+      expect(find.byKey(const Key('gridCard_21')), findsNothing);
+
+      final grid = find.byKey(const Key('pagedGrid_grid'));
+      var guard = 0;
+      while (find.byKey(const Key('pagedList_end')).evaluate().isEmpty) {
+        await tester.drag(grid, const Offset(0, -3000));
+        await settle(tester);
+        expect(guard++, lessThan(200), reason: 'ızgara sonuna ulaşılamadı');
+      }
+      expect(counter(tester), '500 / 500 kayıt');
+      expect(find.byKey(const Key('gridCard_500')), findsOneWidget);
+      // GridView da yalnızca görünen kartları oluşturur.
+      expect(find.byType(ExpenseGridCard).evaluate().length, lessThan(40));
     });
   });
 }

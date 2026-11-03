@@ -192,6 +192,16 @@ Ana sayfa → *Sayfalı liste*: 500 örnek harcama 20'şer (25 sayfa) yüklenir.
 - Sahte kayıtlar yalnızca bellekte; gerçek harcamalara yazılmaz. Rota deep
   link beyaz listesinde yok.
 
+**2. ekran — Sayfalı ızgara** (ana sayfa → *Sayfalı ızgara*,
+`views/view_paged_grid/`): aynı depo ve aynı `PagedListCubit`, yalnızca
+görünüm farklı. Kartlar en fazla 200 px genişlikte
+(`SliverGridDelegateWithMaxCrossAxisExtent`): telefonda 2 sütun, geniş
+ekranda daha fazla. Alttaki "yükleniyor / hepsi bu kadar" satırı tek hücreye
+sığmayacağı için `CustomScrollView` içinde `SliverGrid.builder` +
+`SliverToBoxAdapter` kullanılır (`GridView.builder` da içeride aynı
+`SliverGrid`'i kurar). Sayaç ve alt satır iki ekranda ortaktır:
+`view_paged_list/widgets/paged_status_widgets.dart`.
+
 ## Komutlar
 
 ```bash

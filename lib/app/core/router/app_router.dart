@@ -12,6 +12,7 @@ import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.d
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
 import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart';
 import 'package:flutter_ders/app/views/view_new_expense/new_expense_view.dart';
+import 'package:flutter_ders/app/views/view_paged_grid/paged_grid_view.dart';
 import 'package:flutter_ders/app/views/view_paged_list/paged_list_view.dart';
 import 'package:flutter_ders/app/views/view_pdf_viewer/pdf_viewer_view.dart';
 
@@ -34,6 +35,7 @@ part 'app_router.gr.dart';
 //   AnimationsView       → AnimationsRoute()               (Ders 6)
 //   AnimationDemoView    → AnimationDemoRoute(senaryo: 'fade') (Ders 6)
 //   PagedListView        → PagedListRoute()                (Ders 7)
+//   PagedGridView        → PagedGridRoute()                (Ders 7)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -117,6 +119,11 @@ class AppRouter extends RootStackRouter {
     _animated(
       PagedListRoute.page,
       '/ornek-liste',
+      RouteAnimation.slideFromRight,
+    ),
+    _animated(
+      PagedGridRoute.page,
+      '/ornek-izgara',
       RouteAnimation.slideFromRight,
     ),
   ];
