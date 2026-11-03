@@ -12,6 +12,7 @@ import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
 import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart';
+import 'package:flutter_ders/app/views/view_lottie/lottie_view.dart';
 import 'package:flutter_ders/app/views/view_new_expense/new_expense_view.dart';
 import 'package:flutter_ders/app/views/view_paged_grid/paged_grid_view.dart';
 import 'package:flutter_ders/app/views/view_paged_list/paged_list_view.dart';
@@ -38,6 +39,7 @@ part 'app_router.gr.dart';
 //   PagedListView        → PagedListRoute()                (Ders 7)
 //   PagedGridView        → PagedGridRoute()                (Ders 7)
 //   AnimationControlView → AnimationControlRoute()         (Ders 8)
+//   LottieView           → LottieRoute()                   (Ders 9)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -123,6 +125,8 @@ class AppRouter extends RootStackRouter {
       '/ornek-liste',
       RouteAnimation.slideFromRight,
     ),
+    // DERS 9 — Lottie. Deep link beyaz listesinde yok.
+    _animated(LottieRoute.page, '/lottie', RouteAnimation.slideFromRight),
     // DERS 8 — AnimationController. Deep link beyaz listesinde yok.
     _animated(
       AnimationControlRoute.page,

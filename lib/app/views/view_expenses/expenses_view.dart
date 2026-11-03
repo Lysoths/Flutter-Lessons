@@ -154,6 +154,15 @@ class ExpensesView extends StatelessWidget {
                 subtitle: '3B obje ve nabız efektleri',
                 onTap: () => context.router.push(const AnimationControlRoute()),
               ),
+              const Gap(10),
+              // DERS 9 — Lottie.
+              _EntryCard(
+                key: const Key('expensesView_lottie'),
+                icon: Icons.movie_filter_rounded,
+                title: 'Lottie animasyonları',
+                subtitle: 'JSON dosyasından çizilen animasyonlar',
+                onTap: () => context.router.push(const LottieRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

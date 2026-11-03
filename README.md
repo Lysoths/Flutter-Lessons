@@ -248,6 +248,37 @@ dalga halkaları, nefes, EKG çizgisi (`CustomPainter` + `extractPath`),
 radar (`SweepGradient`), zil sallanması, "yazıyor..." noktaları, bpm ile
 hızı ayarlanan nabız. Her kartta Oynat/Durdur ve eğri seçimi var.
 
+### Ders 9 — Lottie: JSON'dan animasyon
+
+Ana sayfa → *Lottie animasyonları* (`views/view_lottie/`), paket: `lottie`.
+
+1. Tasarımcı animasyonu After Effects'te vektörle çizer.
+2. Bodymovin eklentisi onu **JSON**'a aktarır: katmanlar, şekiller ve
+   "şu karede şu değer" listeleri.
+3. `Lottie.asset('assets/lottie/x.json')` dosyayı okur ve her karede
+   şekilleri yeniden çizer. Video değil veridir: birkaç KB, her boyutta net,
+   rengi çalışırken değiştirilebilir (`LottieDelegates`).
+
+JSON'un kökündeki anahtarlar (`models/lottie_json_info.dart` okur):
+`v` sürüm, `fr` saniyedeki kare, `ip`/`op` ilk/son kare, `w`/`h` tuval,
+`layers` katmanlar. Süre = (op − ip) / fr.
+
+Oynatıcı, Ders 8'deki `AnimationController` ile yönetilir: oynat/durdur,
+istenen kareye git (`value`), hız (`duration`). Controller verilmezse Lottie
+kendi saatini kurar ve sürekli tekrar eder.
+
+**Kaynak:** [lottiefiles.com/free-animations](https://lottiefiles.com/free-animations/json),
+Lottie Simple License. Dosyalar `.lottie` (zip) olarak indirildi, içlerindeki
+JSON `assets/lottie/` altına çıkarıldı:
+
+| Dosya | LottieFiles |
+|---|---|
+| `heartbeat.json` | [Heartbeat](https://lottiefiles.com/free-animation/heartbeat-lottie-animation-Sph5eoJytj) |
+| `loading.json` | [Loading animation](https://lottiefiles.com/free-animation/loading-animation-0yMJ1aysad) |
+| `celebration.json` | [Party celebration](https://lottiefiles.com/free-animation/party-celebration-Ei80CjLJQC) |
+| `clock.json` | [Clock](https://lottiefiles.com/free-animation/clock-lottie-animation-K2sPMoyo0P) |
+| `idea.json` | [Idea](https://lottiefiles.com/free-animation/idea-2xuoUIZh6Z) |
+
 ## Komutlar
 
 ```bash

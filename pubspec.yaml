@@ -43,6 +43,7 @@ dependencies:
   auto_route: ^11.2.0
   pdfrx: ^2.11.0
   just_audio: ^0.10.6
+  lottie: ^3.8.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,6 +74,7 @@ flutter:
   assets:
     - assets/belgeler/
     - assets/data/
+    - assets/lottie/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

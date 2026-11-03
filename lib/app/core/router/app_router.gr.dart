@@ -320,6 +320,22 @@ class ImageViewerRouteArgs {
 }
 
 /// generated route for
+/// [LottieView]
+class LottieRoute extends PageRouteInfo<void> {
+  const LottieRoute({List<PageRouteInfo>? children})
+    : super(LottieRoute.name, initialChildren: children);
+
+  static const String name = 'LottieRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LottieView();
+    },
+  );
+}
+
+/// generated route for
 /// [NewExpenseView]
 class NewExpenseRoute extends PageRouteInfo<void> {
   const NewExpenseRoute({List<PageRouteInfo>? children})
