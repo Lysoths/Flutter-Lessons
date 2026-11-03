@@ -145,6 +145,15 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'Aynı 500 kayıt, kartlar hâlinde',
                 onTap: () => context.router.push(const PagedGridRoute()),
               ),
+              const Gap(10),
+              // DERS 8 — AnimationController.
+              _EntryCard(
+                key: const Key('expensesView_animationControl'),
+                icon: Icons.view_in_ar_rounded,
+                title: 'Animasyon kontrolü',
+                subtitle: '3B obje ve nabız efektleri',
+                onTap: () => context.router.push(const AnimationControlRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

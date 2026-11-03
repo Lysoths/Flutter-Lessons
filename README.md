@@ -218,6 +218,36 @@ gri kutular, `Shimmer` ise `ShaderMask` + kayan `LinearGradient` ile
 üstlerinden parıltı geçirir. Sistemde "animasyonları azalt" açıksa parıltı
 oynamaz.
 
+### Ders 8 — AnimationController
+
+Ana sayfa → *Animasyon kontrolü* (`views/view_animation_control/`), iki sekme.
+
+`AnimationController` bir saattir: her karede `value`'yu 0.0 → 1.0 ilerletir.
+`vsync` için State'e `SingleTickerProviderStateMixin` eklenir; sayfa
+kapanınca `dispose()` ile mutlaka kapatılır.
+
+| Komut | Ne yapar |
+|---|---|
+| `forward()` / `reverse()` | ileri / geri oynat |
+| `stop()` / `reset()` | olduğu yerde dur / başa (0.0) dön |
+| `repeat()` / `repeat(reverse: true)` | sürekli tekrar / gidip gel |
+| `value = x` | elle istenen yere getir (ilerleme kaydırıcısı) |
+| `duration = ...` | hız (kaydırıcı; 0.25x–3x) |
+
+**3B obje:** paketsiz 3B kutu (`widgets/box_3d.dart`): altı yüz `Matrix4`
+ile yerine döndürülür, arkadakiler önce çizilir. Küp / Kart / Kule.
+- `CurvedAnimation` + `Curves` → doğrusal, yumuşak, yavaşlayan, geri
+  yaylanma, elastik, zıplama (`widgets/curve_option.dart`)
+- `AnimatedSwitcher` → obje değişirken eskisi söner, yenisi büyür
+- `AnimatedContainer` → sahnenin rengi (gece) ve yüksekliği (büyük sahne)
+- Durum yazısı `AnimationStatus`'u gösterir (ileri / geri / bitti / başta)
+
+**Nabız:** 8 efekt (`widgets/pulse_effects.dart`), her biri kendi
+controller'ıyla (`widgets/pulse_card.dart`): kalp atışı (`TweenSequence`),
+dalga halkaları, nefes, EKG çizgisi (`CustomPainter` + `extractPath`),
+radar (`SweepGradient`), zil sallanması, "yazıyor..." noktaları, bpm ile
+hızı ayarlanan nabız. Her kartta Oynat/Durdur ve eğri seçimi var.
+
 ## Komutlar
 
 ```bash

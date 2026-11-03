@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/router/route_transitions.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/models/expense.dart';
+import 'package:flutter_ders/app/views/view_animation_control/animation_control_view.dart';
 import 'package:flutter_ders/app/views/view_animations/animation_demo_view.dart';
 import 'package:flutter_ders/app/views/view_animations/animations_view.dart';
 import 'package:flutter_ders/app/views/view_audio_player/audio_player_view.dart';
@@ -36,6 +37,7 @@ part 'app_router.gr.dart';
 //   AnimationDemoView    → AnimationDemoRoute(senaryo: 'fade') (Ders 6)
 //   PagedListView        → PagedListRoute()                (Ders 7)
 //   PagedGridView        → PagedGridRoute()                (Ders 7)
+//   AnimationControlView → AnimationControlRoute()         (Ders 8)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -119,6 +121,12 @@ class AppRouter extends RootStackRouter {
     _animated(
       PagedListRoute.page,
       '/ornek-liste',
+      RouteAnimation.slideFromRight,
+    ),
+    // DERS 8 — AnimationController. Deep link beyaz listesinde yok.
+    _animated(
+      AnimationControlRoute.page,
+      '/animasyon-kontrolu',
       RouteAnimation.slideFromRight,
     ),
     _animated(

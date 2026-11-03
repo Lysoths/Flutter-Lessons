@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AnimationControlView]
+class AnimationControlRoute extends PageRouteInfo<void> {
+  const AnimationControlRoute({List<PageRouteInfo>? children})
+    : super(AnimationControlRoute.name, initialChildren: children);
+
+  static const String name = 'AnimationControlRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimationControlView();
+    },
+  );
+}
+
+/// generated route for
 /// [AnimationDemoView]
 class AnimationDemoRoute extends PageRouteInfo<AnimationDemoRouteArgs> {
   AnimationDemoRoute({
