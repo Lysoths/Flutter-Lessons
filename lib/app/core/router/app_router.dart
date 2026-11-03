@@ -1,10 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/models/expense.dart';
+import 'package:flutter_ders/app/views/view_audio_player/audio_player_view.dart';
 import 'package:flutter_ders/app/views/view_category/category_expenses_view.dart';
+import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
+import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart';
 import 'package:flutter_ders/app/views/view_new_expense/new_expense_view.dart';
+import 'package:flutter_ders/app/views/view_pdf_viewer/pdf_viewer_view.dart';
 
 part 'app_router.gr.dart';
 
@@ -18,6 +23,10 @@ part 'app_router.gr.dart';
 //   CategoryExpensesView → CategoryExpensesRoute(slug: 'yemek')
 //   ExpenseDetailView    → ExpenseDetailRoute(expense: e)
 //   NewExpenseView       → NewExpenseRoute()
+//   DocumentsView        → DocumentsRoute()
+//   ImageViewerView      → ImageViewerRoute(document: d)   (Ders 5)
+//   PdfViewerView        → PdfViewerRoute(document: d)     (Ders 5)
+//   AudioPlayerView      → AudioPlayerRoute(document: d)   (Ders 5)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -47,5 +56,11 @@ class AppRouter extends RootStackRouter {
         builder: (_) => child,
       ),
     ),
+    // DERS 5 — Belgeler: liste deep link ile açılır (/belgeler);
+    // görüntüleyiciler DocumentItem nesnesi ister, dışarıdan açılamaz.
+    AutoRoute(page: DocumentsRoute.page, path: '/belgeler'),
+    AutoRoute(page: ImageViewerRoute.page, path: '/belge/gorsel'),
+    AutoRoute(page: PdfViewerRoute.page, path: '/belge/pdf'),
+    AutoRoute(page: AudioPlayerRoute.page, path: '/belge/ses'),
   ];
 }

@@ -25,6 +25,7 @@ lib/
     │       └── local_expense_repository.dart # telefon hafızası (shared_preferences)
     ├── helper/money_format.dart            # 1.234,50 ₺, tarih, "Bugün/Dün", ay adı
     ├── models/expense.dart                 # Expense + ExpenseCategory
+    ├── models/document_item.dart           # Ders 5: gömülü belge listesi (kDocuments)
     ├── theme/
     │   ├── app_theme.dart                  # MfColors + AppTheme (duo standardı)
     │   └── category_style.dart             # kategori renkleri
@@ -33,6 +34,10 @@ lib/
     │   └── category_expenses_view.dart     # /kategori/:slug
     ├── views/view_new_expense/
     │   └── new_expense_view.dart           # /yeni (alttan açılan form rotası)
+    ├── views/view_documents/               # Ders 5: /belgeler listesi
+    ├── views/view_image_viewer/            # Ders 5: görsel (Image.asset)
+    ├── views/view_pdf_viewer/              # Ders 5: PDF (pdfrx)
+    ├── views/view_audio_player/            # Ders 5: ses (just_audio)
     ├── views/view_expense_detail/
     │   └── expense_detail_view.dart        # Ders 1: Navigation 1.0 ile açılan detay
     └── views/view_expenses/
@@ -105,6 +110,31 @@ Deep link: `harcamatakibim://app/kategori/<ad>` ve `harcamatakibim://app/yeni`
 eşlemeden önce `AppDeepLinks.transform` çalışır: yalnızca bu iki biçim geçer,
 sorgu parametreleri atılır, başka her şey `/` olur. Detay ekranı nesne
 istediği için dışarıdan açılamaz.
+
+### Ders 5 — Assets (PDF, görsel, ses) + auto_route
+
+Dosyalar uygulamanın içine gömülüdür (`assets/belgeler/`) ve
+`pubspec.yaml`'daki `assets:` bölümüyle tanıtılır. Kaynak: Wikimedia Commons,
+hepsi kamu malı.
+
+| Ne | Nerede |
+|---|---|
+| Dosyalar | `assets/belgeler/` |
+| `pubspec.yaml` → `flutter: assets: - assets/belgeler/` | `pubspec.yaml` |
+| Belge listesi (`kDocuments`) | `models/document_item.dart` |
+| Liste sayfası `/belgeler` | `views/view_documents/documents_view.dart` |
+| Görsel: `Image.asset` + `InteractiveViewer` | `views/view_image_viewer/` |
+| PDF: `PdfViewer.asset` (pdfrx) | `views/view_pdf_viewer/` |
+| Ses: `AudioPlayer().setAsset` (just_audio) | `views/view_audio_player/` |
+| Testler | `test/documents_test.dart` |
+
+Görüntüleyiciler `DocumentItem` nesnesi ister (`PdfViewerRoute(document: d)`),
+bu yüzden dışarıdan yalnızca liste açılabilir: `harcamatakibim://app/belgeler`.
+
+Not: `@AutoRouterConfig(replaceInRouteName: 'View,Route')` kuralı
+`ImageViewerView` içindeki "View" parçasını da değiştirip `ImageRouteerRoute`
+üretir; bu yüzden bu sayfalarda ad elle verilir:
+`@RoutePage(name: 'ImageViewerRoute')`.
 
 ## Komutlar
 

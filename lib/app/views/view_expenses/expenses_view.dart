@@ -110,6 +110,11 @@ class ExpensesView extends StatelessWidget {
               CategoryShortcutsWidget(
                 onSelected: (c) => _openCategory(context, c),
               ),
+              const Gap(16),
+              // DERS 5 — Belgeler listesi: tipli rota ile açılır.
+              _DocumentsCard(
+                onTap: () => context.router.push(const DocumentsRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(
@@ -245,6 +250,54 @@ class _BrandTitle extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+/// Belgeler bölümüne giriş kartı (fatura, fiş, ses).
+class _DocumentsCard extends StatelessWidget {
+  const _DocumentsCard({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    final radius = BorderRadius.circular(16);
+    return Material(
+      color: MfColors.slate50,
+      shape: RoundedRectangleBorder(
+        borderRadius: radius,
+        side: const BorderSide(color: MfColors.slate200),
+      ),
+      child: InkWell(
+        key: const Key('expensesView_documents'),
+        borderRadius: radius,
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(
+            children: [
+              const IconBadge(Icons.folder_open_rounded, size: 44),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Belgeler', style: t.titleMedium),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Fatura PDF\'leri, fiş görselleri ve sesler',
+                      style: t.bodyMedium?.copyWith(fontSize: 13),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded, color: MfColors.slate400),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

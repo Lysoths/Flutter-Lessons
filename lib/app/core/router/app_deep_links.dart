@@ -10,6 +10,8 @@ import 'package:flutter_ders/app/models/expense.dart';
 //
 //   /kategori/<ad>   → /kategori/<ad>   (ad listede olmalı)
 //   /yeni            → /yeni            (form açılır, kayıt yapılmaz)
+//   /belgeler        → /belgeler        (yalnızca liste; tek tek belgeler
+//                                         dışarıdan açılamaz)
 //   başka her şey    → /                (ana sayfa)
 //
 // Sorgu parametreleri (?tutar=...) her durumda atılır; linkte kimlik
@@ -42,6 +44,9 @@ abstract final class AppDeepLinks {
     ];
     if (segments.length == 1 && segments.first == 'yeni') {
       return Uri(path: '/yeni');
+    }
+    if (segments.length == 1 && segments.first == 'belgeler') {
+      return Uri(path: '/belgeler');
     }
     if (segments.length == 2 &&
         segments.first == 'kategori' &&

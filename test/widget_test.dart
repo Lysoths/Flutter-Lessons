@@ -42,8 +42,23 @@ void main() {
     await configureDependencies();
   });
 
-  String total(WidgetTester tester) =>
-      tester.widget<Text>(find.byKey(const Key('expensesView_total'))).data!;
+  /// Ana listeyi en üste kaydırıp toplam tutarı okur.
+  Future<String> total(WidgetTester tester) async {
+    final key = find.byKey(const Key('expensesView_total'));
+    if (key.evaluate().isEmpty) {
+      await tester.scrollUntilVisible(
+        key,
+        -300,
+        scrollable: find
+            .byWidgetPredicate(
+              (w) => w is Scrollable && w.axisDirection == AxisDirection.down,
+            )
+            .first,
+      );
+      await tester.pumpAndSettle();
+    }
+    return tester.widget<Text>(key).data!;
+  }
 
   Future<void> addExpense(
     WidgetTester tester,
@@ -70,7 +85,7 @@ void main() {
     await tester.pumpWidget(const HarcamaApp());
     await tester.pumpAndSettle();
     expect(find.text('Henüz harcama yok'), findsOneWidget);
-    expect(total(tester), '0,00 ₺');
+    expect(await total(tester), '0,00 ₺');
     expect(find.byType(CategoryBreakdownWidget), findsNothing);
 
     await tester.tap(find.byKey(const Key('expensesView_add')));
@@ -86,7 +101,7 @@ void main() {
     await reveal(tester, 'otobüs');
     expect(find.text('otobüs'), findsOneWidget);
     expect(find.text('BUGÜN'), findsOneWidget);
-    expect(total(tester), '45,50 ₺');
+    expect(await total(tester), '45,50 ₺');
     expect(find.byType(CategoryBreakdownWidget), findsOneWidget);
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.getString('expenses'), contains('otobüs'));
@@ -112,7 +127,7 @@ void main() {
     await tester.pageBack();
     await tester.pumpAndSettle();
     expect(find.byType(ExpenseDetailView), findsNothing);
-    expect(total(tester), '45,50 ₺');
+    expect(await total(tester), '45,50 ₺');
     await reveal(tester, 'otobüs');
     expect(find.text('otobüs'), findsOneWidget);
   });
@@ -143,7 +158,7 @@ void main() {
     // Form ve detay ekranı kapandı, liste güncellendi.
     expect(find.byType(BottomSheet), findsNothing);
     expect(find.byType(ExpenseDetailView), findsNothing);
-    expect(total(tester), '60,00 ₺');
+    expect(await total(tester), '60,00 ₺');
     await reveal(tester, 'taksi');
     expect(find.text('taksi'), findsOneWidget);
     expect(find.text('otobüs'), findsNothing);
@@ -159,12 +174,12 @@ void main() {
     await tester.tap(find.byKey(const Key('expenseDetail_delete')));
     await tester.pumpAndSettle();
     expect(find.byType(ExpenseDetailView), findsNothing);
-    expect(total(tester), '0,00 ₺');
+    expect(await total(tester), '0,00 ₺');
     expect(find.text('Ulaşım harcaması silindi'), findsOneWidget);
 
     await tester.tap(find.text('Geri al'));
     await tester.pumpAndSettle();
-    expect(total(tester), '20,00 ₺');
+    expect(await total(tester), '20,00 ₺');
   });
 
   testWidgets('detaydaki düzenleme formundan silme', (tester) async {
@@ -179,7 +194,7 @@ void main() {
     await tester.tap(find.byKey(const Key('expenseForm_delete')));
     await tester.pumpAndSettle();
     expect(find.byType(ExpenseDetailView), findsNothing);
-    expect(total(tester), '0,00 ₺');
+    expect(await total(tester), '0,00 ₺');
   });
 
   testWidgets('kaydırarak silme', (tester) async {

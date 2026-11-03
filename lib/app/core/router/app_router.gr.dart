@@ -11,6 +11,53 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AudioPlayerView]
+class AudioPlayerRoute extends PageRouteInfo<AudioPlayerRouteArgs> {
+  AudioPlayerRoute({
+    required DocumentItem document,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AudioPlayerRoute.name,
+         args: AudioPlayerRouteArgs(document: document, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'AudioPlayerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AudioPlayerRouteArgs>();
+      return AudioPlayerView(document: args.document, key: args.key);
+    },
+  );
+}
+
+class AudioPlayerRouteArgs {
+  const AudioPlayerRouteArgs({required this.document, this.key});
+
+  final DocumentItem document;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'AudioPlayerRouteArgs{document: $document, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AudioPlayerRouteArgs) return false;
+    return document == other.document && key == other.key;
+  }
+
+  @override
+  int get hashCode => document.hashCode ^ key.hashCode;
+}
+
+/// generated route for
 /// [CategoryExpensesView]
 class CategoryExpensesRoute extends PageRouteInfo<CategoryExpensesRouteArgs> {
   CategoryExpensesRoute({
@@ -60,6 +107,22 @@ class CategoryExpensesRouteArgs {
 
   @override
   int get hashCode => slug.hashCode ^ key.hashCode;
+}
+
+/// generated route for
+/// [DocumentsView]
+class DocumentsRoute extends PageRouteInfo<void> {
+  const DocumentsRoute({List<PageRouteInfo>? children})
+    : super(DocumentsRoute.name, initialChildren: children);
+
+  static const String name = 'DocumentsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DocumentsView();
+    },
+  );
 }
 
 /// generated route for
@@ -126,6 +189,53 @@ class ExpensesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ImageViewerView]
+class ImageViewerRoute extends PageRouteInfo<ImageViewerRouteArgs> {
+  ImageViewerRoute({
+    required DocumentItem document,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ImageViewerRoute.name,
+         args: ImageViewerRouteArgs(document: document, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'ImageViewerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ImageViewerRouteArgs>();
+      return ImageViewerView(document: args.document, key: args.key);
+    },
+  );
+}
+
+class ImageViewerRouteArgs {
+  const ImageViewerRouteArgs({required this.document, this.key});
+
+  final DocumentItem document;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ImageViewerRouteArgs{document: $document, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ImageViewerRouteArgs) return false;
+    return document == other.document && key == other.key;
+  }
+
+  @override
+  int get hashCode => document.hashCode ^ key.hashCode;
+}
+
+/// generated route for
 /// [NewExpenseView]
 class NewExpenseRoute extends PageRouteInfo<void> {
   const NewExpenseRoute({List<PageRouteInfo>? children})
@@ -139,4 +249,51 @@ class NewExpenseRoute extends PageRouteInfo<void> {
       return const NewExpenseView();
     },
   );
+}
+
+/// generated route for
+/// [PdfViewerView]
+class PdfViewerRoute extends PageRouteInfo<PdfViewerRouteArgs> {
+  PdfViewerRoute({
+    required DocumentItem document,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         PdfViewerRoute.name,
+         args: PdfViewerRouteArgs(document: document, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'PdfViewerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<PdfViewerRouteArgs>();
+      return PdfViewerView(document: args.document, key: args.key);
+    },
+  );
+}
+
+class PdfViewerRouteArgs {
+  const PdfViewerRouteArgs({required this.document, this.key});
+
+  final DocumentItem document;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PdfViewerRouteArgs{document: $document, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! PdfViewerRouteArgs) return false;
+    return document == other.document && key == other.key;
+  }
+
+  @override
+  int get hashCode => document.hashCode ^ key.hashCode;
 }
