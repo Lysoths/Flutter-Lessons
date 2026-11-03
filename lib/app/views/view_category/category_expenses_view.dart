@@ -1,8 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ders/app/core/bloc/navigation/navigation_cubit.dart';
+import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
-import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/category_style.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_state.dart';
@@ -10,34 +10,41 @@ import 'package:flutter_ders/app/views/view_expenses/widgets/expense_tile_widget
 import 'package:flutter_ders/app/widgets/common.dart';
 
 // ─────────────────────────────────────────────────────────────────────────
-// DERS 2 — Navigation 2.0
+// DERS 4 — auto_route
 //
-// Bu ekran yalnızca Navigation 2.0 ile yönetilir:
-//   • Açılması: NavigationCubit.openCategory(...) → durum değişir →
-//     AppRouterDelegate sayfa listesine bu ekranı ekler.
-//   • Kapanması: geri düğmesi Navigator.pop() ÇAĞIRMAZ; durumu
-//     NavigationCubit.backToHome() ile değiştirir, sayfa listeden çıkar.
-//   • Bu ekranda Navigator.push / pop kullanılmaz (Ders 1 ayrı ekranda).
+// Rota: '/kategori/:slug'. @PathParam('slug') yoldaki ':slug' parçasını
+// bu parametreye bağlar; hem uygulama içinden
+//   context.router.push(CategoryExpensesRoute(slug: 'yemek'))
+// hem de harcamatakibim://app/kategori/yemek linkiyle açılır.
+// Geri düğmesi context.router.maybePop() ile sayfayı kapatır.
 // ─────────────────────────────────────────────────────────────────────────
 
 /// Seçili kategorinin harcamaları ve toplamları.
+@RoutePage()
 class CategoryExpensesView extends StatelessWidget {
-  /// [category] için ekranı oluşturur.
-  const CategoryExpensesView({required this.category, super.key});
+  /// [slug] kategorisi için ekranı oluşturur.
+  const CategoryExpensesView({
+    @PathParam('slug') required this.slug,
+    super.key,
+  });
 
-  /// Gösterilen kategori.
-  final ExpenseCategory category;
+  /// Linkteki kategori adı (ör. `yemek`). Beyaz listeden geçmiştir.
+  final String slug;
 
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
+    final category = kCategorySlugs[slug.toLowerCase()];
+    if (category == null) {
+      // Uygulama içinden yanlış ad gelirse (link zaten süzülür).
+      return Scaffold(appBar: AppBar(title: const Text('Kategori bulunamadı')));
+    }
     final accent = category.accent;
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
           key: const Key('categoryView_back'),
-          // Navigation 2.0: pop yerine durumu değiştir.
-          onPressed: context.read<NavigationCubit>().backToHome,
+          onPressed: () => context.router.maybePop(),
         ),
         title: Text(category.label),
         titleTextStyle: t.titleLarge,

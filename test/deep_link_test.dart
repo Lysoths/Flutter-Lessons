@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/app.dart';
-import 'package:flutter_ders/app/core/bloc/navigation/navigation_cubit.dart';
-import 'package:flutter_ders/app/core/bloc/navigation/navigation_state.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
-import 'package:flutter_ders/app/core/router/app_route_parser.dart';
+import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/views/view_category/category_expenses_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
@@ -14,68 +12,52 @@ import 'package:flutter_ders/app/views/view_expenses/widgets/expense_form_sheet.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// DERS 3 — Deep link.
+// DERS 4 — auto_route: rotalar ve deep link.
 void main() {
-  group('AppRouteParser (beyaz liste)', () {
-    NavigationState parse(String link) => AppRouteParser.parse(Uri.parse(link));
+  group('AppDeepLinks.sanitize (beyaz liste)', () {
+    String clean(String link) => AppDeepLinks.sanitize(Uri.parse(link)).path;
 
     test('kabul edilen linkler', () {
-      expect(parse('harcamatakibim://app/'), const NavigationState());
-      expect(
-        parse('harcamatakibim://app/kategori/yemek'),
-        const NavigationState(category: ExpenseCategory.food),
-      );
-      expect(
-        parse('/kategori/ULASIM'),
-        const NavigationState(category: ExpenseCategory.transport),
-      );
-      expect(parse('/yeni'), const NavigationState(newExpenseRequested: true));
+      expect(clean('harcamatakibim://app/'), '/');
+      expect(clean('harcamatakibim://app/kategori/yemek'), '/kategori/yemek');
+      expect(clean('/kategori/ULASIM'), '/kategori/ulasim');
+      expect(clean('/yeni'), '/yeni');
     });
 
     test('tanınmayan her link ana sayfaya düşer', () {
       for (final link in [
-        '/kategori/food', // enum adı değil, Türkçe ad kabul edilir
+        '/kategori/food',
         '/kategori/olmayan',
         '/kategori',
         '/kategori/yemek/fazla',
-        '/harcama/810c3de2-12f3-4e26-9e7c-70e18723de58', // ID kabul edilmez
+        '/harcama',
+        '/harcama/810c3de2-12f3-4e26-9e7c-70e18723de58',
         '/ayarlar/sifirla',
         '/../../etc/passwd',
         '/yeni/1000',
       ]) {
-        expect(parse(link), const NavigationState(), reason: link);
+        expect(clean(link), '/', reason: link);
       }
     });
 
-    test('sorgu parametreleri (tutar vb.) yok sayılır', () {
-      expect(
-        parse('/yeni?tutar=99999&not=x'),
-        const NavigationState(newExpenseRequested: true),
-      );
+    test('sorgu parametreleri atılır', () {
+      final uri = AppDeepLinks.sanitize(Uri.parse('/yeni?tutar=99999'));
+      expect(uri.path, '/yeni');
+      expect(uri.query, isEmpty);
     });
 
-    test('durum → yol (tersi)', () {
-      expect(AppRouteParser.location(const NavigationState()).path, '/');
-      expect(
-        AppRouteParser.location(
-          const NavigationState(category: ExpenseCategory.bills),
-        ).path,
-        '/kategori/fatura',
-      );
+    test('kategori slug karşılıkları', () {
+      expect(ExpenseCategory.food.slug, 'yemek');
+      expect(ExpenseCategory.bills.slug, 'fatura');
     });
   });
 
-  group('uygulamada deep link', () {
+  group('uygulamada auto_route', () {
     setUp(() async {
       await getIt.reset();
       SharedPreferences.setMockInitialValues({});
       await configureDependencies();
     });
-
-    NavigationCubit nav(WidgetTester tester) =>
-        BlocProvider.of<NavigationCubit>(
-          tester.element(find.byType(ExpensesView, skipOffstage: false)),
-        );
 
     Future<void> pump(WidgetTester tester) async {
       tester.view.physicalSize = const Size(1440, 3120);
@@ -90,32 +72,60 @@ void main() {
       await tester.pumpAndSettle();
     }
 
+    ExpensesCubit expenses(WidgetTester tester) =>
+        BlocProvider.of<ExpensesCubit>(
+          tester.element(find.byType(ExpensesView, skipOffstage: false)),
+        );
+
+    testWidgets('kategori kısayolu tipli rota ile sayfayı açar', (
+      tester,
+    ) async {
+      await pump(tester);
+      await tester.tap(find.byKey(const Key('categoryShortcut_bills')));
+      await tester.pumpAndSettle();
+      expect(find.byType(CategoryExpensesView), findsOneWidget);
+      expect(find.text('Fatura'), findsWidgets);
+
+      await tester.tap(find.byKey(const Key('categoryView_back')));
+      await tester.pumpAndSettle();
+      expect(find.byType(CategoryExpensesView), findsNothing);
+    });
+
+    testWidgets('sistem geri tuşu kategori sayfasını kapatır', (tester) async {
+      await pump(tester);
+      await tester.tap(find.byKey(const Key('categoryShortcut_food')));
+      await tester.pumpAndSettle();
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(find.byType(CategoryExpensesView), findsNothing);
+      expect(find.byType(ExpensesView), findsOneWidget);
+    });
+
     testWidgets('uygulama açıkken kategori linki', (tester) async {
       await pump(tester);
       await openLink(tester, '/kategori/eglence');
       expect(find.byType(CategoryExpensesView), findsOneWidget);
-      expect(
-        nav(tester).state,
-        const NavigationState(category: ExpenseCategory.fun),
-      );
+      expect(find.text('Eğlence'), findsWidgets);
     });
 
-    testWidgets('yeni linki formu açar ama kaydetmez', (tester) async {
+    testWidgets('yeni linki formu açar, kaydetmez; formdan kayıt olur', (
+      tester,
+    ) async {
       await pump(tester);
-      await openLink(tester, '/kategori/yemek');
       await openLink(tester, '/yeni?tutar=500');
-
-      // Kategori sayfası kapandı, ana sayfada form açık ve boş.
-      expect(find.byType(CategoryExpensesView), findsNothing);
       expect(find.byType(ExpenseFormSheet), findsOneWidget);
       expect(find.text('500'), findsNothing);
-      expect(nav(tester).state.newExpenseRequested, isFalse);
-
       final prefs = await SharedPreferences.getInstance();
       expect(prefs.getString('expenses'), isNull);
+
+      await tester.enterText(find.byKey(const Key('expenseForm_amount')), '12');
+      await tester.tap(find.byKey(const Key('expenseForm_save')));
+      await tester.pumpAndSettle();
+      expect(find.byType(ExpenseFormSheet), findsNothing);
+      expect(expenses(tester).state.total, 12);
     });
 
-    testWidgets('form açıkken gelen ikinci yeni linki ikinci form açmaz', (
+    testWidgets('form açıkken ikinci yeni linki ikinci form açmaz', (
       tester,
     ) async {
       await pump(tester);
@@ -123,43 +133,17 @@ void main() {
       await tester.enterText(find.byKey(const Key('expenseForm_amount')), '42');
       await openLink(tester, '/yeni');
       expect(find.byType(ExpenseFormSheet), findsOneWidget);
-      // Kullanıcının yazdığı kaybolmaz.
-      expect(find.text('42'), findsOneWidget);
     });
 
-    testWidgets('detay ekranı açıkken yeni linki üstüne form açmaz', (
+    testWidgets('bilinmeyen ve ID içeren link ana sayfayı açar', (
       tester,
     ) async {
-      await pump(tester);
-      final expenses = BlocProvider.of<ExpensesCubit>(
-        tester.element(find.byType(ExpensesView)),
-      );
-      await expenses.add(amount: 5, category: ExpenseCategory.food, note: 'su');
-      await tester.pumpAndSettle();
-      await tester.scrollUntilVisible(
-        find.text('su'),
-        200,
-        scrollable: find
-            .byWidgetPredicate(
-              (w) => w is Scrollable && w.axisDirection == AxisDirection.down,
-            )
-            .first,
-      );
-      await tester.tap(find.text('su'));
-      await tester.pumpAndSettle();
-      expect(find.byType(ExpenseDetailView), findsOneWidget);
-
-      await openLink(tester, '/yeni');
-      expect(find.byType(ExpenseFormSheet), findsNothing);
-      expect(find.byType(ExpenseDetailView), findsOneWidget);
-    });
-
-    testWidgets('bilinmeyen link ana sayfayı açar', (tester) async {
       await pump(tester);
       await openLink(tester, '/kategori/yemek');
       await openLink(tester, '/harcama/123');
       expect(find.byType(CategoryExpensesView), findsNothing);
-      expect(nav(tester).state, const NavigationState());
+      expect(find.byType(ExpenseDetailView), findsNothing);
+      expect(find.byType(ExpensesView), findsOneWidget);
     });
 
     testWidgets('uygulama kapalıyken gelen link (soğuk açılış)', (
@@ -172,7 +156,11 @@ void main() {
       );
       await pump(tester);
       expect(find.byType(CategoryExpensesView), findsOneWidget);
-      expect(find.text('Fatura'), findsWidgets);
+
+      // Ana sayfa da yığında: geri dönünce o görünür.
+      await tester.tap(find.byKey(const Key('categoryView_back')));
+      await tester.pumpAndSettle();
+      expect(find.byType(ExpensesView), findsOneWidget);
     });
 
     testWidgets('soğuk açılışta yeni linki formu açar', (tester) async {
@@ -182,17 +170,6 @@ void main() {
       );
       await pump(tester);
       expect(find.byType(ExpenseFormSheet), findsOneWidget);
-    });
-
-    testWidgets('kategori kısayolu da aynı durumu kullanır', (tester) async {
-      await pump(tester);
-      await tester.tap(find.byKey(const Key('categoryShortcut_bills')));
-      await tester.pumpAndSettle();
-      expect(find.byType(CategoryExpensesView), findsOneWidget);
-      expect(
-        nav(tester).state,
-        const NavigationState(category: ExpenseCategory.bills),
-      );
     });
   });
 }

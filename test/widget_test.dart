@@ -92,7 +92,7 @@ void main() {
     expect(prefs.getString('expenses'), contains('otobüs'));
   });
 
-  // DERS 1 — Navigation 1.0: liste → (push) detay → (pop + sonuç) liste.
+  // DERS 4 — auto_route: liste → (router.push) detay → (maybePop + sonuç) liste.
   testWidgets('karta dokununca detay açılır, geri tuşu değişiklik yapmaz', (
     tester,
   ) async {

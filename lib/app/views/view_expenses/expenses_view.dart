@@ -1,9 +1,8 @@
-import 'dart:async';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ders/app/core/bloc/navigation/navigation_cubit.dart';
-import 'package:flutter_ders/app/core/bloc/navigation/navigation_state.dart';
+import 'package:flutter_ders/app/core/router/app_deep_links.dart';
+import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -12,51 +11,26 @@ import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_state.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/category_breakdown_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/category_shortcuts_widget.dart';
-import 'package:flutter_ders/app/views/view_expenses/widgets/expense_form_sheet.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/expense_tile_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/month_summary_card.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
 
 /// Ana ekran: aylık özet, kategori dağılımı ve güne göre gruplu liste.
 /// [ExpensesCubit] uygulama seviyesinde sağlanır (bkz. `app.dart`).
+///
+/// DERS 4 — auto_route: @RoutePage() bu sayfa için `ExpensesRoute`
+/// sınıfının üretilmesini sağlar.
+@RoutePage()
 class ExpensesView extends StatelessWidget {
   /// Ekranı oluşturur.
   const ExpensesView({super.key});
 
-  /// Yeni harcama formunu açar.
-  Future<void> _openNewForm(BuildContext context) async {
-    final cubit = context.read<ExpensesCubit>();
-    final result = await showModalBottomSheet<ExpenseFormResult>(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      builder: (_) => const ExpenseFormSheet(),
-    );
-    if (result case ExpenseFormSaved(
-      :final amount,
-      :final category,
-      :final date,
-      :final note,
-    )) {
-      await cubit.add(
-        amount: amount,
-        category: category,
-        date: date,
-        note: note,
-      );
-    }
-  }
-
-  /// DERS 1 — Navigation 1.0: detay ekranını yığının üstüne koyar (push)
-  /// ve ekran kapanınca (pop) döndürdüğü sonuca göre listeyi günceller.
-  ///
-  /// Detay ekranı bu ekranın altında değil yanında (aynı Navigator'da)
-  /// durduğu için cubit'e erişemez; veri constructor ile gider, sonuç
-  /// pop ile geri gelir.
+  /// DERS 4 — auto_route: tipli rota nesnesiyle sayfa açılır (yol yazısı
+  /// yok). Sonuç, Navigator.push'taki gibi `await` ile beklenir.
   Future<void> _openDetail(BuildContext context, Expense expense) async {
     final cubit = context.read<ExpensesCubit>();
-    final result = await Navigator.of(context).push<ExpenseDetailResult>(
-      MaterialPageRoute(builder: (_) => ExpenseDetailView(expense: expense)),
+    final result = await context.router.push<ExpenseDetailResult>(
+      ExpenseDetailRoute(expense: expense),
     );
     if (!context.mounted) return;
     switch (result) {
@@ -67,6 +41,11 @@ class ExpensesView extends StatelessWidget {
       case null:
         break; // Geri tuşuyla kapatıldı; değişiklik yok.
     }
+  }
+
+  /// DERS 4 — auto_route: kategori sayfası `/kategori/:slug` rotası.
+  void _openCategory(BuildContext context, ExpenseCategory category) {
+    context.router.push(CategoryExpensesRoute(slug: category.slug));
   }
 
   /// Siler ve "Geri al" seçeneği gösterir.
@@ -90,18 +69,12 @@ class ExpensesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _NewExpenseRequestListener(
-      onRequest: () => _openNewForm(context),
-      child: _buildScaffold(context),
-    );
-  }
-
-  Widget _buildScaffold(BuildContext context) {
     return Scaffold(
       appBar: AppBar(titleSpacing: 20, title: const _BrandTitle()),
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('expensesView_add'),
-        onPressed: () => _openNewForm(context),
+        // DERS 4 — auto_route: form da bir rota (deep link: /yeni).
+        onPressed: () => context.router.push(const NewExpenseRoute()),
         icon: const Icon(Icons.add_rounded),
         label: const Text(
           'Harcama ekle',
@@ -134,9 +107,8 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'Bir kategorinin tüm harcamalarını görün',
               ),
               const Gap(12),
-              // DERS 2 — Navigation 2.0: dokunmak yalnızca durumu değiştirir.
               CategoryShortcutsWidget(
-                onSelected: context.read<NavigationCubit>().openCategory,
+                onSelected: (c) => _openCategory(context, c),
               ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
@@ -147,9 +119,7 @@ class ExpensesView extends StatelessWidget {
                 const Gap(12),
                 CategoryBreakdownWidget(
                   totals: categories,
-                  // DERS 2 — Navigation 2.0: ekran açılmaz, yalnızca durum
-                  // değişir; RouterDelegate kategori sayfasını ekler.
-                  onCategoryTap: context.read<NavigationCubit>().openCategory,
+                  onCategoryTap: (c) => _openCategory(context, c),
                 ),
               ],
               const Gap(28),
@@ -207,59 +177,6 @@ class ExpensesView extends StatelessWidget {
       );
     }
     return widgets;
-  }
-}
-
-/// DERS 3 — Deep link: `/yeni` linki gelince formu açar.
-///
-/// Link uygulama kapalıyken geldiyse durum bu ekran kurulmadan önce
-/// ayarlanmış olur; bu yüzden hem ilk karede hem sonraki değişikliklerde
-/// kontrol edilir. Form yalnızca açılır, kaydı kullanıcı yapar. Üstte zaten
-/// bir form ya da detay ekranı açıksa link yok sayılır.
-class _NewExpenseRequestListener extends StatefulWidget {
-  const _NewExpenseRequestListener({
-    required this.onRequest,
-    required this.child,
-  });
-
-  final Future<void> Function() onRequest;
-  final Widget child;
-
-  @override
-  State<_NewExpenseRequestListener> createState() =>
-      _NewExpenseRequestListenerState();
-}
-
-class _NewExpenseRequestListenerState
-    extends State<_NewExpenseRequestListener> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _check());
-  }
-
-  void _check() {
-    if (!mounted) return;
-    final navigation = context.read<NavigationCubit>();
-    if (!navigation.state.newExpenseRequested) return;
-    navigation.newExpenseHandled();
-    // Ana sayfanın üstünde zaten bir şey açıksa (form ya da detay ekranı)
-    // ikinci bir form açma; kullanıcının yazdıkları kaybolmasın.
-    if (!(ModalRoute.of(context)?.isCurrent ?? true)) return;
-    unawaited(widget.onRequest());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<NavigationCubit, NavigationState>(
-      listenWhen: (previous, current) => current.newExpenseRequested,
-      // Bir sonraki karede aç: önce RouterDelegate kategori sayfasını
-      // kaldırsın. Aksi halde form o sayfanın üstüne açılır ve sayfayla
-      // birlikte kapanır.
-      listener: (_, _) =>
-          WidgetsBinding.instance.addPostFrameCallback((_) => _check()),
-      child: widget.child,
-    );
   }
 }
 

@@ -1,4 +1,3 @@
-import 'package:flutter_ders/app/core/bloc/navigation/navigation_cubit.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/local_expense_repository.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
@@ -17,6 +16,5 @@ Future<void> configureDependencies() async {
     ..registerSingleton<ExpenseRepository>(LocalExpenseRepository(prefs))
     ..registerFactory<ExpensesCubit>(
       () => ExpensesCubit(repository: getIt<ExpenseRepository>()),
-    )
-    ..registerFactory<NavigationCubit>(NavigationCubit.new);
+    );
 }

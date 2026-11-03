@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
@@ -7,20 +8,18 @@ import 'package:flutter_ders/app/views/view_expenses/widgets/expense_form_sheet.
 import 'package:flutter_ders/app/widgets/common.dart';
 
 // ─────────────────────────────────────────────────────────────────────────
-// DERS 1 — Navigation 1.0 (imperative / emir veren yöntem)
-//
-// Ekranlar üst üste konan kartlar gibidir (stack):
-//   • Navigator.of(context).push(...)  → yeni ekranı üste koyar
-//   • Navigator.of(context).pop(sonuç) → üstteki ekranı kaldırır, sonuç döner
+// DERS 4 — auto_route
 //
 // Bu ekran listeden şöyle açılır (bkz. expenses_view.dart → _openDetail):
 //
-//   final result = await Navigator.of(context).push<ExpenseDetailResult>(
-//     MaterialPageRoute(builder: (_) => ExpenseDetailView(expense: expense)),
+//   final result = await context.router.push<ExpenseDetailResult>(
+//     ExpenseDetailRoute(expense: expense),
 //   );
 //
-// Veri ekrana constructor ile NESNE olarak gelir (yol/ID yazısı yok) ve
-// ekran kapanırken sonucu yine tipli bir nesne olarak geri verir.
+// ExpenseDetailRoute, @RoutePage() sayesinde üretilen tipli rota sınıfıdır.
+// Harcama NESNE olarak gider; yolda ID yoktur ve dışarıdan gelen bir link
+// bu ekrana ulaşamaz. Kapanırken context.router.maybePop(sonuç) ile tipli
+// sonucu açan yere döndürür.
 // ─────────────────────────────────────────────────────────────────────────
 
 /// Detay ekranının kapanırken döndürdüğü sonuç.
@@ -44,6 +43,7 @@ final class ExpenseDetailDeleted extends ExpenseDetailResult {
 }
 
 /// Tek bir harcamanın ayrıntıları; düzenleme ve silme buradan yapılır.
+@RoutePage()
 class ExpenseDetailView extends StatelessWidget {
   /// [expense] için detay ekranı oluşturur.
   const ExpenseDetailView({required this.expense, super.key});
@@ -54,7 +54,7 @@ class ExpenseDetailView extends StatelessWidget {
   /// Düzenleme formunu bu ekranın üstünde açar. Kaydedilirse detay ekranı
   /// kapanır ve sonucu listeye bırakır.
   Future<void> _edit(BuildContext context) async {
-    final navigator = Navigator.of(context);
+    final router = context.router;
     final result = await showModalBottomSheet<ExpenseFormResult>(
       context: context,
       isScrollControlled: true,
@@ -63,7 +63,7 @@ class ExpenseDetailView extends StatelessWidget {
     );
     switch (result) {
       case ExpenseFormSaved(:final amount, :final category, :final date):
-        navigator.pop(
+        await router.maybePop(
           ExpenseDetailEdited(
             expense.copyWith(
               amount: amount,
@@ -74,7 +74,7 @@ class ExpenseDetailView extends StatelessWidget {
           ),
         );
       case ExpenseFormDeleted():
-        navigator.pop(const ExpenseDetailDeleted());
+        await router.maybePop(const ExpenseDetailDeleted());
       case null:
         break;
     }
@@ -159,9 +159,9 @@ class ExpenseDetailView extends StatelessWidget {
               width: 56,
               child: OutlinedButton(
                 key: const Key('expenseDetail_delete'),
-                // Navigation 1.0: ekranı kapat ve "silindi" sonucunu döndür.
+                // Ekranı kapat ve "silindi" sonucunu döndür.
                 onPressed: () =>
-                    Navigator.of(context).pop(const ExpenseDetailDeleted()),
+                    context.router.maybePop(const ExpenseDetailDeleted()),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: MfColors.red600,
                   padding: EdgeInsets.zero,

@@ -42,10 +42,14 @@ final class ExpenseFormDeleted extends ExpenseFormResult {
 /// Alttan açılan harcama formu. [initial] verilirse düzenleme modunda açılır.
 class ExpenseFormSheet extends StatefulWidget {
   /// Formu oluşturur.
-  const ExpenseFormSheet({this.initial, super.key});
+  const ExpenseFormSheet({this.initial, this.onSaved, super.key});
 
   /// Düzenlenen harcama; yeni kayıtta `null`.
   final Expense? initial;
+
+  /// Verilirse "Kaydet"te çağrılır ve form sonuçsuz kapanır; verilmezse
+  /// sonuç `pop` ile açan yere döndürülür.
+  final ValueChanged<ExpenseFormSaved>? onSaved;
 
   @override
   State<ExpenseFormSheet> createState() => _ExpenseFormSheetState();
@@ -116,14 +120,19 @@ class _ExpenseFormSheetState extends State<ExpenseFormSheet> {
 
   void _save() {
     if (!_formKey.currentState!.validate()) return;
-    Navigator.of(context).pop(
-      ExpenseFormSaved(
-        amount: parseMoney(_amount.text)!,
-        category: _category,
-        date: _date,
-        note: _note.text.trim(),
-      ),
+    final saved = ExpenseFormSaved(
+      amount: parseMoney(_amount.text)!,
+      category: _category,
+      date: _date,
+      note: _note.text.trim(),
     );
+    final onSaved = widget.onSaved;
+    if (onSaved == null) {
+      Navigator.of(context).pop(saved);
+    } else {
+      onSaved(saved);
+      Navigator.of(context).pop();
+    }
   }
 
   @override
