@@ -186,7 +186,7 @@ void main() {
       tester.view.physicalSize = const Size(1440, 3120);
       tester.view.devicePixelRatio = 3.75;
       addTearDown(tester.view.reset);
-      await tester.pumpWidget(const HarcamaApp());
+      await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(
         find.byKey(Key(cardKey)),
@@ -275,7 +275,7 @@ void main() {
       tester.view.devicePixelRatio = 3.75;
       addTearDown(tester.view.reset);
 
-      await tester.pumpWidget(const HarcamaApp());
+      await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(
         find.byKey(const Key('expensesView_pagedList')),
@@ -315,7 +315,7 @@ void main() {
       tester.view.devicePixelRatio = 3.75;
       addTearDown(tester.view.reset);
 
-      await tester.pumpWidget(const HarcamaApp());
+      await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(
         find.byKey(const Key('expensesView_pagedGrid')),

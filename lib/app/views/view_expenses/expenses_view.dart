@@ -181,6 +181,15 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'SharedPreferences, Hive ve sqflite',
                 onTap: () => context.router.push(const StorageHubRoute()),
               ),
+              const Gap(10),
+              // DERS 11 — Ağ kontrolü.
+              _EntryCard(
+                key: const Key('expensesView_network'),
+                icon: Icons.wifi_rounded,
+                title: 'Ağ kontrolü',
+                subtitle: 'FutureBuilder, StreamBuilder ve WebSocket',
+                onTap: () => context.router.push(const NetworkRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

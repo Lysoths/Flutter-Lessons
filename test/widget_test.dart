@@ -82,7 +82,7 @@ void main() {
 
   testWidgets('boş ekran, geçersiz tutar ve ekleme', (tester) async {
     phoneSize(tester);
-    await tester.pumpWidget(const HarcamaApp());
+    await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
     await reveal(tester, 'Henüz harcama yok');
     expect(find.text('Henüz harcama yok'), findsOneWidget);
@@ -114,7 +114,7 @@ void main() {
     tester,
   ) async {
     phoneSize(tester);
-    await tester.pumpWidget(const HarcamaApp());
+    await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
     await addExpense(tester, '45,5');
 
@@ -136,7 +136,7 @@ void main() {
 
   testWidgets('detaydan düzenleme sonucu listeye döner', (tester) async {
     phoneSize(tester);
-    await tester.pumpWidget(const HarcamaApp());
+    await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
     await addExpense(tester, '45,5');
 
@@ -168,7 +168,7 @@ void main() {
 
   testWidgets('detaydan silme ve geri alma', (tester) async {
     phoneSize(tester);
-    await tester.pumpWidget(const HarcamaApp());
+    await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
     await addExpense(tester, '20');
 
@@ -186,7 +186,7 @@ void main() {
 
   testWidgets('detaydaki düzenleme formundan silme', (tester) async {
     phoneSize(tester);
-    await tester.pumpWidget(const HarcamaApp());
+    await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
     await addExpense(tester, '20');
 
@@ -201,7 +201,7 @@ void main() {
 
   testWidgets('kaydırarak silme', (tester) async {
     phoneSize(tester);
-    await tester.pumpWidget(const HarcamaApp());
+    await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
     await addExpense(tester, '20');
 

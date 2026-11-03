@@ -6,6 +6,7 @@ import 'package:flutter_ders/app/core/repository/note_stores/hive_note_store.dar
 import 'package:flutter_ders/app/core/repository/note_stores/prefs_note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/sqflite_note_store.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
+import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_storage/cubit/storage_demo_cubit.dart';
@@ -34,6 +35,8 @@ Future<void> configureDependencies() async {
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),
     )
+    // DERS 11 — Ağ kontrolü: tek helper, banner ve sayfa ortak kullanır.
+    ..registerLazySingleton<NetworkChecker>(NetworkChecker.new)
     // DERS 10 — Üç depolama yöntemi; adlarıyla (instanceName) ayrılır.
     // Depolar ilk kullanıldıklarında açılır (lazy).
     ..registerLazySingleton<NoteStore>(

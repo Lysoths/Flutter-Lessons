@@ -352,6 +352,22 @@ class LottieRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [NetworkView]
+class NetworkRoute extends PageRouteInfo<void> {
+  const NetworkRoute({List<PageRouteInfo>? children})
+    : super(NetworkRoute.name, initialChildren: children);
+
+  static const String name = 'NetworkRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NetworkView();
+    },
+  );
+}
+
+/// generated route for
 /// [NewExpenseView]
 class NewExpenseRoute extends PageRouteInfo<void> {
   const NewExpenseRoute({List<PageRouteInfo>? children})

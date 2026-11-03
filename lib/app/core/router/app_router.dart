@@ -13,6 +13,7 @@ import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.d
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
 import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart';
 import 'package:flutter_ders/app/views/view_lottie/lottie_view.dart';
+import 'package:flutter_ders/app/views/view_network/network_view.dart';
 import 'package:flutter_ders/app/views/view_new_expense/new_expense_view.dart';
 import 'package:flutter_ders/app/views/view_paged_grid/paged_grid_view.dart';
 import 'package:flutter_ders/app/views/view_paged_list/paged_list_view.dart';
@@ -45,6 +46,7 @@ part 'app_router.gr.dart';
 //   SyncAsyncView        → SyncAsyncRoute()                (Ders 10)
 //   StorageHubView       → StorageHubRoute()               (Ders 10)
 //   SharedPreferencesView / HiveStorageView / SqfliteStorageView (Ders 10)
+//   NetworkView          → NetworkRoute()                  (Ders 11)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -130,6 +132,8 @@ class AppRouter extends RootStackRouter {
       '/ornek-liste',
       RouteAnimation.slideFromRight,
     ),
+    // DERS 11 — Ağ kontrolü. Deep link beyaz listesinde yok.
+    _animated(NetworkRoute.page, '/ag', RouteAnimation.slideFromRight),
     // DERS 10 — Sync/async ve yerel depolama. Deep link beyaz listesinde yok.
     _animated(
       SyncAsyncRoute.page,

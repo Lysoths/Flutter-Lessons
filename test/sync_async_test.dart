@@ -41,7 +41,7 @@ void main() {
     tester.view.devicePixelRatio = 3.75;
     addTearDown(tester.view.reset);
 
-    await tester.pumpWidget(const HarcamaApp());
+    await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
     final card = find.byKey(const Key('expensesView_syncAsync'));
     await tester.scrollUntilVisible(

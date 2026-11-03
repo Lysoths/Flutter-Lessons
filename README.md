@@ -316,6 +316,37 @@ anahtar (`ders10_notes`), kutu ve veritabanında (`ders10.db`) durur; gerçek
 harcamalara dokunulmaz. Testlerde Hive geçici klasörde, sqflite
 `sqflite_common_ffi` ile bellekte çalışır.
 
+### Ders 11 — Ağ kontrolü: Future, Stream ve WebSocket
+
+Ana sayfa → *Ağ kontrolü* (`views/view_network/`).
+
+**Helper** (`helper/network_checker.dart`): `example.com` adresini DNS ile
+çözmeyi dener (Wi-Fi'ye bağlı olmak internete çıkabilmek demek değildir).
+
+| | Ne döner | Ekranda |
+|---|---|---|
+| `check()` | `Future<NetworkResult>`: tek cevap | `FutureBuilder` |
+| `watch(every:)` | `Stream<NetworkResult>`: her N saniyede bir | `StreamBuilder` |
+| `refresh()` | dinleyenlere hemen yeni kontrol | "Tekrar dene" |
+
+`ConnectionState`: `none` (başlamadı) → `waiting` (bekleniyor) → `active`
+(akış veri veriyor) → `done` (bitti). Future/Stream `build` içinde değil,
+`State`'te bir kez oluşturulur; yoksa her çizimde yeniden başlar.
+
+**MaterialBanner:** `app.dart` uygulama açılınca `watch()`'u dinler;
+bağlantı yoksa `ScaffoldMessenger` ile her sayfanın üstünde
+"İnternet bağlantısı yok" uyarısı çıkar, gelince kalkar ve kısa bir
+bildirim gösterilir. Sayfadaki *Çevrimdışı gibi davran* anahtarı Wi-Fi'yi
+kapatmadan bunu gösterir.
+
+**Sahte WebSocket** (`helper/mock_socket.dart`): paket ve kurulum
+gerektirmez. `HttpServer` telefonun içinde, yalnızca telefondan erişilen
+`127.0.0.1` adresinde açılır; her saniye sahte döviz kuru gönderir,
+yazılan mesajı geri yollar. İstemci gerçek bir `WebSocket`'tir;
+`StreamBuilder` gelen mesajları canlı gösterir.
+
+Android: `INTERNET` izni ana manifeste eklendi (yayın sürümü için).
+
 ## Komutlar
 
 ```bash
