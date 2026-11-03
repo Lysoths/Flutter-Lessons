@@ -273,6 +273,22 @@ class ExpensesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HiveStorageView]
+class HiveStorageRoute extends PageRouteInfo<void> {
+  const HiveStorageRoute({List<PageRouteInfo>? children})
+    : super(HiveStorageRoute.name, initialChildren: children);
+
+  static const String name = 'HiveStorageRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HiveStorageView();
+    },
+  );
+}
+
+/// generated route for
 /// [ImageViewerView]
 class ImageViewerRoute extends PageRouteInfo<ImageViewerRouteArgs> {
   ImageViewerRoute({
@@ -428,4 +444,68 @@ class PdfViewerRouteArgs {
 
   @override
   int get hashCode => document.hashCode ^ key.hashCode;
+}
+
+/// generated route for
+/// [SharedPreferencesView]
+class SharedPreferencesRoute extends PageRouteInfo<void> {
+  const SharedPreferencesRoute({List<PageRouteInfo>? children})
+    : super(SharedPreferencesRoute.name, initialChildren: children);
+
+  static const String name = 'SharedPreferencesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SharedPreferencesView();
+    },
+  );
+}
+
+/// generated route for
+/// [SqfliteStorageView]
+class SqfliteStorageRoute extends PageRouteInfo<void> {
+  const SqfliteStorageRoute({List<PageRouteInfo>? children})
+    : super(SqfliteStorageRoute.name, initialChildren: children);
+
+  static const String name = 'SqfliteStorageRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SqfliteStorageView();
+    },
+  );
+}
+
+/// generated route for
+/// [StorageHubView]
+class StorageHubRoute extends PageRouteInfo<void> {
+  const StorageHubRoute({List<PageRouteInfo>? children})
+    : super(StorageHubRoute.name, initialChildren: children);
+
+  static const String name = 'StorageHubRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StorageHubView();
+    },
+  );
+}
+
+/// generated route for
+/// [SyncAsyncView]
+class SyncAsyncRoute extends PageRouteInfo<void> {
+  const SyncAsyncRoute({List<PageRouteInfo>? children})
+    : super(SyncAsyncRoute.name, initialChildren: children);
+
+  static const String name = 'SyncAsyncRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SyncAsyncView();
+    },
+  );
 }

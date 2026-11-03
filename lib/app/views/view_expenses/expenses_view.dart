@@ -163,6 +163,24 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'JSON dosyasından çizilen animasyonlar',
                 onTap: () => context.router.push(const LottieRoute()),
               ),
+              const Gap(10),
+              // DERS 10 — Sync / async.
+              _EntryCard(
+                key: const Key('expensesView_syncAsync'),
+                icon: Icons.sync_alt_rounded,
+                title: 'Sync / Async',
+                subtitle: 'Ekran neden donar? Farkı canlı gör',
+                onTap: () => context.router.push(const SyncAsyncRoute()),
+              ),
+              const Gap(10),
+              // DERS 10 — Yerel depolama.
+              _EntryCard(
+                key: const Key('expensesView_storage'),
+                icon: Icons.storage_rounded,
+                title: 'Yerel depolama',
+                subtitle: 'SharedPreferences, Hive ve sqflite',
+                onTap: () => context.router.push(const StorageHubRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

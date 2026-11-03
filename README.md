@@ -279,6 +279,43 @@ JSON `assets/lottie/` altına çıkarıldı:
 | `clock.json` | [Clock](https://lottiefiles.com/free-animation/clock-lottie-animation-K2sPMoyo0P) |
 | `idea.json` | [Idea](https://lottiefiles.com/free-animation/idea-2xuoUIZh6Z) |
 
+### Ders 10 — Sync / async ve yerel depolama
+
+**Sync / Async** (ana sayfa → *Sync / Async*, `views/view_sync_async/`,
+`helper/sync_async_demo.dart`). Dart tek iş parçacığında çalışır; ekranı
+çizen ile düğmenin kodu aynı sıradadır. Sayfadaki çark ve kare sayacı her
+karede ilerler, kareler arasındaki en uzun boşluk "donma" olarak ölçülür.
+
+| Aynı 2 sn'lik iş | Sonuç |
+|---|---|
+| `busyWork(2000)` (senkron) | ekran donar |
+| `await Future.delayed(2 sn)` | ekran akar (bekleme, iş yok) |
+| `await Future(() => busyWork(2000))` | yine donar: async ≠ paralel |
+| `await Isolate.run(() => busyWork(2000))` | ekran akar: başka çekirdek |
+
+Event loop sırası: önce senkron kod, sonra microtask'lar, sonra olay
+kuyruğu (`Future()`, `Timer`). async fonksiyon ilk `await`'e kadar senkron
+çalışır.
+
+**Yerel depolama** (ana sayfa → *Yerel depolama*, `views/view_storage/`).
+Aynı kayıt (`StorageNote`) üç yolla, üç ayrı ekranda; hepsi `NoteStore`
+arayüzünü ve aynı `StorageDemoCubit`'i kullanır
+(`core/repository/note_stores/`):
+
+| | SharedPreferences | Hive (hive_ce) | sqflite |
+|---|---|---|---|
+| Model | anahtar → değer | NoSQL, anahtar → nesne | SQL tablo, satır |
+| Liste nasıl saklanır | tek anahtarda JSON metni | kutuda nesneler (TypeAdapter) | tabloda satırlar |
+| Okuma | sync (bellekten) | sync (`box.get`) | async (SQL) |
+| Sorgu | yok | kodda elle | `WHERE`, `ORDER BY`, `SUM` |
+| En uygun | ayarlar, birkaç değer | nesneler, hızlı önbellek | çok kayıt, sorgu, ilişki |
+
+Her ekranda kayıt ekle / sil, 1000 kayıtla yazma-okuma ölçümü ve verinin
+diskte nasıl durduğunu gösteren ham görünüm var. Bu dersin verisi ayrı
+anahtar (`ders10_notes`), kutu ve veritabanında (`ders10.db`) durur; gerçek
+harcamalara dokunulmaz. Testlerde Hive geçici klasörde, sqflite
+`sqflite_common_ffi` ile bellekte çalışır.
+
 ## Komutlar
 
 ```bash
