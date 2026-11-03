@@ -142,6 +142,22 @@ class AudioPlayerRouteArgs {
 }
 
 /// generated route for
+/// [BlocDemoView]
+class BlocDemoRoute extends PageRouteInfo<void> {
+  const BlocDemoRoute({List<PageRouteInfo>? children})
+    : super(BlocDemoRoute.name, initialChildren: children);
+
+  static const String name = 'BlocDemoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BlocDemoView();
+    },
+  );
+}
+
+/// generated route for
 /// [CategoryExpensesView]
 class CategoryExpensesRoute extends PageRouteInfo<CategoryExpensesRouteArgs> {
   CategoryExpensesRoute({

@@ -1,14 +1,21 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/device/sensor_source.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/json_sample_expense_repository.dart';
+import 'package:flutter_ders/app/core/repository/live_rates_repository.dart';
 import 'package:flutter_ders/app/core/repository/local_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/hive_note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/prefs_note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/sqflite_note_store.dart';
+import 'package:flutter_ders/app/core/repository/rates_repository.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
+import 'package:flutter_ders/app/core/repository/tips_repository.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
+import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_bloc.dart';
+import 'package:flutter_ders/app/views/view_bloc_demo/bloc/rates_bloc.dart';
+import 'package:flutter_ders/app/views/view_bloc_demo/bloc/tips_bloc.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_storage/cubit/storage_demo_cubit.dart';
@@ -36,6 +43,22 @@ Future<void> configureDependencies() async {
     )
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),
+    )
+    // DERS 13 — Bloc: servis (dio), canlı akış ve asset depoları.
+    ..registerLazySingleton<Dio>(createDio)
+    ..registerLazySingleton<RatesRepository>(
+      () => FrankfurterRatesRepository(getIt<Dio>()),
+    )
+    ..registerFactory<LiveRatesRepository>(MockLiveRatesRepository.new)
+    ..registerLazySingleton<TipsRepository>(AssetTipsRepository.new)
+    ..registerFactory<RatesBloc>(
+      () => RatesBloc(repository: getIt<RatesRepository>()),
+    )
+    ..registerFactory<LiveRatesBloc>(
+      () => LiveRatesBloc(repository: getIt<LiveRatesRepository>()),
+    )
+    ..registerFactory<TipsBloc>(
+      () => TipsBloc(repository: getIt<TipsRepository>()),
     )
     // DERS 12 — Donanım: GPS ve sensörler (testte sahteleri verilir).
     ..registerLazySingleton<LocationSource>(GeolocatorLocationSource.new)

@@ -199,6 +199,15 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'Canlı GPS, su terazisi, pusula, sallama',
                 onTap: () => context.router.push(const DeviceRoute()),
               ),
+              const Gap(10),
+              // DERS 13 — Bloc.
+              _EntryCard(
+                key: const Key('expensesView_bloc'),
+                icon: Icons.account_tree_rounded,
+                title: 'Bloc ile veri',
+                subtitle: 'Servis isteği, canlı akış ve asset',
+                onTap: () => context.router.push(const BlocDemoRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

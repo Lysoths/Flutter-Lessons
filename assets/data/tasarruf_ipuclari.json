@@ -1,0 +1,18 @@
+[
+  {"id": "yemek_liste", "category": "food", "title": "Markete listeyle git", "body": "Alışveriş listesi plansız alımları azaltır. Aç karnına markete gitmemek de sepeti küçültür.", "monthlySaving": 600},
+  {"id": "yemek_ev", "category": "food", "title": "Öğle yemeğini evden götür", "body": "Haftada üç gün evden yemek götürmek dışarıda yemeğe göre ciddi fark yaratır.", "monthlySaving": 1500},
+  {"id": "yemek_kahve", "category": "food", "title": "Kahveyi termosla taşı", "body": "Günlük dışarıdan alınan kahve ayda büyük bir kaleme dönüşür.", "monthlySaving": 900},
+  {"id": "yemek_israf", "category": "food", "title": "Buzdolabını haftada bir kontrol et", "body": "Son kullanma tarihi yaklaşanları öne al; çöpe giden yiyecek, çöpe giden paradır.", "monthlySaving": 400},
+  {"id": "ulasim_aylik", "category": "transport", "title": "Aylık abonman kartı al", "body": "Toplu taşımayı her gün kullanıyorsan aylık kart tek tek binişten ucuza gelir.", "monthlySaving": 500},
+  {"id": "ulasim_yuru", "category": "transport", "title": "Kısa mesafeyi yürü", "body": "1–2 km'lik yollar için taksi yerine yürümek hem bütçeye hem sağlığa iyi gelir.", "monthlySaving": 700},
+  {"id": "ulasim_lastik", "category": "transport", "title": "Lastik basıncını kontrol et", "body": "Düşük basınçlı lastik yakıt tüketimini artırır; ayda bir kontrol yeterli.", "monthlySaving": 250},
+  {"id": "fatura_bekleme", "category": "bills", "title": "Bekleme modundaki cihazları kapat", "body": "Prizde bekleyen televizyon, şarj aleti ve modemler fark edilmeden elektrik harcar.", "monthlySaving": 150},
+  {"id": "fatura_led", "category": "bills", "title": "LED ampule geç", "body": "LED ampuller klasik ampullere göre çok daha az elektrik harcar ve uzun ömürlüdür.", "monthlySaving": 120},
+  {"id": "fatura_paket", "category": "bills", "title": "Telefon paketini gözden geçir", "body": "Kullanmadığın dakika ve internet için ödeme yapıyor olabilirsin; yılda bir paketini karşılaştır.", "monthlySaving": 200},
+  {"id": "fatura_su", "category": "bills", "title": "Bulaşık makinesini tam doldur", "body": "Yarım dolu makine aynı suyu ve elektriği harcar.", "monthlySaving": 100},
+  {"id": "eglence_abonelik", "category": "fun", "title": "Abonelikleri say", "body": "Dizi, müzik ve oyun aboneliklerini listele; son bir ayda kullanmadıklarını iptal et.", "monthlySaving": 350},
+  {"id": "eglence_sinema", "category": "fun", "title": "İndirimli günleri kullan", "body": "Sinema ve müzelerin indirimli gün ve saatlerini takip et.", "monthlySaving": 200},
+  {"id": "eglence_kutuphane", "category": "fun", "title": "Kütüphaneden ödünç al", "body": "Kitap ve dergileri satın almadan önce belediye kütüphanesine bak.", "monthlySaving": 250},
+  {"id": "diger_bekle", "category": "other", "title": "24 saat kuralı", "body": "Plansız bir şey almak istediğinde bir gün bekle; çoğu zaman vazgeçersin.", "monthlySaving": 800},
+  {"id": "diger_iade", "category": "other", "title": "İade süresini not et", "body": "Uymayan ürünleri iade süresi dolmadan geri götür; fişleri Belgeler'de sakla.", "monthlySaving": 300}
+]

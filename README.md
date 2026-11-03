@@ -381,6 +381,39 @@ Not: Bu iki sayfada ve ağ sayfasında tembel `ListView` yerine
 `SingleChildScrollView` kullanılır: ekrandan çıkan kart yok edilirse,
 yeniden kurulan `StreamBuilder` aynı akışı ikinci kez dinleyemez.
 
+### Ders 13 — Bloc ile durum yönetimi
+
+Ana sayfa → *Bloc ile veri* (`views/view_bloc_demo/`), üç sekme.
+
+```
+Ekran ──add(Olay)──▶ Bloc ──on<Olay>──▶ emit(Durum) ──▶ Ekran çizer
+```
+
+Cubit'te ekran metot çağırır (`cubit.load()`); Bloc'ta **olay** gönderir
+(`bloc.add(RatesRequested())`). React'teki `useReducer` + `dispatch` gibi.
+Her Bloc `core/base/base_view_model_bloc.dart`'tan türer
+(masterfabric_core'daki `BaseViewModelBloc`); `AppBlocObserver.onTransition`
+her geçişi "olay → durum" olarak kayda yazar.
+
+| Sekme | Kaynak | Bloc | Teknik |
+|---|---|---|---|
+| Servis | Frankfurter API (`dio`) | `RatesBloc` | `sealed` durumlar + `switch`; `droppable()`: istek sürerken "Yenile" yok sayılır |
+| Canlı | Sahte WebSocket (Ders 11) | `LiveRatesBloc` | `emit.forEach(akış)`: her mesaj yeni durum |
+| Asset | `assets/data/tasarruf_ipuclari.json` | `TipsBloc` | `restartable()` + 300 ms bekleme: yalnızca son arama |
+
+Ekranda: `MultiBlocProvider` (üç Bloc sayfa seviyesinde), `BlocBuilder`
+(çizim), `BlocListener` (hata olunca bildirim), `BlocSelector` (durumun bir
+parçası değişince çizim).
+
+**Servis:** `GET https://api.frankfurter.dev/v1/latest?base=TRY&symbols=...`
+Avrupa Merkez Bankası'nın günlük kurları; ücretsiz, anahtar istemez, isteğe
+kişisel veri eklenmez. `dio` hataları Türkçe `RatesFailure`'a çevrilir.
+
+**Katmanlar:** `core/repository/` → `rates_repository.dart`,
+`live_rates_repository.dart`, `tips_repository.dart`. Testler
+(`test/bloc_demo_test.dart`, `bloc_test`) gerçek ağa çıkmaz: dio'ya sahte
+bağdaştırıcı, Bloc'lara sahte depolar verilir.
+
 ## Komutlar
 
 ```bash
