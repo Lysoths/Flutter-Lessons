@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/router/route_transitions.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/models/expense.dart';
+import 'package:flutter_ders/app/views/view_animations/animation_demo_view.dart';
+import 'package:flutter_ders/app/views/view_animations/animations_view.dart';
 import 'package:flutter_ders/app/views/view_audio_player/audio_player_view.dart';
 import 'package:flutter_ders/app/views/view_category/category_expenses_view.dart';
 import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
@@ -27,6 +30,8 @@ part 'app_router.gr.dart';
 //   ImageViewerView      → ImageViewerRoute(document: d)   (Ders 5)
 //   PdfViewerView        → PdfViewerRoute(document: d)     (Ders 5)
 //   AudioPlayerView      → AudioPlayerRoute(document: d)   (Ders 5)
+//   AnimationsView       → AnimationsRoute()               (Ders 6)
+//   AnimationDemoView    → AnimationDemoRoute(senaryo: 'fade') (Ders 6)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -36,15 +41,37 @@ part 'app_router.gr.dart';
 // Bu dosya değişince: dart run build_runner build
 // ─────────────────────────────────────────────────────────────────────────
 
+/// DERS 6 — Bir rotaya [animation] geçişini verir.
+///
+/// `CustomRoute`, `AutoRoute`'un geçişi özelleştirilebilen hâlidir:
+/// `transitionsBuilder` sayfanın nasıl gireceğini, `duration` ne kadar
+/// süreceğini söyler.
+CustomRoute<Object?> _animated(
+  PageInfo page,
+  String path,
+  RouteAnimation animation,
+) => CustomRoute<Object?>(
+  page: page,
+  path: path,
+  transitionsBuilder: animation.transitionsBuilder,
+  duration: animation.duration,
+  reverseDuration: animation.duration,
+);
+
 /// Uygulamanın rota tablosu.
 @AutoRouterConfig(replaceInRouteName: 'View,Route')
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     AutoRoute(page: ExpensesRoute.page, path: '/', initial: true),
-    AutoRoute(page: CategoryExpensesRoute.page, path: '/kategori/:slug'),
+    // DERS 6 — Mevcut sayfaların geçişleri:
+    _animated(
+      CategoryExpensesRoute.page,
+      '/kategori/:slug',
+      RouteAnimation.slideFromRight,
+    ),
     // Detay ekranı nesne ister; dışarıdan gelen link buraya ulaşamaz.
-    AutoRoute(page: ExpenseDetailRoute.page, path: '/harcama'),
+    _animated(ExpenseDetailRoute.page, '/harcama', RouteAnimation.fadeUp),
     // Yeni harcama formu alttan açılan pencere (bottom sheet) olarak.
     CustomRoute<void>(
       page: NewExpenseRoute.page,
@@ -58,9 +85,30 @@ class AppRouter extends RootStackRouter {
     ),
     // DERS 5 — Belgeler: liste deep link ile açılır (/belgeler);
     // görüntüleyiciler DocumentItem nesnesi ister, dışarıdan açılamaz.
-    AutoRoute(page: DocumentsRoute.page, path: '/belgeler'),
-    AutoRoute(page: ImageViewerRoute.page, path: '/belge/gorsel'),
-    AutoRoute(page: PdfViewerRoute.page, path: '/belge/pdf'),
-    AutoRoute(page: AudioPlayerRoute.page, path: '/belge/ses'),
+    _animated(DocumentsRoute.page, '/belgeler', RouteAnimation.slideFromRight),
+    _animated(ImageViewerRoute.page, '/belge/gorsel', RouteAnimation.zoomOut),
+    _animated(PdfViewerRoute.page, '/belge/pdf', RouteAnimation.slideUp),
+    _animated(
+      AudioPlayerRoute.page,
+      '/belge/ses',
+      RouteAnimation.circularReveal,
+    ),
+    // DERS 6 — Animasyon vitrini.
+    _animated(
+      AnimationsRoute.page,
+      '/animasyonlar',
+      RouteAnimation.slideFromRight,
+    ),
+    // Tek rota, 20 farklı geçiş: animasyonu gönderilen senaryo seçer.
+    // Her senaryo kendi yolunda (/animasyon/fade ...) ve yoluyla tanınır;
+    // yoksa 20 senaryo aynı adı taşıdığı için tek sayfa sanılırdı.
+    CustomRoute<Object?>(
+      page: AnimationDemoRoute.page,
+      path: '/animasyon/:senaryo',
+      usesPathAsKey: true,
+      customRouteBuilder: <T>(context, child, page) => routeAnimationNamed(
+        page.routeData.argsAs<AnimationDemoRouteArgs>().senaryo,
+      ).buildRoute<T>(page, child),
+    ),
   ];
 }

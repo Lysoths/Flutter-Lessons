@@ -19,6 +19,7 @@ lib/
     │   ├── router/app_router.dart          # Ders 4: auto_route rota tablosu
     │   ├── router/app_router.gr.dart       # build_runner'ın ürettiği rota sınıfları
     │   ├── router/app_deep_links.dart      # Ders 4: deep link beyaz listesi
+    │   ├── router/route_transitions.dart   # Ders 6: 20 geçiş animasyonu (RouteAnimation)
     │   ├── di/injection.dart               # get_it kayıtları
     │   └── repository/
     │       ├── expense_repository.dart       # "veri nerede?" sözleşmesi
@@ -38,6 +39,7 @@ lib/
     ├── views/view_image_viewer/            # Ders 5: görsel (Image.asset)
     ├── views/view_pdf_viewer/              # Ders 5: PDF (pdfrx)
     ├── views/view_audio_player/            # Ders 5: ses (just_audio)
+    ├── views/view_animations/              # Ders 6: animasyon vitrini + demo sayfası
     ├── views/view_expense_detail/
     │   └── expense_detail_view.dart        # Ders 1: Navigation 1.0 ile açılan detay
     └── views/view_expenses/
@@ -135,6 +137,39 @@ Not: `@AutoRouterConfig(replaceInRouteName: 'View,Route')` kuralı
 `ImageViewerView` içindeki "View" parçasını da değiştirip `ImageRouteerRoute`
 üretir; bu yüzden bu sayfalarda ad elle verilir:
 `@RoutePage(name: 'ImageViewerRoute')`.
+
+### Ders 6 — Rota geçiş animasyonları
+
+Sayfa açılırken Flutter `animation` değerini 0'dan 1'e götürür (kapanırken
+tersine). Geçiş, bu değeri bir `*Transition` widget'ına bağlamaktır:
+`FadeTransition` (solma), `SlideTransition` (kayma), `ScaleTransition`
+(büyüme), `RotationTransition`, `SizeTransition`, ya da `AnimatedBuilder` ile
+kendi efektin (3B çevirme, dairesel açılma, bulanıklık).
+
+auto_route'ta geçiş rota tablosunda verilir:
+
+```dart
+CustomRoute(page: X.page, path: '/x',
+  transitionsBuilder: RouteAnimation.slideFromRight.transitionsBuilder,
+  duration: const Duration(milliseconds: 400))
+```
+
+**20 senaryo** (`core/router/route_transitions.dart` → `RouteAnimation`):
+solma, sağdan/soldan/alttan/üstten kayma, büyüme, küçülerek yerleşme, dönme,
+solup yükselme, perde, dairesel açılma, dikey/yatay kart çevirme, elastik,
+zıplama, netleşme, Hero (ortak öğe), iOS tarzı, Android tarzı, animasyonsuz.
+
+**Mevcut sayfalar:** kategori ve belgeler sağdan kayar, harcama detayı solup
+yükselir, görsel küçülerek yerleşir, PDF alttan gelir, ses dairesel açılır.
+
+**Vitrin:** ana sayfa → *Geçiş animasyonları*. Tek bir demo rotası
+(`/animasyon/:senaryo`) 20 senaryoyu gösterir; `customRouteBuilder`,
+gönderilen senaryoya bakıp animasyonu seçer. *Yavaş çekim* anahtarı
+`timeDilation = 5` ile tüm animasyonları 5 kat yavaşlatır.
+
+Not: auto_route rotaları varsayılan olarak **adıyla** tanır. 20 senaryo aynı
+adı (`AnimationDemoRoute`) taşıdığı için "Sonraki" yeni sayfa açmıyordu;
+demo rotası `usesPathAsKey: true` ile **yoluyla** tanınır.
 
 ## Komutlar
 

@@ -112,8 +112,21 @@ class ExpensesView extends StatelessWidget {
               ),
               const Gap(16),
               // DERS 5 — Belgeler listesi: tipli rota ile açılır.
-              _DocumentsCard(
+              _EntryCard(
+                key: const Key('expensesView_documents'),
+                icon: Icons.folder_open_rounded,
+                title: 'Belgeler',
+                subtitle: "Fatura PDF'leri, fiş görselleri ve sesler",
                 onTap: () => context.router.push(const DocumentsRoute()),
+              ),
+              const Gap(10),
+              // DERS 6 — 20 geçiş animasyonu vitrini.
+              _EntryCard(
+                key: const Key('expensesView_animations'),
+                icon: Icons.animation_rounded,
+                title: 'Geçiş animasyonları',
+                subtitle: '20 farklı sayfa geçişi senaryosu',
+                onTap: () => context.router.push(const AnimationsRoute()),
               ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
@@ -254,10 +267,19 @@ class _BrandTitle extends StatelessWidget {
   }
 }
 
-/// Belgeler bölümüne giriş kartı (fatura, fiş, ses).
-class _DocumentsCard extends StatelessWidget {
-  const _DocumentsCard({required this.onTap});
+/// Ana sayfadan bir bölüme giriş kartı (Belgeler, Animasyonlar).
+class _EntryCard extends StatelessWidget {
+  const _EntryCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+    super.key,
+  });
 
+  final IconData icon;
+  final String title;
+  final String subtitle;
   final VoidCallback onTap;
 
   @override
@@ -271,25 +293,21 @@ class _DocumentsCard extends StatelessWidget {
         side: const BorderSide(color: MfColors.slate200),
       ),
       child: InkWell(
-        key: const Key('expensesView_documents'),
         borderRadius: radius,
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: Row(
             children: [
-              const IconBadge(Icons.folder_open_rounded, size: 44),
+              IconBadge(icon, size: 44),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Belgeler', style: t.titleMedium),
+                    Text(title, style: t.titleMedium),
                     const SizedBox(height: 2),
-                    Text(
-                      'Fatura PDF\'leri, fiş görselleri ve sesler',
-                      style: t.bodyMedium?.copyWith(fontSize: 13),
-                    ),
+                    Text(subtitle, style: t.bodyMedium?.copyWith(fontSize: 13)),
                   ],
                 ),
               ),

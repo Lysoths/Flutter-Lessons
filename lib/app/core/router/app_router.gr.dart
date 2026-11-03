@@ -11,6 +11,74 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AnimationDemoView]
+class AnimationDemoRoute extends PageRouteInfo<AnimationDemoRouteArgs> {
+  AnimationDemoRoute({
+    required String senaryo,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AnimationDemoRoute.name,
+         args: AnimationDemoRouteArgs(senaryo: senaryo, key: key),
+         rawPathParams: {'senaryo': senaryo},
+         initialChildren: children,
+       );
+
+  static const String name = 'AnimationDemoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<AnimationDemoRouteArgs>(
+        orElse: () =>
+            AnimationDemoRouteArgs(senaryo: pathParams.getString('senaryo')),
+      );
+      return AnimationDemoView(senaryo: args.senaryo, key: args.key);
+    },
+  );
+}
+
+class AnimationDemoRouteArgs {
+  const AnimationDemoRouteArgs({required this.senaryo, this.key});
+
+  final String senaryo;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'AnimationDemoRouteArgs{senaryo: $senaryo, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AnimationDemoRouteArgs) return false;
+    return senaryo == other.senaryo && key == other.key;
+  }
+
+  @override
+  int get hashCode => senaryo.hashCode ^ key.hashCode;
+}
+
+/// generated route for
+/// [AnimationsView]
+class AnimationsRoute extends PageRouteInfo<void> {
+  const AnimationsRoute({List<PageRouteInfo>? children})
+    : super(AnimationsRoute.name, initialChildren: children);
+
+  static const String name = 'AnimationsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimationsView();
+    },
+  );
+}
+
+/// generated route for
 /// [AudioPlayerView]
 class AudioPlayerRoute extends PageRouteInfo<AudioPlayerRouteArgs> {
   AudioPlayerRoute({

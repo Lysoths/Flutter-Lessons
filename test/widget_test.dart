@@ -84,6 +84,7 @@ void main() {
     phoneSize(tester);
     await tester.pumpWidget(const HarcamaApp());
     await tester.pumpAndSettle();
+    await reveal(tester, 'Henüz harcama yok');
     expect(find.text('Henüz harcama yok'), findsOneWidget);
     expect(await total(tester), '0,00 ₺');
     expect(find.byType(CategoryBreakdownWidget), findsNothing);
