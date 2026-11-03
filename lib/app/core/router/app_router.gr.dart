@@ -320,6 +320,22 @@ class NewExpenseRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PagedListView]
+class PagedListRoute extends PageRouteInfo<void> {
+  const PagedListRoute({List<PageRouteInfo>? children})
+    : super(PagedListRoute.name, initialChildren: children);
+
+  static const String name = 'PagedListRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PagedListView();
+    },
+  );
+}
+
+/// generated route for
 /// [PdfViewerView]
 class PdfViewerRoute extends PageRouteInfo<PdfViewerRouteArgs> {
   PdfViewerRoute({

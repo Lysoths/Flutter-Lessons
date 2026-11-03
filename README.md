@@ -171,6 +171,27 @@ Not: auto_route rotaları varsayılan olarak **adıyla** tanır. 20 senaryo ayn�
 adı (`AnimationDemoRoute`) taşıdığı için "Sonraki" yeni sayfa açmıyordu;
 demo rotası `usesPathAsKey: true` ile **yoluyla** tanınır.
 
+### Ders 7 — Sayfalama + ListView.builder
+
+Ana sayfa → *Sayfalı liste*: 500 örnek harcama 20'şer (25 sayfa) yüklenir.
+
+| Katman | Dosya |
+|---|---|
+| Depo (arayüz) | `core/repository/sample_expense_repository.dart` → `fetchPage(page, pageSize)` |
+| Depo (sahte) | `core/repository/dummy_sample_expense_repository.dart` — sabit tohumlu 500 kayıt, sayfa başı 0,6 sn bekleme |
+| Durum | `views/view_paged_list/cubit/paged_list_state.dart` — `status`, `items`, `page`, `hasMore`, `total` |
+| View model | `views/view_paged_list/cubit/paged_list_cubit.dart` — `loadFirstPage`, `loadNextPage`, `refresh`, `retry` |
+| Ekran | `views/view_paged_list/paged_list_view.dart` |
+
+- `ListView(children: [...])` 500 satırın hepsini baştan oluşturur;
+  `ListView.builder` yalnızca ekranda görünenleri oluşturur.
+- `ScrollController` listenin sonuna 300 px kala `loadNextPage()` çağırır.
+  Cubit aynı anda tek istek atar, kayıtlar bitince istek atmaz.
+- `itemCount = kayıt + 1`: son satır *yükleniyor / tekrar dene / hepsi bu kadar*.
+- Aşağı çekince (`RefreshIndicator`) 1. sayfaya döner.
+- Sahte kayıtlar yalnızca bellekte; gerçek harcamalara yazılmaz. Rota deep
+  link beyaz listesinde yok.
+
 ## Komutlar
 
 ```bash

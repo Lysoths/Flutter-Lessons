@@ -103,6 +103,7 @@ void main() {
     expect(find.text('otobüs'), findsOneWidget);
     expect(find.text('BUGÜN'), findsOneWidget);
     expect(await total(tester), '45,50 ₺');
+    await reveal(tester, 'Kategoriler');
     expect(find.byType(CategoryBreakdownWidget), findsOneWidget);
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.getString('expenses'), contains('otobüs'));
