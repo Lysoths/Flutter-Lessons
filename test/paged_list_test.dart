@@ -2,18 +2,20 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/app.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
-import 'package:flutter_ders/app/core/repository/dummy_sample_expense_repository.dart';
+import 'package:flutter_ders/app/core/repository/json_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/views/view_paged_grid/widgets/expense_grid_card.dart';
+import 'package:flutter_ders/app/views/view_paged_grid/widgets/expense_grid_card_skeleton.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_state.dart';
+import 'package:flutter_ders/app/views/view_paged_list/widgets/expense_tile_skeleton.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// İstekleri sayan, istenirse hata veren depo.
 class _CountingRepository implements SampleExpenseRepository {
-  final _inner = DummySampleExpenseRepository(delay: Duration.zero);
+  final _inner = JsonSampleExpenseRepository(delay: Duration.zero);
   final requested = <int>[];
   bool fail = false;
 
@@ -27,8 +29,10 @@ class _CountingRepository implements SampleExpenseRepository {
 
 // DERS 7 — Sayfalama + ListView.builder.
 void main() {
-  group('sahte depo', () {
-    final repo = DummySampleExpenseRepository(delay: Duration.zero);
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('JSON deposu', () {
+    final repo = JsonSampleExpenseRepository(delay: Duration.zero);
 
     test('500 kayıt 20\'şer 25 sayfadır', () async {
       final first = await repo.fetchPage(page: 1, pageSize: 20);
@@ -46,11 +50,15 @@ void main() {
       expect(after.hasMore, isFalse);
     });
 
-    test('her açılışta aynı liste üretilir', () async {
-      final other = DummySampleExpenseRepository(delay: Duration.zero);
-      final a = await repo.fetchPage(page: 3, pageSize: 20);
-      final b = await other.fetchPage(page: 3, pageSize: 20);
-      expect(a.items, b.items);
+    test('JSON dosyasındaki 500 kaydın hepsi okunur', () async {
+      final all = await repo.fetchPage(page: 1, pageSize: 1000);
+      expect(all.items, hasLength(500));
+      expect(all.items.map((e) => e.id).toSet(), hasLength(500));
+      expect(all.items.every((e) => e.amount > 0), isTrue);
+      // En yenisi başta.
+      for (var i = 1; i < all.items.length; i++) {
+        expect(all.items[i - 1].date.isAfter(all.items[i].date), isTrue);
+      }
     });
 
     test('geçersiz sayfa reddedilir', () {
@@ -139,12 +147,14 @@ void main() {
       await getIt.reset();
       SharedPreferences.setMockInitialValues({});
       await configureDependencies();
-      // Testte "ağ" beklemesin.
+      // Testte "ağ" beklemesin. Dosya okuma gerçek bir G/Ç işlemidir ve
+      // testWidgets'ın sahte saatinde bitmez; bu yüzden JSON burada,
+      // test başlamadan bir kez okunur.
+      final repo = JsonSampleExpenseRepository(delay: Duration.zero);
+      await repo.fetchPage(page: 1, pageSize: 1);
       getIt
         ..unregister<SampleExpenseRepository>()
-        ..registerSingleton<SampleExpenseRepository>(
-          DummySampleExpenseRepository(delay: Duration.zero),
-        );
+        ..registerSingleton<SampleExpenseRepository>(repo);
     });
 
     String counter(WidgetTester tester) => (tester.widget(
@@ -161,6 +171,104 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100));
       }
     }
+
+    /// Sayfa başına [delay] bekleten, önceden okunmuş bir depo kurar.
+    Future<void> slowRepository(WidgetTester tester, Duration delay) async {
+      final repo = JsonSampleExpenseRepository(delay: delay);
+      await tester.runAsync(() => repo.fetchPage(page: 1, pageSize: 1));
+      getIt
+        ..unregister<SampleExpenseRepository>()
+        ..registerSingleton<SampleExpenseRepository>(repo);
+    }
+
+    /// Ana sayfadaki [cardKey] kartıyla ekranı açıp İskelet sekmesine geçer.
+    Future<void> openSkeletonTab(WidgetTester tester, String cardKey) async {
+      tester.view.physicalSize = const Size(1440, 3120);
+      tester.view.devicePixelRatio = 3.75;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(const HarcamaApp());
+      await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.byKey(Key(cardKey)),
+        200,
+        scrollable: find
+            .byWidgetPredicate(
+              (w) => w is Scrollable && w.axisDirection == AxisDirection.down,
+            )
+            .first,
+      );
+      await tester.tap(find.byKey(Key(cardKey)));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.tap(find.byKey(const Key('pagedTab_skeleton')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+
+    testWidgets('liste İskelet sekmesi: önce iskelet, sonra kayıtlar', (
+      tester,
+    ) async {
+      await slowRepository(tester, const Duration(milliseconds: 600));
+      await openSkeletonTab(tester, 'expensesView_pagedList');
+
+      // Veri gelmeden: dönen gösterge yok, iskelet satırlar var.
+      expect(
+        find.byKey(const Key('pagedList_initialSkeleton')),
+        findsOneWidget,
+      );
+      expect(find.byType(ExpenseTileSkeleton), findsWidgets);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+
+      await tester.pump(const Duration(milliseconds: 700));
+      expect(find.byKey(const Key('pagedList_initialSkeleton')), findsNothing);
+      expect(find.textContaining('#1 ·'), findsOneWidget);
+
+      // Sona kadar kaydır: yol boyunca dönen gösterge hiç çıkmaz.
+      final list = find.byKey(const Key('pagedList_list_skeleton'));
+      var guard = 0;
+      while (find.byKey(const Key('pagedList_end')).evaluate().isEmpty) {
+        await tester.drag(list, const Offset(0, -3000));
+        await tester.pump(const Duration(milliseconds: 100));
+        expect(find.byKey(const Key('pagedList_loadingMore')), findsNothing);
+        await tester.pump(const Duration(milliseconds: 700));
+        expect(guard++, lessThan(200), reason: 'liste sonuna ulaşılamadı');
+      }
+      expect(counter(tester), '500 / 500 kayıt');
+      // Kayıtlar bitince iskelet kalmaz.
+      expect(find.byType(ExpenseTileSkeleton), findsNothing);
+    });
+
+    testWidgets('ızgara İskelet sekmesi: önce iskelet kartlar', (tester) async {
+      await slowRepository(tester, const Duration(milliseconds: 600));
+      await openSkeletonTab(tester, 'expensesView_pagedGrid');
+
+      expect(
+        find.byKey(const Key('pagedGrid_initialSkeleton')),
+        findsOneWidget,
+      );
+      expect(find.byType(ExpenseGridCardSkeleton), findsWidgets);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+
+      await tester.pump(const Duration(milliseconds: 700));
+      expect(find.byKey(const Key('gridCard_1')), findsOneWidget);
+      expect(counter(tester), '20 / 500 kayıt');
+    });
+
+    testWidgets('sekmeler birbirinden bağımsız sayfalanır', (tester) async {
+      await slowRepository(tester, Duration.zero);
+      await openSkeletonTab(tester, 'expensesView_pagedList');
+      await settle(tester);
+      await tester.drag(
+        find.byKey(const Key('pagedList_list_skeleton')),
+        const Offset(0, -3000),
+      );
+      await settle(tester);
+      expect(counter(tester), '40 / 500 kayıt');
+
+      await tester.tap(find.byKey(const Key('pagedTab_standard')));
+      await settle(tester);
+      expect(counter(tester), '20 / 500 kayıt');
+    });
 
     testWidgets('kaydırdıkça sayfalar gelir, 500\'de durur', (tester) async {
       tester.view.physicalSize = const Size(1440, 3120);
@@ -186,7 +294,7 @@ void main() {
       // 2. sayfa henüz istenmedi.
       expect(find.textContaining('#21 ·'), findsNothing);
 
-      final list = find.byKey(const Key('pagedList_list'));
+      final list = find.byKey(const Key('pagedList_list_standard'));
       var guard = 0;
       while (find.byKey(const Key('pagedList_end')).evaluate().isEmpty) {
         await tester.drag(list, const Offset(0, -3000));
@@ -231,7 +339,7 @@ void main() {
       expect(three.dy, greaterThan(one.dy));
       expect(find.byKey(const Key('gridCard_21')), findsNothing);
 
-      final grid = find.byKey(const Key('pagedGrid_grid'));
+      final grid = find.byKey(const Key('pagedGrid_grid_standard'));
       var guard = 0;
       while (find.byKey(const Key('pagedList_end')).evaluate().isEmpty) {
         await tester.drag(grid, const Offset(0, -3000));

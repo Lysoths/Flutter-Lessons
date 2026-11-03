@@ -1,5 +1,5 @@
-import 'package:flutter_ders/app/core/repository/dummy_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
+import 'package:flutter_ders/app/core/repository/json_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/local_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
@@ -20,9 +20,10 @@ Future<void> configureDependencies() async {
     ..registerFactory<ExpensesCubit>(
       () => ExpensesCubit(repository: getIt<ExpenseRepository>()),
     )
-    // DERS 7 — 500 sahte kayıt bir kez üretilir; cubit her açılışta yeni.
+    // DERS 7 — 500 örnek kayıt JSON dosyasından bir kez okunur; cubit her
+    // açılışta yeni.
     ..registerLazySingleton<SampleExpenseRepository>(
-      DummySampleExpenseRepository.new,
+      JsonSampleExpenseRepository.new,
     )
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),

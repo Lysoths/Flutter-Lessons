@@ -1,0 +1,3502 @@
+[
+  {
+    "id": "ornek_1",
+    "amount": 400.44,
+    "category": "bills",
+    "date": "2026-11-03T20:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_2",
+    "amount": 194.88,
+    "category": "food",
+    "date": "2026-11-03T13:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_3",
+    "amount": 1532.74,
+    "category": "bills",
+    "date": "2026-11-03T06:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_4",
+    "amount": 567.81,
+    "category": "other",
+    "date": "2026-11-02T23:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_5",
+    "amount": 1141.77,
+    "category": "food",
+    "date": "2026-11-02T16:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_6",
+    "amount": 635.88,
+    "category": "food",
+    "date": "2026-11-02T09:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_7",
+    "amount": 1117.85,
+    "category": "other",
+    "date": "2026-11-02T02:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_8",
+    "amount": 329.53,
+    "category": "other",
+    "date": "2026-11-01T19:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_9",
+    "amount": 167.16,
+    "category": "other",
+    "date": "2026-11-01T12:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_10",
+    "amount": 584.55,
+    "category": "food",
+    "date": "2026-11-01T05:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_11",
+    "amount": 354.1,
+    "category": "other",
+    "date": "2026-10-31T22:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_12",
+    "amount": 383.15,
+    "category": "fun",
+    "date": "2026-10-31T15:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_13",
+    "amount": 813.66,
+    "category": "other",
+    "date": "2026-10-31T08:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_14",
+    "amount": 1529.62,
+    "category": "food",
+    "date": "2026-10-31T01:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_15",
+    "amount": 260.4,
+    "category": "bills",
+    "date": "2026-10-30T18:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_16",
+    "amount": 161.24,
+    "category": "other",
+    "date": "2026-10-30T11:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_17",
+    "amount": 1788.62,
+    "category": "fun",
+    "date": "2026-10-30T04:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_18",
+    "amount": 1225.54,
+    "category": "bills",
+    "date": "2026-10-29T21:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_19",
+    "amount": 790.82,
+    "category": "bills",
+    "date": "2026-10-29T14:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_20",
+    "amount": 1837.37,
+    "category": "transport",
+    "date": "2026-10-29T07:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_21",
+    "amount": 1510.81,
+    "category": "food",
+    "date": "2026-10-29T00:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_22",
+    "amount": 1302.91,
+    "category": "other",
+    "date": "2026-10-28T17:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_23",
+    "amount": 759.81,
+    "category": "fun",
+    "date": "2026-10-28T10:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_24",
+    "amount": 1347.0,
+    "category": "food",
+    "date": "2026-10-28T03:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_25",
+    "amount": 901.67,
+    "category": "transport",
+    "date": "2026-10-27T20:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_26",
+    "amount": 1110.45,
+    "category": "fun",
+    "date": "2026-10-27T13:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_27",
+    "amount": 1467.96,
+    "category": "food",
+    "date": "2026-10-27T06:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_28",
+    "amount": 1827.67,
+    "category": "bills",
+    "date": "2026-10-26T23:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_29",
+    "amount": 1307.0,
+    "category": "other",
+    "date": "2026-10-26T16:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_30",
+    "amount": 250.35,
+    "category": "food",
+    "date": "2026-10-26T09:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_31",
+    "amount": 1832.25,
+    "category": "fun",
+    "date": "2026-10-26T02:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_32",
+    "amount": 1921.69,
+    "category": "food",
+    "date": "2026-10-25T19:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_33",
+    "amount": 1790.82,
+    "category": "other",
+    "date": "2026-10-25T12:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_34",
+    "amount": 1883.59,
+    "category": "bills",
+    "date": "2026-10-25T05:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_35",
+    "amount": 64.14,
+    "category": "bills",
+    "date": "2026-10-24T22:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_36",
+    "amount": 445.52,
+    "category": "bills",
+    "date": "2026-10-24T15:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_37",
+    "amount": 159.54,
+    "category": "fun",
+    "date": "2026-10-24T08:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_38",
+    "amount": 344.05,
+    "category": "bills",
+    "date": "2026-10-24T01:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_39",
+    "amount": 1029.85,
+    "category": "fun",
+    "date": "2026-10-23T18:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_40",
+    "amount": 441.11,
+    "category": "food",
+    "date": "2026-10-23T11:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_41",
+    "amount": 1445.32,
+    "category": "fun",
+    "date": "2026-10-23T04:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_42",
+    "amount": 1133.58,
+    "category": "transport",
+    "date": "2026-10-22T21:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_43",
+    "amount": 945.49,
+    "category": "fun",
+    "date": "2026-10-22T14:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_44",
+    "amount": 400.63,
+    "category": "transport",
+    "date": "2026-10-22T07:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_45",
+    "amount": 401.61,
+    "category": "transport",
+    "date": "2026-10-22T00:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_46",
+    "amount": 36.62,
+    "category": "transport",
+    "date": "2026-10-21T17:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_47",
+    "amount": 483.0,
+    "category": "other",
+    "date": "2026-10-21T10:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_48",
+    "amount": 15.73,
+    "category": "bills",
+    "date": "2026-10-21T03:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_49",
+    "amount": 1406.39,
+    "category": "fun",
+    "date": "2026-10-20T20:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_50",
+    "amount": 1489.62,
+    "category": "other",
+    "date": "2026-10-20T13:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_51",
+    "amount": 1815.08,
+    "category": "transport",
+    "date": "2026-10-20T06:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_52",
+    "amount": 1789.08,
+    "category": "fun",
+    "date": "2026-10-19T23:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_53",
+    "amount": 1050.89,
+    "category": "fun",
+    "date": "2026-10-19T16:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_54",
+    "amount": 1267.28,
+    "category": "food",
+    "date": "2026-10-19T09:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_55",
+    "amount": 504.67,
+    "category": "food",
+    "date": "2026-10-19T02:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_56",
+    "amount": 1160.07,
+    "category": "transport",
+    "date": "2026-10-18T19:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_57",
+    "amount": 896.43,
+    "category": "food",
+    "date": "2026-10-18T12:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_58",
+    "amount": 5.61,
+    "category": "food",
+    "date": "2026-10-18T05:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_59",
+    "amount": 270.98,
+    "category": "other",
+    "date": "2026-10-17T22:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_60",
+    "amount": 71.84,
+    "category": "other",
+    "date": "2026-10-17T15:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_61",
+    "amount": 1614.74,
+    "category": "transport",
+    "date": "2026-10-17T08:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_62",
+    "amount": 1668.06,
+    "category": "transport",
+    "date": "2026-10-17T01:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_63",
+    "amount": 1583.83,
+    "category": "bills",
+    "date": "2026-10-16T18:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_64",
+    "amount": 327.02,
+    "category": "fun",
+    "date": "2026-10-16T11:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_65",
+    "amount": 1226.56,
+    "category": "fun",
+    "date": "2026-10-16T04:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_66",
+    "amount": 822.5,
+    "category": "fun",
+    "date": "2026-10-15T21:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_67",
+    "amount": 272.87,
+    "category": "transport",
+    "date": "2026-10-15T14:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_68",
+    "amount": 1259.67,
+    "category": "bills",
+    "date": "2026-10-15T07:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_69",
+    "amount": 65.54,
+    "category": "other",
+    "date": "2026-10-15T00:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_70",
+    "amount": 953.31,
+    "category": "other",
+    "date": "2026-10-14T17:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_71",
+    "amount": 75.89,
+    "category": "other",
+    "date": "2026-10-14T10:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_72",
+    "amount": 1830.03,
+    "category": "food",
+    "date": "2026-10-14T03:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_73",
+    "amount": 966.28,
+    "category": "other",
+    "date": "2026-10-13T20:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_74",
+    "amount": 589.03,
+    "category": "bills",
+    "date": "2026-10-13T13:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_75",
+    "amount": 1612.54,
+    "category": "transport",
+    "date": "2026-10-13T06:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_76",
+    "amount": 1055.37,
+    "category": "transport",
+    "date": "2026-10-12T23:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_77",
+    "amount": 1361.95,
+    "category": "transport",
+    "date": "2026-10-12T16:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_78",
+    "amount": 1921.28,
+    "category": "bills",
+    "date": "2026-10-12T09:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_79",
+    "amount": 737.47,
+    "category": "food",
+    "date": "2026-10-12T02:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_80",
+    "amount": 512.62,
+    "category": "bills",
+    "date": "2026-10-11T19:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_81",
+    "amount": 1900.63,
+    "category": "fun",
+    "date": "2026-10-11T12:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_82",
+    "amount": 216.12,
+    "category": "bills",
+    "date": "2026-10-11T05:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_83",
+    "amount": 599.66,
+    "category": "food",
+    "date": "2026-10-10T22:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_84",
+    "amount": 890.35,
+    "category": "transport",
+    "date": "2026-10-10T15:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_85",
+    "amount": 1640.95,
+    "category": "fun",
+    "date": "2026-10-10T08:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_86",
+    "amount": 1716.74,
+    "category": "fun",
+    "date": "2026-10-10T01:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_87",
+    "amount": 1736.68,
+    "category": "food",
+    "date": "2026-10-09T18:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_88",
+    "amount": 1870.13,
+    "category": "fun",
+    "date": "2026-10-09T11:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_89",
+    "amount": 472.98,
+    "category": "fun",
+    "date": "2026-10-09T04:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_90",
+    "amount": 232.4,
+    "category": "bills",
+    "date": "2026-10-08T21:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_91",
+    "amount": 1057.21,
+    "category": "fun",
+    "date": "2026-10-08T14:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_92",
+    "amount": 450.65,
+    "category": "transport",
+    "date": "2026-10-08T07:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_93",
+    "amount": 401.23,
+    "category": "food",
+    "date": "2026-10-08T00:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_94",
+    "amount": 1608.2,
+    "category": "transport",
+    "date": "2026-10-07T17:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_95",
+    "amount": 413.71,
+    "category": "bills",
+    "date": "2026-10-07T10:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_96",
+    "amount": 42.33,
+    "category": "food",
+    "date": "2026-10-07T03:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_97",
+    "amount": 370.03,
+    "category": "other",
+    "date": "2026-10-06T20:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_98",
+    "amount": 558.23,
+    "category": "transport",
+    "date": "2026-10-06T13:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_99",
+    "amount": 562.78,
+    "category": "bills",
+    "date": "2026-10-06T06:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_100",
+    "amount": 635.55,
+    "category": "other",
+    "date": "2026-10-05T23:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_101",
+    "amount": 1431.98,
+    "category": "bills",
+    "date": "2026-10-05T16:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_102",
+    "amount": 164.65,
+    "category": "transport",
+    "date": "2026-10-05T09:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_103",
+    "amount": 1741.63,
+    "category": "fun",
+    "date": "2026-10-05T02:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_104",
+    "amount": 347.78,
+    "category": "other",
+    "date": "2026-10-04T19:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_105",
+    "amount": 1343.36,
+    "category": "other",
+    "date": "2026-10-04T12:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_106",
+    "amount": 485.0,
+    "category": "fun",
+    "date": "2026-10-04T05:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_107",
+    "amount": 456.79,
+    "category": "transport",
+    "date": "2026-10-03T22:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_108",
+    "amount": 1627.93,
+    "category": "fun",
+    "date": "2026-10-03T15:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_109",
+    "amount": 166.88,
+    "category": "other",
+    "date": "2026-10-03T08:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_110",
+    "amount": 1396.26,
+    "category": "other",
+    "date": "2026-10-03T01:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_111",
+    "amount": 1473.78,
+    "category": "food",
+    "date": "2026-10-02T18:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_112",
+    "amount": 506.49,
+    "category": "transport",
+    "date": "2026-10-02T11:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_113",
+    "amount": 261.23,
+    "category": "food",
+    "date": "2026-10-02T04:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_114",
+    "amount": 78.04,
+    "category": "other",
+    "date": "2026-10-01T21:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_115",
+    "amount": 858.57,
+    "category": "fun",
+    "date": "2026-10-01T14:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_116",
+    "amount": 1190.79,
+    "category": "bills",
+    "date": "2026-10-01T07:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_117",
+    "amount": 654.21,
+    "category": "other",
+    "date": "2026-10-01T00:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_118",
+    "amount": 536.07,
+    "category": "other",
+    "date": "2026-09-30T17:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_119",
+    "amount": 1097.18,
+    "category": "transport",
+    "date": "2026-09-30T10:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_120",
+    "amount": 1163.98,
+    "category": "fun",
+    "date": "2026-09-30T03:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_121",
+    "amount": 1764.39,
+    "category": "food",
+    "date": "2026-09-29T20:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_122",
+    "amount": 196.68,
+    "category": "fun",
+    "date": "2026-09-29T13:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_123",
+    "amount": 325.73,
+    "category": "bills",
+    "date": "2026-09-29T06:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_124",
+    "amount": 379.81,
+    "category": "bills",
+    "date": "2026-09-28T23:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_125",
+    "amount": 1231.14,
+    "category": "transport",
+    "date": "2026-09-28T16:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_126",
+    "amount": 1049.0,
+    "category": "food",
+    "date": "2026-09-28T09:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_127",
+    "amount": 1755.68,
+    "category": "transport",
+    "date": "2026-09-28T02:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_128",
+    "amount": 1856.58,
+    "category": "transport",
+    "date": "2026-09-27T19:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_129",
+    "amount": 1063.56,
+    "category": "other",
+    "date": "2026-09-27T12:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_130",
+    "amount": 518.13,
+    "category": "fun",
+    "date": "2026-09-27T05:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_131",
+    "amount": 246.68,
+    "category": "bills",
+    "date": "2026-09-26T22:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_132",
+    "amount": 890.99,
+    "category": "food",
+    "date": "2026-09-26T15:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_133",
+    "amount": 1848.26,
+    "category": "fun",
+    "date": "2026-09-26T08:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_134",
+    "amount": 874.0,
+    "category": "fun",
+    "date": "2026-09-26T01:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_135",
+    "amount": 173.53,
+    "category": "other",
+    "date": "2026-09-25T18:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_136",
+    "amount": 279.67,
+    "category": "transport",
+    "date": "2026-09-25T11:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_137",
+    "amount": 717.82,
+    "category": "bills",
+    "date": "2026-09-25T04:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_138",
+    "amount": 713.95,
+    "category": "transport",
+    "date": "2026-09-24T21:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_139",
+    "amount": 1777.02,
+    "category": "fun",
+    "date": "2026-09-24T14:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_140",
+    "amount": 396.55,
+    "category": "fun",
+    "date": "2026-09-24T07:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_141",
+    "amount": 239.51,
+    "category": "bills",
+    "date": "2026-09-24T00:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_142",
+    "amount": 1809.08,
+    "category": "food",
+    "date": "2026-09-23T17:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_143",
+    "amount": 194.82,
+    "category": "fun",
+    "date": "2026-09-23T10:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_144",
+    "amount": 1668.14,
+    "category": "food",
+    "date": "2026-09-23T03:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_145",
+    "amount": 224.52,
+    "category": "bills",
+    "date": "2026-09-22T20:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_146",
+    "amount": 698.24,
+    "category": "food",
+    "date": "2026-09-22T13:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_147",
+    "amount": 35.26,
+    "category": "fun",
+    "date": "2026-09-22T06:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_148",
+    "amount": 1100.13,
+    "category": "other",
+    "date": "2026-09-21T23:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_149",
+    "amount": 343.75,
+    "category": "other",
+    "date": "2026-09-21T16:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_150",
+    "amount": 1865.0,
+    "category": "other",
+    "date": "2026-09-21T09:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_151",
+    "amount": 428.22,
+    "category": "food",
+    "date": "2026-09-21T02:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_152",
+    "amount": 479.86,
+    "category": "food",
+    "date": "2026-09-20T19:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_153",
+    "amount": 1653.02,
+    "category": "bills",
+    "date": "2026-09-20T12:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_154",
+    "amount": 544.67,
+    "category": "other",
+    "date": "2026-09-20T05:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_155",
+    "amount": 1315.95,
+    "category": "fun",
+    "date": "2026-09-19T22:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_156",
+    "amount": 914.64,
+    "category": "bills",
+    "date": "2026-09-19T15:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_157",
+    "amount": 101.86,
+    "category": "bills",
+    "date": "2026-09-19T08:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_158",
+    "amount": 1926.72,
+    "category": "food",
+    "date": "2026-09-19T01:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_159",
+    "amount": 1249.55,
+    "category": "other",
+    "date": "2026-09-18T18:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_160",
+    "amount": 283.61,
+    "category": "fun",
+    "date": "2026-09-18T11:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_161",
+    "amount": 1436.06,
+    "category": "fun",
+    "date": "2026-09-18T04:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_162",
+    "amount": 811.83,
+    "category": "other",
+    "date": "2026-09-17T21:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_163",
+    "amount": 903.37,
+    "category": "transport",
+    "date": "2026-09-17T14:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_164",
+    "amount": 1065.89,
+    "category": "transport",
+    "date": "2026-09-17T07:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_165",
+    "amount": 345.31,
+    "category": "food",
+    "date": "2026-09-17T00:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_166",
+    "amount": 1644.57,
+    "category": "food",
+    "date": "2026-09-16T17:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_167",
+    "amount": 432.94,
+    "category": "fun",
+    "date": "2026-09-16T10:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_168",
+    "amount": 1748.85,
+    "category": "food",
+    "date": "2026-09-16T03:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_169",
+    "amount": 1762.78,
+    "category": "other",
+    "date": "2026-09-15T20:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_170",
+    "amount": 639.94,
+    "category": "other",
+    "date": "2026-09-15T13:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_171",
+    "amount": 1209.42,
+    "category": "food",
+    "date": "2026-09-15T06:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_172",
+    "amount": 710.26,
+    "category": "transport",
+    "date": "2026-09-14T23:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_173",
+    "amount": 695.07,
+    "category": "food",
+    "date": "2026-09-14T16:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_174",
+    "amount": 1439.12,
+    "category": "bills",
+    "date": "2026-09-14T09:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_175",
+    "amount": 95.3,
+    "category": "transport",
+    "date": "2026-09-14T02:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_176",
+    "amount": 939.76,
+    "category": "transport",
+    "date": "2026-09-13T19:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_177",
+    "amount": 884.05,
+    "category": "food",
+    "date": "2026-09-13T12:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_178",
+    "amount": 1249.24,
+    "category": "food",
+    "date": "2026-09-13T05:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_179",
+    "amount": 1724.71,
+    "category": "other",
+    "date": "2026-09-12T22:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_180",
+    "amount": 1328.13,
+    "category": "transport",
+    "date": "2026-09-12T15:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_181",
+    "amount": 697.5,
+    "category": "food",
+    "date": "2026-09-12T08:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_182",
+    "amount": 1052.29,
+    "category": "transport",
+    "date": "2026-09-12T01:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_183",
+    "amount": 63.96,
+    "category": "fun",
+    "date": "2026-09-11T18:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_184",
+    "amount": 1655.64,
+    "category": "bills",
+    "date": "2026-09-11T11:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_185",
+    "amount": 1540.07,
+    "category": "food",
+    "date": "2026-09-11T04:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_186",
+    "amount": 1026.09,
+    "category": "other",
+    "date": "2026-09-10T21:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_187",
+    "amount": 396.8,
+    "category": "fun",
+    "date": "2026-09-10T14:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_188",
+    "amount": 1691.16,
+    "category": "other",
+    "date": "2026-09-10T07:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_189",
+    "amount": 1879.35,
+    "category": "food",
+    "date": "2026-09-10T00:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_190",
+    "amount": 370.18,
+    "category": "other",
+    "date": "2026-09-09T17:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_191",
+    "amount": 1869.33,
+    "category": "other",
+    "date": "2026-09-09T10:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_192",
+    "amount": 86.68,
+    "category": "food",
+    "date": "2026-09-09T03:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_193",
+    "amount": 1675.17,
+    "category": "transport",
+    "date": "2026-09-08T20:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_194",
+    "amount": 992.28,
+    "category": "food",
+    "date": "2026-09-08T13:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_195",
+    "amount": 138.11,
+    "category": "other",
+    "date": "2026-09-08T06:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_196",
+    "amount": 1789.32,
+    "category": "other",
+    "date": "2026-09-07T23:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_197",
+    "amount": 696.51,
+    "category": "fun",
+    "date": "2026-09-07T16:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_198",
+    "amount": 188.79,
+    "category": "fun",
+    "date": "2026-09-07T09:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_199",
+    "amount": 178.14,
+    "category": "other",
+    "date": "2026-09-07T02:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_200",
+    "amount": 200.16,
+    "category": "bills",
+    "date": "2026-09-06T19:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_201",
+    "amount": 1916.9,
+    "category": "transport",
+    "date": "2026-09-06T12:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_202",
+    "amount": 1944.41,
+    "category": "transport",
+    "date": "2026-09-06T05:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_203",
+    "amount": 1007.85,
+    "category": "fun",
+    "date": "2026-09-05T22:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_204",
+    "amount": 1797.26,
+    "category": "fun",
+    "date": "2026-09-05T15:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_205",
+    "amount": 1622.36,
+    "category": "food",
+    "date": "2026-09-05T08:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_206",
+    "amount": 1577.09,
+    "category": "food",
+    "date": "2026-09-05T01:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_207",
+    "amount": 670.68,
+    "category": "bills",
+    "date": "2026-09-04T18:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_208",
+    "amount": 1493.35,
+    "category": "other",
+    "date": "2026-09-04T11:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_209",
+    "amount": 1269.63,
+    "category": "food",
+    "date": "2026-09-04T04:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_210",
+    "amount": 709.57,
+    "category": "fun",
+    "date": "2026-09-03T21:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_211",
+    "amount": 1776.32,
+    "category": "transport",
+    "date": "2026-09-03T14:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_212",
+    "amount": 1863.26,
+    "category": "bills",
+    "date": "2026-09-03T07:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_213",
+    "amount": 1226.32,
+    "category": "fun",
+    "date": "2026-09-03T00:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_214",
+    "amount": 1444.37,
+    "category": "food",
+    "date": "2026-09-02T17:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_215",
+    "amount": 230.06,
+    "category": "bills",
+    "date": "2026-09-02T10:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_216",
+    "amount": 764.13,
+    "category": "food",
+    "date": "2026-09-02T03:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_217",
+    "amount": 1333.07,
+    "category": "food",
+    "date": "2026-09-01T20:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_218",
+    "amount": 1019.09,
+    "category": "bills",
+    "date": "2026-09-01T13:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_219",
+    "amount": 200.59,
+    "category": "transport",
+    "date": "2026-09-01T06:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_220",
+    "amount": 1378.8,
+    "category": "transport",
+    "date": "2026-08-31T23:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_221",
+    "amount": 352.61,
+    "category": "bills",
+    "date": "2026-08-31T16:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_222",
+    "amount": 1848.75,
+    "category": "food",
+    "date": "2026-08-31T09:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_223",
+    "amount": 1310.18,
+    "category": "transport",
+    "date": "2026-08-31T02:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_224",
+    "amount": 70.1,
+    "category": "fun",
+    "date": "2026-08-30T19:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_225",
+    "amount": 1293.95,
+    "category": "food",
+    "date": "2026-08-30T12:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_226",
+    "amount": 796.54,
+    "category": "fun",
+    "date": "2026-08-30T05:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_227",
+    "amount": 906.67,
+    "category": "fun",
+    "date": "2026-08-29T22:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_228",
+    "amount": 321.95,
+    "category": "bills",
+    "date": "2026-08-29T15:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_229",
+    "amount": 855.78,
+    "category": "food",
+    "date": "2026-08-29T08:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_230",
+    "amount": 319.68,
+    "category": "fun",
+    "date": "2026-08-29T01:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_231",
+    "amount": 1944.62,
+    "category": "food",
+    "date": "2026-08-28T18:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_232",
+    "amount": 980.75,
+    "category": "bills",
+    "date": "2026-08-28T11:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_233",
+    "amount": 1027.78,
+    "category": "fun",
+    "date": "2026-08-28T04:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_234",
+    "amount": 1127.11,
+    "category": "bills",
+    "date": "2026-08-27T21:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_235",
+    "amount": 740.67,
+    "category": "food",
+    "date": "2026-08-27T14:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_236",
+    "amount": 1740.33,
+    "category": "food",
+    "date": "2026-08-27T07:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_237",
+    "amount": 658.58,
+    "category": "transport",
+    "date": "2026-08-27T00:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_238",
+    "amount": 1344.45,
+    "category": "fun",
+    "date": "2026-08-26T17:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_239",
+    "amount": 983.71,
+    "category": "transport",
+    "date": "2026-08-26T10:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_240",
+    "amount": 1658.85,
+    "category": "food",
+    "date": "2026-08-26T03:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_241",
+    "amount": 1444.76,
+    "category": "other",
+    "date": "2026-08-25T20:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_242",
+    "amount": 134.69,
+    "category": "food",
+    "date": "2026-08-25T13:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_243",
+    "amount": 1616.96,
+    "category": "fun",
+    "date": "2026-08-25T06:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_244",
+    "amount": 1277.9,
+    "category": "bills",
+    "date": "2026-08-24T23:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_245",
+    "amount": 338.73,
+    "category": "other",
+    "date": "2026-08-24T16:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_246",
+    "amount": 1092.54,
+    "category": "fun",
+    "date": "2026-08-24T09:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_247",
+    "amount": 785.59,
+    "category": "bills",
+    "date": "2026-08-24T02:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_248",
+    "amount": 1069.85,
+    "category": "bills",
+    "date": "2026-08-23T19:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_249",
+    "amount": 1271.63,
+    "category": "bills",
+    "date": "2026-08-23T12:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_250",
+    "amount": 443.65,
+    "category": "food",
+    "date": "2026-08-23T05:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_251",
+    "amount": 549.92,
+    "category": "food",
+    "date": "2026-08-22T22:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_252",
+    "amount": 581.78,
+    "category": "other",
+    "date": "2026-08-22T15:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_253",
+    "amount": 1184.54,
+    "category": "bills",
+    "date": "2026-08-22T08:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_254",
+    "amount": 1440.98,
+    "category": "transport",
+    "date": "2026-08-22T01:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_255",
+    "amount": 242.8,
+    "category": "transport",
+    "date": "2026-08-21T18:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_256",
+    "amount": 1462.19,
+    "category": "bills",
+    "date": "2026-08-21T11:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_257",
+    "amount": 631.85,
+    "category": "bills",
+    "date": "2026-08-21T04:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_258",
+    "amount": 1498.21,
+    "category": "bills",
+    "date": "2026-08-20T21:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_259",
+    "amount": 1087.08,
+    "category": "food",
+    "date": "2026-08-20T14:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_260",
+    "amount": 1379.07,
+    "category": "fun",
+    "date": "2026-08-20T07:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_261",
+    "amount": 713.41,
+    "category": "fun",
+    "date": "2026-08-20T00:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_262",
+    "amount": 1310.85,
+    "category": "food",
+    "date": "2026-08-19T17:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_263",
+    "amount": 949.09,
+    "category": "other",
+    "date": "2026-08-19T10:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_264",
+    "amount": 1392.33,
+    "category": "other",
+    "date": "2026-08-19T03:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_265",
+    "amount": 715.46,
+    "category": "food",
+    "date": "2026-08-18T20:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_266",
+    "amount": 1052.93,
+    "category": "fun",
+    "date": "2026-08-18T13:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_267",
+    "amount": 822.93,
+    "category": "fun",
+    "date": "2026-08-18T06:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_268",
+    "amount": 89.52,
+    "category": "transport",
+    "date": "2026-08-17T23:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_269",
+    "amount": 1544.24,
+    "category": "fun",
+    "date": "2026-08-17T16:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_270",
+    "amount": 196.72,
+    "category": "food",
+    "date": "2026-08-17T09:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_271",
+    "amount": 1232.23,
+    "category": "other",
+    "date": "2026-08-17T02:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_272",
+    "amount": 290.85,
+    "category": "transport",
+    "date": "2026-08-16T19:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_273",
+    "amount": 403.63,
+    "category": "transport",
+    "date": "2026-08-16T12:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_274",
+    "amount": 227.83,
+    "category": "fun",
+    "date": "2026-08-16T05:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_275",
+    "amount": 334.38,
+    "category": "food",
+    "date": "2026-08-15T22:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_276",
+    "amount": 103.54,
+    "category": "other",
+    "date": "2026-08-15T15:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_277",
+    "amount": 1647.26,
+    "category": "transport",
+    "date": "2026-08-15T08:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_278",
+    "amount": 1672.99,
+    "category": "other",
+    "date": "2026-08-15T01:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_279",
+    "amount": 265.68,
+    "category": "food",
+    "date": "2026-08-14T18:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_280",
+    "amount": 1379.77,
+    "category": "bills",
+    "date": "2026-08-14T11:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_281",
+    "amount": 688.88,
+    "category": "fun",
+    "date": "2026-08-14T04:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_282",
+    "amount": 8.01,
+    "category": "other",
+    "date": "2026-08-13T21:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_283",
+    "amount": 795.41,
+    "category": "other",
+    "date": "2026-08-13T14:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_284",
+    "amount": 834.31,
+    "category": "bills",
+    "date": "2026-08-13T07:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_285",
+    "amount": 1384.6,
+    "category": "fun",
+    "date": "2026-08-13T00:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_286",
+    "amount": 652.64,
+    "category": "other",
+    "date": "2026-08-12T17:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_287",
+    "amount": 1852.2,
+    "category": "fun",
+    "date": "2026-08-12T10:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_288",
+    "amount": 62.11,
+    "category": "food",
+    "date": "2026-08-12T03:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_289",
+    "amount": 1773.06,
+    "category": "fun",
+    "date": "2026-08-11T20:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_290",
+    "amount": 679.38,
+    "category": "food",
+    "date": "2026-08-11T13:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_291",
+    "amount": 975.5,
+    "category": "fun",
+    "date": "2026-08-11T06:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_292",
+    "amount": 94.38,
+    "category": "fun",
+    "date": "2026-08-10T23:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_293",
+    "amount": 954.79,
+    "category": "fun",
+    "date": "2026-08-10T16:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_294",
+    "amount": 22.7,
+    "category": "transport",
+    "date": "2026-08-10T09:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_295",
+    "amount": 181.77,
+    "category": "other",
+    "date": "2026-08-10T02:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_296",
+    "amount": 530.37,
+    "category": "fun",
+    "date": "2026-08-09T19:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_297",
+    "amount": 610.05,
+    "category": "transport",
+    "date": "2026-08-09T12:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_298",
+    "amount": 699.73,
+    "category": "transport",
+    "date": "2026-08-09T05:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_299",
+    "amount": 1639.72,
+    "category": "food",
+    "date": "2026-08-08T22:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_300",
+    "amount": 496.03,
+    "category": "other",
+    "date": "2026-08-08T15:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_301",
+    "amount": 1098.21,
+    "category": "fun",
+    "date": "2026-08-08T08:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_302",
+    "amount": 388.73,
+    "category": "other",
+    "date": "2026-08-08T01:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_303",
+    "amount": 563.23,
+    "category": "food",
+    "date": "2026-08-07T18:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_304",
+    "amount": 377.01,
+    "category": "other",
+    "date": "2026-08-07T11:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_305",
+    "amount": 1865.85,
+    "category": "food",
+    "date": "2026-08-07T04:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_306",
+    "amount": 1036.06,
+    "category": "transport",
+    "date": "2026-08-06T21:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_307",
+    "amount": 1925.79,
+    "category": "bills",
+    "date": "2026-08-06T14:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_308",
+    "amount": 439.19,
+    "category": "food",
+    "date": "2026-08-06T07:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_309",
+    "amount": 491.3,
+    "category": "transport",
+    "date": "2026-08-06T00:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_310",
+    "amount": 822.43,
+    "category": "food",
+    "date": "2026-08-05T17:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_311",
+    "amount": 874.52,
+    "category": "bills",
+    "date": "2026-08-05T10:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_312",
+    "amount": 290.62,
+    "category": "transport",
+    "date": "2026-08-05T03:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_313",
+    "amount": 738.49,
+    "category": "food",
+    "date": "2026-08-04T20:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_314",
+    "amount": 1106.48,
+    "category": "bills",
+    "date": "2026-08-04T13:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_315",
+    "amount": 548.69,
+    "category": "other",
+    "date": "2026-08-04T06:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_316",
+    "amount": 814.23,
+    "category": "bills",
+    "date": "2026-08-03T23:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_317",
+    "amount": 134.12,
+    "category": "food",
+    "date": "2026-08-03T16:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_318",
+    "amount": 982.04,
+    "category": "transport",
+    "date": "2026-08-03T09:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_319",
+    "amount": 852.53,
+    "category": "transport",
+    "date": "2026-08-03T02:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_320",
+    "amount": 84.38,
+    "category": "fun",
+    "date": "2026-08-02T19:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_321",
+    "amount": 1644.47,
+    "category": "transport",
+    "date": "2026-08-02T12:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_322",
+    "amount": 989.52,
+    "category": "food",
+    "date": "2026-08-02T05:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_323",
+    "amount": 169.04,
+    "category": "fun",
+    "date": "2026-08-01T22:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_324",
+    "amount": 516.02,
+    "category": "bills",
+    "date": "2026-08-01T15:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_325",
+    "amount": 893.85,
+    "category": "other",
+    "date": "2026-08-01T08:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_326",
+    "amount": 883.1,
+    "category": "bills",
+    "date": "2026-08-01T01:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_327",
+    "amount": 1883.61,
+    "category": "bills",
+    "date": "2026-07-31T18:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_328",
+    "amount": 784.63,
+    "category": "bills",
+    "date": "2026-07-31T11:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_329",
+    "amount": 1666.94,
+    "category": "other",
+    "date": "2026-07-31T04:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_330",
+    "amount": 618.06,
+    "category": "food",
+    "date": "2026-07-30T21:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_331",
+    "amount": 1880.82,
+    "category": "fun",
+    "date": "2026-07-30T14:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_332",
+    "amount": 663.1,
+    "category": "fun",
+    "date": "2026-07-30T07:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_333",
+    "amount": 352.88,
+    "category": "fun",
+    "date": "2026-07-30T00:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_334",
+    "amount": 27.82,
+    "category": "transport",
+    "date": "2026-07-29T17:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_335",
+    "amount": 1596.88,
+    "category": "transport",
+    "date": "2026-07-29T10:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_336",
+    "amount": 842.67,
+    "category": "bills",
+    "date": "2026-07-29T03:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_337",
+    "amount": 1566.63,
+    "category": "bills",
+    "date": "2026-07-28T20:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_338",
+    "amount": 522.24,
+    "category": "other",
+    "date": "2026-07-28T13:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_339",
+    "amount": 653.3,
+    "category": "transport",
+    "date": "2026-07-28T06:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_340",
+    "amount": 1707.74,
+    "category": "food",
+    "date": "2026-07-27T23:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_341",
+    "amount": 1453.59,
+    "category": "fun",
+    "date": "2026-07-27T16:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_342",
+    "amount": 1123.18,
+    "category": "transport",
+    "date": "2026-07-27T09:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_343",
+    "amount": 699.39,
+    "category": "food",
+    "date": "2026-07-27T02:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_344",
+    "amount": 257.76,
+    "category": "transport",
+    "date": "2026-07-26T19:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_345",
+    "amount": 1865.62,
+    "category": "fun",
+    "date": "2026-07-26T12:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_346",
+    "amount": 618.93,
+    "category": "transport",
+    "date": "2026-07-26T05:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_347",
+    "amount": 1213.28,
+    "category": "fun",
+    "date": "2026-07-25T22:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_348",
+    "amount": 1746.75,
+    "category": "other",
+    "date": "2026-07-25T15:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_349",
+    "amount": 775.13,
+    "category": "bills",
+    "date": "2026-07-25T08:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_350",
+    "amount": 706.67,
+    "category": "other",
+    "date": "2026-07-25T01:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_351",
+    "amount": 1939.79,
+    "category": "bills",
+    "date": "2026-07-24T18:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_352",
+    "amount": 1156.85,
+    "category": "transport",
+    "date": "2026-07-24T11:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_353",
+    "amount": 648.14,
+    "category": "transport",
+    "date": "2026-07-24T04:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_354",
+    "amount": 742.55,
+    "category": "transport",
+    "date": "2026-07-23T21:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_355",
+    "amount": 174.88,
+    "category": "bills",
+    "date": "2026-07-23T14:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_356",
+    "amount": 649.74,
+    "category": "bills",
+    "date": "2026-07-23T07:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_357",
+    "amount": 1717.65,
+    "category": "food",
+    "date": "2026-07-23T00:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_358",
+    "amount": 273.25,
+    "category": "food",
+    "date": "2026-07-22T17:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_359",
+    "amount": 610.85,
+    "category": "fun",
+    "date": "2026-07-22T10:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_360",
+    "amount": 110.8,
+    "category": "bills",
+    "date": "2026-07-22T03:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_361",
+    "amount": 317.51,
+    "category": "transport",
+    "date": "2026-07-21T20:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_362",
+    "amount": 1579.15,
+    "category": "transport",
+    "date": "2026-07-21T13:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_363",
+    "amount": 980.79,
+    "category": "food",
+    "date": "2026-07-21T06:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_364",
+    "amount": 1585.83,
+    "category": "fun",
+    "date": "2026-07-20T23:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_365",
+    "amount": 282.29,
+    "category": "food",
+    "date": "2026-07-20T16:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_366",
+    "amount": 103.18,
+    "category": "transport",
+    "date": "2026-07-20T09:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_367",
+    "amount": 375.59,
+    "category": "bills",
+    "date": "2026-07-20T02:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_368",
+    "amount": 673.24,
+    "category": "transport",
+    "date": "2026-07-19T19:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_369",
+    "amount": 1924.49,
+    "category": "other",
+    "date": "2026-07-19T12:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_370",
+    "amount": 862.86,
+    "category": "food",
+    "date": "2026-07-19T05:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_371",
+    "amount": 490.34,
+    "category": "bills",
+    "date": "2026-07-18T22:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_372",
+    "amount": 538.22,
+    "category": "food",
+    "date": "2026-07-18T15:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_373",
+    "amount": 1441.66,
+    "category": "fun",
+    "date": "2026-07-18T08:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_374",
+    "amount": 1074.99,
+    "category": "food",
+    "date": "2026-07-18T01:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_375",
+    "amount": 1745.7,
+    "category": "fun",
+    "date": "2026-07-17T18:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_376",
+    "amount": 243.95,
+    "category": "other",
+    "date": "2026-07-17T11:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_377",
+    "amount": 1827.96,
+    "category": "fun",
+    "date": "2026-07-17T04:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_378",
+    "amount": 747.65,
+    "category": "fun",
+    "date": "2026-07-16T21:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_379",
+    "amount": 139.63,
+    "category": "fun",
+    "date": "2026-07-16T14:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_380",
+    "amount": 941.33,
+    "category": "other",
+    "date": "2026-07-16T07:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_381",
+    "amount": 52.74,
+    "category": "fun",
+    "date": "2026-07-16T00:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_382",
+    "amount": 1029.27,
+    "category": "transport",
+    "date": "2026-07-15T17:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_383",
+    "amount": 20.4,
+    "category": "transport",
+    "date": "2026-07-15T10:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_384",
+    "amount": 1115.84,
+    "category": "transport",
+    "date": "2026-07-15T03:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_385",
+    "amount": 1069.87,
+    "category": "food",
+    "date": "2026-07-14T20:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_386",
+    "amount": 431.1,
+    "category": "fun",
+    "date": "2026-07-14T13:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_387",
+    "amount": 140.51,
+    "category": "food",
+    "date": "2026-07-14T06:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_388",
+    "amount": 238.38,
+    "category": "fun",
+    "date": "2026-07-13T23:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_389",
+    "amount": 455.06,
+    "category": "other",
+    "date": "2026-07-13T16:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_390",
+    "amount": 747.64,
+    "category": "bills",
+    "date": "2026-07-13T09:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_391",
+    "amount": 455.32,
+    "category": "other",
+    "date": "2026-07-13T02:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_392",
+    "amount": 1010.93,
+    "category": "food",
+    "date": "2026-07-12T19:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_393",
+    "amount": 795.66,
+    "category": "transport",
+    "date": "2026-07-12T12:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_394",
+    "amount": 1270.46,
+    "category": "food",
+    "date": "2026-07-12T05:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_395",
+    "amount": 1597.9,
+    "category": "food",
+    "date": "2026-07-11T22:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_396",
+    "amount": 1872.27,
+    "category": "food",
+    "date": "2026-07-11T15:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_397",
+    "amount": 1633.05,
+    "category": "transport",
+    "date": "2026-07-11T08:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_398",
+    "amount": 519.09,
+    "category": "other",
+    "date": "2026-07-11T01:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_399",
+    "amount": 1487.23,
+    "category": "transport",
+    "date": "2026-07-10T18:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_400",
+    "amount": 1052.9,
+    "category": "food",
+    "date": "2026-07-10T11:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_401",
+    "amount": 946.64,
+    "category": "fun",
+    "date": "2026-07-10T04:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_402",
+    "amount": 652.65,
+    "category": "transport",
+    "date": "2026-07-09T21:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_403",
+    "amount": 1479.14,
+    "category": "food",
+    "date": "2026-07-09T14:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_404",
+    "amount": 313.62,
+    "category": "bills",
+    "date": "2026-07-09T07:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_405",
+    "amount": 1199.67,
+    "category": "other",
+    "date": "2026-07-09T00:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_406",
+    "amount": 812.95,
+    "category": "fun",
+    "date": "2026-07-08T17:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_407",
+    "amount": 1025.29,
+    "category": "fun",
+    "date": "2026-07-08T10:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_408",
+    "amount": 1325.1,
+    "category": "fun",
+    "date": "2026-07-08T03:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_409",
+    "amount": 66.27,
+    "category": "transport",
+    "date": "2026-07-07T20:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_410",
+    "amount": 1288.19,
+    "category": "other",
+    "date": "2026-07-07T13:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_411",
+    "amount": 1176.3,
+    "category": "transport",
+    "date": "2026-07-07T06:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_412",
+    "amount": 1245.51,
+    "category": "transport",
+    "date": "2026-07-06T23:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_413",
+    "amount": 180.95,
+    "category": "food",
+    "date": "2026-07-06T16:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_414",
+    "amount": 1133.78,
+    "category": "bills",
+    "date": "2026-07-06T09:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_415",
+    "amount": 1163.59,
+    "category": "food",
+    "date": "2026-07-06T02:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_416",
+    "amount": 1673.38,
+    "category": "food",
+    "date": "2026-07-05T19:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_417",
+    "amount": 1927.77,
+    "category": "food",
+    "date": "2026-07-05T12:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_418",
+    "amount": 214.63,
+    "category": "other",
+    "date": "2026-07-05T05:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_419",
+    "amount": 995.54,
+    "category": "other",
+    "date": "2026-07-04T22:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_420",
+    "amount": 179.01,
+    "category": "food",
+    "date": "2026-07-04T15:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_421",
+    "amount": 350.02,
+    "category": "transport",
+    "date": "2026-07-04T08:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_422",
+    "amount": 437.82,
+    "category": "bills",
+    "date": "2026-07-04T01:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_423",
+    "amount": 924.85,
+    "category": "food",
+    "date": "2026-07-03T18:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_424",
+    "amount": 853.92,
+    "category": "transport",
+    "date": "2026-07-03T11:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_425",
+    "amount": 381.36,
+    "category": "fun",
+    "date": "2026-07-03T04:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_426",
+    "amount": 1263.57,
+    "category": "other",
+    "date": "2026-07-02T21:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_427",
+    "amount": 694.09,
+    "category": "other",
+    "date": "2026-07-02T14:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_428",
+    "amount": 980.87,
+    "category": "bills",
+    "date": "2026-07-02T07:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_429",
+    "amount": 482.35,
+    "category": "transport",
+    "date": "2026-07-02T00:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_430",
+    "amount": 1673.73,
+    "category": "transport",
+    "date": "2026-07-01T17:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_431",
+    "amount": 992.86,
+    "category": "bills",
+    "date": "2026-07-01T10:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_432",
+    "amount": 306.67,
+    "category": "bills",
+    "date": "2026-07-01T03:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_433",
+    "amount": 1192.61,
+    "category": "bills",
+    "date": "2026-06-30T20:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_434",
+    "amount": 1409.3,
+    "category": "bills",
+    "date": "2026-06-30T13:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_435",
+    "amount": 699.03,
+    "category": "bills",
+    "date": "2026-06-30T06:00:00",
+    "note": "Telefon"
+  },
+  {
+    "id": "ornek_436",
+    "amount": 1518.51,
+    "category": "bills",
+    "date": "2026-06-29T23:00:00",
+    "note": "Su"
+  },
+  {
+    "id": "ornek_437",
+    "amount": 872.24,
+    "category": "bills",
+    "date": "2026-06-29T16:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_438",
+    "amount": 608.05,
+    "category": "fun",
+    "date": "2026-06-29T09:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_439",
+    "amount": 1954.28,
+    "category": "other",
+    "date": "2026-06-29T02:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_440",
+    "amount": 1357.94,
+    "category": "bills",
+    "date": "2026-06-28T19:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_441",
+    "amount": 1680.72,
+    "category": "bills",
+    "date": "2026-06-28T12:00:00",
+    "note": "İnternet"
+  },
+  {
+    "id": "ornek_442",
+    "amount": 93.58,
+    "category": "food",
+    "date": "2026-06-28T05:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_443",
+    "amount": 767.76,
+    "category": "transport",
+    "date": "2026-06-27T22:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_444",
+    "amount": 1348.95,
+    "category": "fun",
+    "date": "2026-06-27T15:00:00",
+    "note": "Kitap"
+  },
+  {
+    "id": "ornek_445",
+    "amount": 351.09,
+    "category": "food",
+    "date": "2026-06-27T08:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_446",
+    "amount": 1610.68,
+    "category": "transport",
+    "date": "2026-06-27T01:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_447",
+    "amount": 147.58,
+    "category": "food",
+    "date": "2026-06-26T18:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_448",
+    "amount": 935.51,
+    "category": "other",
+    "date": "2026-06-26T11:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_449",
+    "amount": 1376.24,
+    "category": "food",
+    "date": "2026-06-26T04:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_450",
+    "amount": 592.88,
+    "category": "other",
+    "date": "2026-06-25T21:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_451",
+    "amount": 794.45,
+    "category": "other",
+    "date": "2026-06-25T14:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_452",
+    "amount": 965.06,
+    "category": "transport",
+    "date": "2026-06-25T07:00:00",
+    "note": "Otopark"
+  },
+  {
+    "id": "ornek_453",
+    "amount": 358.23,
+    "category": "transport",
+    "date": "2026-06-25T00:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_454",
+    "amount": 1859.59,
+    "category": "transport",
+    "date": "2026-06-24T17:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_455",
+    "amount": 256.14,
+    "category": "fun",
+    "date": "2026-06-24T10:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_456",
+    "amount": 1749.49,
+    "category": "transport",
+    "date": "2026-06-24T03:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_457",
+    "amount": 697.68,
+    "category": "fun",
+    "date": "2026-06-23T20:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_458",
+    "amount": 1695.69,
+    "category": "food",
+    "date": "2026-06-23T13:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_459",
+    "amount": 1697.41,
+    "category": "other",
+    "date": "2026-06-23T06:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_460",
+    "amount": 1361.81,
+    "category": "other",
+    "date": "2026-06-22T23:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_461",
+    "amount": 437.79,
+    "category": "transport",
+    "date": "2026-06-22T16:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_462",
+    "amount": 166.29,
+    "category": "food",
+    "date": "2026-06-22T09:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_463",
+    "amount": 491.69,
+    "category": "fun",
+    "date": "2026-06-22T02:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_464",
+    "amount": 158.03,
+    "category": "transport",
+    "date": "2026-06-21T19:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_465",
+    "amount": 1610.99,
+    "category": "food",
+    "date": "2026-06-21T12:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_466",
+    "amount": 1088.12,
+    "category": "transport",
+    "date": "2026-06-21T05:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_467",
+    "amount": 1599.05,
+    "category": "other",
+    "date": "2026-06-20T22:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_468",
+    "amount": 462.8,
+    "category": "other",
+    "date": "2026-06-20T15:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_469",
+    "amount": 792.12,
+    "category": "food",
+    "date": "2026-06-20T08:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_470",
+    "amount": 1880.37,
+    "category": "fun",
+    "date": "2026-06-20T01:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_471",
+    "amount": 1149.64,
+    "category": "fun",
+    "date": "2026-06-19T18:00:00",
+    "note": "Oyun"
+  },
+  {
+    "id": "ornek_472",
+    "amount": 1949.46,
+    "category": "food",
+    "date": "2026-06-19T11:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_473",
+    "amount": 597.31,
+    "category": "transport",
+    "date": "2026-06-19T04:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_474",
+    "amount": 613.95,
+    "category": "bills",
+    "date": "2026-06-18T21:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_475",
+    "amount": 884.53,
+    "category": "food",
+    "date": "2026-06-18T14:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_476",
+    "amount": 702.27,
+    "category": "food",
+    "date": "2026-06-18T07:00:00",
+    "note": "Fırın"
+  },
+  {
+    "id": "ornek_477",
+    "amount": 700.45,
+    "category": "other",
+    "date": "2026-06-18T00:00:00",
+    "note": "Eczane"
+  },
+  {
+    "id": "ornek_478",
+    "amount": 228.92,
+    "category": "transport",
+    "date": "2026-06-17T17:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_479",
+    "amount": 687.54,
+    "category": "transport",
+    "date": "2026-06-17T10:00:00",
+    "note": "Taksi"
+  },
+  {
+    "id": "ornek_480",
+    "amount": 422.29,
+    "category": "transport",
+    "date": "2026-06-17T03:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_481",
+    "amount": 1023.97,
+    "category": "transport",
+    "date": "2026-06-16T20:00:00",
+    "note": "Benzin"
+  },
+  {
+    "id": "ornek_482",
+    "amount": 631.96,
+    "category": "other",
+    "date": "2026-06-16T13:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_483",
+    "amount": 1235.74,
+    "category": "other",
+    "date": "2026-06-16T06:00:00",
+    "note": "Kargo"
+  },
+  {
+    "id": "ornek_484",
+    "amount": 1833.76,
+    "category": "other",
+    "date": "2026-06-15T23:00:00",
+    "note": "Kırtasiye"
+  },
+  {
+    "id": "ornek_485",
+    "amount": 1151.13,
+    "category": "food",
+    "date": "2026-06-15T16:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_486",
+    "amount": 811.75,
+    "category": "other",
+    "date": "2026-06-15T09:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_487",
+    "amount": 1637.16,
+    "category": "fun",
+    "date": "2026-06-15T02:00:00",
+    "note": "Sinema"
+  },
+  {
+    "id": "ornek_488",
+    "amount": 454.69,
+    "category": "other",
+    "date": "2026-06-14T19:00:00",
+    "note": "Hediye"
+  },
+  {
+    "id": "ornek_489",
+    "amount": 75.52,
+    "category": "food",
+    "date": "2026-06-14T12:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_490",
+    "amount": 1635.45,
+    "category": "food",
+    "date": "2026-06-14T05:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_491",
+    "amount": 376.82,
+    "category": "bills",
+    "date": "2026-06-13T22:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_492",
+    "amount": 114.18,
+    "category": "food",
+    "date": "2026-06-13T15:00:00",
+    "note": "Öğle yemeği"
+  },
+  {
+    "id": "ornek_493",
+    "amount": 1832.16,
+    "category": "food",
+    "date": "2026-06-13T08:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_494",
+    "amount": 177.39,
+    "category": "food",
+    "date": "2026-06-13T01:00:00",
+    "note": "Kahve"
+  },
+  {
+    "id": "ornek_495",
+    "amount": 1404.57,
+    "category": "transport",
+    "date": "2026-06-12T18:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_496",
+    "amount": 285.79,
+    "category": "fun",
+    "date": "2026-06-12T11:00:00",
+    "note": "Konser"
+  },
+  {
+    "id": "ornek_497",
+    "amount": 537.57,
+    "category": "transport",
+    "date": "2026-06-12T04:00:00",
+    "note": "Akbil"
+  },
+  {
+    "id": "ornek_498",
+    "amount": 95.24,
+    "category": "food",
+    "date": "2026-06-11T21:00:00",
+    "note": "Market alışverişi"
+  },
+  {
+    "id": "ornek_499",
+    "amount": 1255.72,
+    "category": "bills",
+    "date": "2026-06-11T14:00:00",
+    "note": "Elektrik"
+  },
+  {
+    "id": "ornek_500",
+    "amount": 261.53,
+    "category": "transport",
+    "date": "2026-06-11T07:00:00",
+    "note": "Taksi"
+  }
+]

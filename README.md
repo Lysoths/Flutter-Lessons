@@ -178,7 +178,8 @@ Ana sayfa → *Sayfalı liste*: 500 örnek harcama 20'şer (25 sayfa) yüklenir.
 | Katman | Dosya |
 |---|---|
 | Depo (arayüz) | `core/repository/sample_expense_repository.dart` → `fetchPage(page, pageSize)` |
-| Depo (sahte) | `core/repository/dummy_sample_expense_repository.dart` — sabit tohumlu 500 kayıt, sayfa başı 0,6 sn bekleme |
+| Veri dosyası | `assets/data/ornek_harcamalar.json` — 500 kayıt (pubspec → `assets/data/`) |
+| Depo (JSON) | `core/repository/json_sample_expense_repository.dart` — `rootBundle.loadString` → `jsonDecode` → `Expense.fromJson`; dosya bir kez okunur, sayfa başı 0,6 sn bekleme |
 | Durum | `views/view_paged_list/cubit/paged_list_state.dart` — `status`, `items`, `page`, `hasMore`, `total` |
 | View model | `views/view_paged_list/cubit/paged_list_cubit.dart` — `loadFirstPage`, `loadNextPage`, `refresh`, `retry` |
 | Ekran | `views/view_paged_list/paged_list_view.dart` |
@@ -189,7 +190,7 @@ Ana sayfa → *Sayfalı liste*: 500 örnek harcama 20'şer (25 sayfa) yüklenir.
   Cubit aynı anda tek istek atar, kayıtlar bitince istek atmaz.
 - `itemCount = kayıt + 1`: son satır *yükleniyor / tekrar dene / hepsi bu kadar*.
 - Aşağı çekince (`RefreshIndicator`) 1. sayfaya döner.
-- Sahte kayıtlar yalnızca bellekte; gerçek harcamalara yazılmaz. Rota deep
+- Örnek kayıtlar yalnızca okunur; gerçek harcamalara yazılmaz. Rota deep
   link beyaz listesinde yok.
 
 **2. ekran — Sayfalı ızgara** (ana sayfa → *Sayfalı ızgara*,
@@ -201,6 +202,21 @@ sığmayacağı için `CustomScrollView` içinde `SliverGrid.builder` +
 `SliverToBoxAdapter` kullanılır (`GridView.builder` da içeride aynı
 `SliverGrid`'i kurar). Sayaç ve alt satır iki ekranda ortaktır:
 `view_paged_list/widgets/paged_status_widgets.dart`.
+
+**Lazy loading — iki sekme** (liste ve ızgarada *Standart* / *İskelet*):
+her sekmenin kendi cubit'i var, birbirinden bağımsız sayfalanır
+(`view_paged_list/widgets/paged_tab.dart`, `AutomaticKeepAliveClientMixin`
+ile sekme değişince içerik korunur).
+
+| | Standart | İskelet |
+|---|---|---|
+| Açılışta | ortada dönen gösterge | 8 iskelet satır/kart |
+| Sonraki sayfa beklenirken | en altta dönen gösterge | listenin sonunda 3 satır / 4 kart iskelet |
+
+İskelet paket kullanmadan yazıldı (`widgets/skeleton.dart`): `SkeletonBox`
+gri kutular, `Shimmer` ise `ShaderMask` + kayan `LinearGradient` ile
+üstlerinden parıltı geçirir. Sistemde "animasyonları azalt" açıksa parıltı
+oynamaz.
 
 ## Komutlar
 

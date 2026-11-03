@@ -50,13 +50,22 @@ class PagedCounter extends StatelessWidget {
 /// "hepsi bu kadar".
 class PagedFooter extends StatelessWidget {
   /// [state] için alt satırı oluşturur.
-  const PagedFooter({required this.state, required this.onRetry, super.key});
+  const PagedFooter({
+    required this.state,
+    required this.onRetry,
+    this.showSpinner = true,
+    super.key,
+  });
 
   /// Listenin durumu.
   final PagedListState state;
 
   /// "Tekrar dene" düğmesi.
   final VoidCallback onRetry;
+
+  /// Sonraki sayfa beklenirken dönen gösterge çizilsin mi? İskelet
+  /// biçiminde onun yerine iskelet kartlar gösterildiği için `false`.
+  final bool showSpinner;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +84,7 @@ class PagedFooter extends StatelessWidget {
         ),
       );
     }
+    if (!showSpinner) return const SizedBox(height: 16);
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Center(

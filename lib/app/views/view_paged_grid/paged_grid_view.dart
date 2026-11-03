@@ -1,24 +1,33 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/views/view_paged_grid/widgets/expense_grid_card.dart';
+import 'package:flutter_ders/app/views/view_paged_grid/widgets/expense_grid_card_skeleton.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_state.dart';
 import 'package:flutter_ders/app/views/view_paged_list/widgets/paged_status_widgets.dart';
+import 'package:flutter_ders/app/views/view_paged_list/widgets/paged_tab.dart';
 
 // ─────────────────────────────────────────────────────────────────────────
-// DERS 7 — Sayfalama + GridView.builder (2. ekran)
+// DERS 7 — Sayfalama + GridView.builder (2. ekran) + lazy loading
 //
-// Veri tarafı liste ekranıyla AYNI: aynı depo, aynı PagedListCubit.
-// Değişen yalnızca görünüm. GridView.builder da ListView.builder gibi
-// yalnızca görünen kartları oluşturur.
+// Veri tarafı liste ekranıyla AYNI: aynı depo, aynı PagedListCubit,
+// aynı iki sekme (Standart / İskelet). Değişen yalnızca görünüm.
 //
 // Izgarada "en alttaki satır" bir hücreye sığmaz (tek sütun genişliğinde
 // kalırdı). Bu yüzden CustomScrollView kullanılır:
 //   SliverGrid         → kartlar (GridView.builder'ın içindeki parça)
 //   SliverToBoxAdapter → tam genişlikte yükleniyor / hepsi bu kadar satırı
 // ─────────────────────────────────────────────────────────────────────────
+
+/// Kart en fazla 200 px genişlikte: telefonda 2, geniş ekranda daha çok
+/// sütun olur.
+const _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
+  maxCrossAxisExtent: 200,
+  mainAxisExtent: 150,
+  mainAxisSpacing: 10,
+  crossAxisSpacing: 10,
+);
 
 /// 500 örnek harcamayı sayfa sayfa ızgarada gösteren ekran.
 @RoutePage()
@@ -28,107 +37,111 @@ class PagedGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PagedListCubit>(
-      create: (_) => getIt<PagedListCubit>()..loadFirstPage(),
-      child: const _PagedGridBody(),
+    final t = Theme.of(context).textTheme;
+    return DefaultTabController(
+      length: LoadingStyle.values.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Sayfalı ızgara'),
+          titleTextStyle: t.titleLarge,
+          bottom: TabBar(
+            tabs: [
+              for (final s in LoadingStyle.values)
+                Tab(key: Key('pagedTab_${s.name}'), text: s.label),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            for (final s in LoadingStyle.values)
+              PagedTab(
+                builder: (context, state, scroll) =>
+                    _PagedGrid(style: s, state: state, scroll: scroll),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class _PagedGridBody extends StatefulWidget {
-  const _PagedGridBody();
+class _PagedGrid extends StatelessWidget {
+  const _PagedGrid({
+    required this.style,
+    required this.state,
+    required this.scroll,
+  });
 
-  @override
-  State<_PagedGridBody> createState() => _PagedGridBodyState();
-}
+  /// İlk açılışta kaç iskelet kart çizilir.
+  static const _initialSkeletons = 8;
 
-class _PagedGridBodyState extends State<_PagedGridBody> {
-  static const _loadMoreThreshold = 300.0;
+  /// Devamı beklenirken ızgaranın sonuna kaç iskelet kart eklenir.
+  static const _tailSkeletons = 4;
 
-  final ScrollController _scroll = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scroll.addListener(_onScroll);
-  }
-
-  void _onScroll() {
-    if (_scroll.position.extentAfter < _loadMoreThreshold) {
-      context.read<PagedListCubit>().loadNextPage();
-    }
-  }
-
-  @override
-  void dispose() {
-    _scroll.dispose();
-    super.dispose();
-  }
+  final LoadingStyle style;
+  final PagedListState state;
+  final ScrollController scroll;
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
+    final cubit = context.read<PagedListCubit>();
+    final skeleton = style == LoadingStyle.skeleton;
     final pad = MediaQuery.paddingOf(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sayfalı ızgara'),
-        titleTextStyle: t.titleLarge,
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(40),
-          child: PagedCounter(),
+    final gridPadding = EdgeInsets.fromLTRB(
+      pad.left + 20,
+      8,
+      pad.right + 20,
+      0,
+    );
+
+    if (state.items.isEmpty) {
+      if (state.status == PagedListStatus.failure) {
+        return Center(child: PagedRetry(onRetry: cubit.retry));
+      }
+      if (!skeleton) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      return GridView.builder(
+        key: const Key('pagedGrid_initialSkeleton'),
+        physics: const NeverScrollableScrollPhysics(),
+        padding: gridPadding,
+        gridDelegate: _gridDelegate,
+        itemCount: _initialSkeletons,
+        itemBuilder: (_, _) => const ExpenseGridCardSkeleton(),
+      );
+    }
+
+    final tail =
+        skeleton && state.hasMore && state.status != PagedListStatus.failure
+        ? _tailSkeletons
+        : 0;
+    return CustomScrollView(
+      key: Key('pagedGrid_grid_${style.name}'),
+      controller: scroll,
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        SliverPadding(
+          padding: gridPadding,
+          sliver: SliverGrid.builder(
+            gridDelegate: _gridDelegate,
+            itemCount: state.items.length + tail,
+            itemBuilder: (context, index) => index < state.items.length
+                ? ExpenseGridCard(
+                    expense: state.items[index],
+                    number: index + 1,
+                  )
+                : const ExpenseGridCardSkeleton(),
+          ),
         ),
-      ),
-      body: BlocBuilder<PagedListCubit, PagedListState>(
-        builder: (context, state) {
-          final cubit = context.read<PagedListCubit>();
-          if (state.items.isEmpty) {
-            return switch (state.status) {
-              PagedListStatus.failure => Center(
-                child: PagedRetry(onRetry: cubit.retry),
-              ),
-              _ => const Center(child: CircularProgressIndicator()),
-            };
-          }
-          return RefreshIndicator(
-            onRefresh: cubit.refresh,
-            child: CustomScrollView(
-              key: const Key('pagedGrid_grid'),
-              controller: _scroll,
-              physics: const AlwaysScrollableScrollPhysics(),
-              slivers: [
-                SliverPadding(
-                  padding: EdgeInsets.fromLTRB(
-                    pad.left + 20,
-                    8,
-                    pad.right + 20,
-                    0,
-                  ),
-                  sliver: SliverGrid.builder(
-                    // Kart en fazla 200 px genişlikte: telefonda 2,
-                    // tablette/yatayda daha çok sütun olur.
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          mainAxisExtent: 150,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                        ),
-                    itemCount: state.items.length,
-                    itemBuilder: (context, index) => ExpenseGridCard(
-                      expense: state.items[index],
-                      number: index + 1,
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: PagedFooter(state: state, onRetry: cubit.retry),
-                ),
-                SliverToBoxAdapter(child: SizedBox(height: pad.bottom + 8)),
-              ],
-            ),
-          );
-        },
-      ),
+        SliverToBoxAdapter(
+          child: PagedFooter(
+            state: state,
+            onRetry: cubit.retry,
+            showSpinner: !skeleton,
+          ),
+        ),
+        SliverToBoxAdapter(child: SizedBox(height: pad.bottom + 8)),
+      ],
     );
   }
 }
