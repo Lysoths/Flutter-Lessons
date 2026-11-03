@@ -194,6 +194,22 @@ class CategoryExpensesRouteArgs {
 }
 
 /// generated route for
+/// [DeviceView]
+class DeviceRoute extends PageRouteInfo<void> {
+  const DeviceRoute({List<PageRouteInfo>? children})
+    : super(DeviceRoute.name, initialChildren: children);
+
+  static const String name = 'DeviceRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DeviceView();
+    },
+  );
+}
+
+/// generated route for
 /// [DocumentsView]
 class DocumentsRoute extends PageRouteInfo<void> {
   const DocumentsRoute({List<PageRouteInfo>? children})

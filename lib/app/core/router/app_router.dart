@@ -8,6 +8,7 @@ import 'package:flutter_ders/app/views/view_animations/animation_demo_view.dart'
 import 'package:flutter_ders/app/views/view_animations/animations_view.dart';
 import 'package:flutter_ders/app/views/view_audio_player/audio_player_view.dart';
 import 'package:flutter_ders/app/views/view_category/category_expenses_view.dart';
+import 'package:flutter_ders/app/views/view_device/device_view.dart';
 import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
@@ -47,6 +48,7 @@ part 'app_router.gr.dart';
 //   StorageHubView       → StorageHubRoute()               (Ders 10)
 //   SharedPreferencesView / HiveStorageView / SqfliteStorageView (Ders 10)
 //   NetworkView          → NetworkRoute()                  (Ders 11)
+//   DeviceView           → DeviceRoute()                   (Ders 12)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -132,6 +134,8 @@ class AppRouter extends RootStackRouter {
       '/ornek-liste',
       RouteAnimation.slideFromRight,
     ),
+    // DERS 12 — GPS ve sensörler. Deep link beyaz listesinde yok.
+    _animated(DeviceRoute.page, '/konum-sensor', RouteAnimation.slideFromRight),
     // DERS 11 — Ağ kontrolü. Deep link beyaz listesinde yok.
     _animated(NetworkRoute.page, '/ag', RouteAnimation.slideFromRight),
     // DERS 10 — Sync/async ve yerel depolama. Deep link beyaz listesinde yok.

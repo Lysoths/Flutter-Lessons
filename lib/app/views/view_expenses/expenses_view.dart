@@ -190,6 +190,15 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'FutureBuilder, StreamBuilder ve WebSocket',
                 onTap: () => context.router.push(const NetworkRoute()),
               ),
+              const Gap(10),
+              // DERS 12 — GPS ve sensörler.
+              _EntryCard(
+                key: const Key('expensesView_device'),
+                icon: Icons.sensors_rounded,
+                title: 'Konum ve sensörler',
+                subtitle: 'Canlı GPS, su terazisi, pusula, sallama',
+                onTap: () => context.router.push(const DeviceRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- DERS 11 — Ağ kontrolü: yayın (release) sürümünde de internete çıkabilsin. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- DERS 12 — GPS: konum yalnızca ekranda gösterilir, saklanmaz. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:label="flutter_ders"
         android:name="${applicationName}"

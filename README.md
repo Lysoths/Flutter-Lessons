@@ -347,6 +347,40 @@ yazılan mesajı geri yollar. İstemci gerçek bir `WebSocket`'tir;
 
 Android: `INTERNET` izni ana manifeste eklendi (yayın sürümü için).
 
+### Ders 12 — GPS ve sensörler: donanımdan canlı veri
+
+Ana sayfa → *Konum ve sensörler* (`views/view_device/`), iki sekme.
+Donanım ölçtükçe bir `Stream`'e yeni değer koyar; ekran `StreamBuilder` ile
+her değerde yeniden çizilir (Ders 11'deki fikir).
+
+**GPS** (`core/device/location_source.dart`, paket `geolocator`):
+1. İzin (`Future`): konum servisi açık mı, izin var mı? Yoksa ister;
+   kalıcı reddedilmişse "Ayarları aç" gösterilir.
+2. Konum akışı (`Stream`): saniyede bir enlem, boylam, doğruluk (± m), hız,
+   yön, yükseklik. Yürüdükçe iz çizilir, mesafe haversine formülüyle
+   toplanır; doğruluk yarıçapından küçük "titreme" adımları sayılmaz.
+Konum yalnızca ekranda gösterilir: kaydedilmez, gönderilmez.
+İzinler: Android `ACCESS_FINE/COARSE_LOCATION`, iOS
+`NSLocationWhenInUseUsageDescription`.
+
+**Sensörler** (`core/device/sensor_source.dart`, paket `sensors_plus`).
+Eksenler telefona göre: x sağ, y üst, z ekrandan size.
+
+| Sensör | Birim | Ekranda |
+|---|---|---|
+| İvmeölçer (yerçekimi dahil) | m/s² | su terazisi, eğim açıları, canlı x/y/z grafiği |
+| Manyetometre | µT | yaklaşık pusula (telefon düzken), alan şiddeti |
+| Jiroskop | rad/s | eksenlerde dönüş hızı |
+| Kullanıcı ivmesi (yerçekimi hariç) | m/s² | sallama sayacı (12 m/s² üstü) |
+
+Her kartta saniyedeki ölçüm sayısı (Hz) ve `ConnectionState` görünür.
+Donanım `LocationSource` / `SensorSource` arayüzlerinin arkasında; testte
+sahte akışlar verilir.
+
+Not: Bu iki sayfada ve ağ sayfasında tembel `ListView` yerine
+`SingleChildScrollView` kullanılır: ekrandan çıkan kart yok edilirse,
+yeniden kurulan `StreamBuilder` aynı akışı ikinci kez dinleyemez.
+
 ## Komutlar
 
 ```bash

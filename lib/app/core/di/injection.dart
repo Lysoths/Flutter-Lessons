@@ -1,3 +1,5 @@
+import 'package:flutter_ders/app/core/device/location_source.dart';
+import 'package:flutter_ders/app/core/device/sensor_source.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/json_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/local_expense_repository.dart';
@@ -35,6 +37,9 @@ Future<void> configureDependencies() async {
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),
     )
+    // DERS 12 — Donanım: GPS ve sensörler (testte sahteleri verilir).
+    ..registerLazySingleton<LocationSource>(GeolocatorLocationSource.new)
+    ..registerLazySingleton<SensorSource>(DeviceSensorSource.new)
     // DERS 11 — Ağ kontrolü: tek helper, banner ve sayfa ortak kullanır.
     ..registerLazySingleton<NetworkChecker>(NetworkChecker.new)
     // DERS 10 — Üç depolama yöntemi; adlarıyla (instanceName) ayrılır.
