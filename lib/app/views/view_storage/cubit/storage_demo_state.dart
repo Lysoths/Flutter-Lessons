@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/models/storage_note.dart';
 
 /// Depolama ekranının ne yaptığı.
@@ -16,8 +17,9 @@ enum StorageDemoStatus {
   failure,
 }
 
-/// Toplu yazma / okuma ölçümünün sonucu.
-typedef StorageBenchmark = ({int count, Duration write, Duration read});
+/// Toplu yazma / okuma ölçümünün sonucu: kaç kayıt, adım adım süreler ve
+/// diskte kapladığı yer.
+typedef StorageBenchmark = ({int count, List<BenchmarkStep> steps, int? bytes});
 
 /// DERS 10 — Depolama ekranının durumu.
 final class StorageDemoState extends Equatable {
@@ -27,6 +29,7 @@ final class StorageDemoState extends Equatable {
     this.notes = const [],
     this.raw = '',
     this.benchmark,
+    this.benchmarkSize = 1000,
     this.error,
   });
 
@@ -42,6 +45,9 @@ final class StorageDemoState extends Equatable {
   /// Son ölçüm (yoksa `null`).
   final StorageBenchmark? benchmark;
 
+  /// Ölçümde kaç kayıt kullanılacak.
+  final int benchmarkSize;
+
   /// Hata mesajı.
   final String? error;
 
@@ -51,17 +57,26 @@ final class StorageDemoState extends Equatable {
     List<StorageNote>? notes,
     String? raw,
     StorageBenchmark? benchmark,
+    int? benchmarkSize,
     String? error,
   }) => StorageDemoState(
     status: status ?? this.status,
     notes: notes ?? this.notes,
     raw: raw ?? this.raw,
     benchmark: benchmark ?? this.benchmark,
+    benchmarkSize: benchmarkSize ?? this.benchmarkSize,
     error: error,
   );
 
   @override
-  List<Object?> get props => [status, notes, raw, benchmark, error];
+  List<Object?> get props => [
+    status,
+    notes,
+    raw,
+    benchmark,
+    benchmarkSize,
+    error,
+  ];
 
   @override
   String toString() =>

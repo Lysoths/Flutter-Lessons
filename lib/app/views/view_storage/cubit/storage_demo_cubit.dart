@@ -56,29 +56,24 @@ class StorageDemoCubit extends BaseViewModelCubit<StorageDemoState> {
     await _refresh();
   });
 
-  /// Depoyu boşaltıp [count] kaydı tek seferde yazar, sonra hepsini okur;
-  /// iki süreyi ölçer.
-  Future<void> benchmark([int count = 1000]) => _guard(() async {
+  /// Ölçümde kullanılacak kayıt sayısını seçer.
+  void setBenchmarkSize(int size) =>
+      stateChanger(state.copyWith(benchmarkSize: size));
+
+  /// Depoyu boşaltıp [count] (verilmezse seçili sayı) kaydı tek seferde
+  /// yazar ve okur; her adımın süresini ayrı ölçer.
+  Future<void> benchmark([int? count]) => _guard(() async {
+    final n = count ?? state.benchmarkSize;
     stateChanger(state.copyWith(status: StorageDemoStatus.benchmarking));
     await store.clear();
     final now = DateTime.now();
     final notes = [
-      for (var i = 0; i < count; i++)
-        _sample(now.subtract(Duration(minutes: i))),
+      for (var i = 0; i < n; i++) _sample(now.subtract(Duration(minutes: i))),
     ];
-    final write = Stopwatch()..start();
-    await store.addAll(notes);
-    write.stop();
-    final read = Stopwatch()..start();
-    final all = await store.getAll();
-    read.stop();
+    final result = await store.benchmark(notes);
     stateChanger(
       state.copyWith(
-        benchmark: (
-          count: all.length,
-          write: write.elapsed,
-          read: read.elapsed,
-        ),
+        benchmark: (count: n, steps: result.steps, bytes: result.bytes),
       ),
     );
     await _refresh();

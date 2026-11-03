@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/models/storage_note.dart';
 
@@ -71,4 +73,36 @@ abstract interface class NoteStore {
 
   /// Verinin diskte / bellekte nasıl durduğunu anlatan ham görünüm.
   Future<String> rawView();
+
+  /// Boş depoya [notes]'u yazar, sonra okur; her adımın süresini ayrı
+  /// ölçer (dönüştürme, diske yazma, bellekten okuma, diskten okuma...).
+  Future<StoreBenchmark> benchmark(List<StorageNote> notes);
+}
+
+/// Ölçümün bir adımı.
+typedef BenchmarkStep = ({
+  /// Kısa ad (ör. "Diske yaz").
+  String label,
+
+  /// Bu adımda gerçekte ne olduğu.
+  String detail,
+
+  /// Süre.
+  Duration time,
+
+  /// Yazma tarafı mı (değilse okuma).
+  bool isWrite,
+});
+
+/// Bir ölçümün sonucu: adımlar ve verinin diskte kapladığı yer (bilinmiyorsa
+/// `null`).
+typedef StoreBenchmark = ({List<BenchmarkStep> steps, int? bytes});
+
+/// [action]'ı çalıştırıp ne kadar sürdüğünü döndürür (mikrosaniye
+/// hassasiyetinde, `Stopwatch` ile).
+Future<Duration> measure(FutureOr<void> Function() action) async {
+  final watch = Stopwatch()..start();
+  await action();
+  watch.stop();
+  return watch.elapsed;
 }

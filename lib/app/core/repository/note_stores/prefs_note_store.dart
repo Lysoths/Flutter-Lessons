@@ -71,4 +71,57 @@ class PrefsNoteStore implements NoteStore {
     return 'Tüm anahtarlar: ${keys.join(', ')}\n\n'
         "prefs.getString('$storageKey') →\n$shown";
   }
+
+  @override
+  Future<StoreBenchmark> benchmark(List<StorageNote> notes) async {
+    var json = '';
+    String? raw;
+    final encode = await measure(() {
+      json = jsonEncode([for (final n in notes) n.toMap()]);
+    });
+    final write = await measure(() => _prefs.setString(storageKey, json));
+    final memoryRead = await measure(() => raw = _prefs.getString(storageKey));
+    final decode = await measure(() {
+      final list = jsonDecode(raw!) as List<Object?>;
+      for (final m in list) {
+        StorageNote.fromMap(m! as Map<String, Object?>);
+      }
+    });
+    final diskRead = await measure(_prefs.reload);
+    return (
+      steps: <BenchmarkStep>[
+        (
+          label: "JSON'a çevir",
+          detail: 'jsonEncode: ${notes.length} nesne → tek bir metin',
+          time: encode,
+          isWrite: true,
+        ),
+        (
+          label: 'Diske yaz',
+          detail: 'setString: metnin TAMAMI ayar dosyasına yazılır',
+          time: write,
+          isWrite: true,
+        ),
+        (
+          label: 'Bellekten oku',
+          detail: 'getString: metin zaten bellekte, diske gidilmez',
+          time: memoryRead,
+          isWrite: false,
+        ),
+        (
+          label: 'Metinden nesneye',
+          detail: 'jsonDecode + fromMap: metin tekrar nesnelere çevrilir',
+          time: decode,
+          isWrite: false,
+        ),
+        (
+          label: 'Diskten yeniden yükle',
+          detail: 'reload: ayar dosyası diskten baştan okunur',
+          time: diskRead,
+          isWrite: false,
+        ),
+      ],
+      bytes: utf8.encode(json).length,
+    );
+  }
 }

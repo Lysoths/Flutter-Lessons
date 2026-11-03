@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/models/storage_note.dart';
 import 'package:path/path.dart' as p;
@@ -116,5 +118,80 @@ CREATE TABLE notes (
         'Son 3 satır:\n'
         '${rows.isEmpty ? '(boş)' : rows.map((r) => r.values.join(' | ')).join('\n')}\n\n'
         'Son SQL komutları:\n${sqlLog.join('\n')}';
+  }
+
+  @override
+  Future<StoreBenchmark> benchmark(List<StorageNote> notes) async {
+    final db = _opened;
+    var rows = <Map<String, Object?>>[];
+    var matched = 0;
+    final write = await measure(() => addAll(notes));
+    final query = await measure(() async {
+      rows = await db.query(table, orderBy: 'created_at DESC');
+    });
+    final convert = await measure(() {
+      for (final r in rows) {
+        StorageNote.fromMap(r);
+      }
+    });
+    final count = await measure(
+      () => db.rawQuery('SELECT COUNT(*) FROM notes'),
+    );
+    final filter = await measure(() async {
+      matched = (await db.query(
+        table,
+        where: 'amount > ?',
+        whereArgs: [100],
+      )).length;
+    });
+    final sum = await measure(
+      () => db.rawQuery('SELECT SUM(amount) FROM notes'),
+    );
+    final file = db.path == inMemoryDatabasePath ? null : File(db.path);
+    return (
+      steps: <BenchmarkStep>[
+        (
+          label: 'Tabloya yaz',
+          detail:
+              'transaction + batch: ${notes.length} INSERT tek işlemde '
+              'diske yazılır',
+          time: write,
+          isWrite: true,
+        ),
+        (
+          label: 'SQL sorgusu',
+          detail:
+              'SELECT * ORDER BY created_at DESC: ${rows.length} satır, '
+              'sıralamayı veritabanı yapar',
+          time: query,
+          isWrite: false,
+        ),
+        (
+          label: 'Satırdan nesneye',
+          detail: 'fromMap: her satır bir StorageNote olur',
+          time: convert,
+          isWrite: false,
+        ),
+        (
+          label: 'Sayım',
+          detail: 'SELECT COUNT(*): satırlar taşınmaz, tek sayı döner',
+          time: count,
+          isWrite: false,
+        ),
+        (
+          label: 'Filtre',
+          detail: 'WHERE amount > 100: yalnızca eşleşen $matched satır gelir',
+          time: filter,
+          isWrite: false,
+        ),
+        (
+          label: 'Toplam',
+          detail: 'SELECT SUM(amount): toplamı veritabanı hesaplar',
+          time: sum,
+          isWrite: false,
+        ),
+      ],
+      bytes: file != null && file.existsSync() ? await file.length() : null,
+    );
   }
 }

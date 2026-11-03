@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/models/storage_note.dart';
 import 'package:hive_ce/hive_ce.dart';
@@ -73,6 +75,57 @@ class HiveNoteStore implements NoteStore {
         'Dosya: ${box.path ?? '(bellekte)'}\n\n'
         '${lines.isEmpty ? '(boş)' : lines.join('\n')}'
         '${box.length > keys.length ? '\n…' : ''}';
+  }
+
+  @override
+  Future<StoreBenchmark> benchmark(List<StorageNote> notes) async {
+    final box = _opened;
+    var read = <StorageNote>[];
+    final write = await measure(
+      () => box.putAll({for (final n in notes) n.id: n}),
+    );
+    final flush = await measure(box.flush);
+    final memoryRead = await measure(() => read = box.values.toList());
+    // Kapatıp yeniden açmak, verinin diskten gerçekten okunmasını sağlar.
+    await box.close();
+    final diskRead = await measure(() async {
+      _box = await Hive.openBox<StorageNote>(boxName);
+    });
+    final path = _opened.path;
+    final file = path == null ? null : File(path);
+    return (
+      steps: <BenchmarkStep>[
+        (
+          label: 'Kutuya yaz',
+          detail:
+              'putAll: TypeAdapter ${notes.length} nesneyi ikili biçime '
+              'çevirir, belleğe ve dosyaya ekler',
+          time: write,
+          isWrite: true,
+        ),
+        (
+          label: 'Diske kesinleştir',
+          detail: 'flush: bekleyen yazmalar dosyaya işlenir',
+          time: flush,
+          isWrite: true,
+        ),
+        (
+          label: 'Bellekten oku',
+          detail: 'box.values: ${read.length} nesne zaten bellekte (senkron)',
+          time: memoryRead,
+          isWrite: false,
+        ),
+        (
+          label: 'Diskten yeniden aç',
+          detail:
+              'openBox: dosya baştan okunur, nesneler TypeAdapter ile '
+              'çözülür',
+          time: diskRead,
+          isWrite: false,
+        ),
+      ],
+      bytes: file != null && file.existsSync() ? await file.length() : null,
+    );
   }
 
   static String _describe(StorageNote? n) => n == null
