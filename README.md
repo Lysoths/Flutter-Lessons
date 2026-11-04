@@ -1,56 +1,60 @@
-# Harcama Takibi
+# Flutter Lessons
 
-Harcamaları telefon hafızasına kaydeden basit bir Flutter uygulaması.
-Yapı [masterfabric-flutter-duo](https://github.com/masterfabric/masterfabric-flutter-duo)
+Ders ders ilerleyen bir Flutter çalışması. Temeli, harcamaları telefon
+hafızasına kaydeden bir uygulama ("Harcama Takibim"); her ders bu uygulamaya
+yeni bir örnek ekran ekler. Yapı
+[masterfabric-flutter-duo](https://github.com/masterfabric/masterfabric-flutter-duo)
 standardını izler (masterfabric_core konvansiyonları: `BaseViewModelCubit`,
-Equatable state, get_it, `view_<ad>/` klasörleri, sıkı lint) ve Cubit kullanımı
+Equatable state, get_it, `view_<ad>/` klasörleri, sıkı lint); Cubit kullanımı
 [bloclibrary sayaç eğitimine](https://bloclibrary.dev/tutorials/flutter-counter/) dayanır.
+
+**Gereken:** Flutter 3.47 (Dart 3.13). Ana hedef Android ve iOS; GPS,
+sensörler, sqflite, cihaz/ağ bilgisi gibi ekranlar web'de çalışmaz.
 
 ## Yapı
 
 ```
 lib/
-├── main.dart                               # observer + DI + runApp
+├── main.dart                     # observer + DI + runApp
 └── app/
-    ├── app.dart                            # HarcamaApp: tema + ilk ekran
+    ├── app.dart                  # HarcamaApp: tema, router, ağ banner'ı
     ├── core/
-    │   ├── base/base_view_model_cubit.dart # tüm cubit'lerin temeli (stateChanger)
-    │   ├── bloc/app_bloc_observer.dart     # durum değişikliklerini konsola yazar
-    │   ├── router/app_router.dart          # Ders 4: auto_route rota tablosu
-    │   ├── router/app_router.gr.dart       # build_runner'ın ürettiği rota sınıfları
-    │   ├── router/app_deep_links.dart      # Ders 4: deep link beyaz listesi
-    │   ├── router/route_transitions.dart   # Ders 6: 20 geçiş animasyonu (RouteAnimation)
-    │   ├── di/injection.dart               # get_it kayıtları
-    │   └── repository/
-    │       ├── expense_repository.dart       # "veri nerede?" sözleşmesi
-    │       └── local_expense_repository.dart # telefon hafızası (shared_preferences)
-    ├── helper/money_format.dart            # 1.234,50 ₺, tarih, "Bugün/Dün", ay adı
-    ├── models/expense.dart                 # Expense + ExpenseCategory
-    ├── models/document_item.dart           # Ders 5: gömülü belge listesi (kDocuments)
-    ├── theme/
-    │   ├── app_theme.dart                  # MfColors + AppTheme (duo standardı)
-    │   └── category_style.dart             # kategori renkleri
-    ├── widgets/common.dart                 # Eyebrow, SectionHeader, IconBadge, Gap
-    ├── views/view_category/
-    │   └── category_expenses_view.dart     # /kategori/:slug
-    ├── views/view_new_expense/
-    │   └── new_expense_view.dart           # /yeni (alttan açılan form rotası)
-    ├── views/view_documents/               # Ders 5: /belgeler listesi
-    ├── views/view_image_viewer/            # Ders 5: görsel (Image.asset)
-    ├── views/view_pdf_viewer/              # Ders 5: PDF (pdfrx)
-    ├── views/view_audio_player/            # Ders 5: ses (just_audio)
-    ├── views/view_animations/              # Ders 6: animasyon vitrini + demo sayfası
-    ├── views/view_expense_detail/
-    │   └── expense_detail_view.dart        # Ders 1: Navigation 1.0 ile açılan detay
-    └── views/view_expenses/
-        ├── expenses_view.dart              # özet + kategoriler + gruplu liste
-        ├── cubit/{expenses_cubit,expenses_state}.dart
-        └── widgets/
-            ├── month_summary_card.dart       # bu ayın koyu özet kartı
-            ├── category_breakdown_widget.dart# kategori dağılımı
-            ├── expense_tile_widget.dart      # dokun: düzenle, kaydır: sil
-            └── expense_form_sheet.dart       # ekleme/düzenleme formu
+    │   ├── base/                 # ViewModel tabanları: Cubit, Bloc, ChangeNotifier
+    │   ├── bloc/                 # AppBlocObserver (geçişleri konsola yazar)
+    │   ├── device/               # GPS, sensörler, cihaz bilgisi kaynakları
+    │   ├── di/injection.dart     # get_it kayıtları (tüm depolar ve ViewModel'ler)
+    │   ├── repository/           # Model katmanı: harcama, örnek veri, kur, haber,
+    │   │                         # ağ, uygulama bilgisi, not depoları (prefs/Hive/sqflite)
+    │   └── router/               # auto_route tablosu, deep link beyaz listesi, geçişler
+    ├── helper/                   # para/tarih/ölçü biçimleri, ağ kontrolü, sahte socket
+    ├── models/                   # Expense, belgeler, Lottie, kur, haber, trace ...
+    ├── theme/                    # MfColors + AppTheme, kategori renkleri
+    ├── widgets/                  # ortak parçalar: Eyebrow, Gap, iskelet, bilgi kartı
+    └── views/
+        ├── view_expenses/        # ana sayfa: özet, kategoriler, liste, ders kartları
+        ├── view_new_expense/     # yeni harcama formu (alttan açılır)
+        ├── view_expense_detail/  # harcama ayrıntısı
+        ├── view_category/        # kategoriye göre harcamalar
+        ├── view_documents/ view_image_viewer/ view_pdf_viewer/ view_audio_player/  # Ders 5
+        ├── view_animations/      # Ders 6
+        ├── view_paged_list/ view_paged_grid/                                       # Ders 7
+        ├── view_animation_control/                                                 # Ders 8
+        ├── view_lottie/                                                            # Ders 9
+        ├── view_sync_async/ view_storage/                                          # Ders 10
+        ├── view_network/                                                           # Ders 11
+        ├── view_device/                                                            # Ders 12
+        ├── view_bloc_demo/                                                         # Ders 13
+        ├── view_device_info/ view_app_network/                                     # Ders 14
+        └── view_currency/                                                          # Ders 15
+assets/
+├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
+├── data/                         # Ders 7: 500 örnek harcama · Ders 13: tasarruf ipuçları
+└── lottie/                       # Ders 9: beş Lottie animasyonu
+test/                             # her ders için birim, Bloc/ViewModel ve ekran testleri
 ```
+
+Her ekran klasörü aynı düzende: `*_view.dart` (View), `cubit/`, `bloc/` ya
+da `view_model/` (ViewModel), `widgets/` (ekranın parçaları).
 
 ## Veri akışı
 
@@ -60,15 +64,39 @@ Ekran (View) ──çağırır──▶ ExpensesCubit ──kaydeder──▶ Ex
      └────yeni state───────────┘
 ```
 
-Google Sheets eklenecekse: `ExpenseRepository`'yi uygulayan yeni bir sınıf
-yazılır ve `injection.dart`'ta `LocalExpenseRepository` yerine kaydedilir.
+Ekranlar veriye yalnızca ViewModel üzerinden ulaşır; ViewModel'ler depo
+arayüzlerini (`ExpenseRepository`, `CurrencyRepository` ...) bilir, nasıl
+çalıştıklarını bilmez. Testler bu arayüzlere sahte depolar verir.
 
 ## Dersler
 
-> **Bu dal: `auto-route`.** Ders 1–3 (Navigator push/pop, Navigation 2.0
-> RouterDelegate, elle yazılmış deep link parser) `main` dalındadır:
-> `git switch main`. Bu dalda aynı uygulamanın tüm yönlendirmesi
-> **auto_route** ile yapılır; ekranlar ve veri katmanı aynıdır.
+Ders 1–3 (Navigator push/pop, Navigation 2.0 RouterDelegate, elle yazılmış
+deep link parser) bu reponun ilk commit'indedir (`b8b3616`). Ders 4'ten
+itibaren uygulamanın tüm yönlendirmesi **auto_route** ile yapılır; ekranlar
+ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir: `git log --oneline`.
+
+| Ders | Konu | Ana sayfadaki kart |
+|---|---|---|
+| 4 | auto_route, tipli rotalar, deep link beyaz listesi | — |
+| 5 | Assets: PDF, görsel, ses | Belgeler |
+| 6 | Rota geçiş animasyonları | Geçiş animasyonları |
+| 7 | Sayfalama, `ListView.builder` / `GridView`, iskelet yükleme | Sayfalı liste, Sayfalı ızgara |
+| 8 | AnimationController, 3B nesne, nabız efektleri | Animasyon kontrolü |
+| 9 | Lottie: JSON'dan animasyon | Lottie animasyonları |
+| 10 | Sync/async; SharedPreferences, Hive, sqflite | Sync / Async, Yerel depolama |
+| 11 | Future/StreamBuilder, MaterialBanner, sahte WebSocket | Ağ kontrolü |
+| 12 | GPS ve hareket sensörleri | Konum ve sensörler |
+| 13 | Bloc: servis, canlı akış, asset | Bloc ile veri |
+| 14 | Cihaz, uygulama ve ağ bilgisi (Bloc, Cloudflare trace) | Cihaz bilgisi, Uygulama ve ağ |
+| 15 | MVVM: ChangeNotifier + provider, döviz yönetimi | Döviz yönetimi |
+
+**Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
+veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
+currency-api (Ders 15), Anadolu Ajansı ve TRT Haber RSS (Ders 15).
+
+**İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı). Konum, IP ve
+Wi-Fi bilgileri yalnızca ekranda gösterilir: kaydedilmez, gönderilmez,
+konsola yazılmaz.
 
 ### Ders 4 — auto_route
 
@@ -107,8 +135,8 @@ Rota tablosu ya da bir `@RoutePage()` sayfanın parametreleri değişince:
 dart run build_runner build
 ```
 
-Deep link: `harcamatakibim://app/kategori/<ad>` ve `harcamatakibim://app/yeni`
-(Android/iOS tanımları `main` ile aynı). auto_route linki rota tablosuyla
+Deep link: `harcamatakibim://app/kategori/<ad>` ve `harcamatakibim://app/yeni`.
+auto_route linki rota tablosuyla
 eşlemeden önce `AppDeepLinks.transform` çalışır: yalnızca bu iki biçim geçer,
 sorgu parametreleri atılır, başka her şey `/` olur. Detay ekranı nesne
 istediği için dışarıdan açılamaz.
@@ -167,9 +195,10 @@ yükselir, görsel küçülerek yerleşir, PDF alttan gelir, ses dairesel açıl
 gönderilen senaryoya bakıp animasyonu seçer. *Yavaş çekim* anahtarı
 `timeDilation = 5` ile tüm animasyonları 5 kat yavaşlatır.
 
-Not: auto_route rotaları varsayılan olarak **adıyla** tanır. 20 senaryo aynı
-adı (`AnimationDemoRoute`) taşıdığı için "Sonraki" yeni sayfa açmıyordu;
-demo rotası `usesPathAsKey: true` ile **yoluyla** tanınır.
+Not: auto_route rotaları varsayılan olarak **adıyla** tanır. Aynı adı taşıyan
+rotalar (20 senaryonun hepsi `AnimationDemoRoute`) tek sayfa sayılır ve üst
+üste açılamaz; bu yüzden demo rotası `usesPathAsKey: true` ile **yoluyla**
+tanınır.
 
 ### Ders 7 — Sayfalama + ListView.builder
 
@@ -345,7 +374,8 @@ gerektirmez. `HttpServer` telefonun içinde, yalnızca telefondan erişilen
 yazılan mesajı geri yollar. İstemci gerçek bir `WebSocket`'tir;
 `StreamBuilder` gelen mesajları canlı gösterir.
 
-Android: `INTERNET` izni ana manifeste eklendi (yayın sürümü için).
+Android'de yayın (release) sürümünün internete çıkması için ana manifestte
+`INTERNET` izni gerekir; debug sürümünde Flutter bunu kendisi ekler.
 
 ### Ders 12 — GPS ve sensörler: donanımdan canlı veri
 
@@ -484,8 +514,7 @@ dispose et), `.value` (var olanı aşağı ver), `watch`, `select`, `read`.
   Ücretsiz, anahtar istemez, her gün ayrı dosya. Önce jsDelivr
   (`cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2026.11.3/...`), açılmazsa
   `{gün}.currency-api.pages.dev` denenir: bazı mobil operatörler pages.dev'i
-  engelliyor. Frankfurter'ın geçmiş kur servisi bu ders yazılırken 522 hatası
-  veriyordu.
+  engelliyor.
 - Geçmiş: haftalık her gün (8 nokta), aylık iki günde bir (16), 3 aylık
   haftada bir (14). Günler önbellekte tutulur; aralık değişince eski günler
   yeniden indirilmez. Hızlı değiştirince yalnızca son isteğin sonucu yazılır.
@@ -497,7 +526,8 @@ dispose et), `.value` (var olanı aşağı ver), `watch`, `select`, `read`.
 
 ```bash
 flutter pub get
+dart run build_runner build     # rota tablosu değişince (app_router.gr.dart)
 flutter analyze
 flutter test
-flutter run -d chrome     # veya -d macos, iOS simülatörü, Android emülatörü
+flutter run                     # bağlı Android/iOS cihaz ya da emülatör
 ```
