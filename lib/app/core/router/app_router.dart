@@ -10,6 +10,7 @@ import 'package:flutter_ders/app/views/view_app_network/app_network_view.dart';
 import 'package:flutter_ders/app/views/view_audio_player/audio_player_view.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc_demo_view.dart';
 import 'package:flutter_ders/app/views/view_category/category_expenses_view.dart';
+import 'package:flutter_ders/app/views/view_currency/currency_view.dart';
 import 'package:flutter_ders/app/views/view_device/device_view.dart';
 import 'package:flutter_ders/app/views/view_device_info/device_info_view.dart';
 import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
@@ -55,6 +56,7 @@ part 'app_router.gr.dart';
 //   BlocDemoView         → BlocDemoRoute()                 (Ders 13)
 //   DeviceInfoView       → DeviceInfoRoute()               (Ders 14)
 //   AppNetworkView       → AppNetworkRoute()               (Ders 14)
+//   CurrencyView         → CurrencyRoute()                 (Ders 15)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -140,6 +142,8 @@ class AppRouter extends RootStackRouter {
       '/ornek-liste',
       RouteAnimation.slideFromRight,
     ),
+    // DERS 15 — MVVM döviz ekranı. Deep link beyaz listesinde yok.
+    _animated(CurrencyRoute.page, '/doviz', RouteAnimation.slideFromRight),
     // DERS 14 — Cihaz / uygulama / ağ bilgisi. Deep link beyaz listesinde
     // yok: kişiyi tanıtan bilgi gösterir, yalnızca uygulama içinden açılır.
     _animated(

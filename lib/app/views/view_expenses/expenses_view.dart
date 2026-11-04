@@ -225,6 +225,15 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'Sürüm, Wi-Fi, genel IP (Cloudflare trace)',
                 onTap: () => context.router.push(const AppNetworkRoute()),
               ),
+              const Gap(10),
+              // DERS 15 — MVVM (ChangeNotifier).
+              _EntryCard(
+                key: const Key('expensesView_currency'),
+                icon: Icons.currency_exchange_rounded,
+                title: 'Döviz yönetimi',
+                subtitle: '10 para birimi, geçmiş grafik, finans haberleri',
+                onTap: () => context.router.push(const CurrencyRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

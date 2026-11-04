@@ -226,6 +226,22 @@ class CategoryExpensesRouteArgs {
 }
 
 /// generated route for
+/// [CurrencyView]
+class CurrencyRoute extends PageRouteInfo<void> {
+  const CurrencyRoute({List<PageRouteInfo>? children})
+    : super(CurrencyRoute.name, initialChildren: children);
+
+  static const String name = 'CurrencyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CurrencyView();
+    },
+  );
+}
+
+/// generated route for
 /// [DeviceInfoView]
 class DeviceInfoRoute extends PageRouteInfo<void> {
   const DeviceInfoRoute({List<PageRouteInfo>? children})

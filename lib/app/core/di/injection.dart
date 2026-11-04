@@ -3,11 +3,13 @@ import 'package:flutter_ders/app/core/device/device_info_source.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/device/sensor_source.dart';
 import 'package:flutter_ders/app/core/repository/app_info_repository.dart';
+import 'package:flutter_ders/app/core/repository/currency_repository.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/json_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/live_rates_repository.dart';
 import 'package:flutter_ders/app/core/repository/local_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/network_info_repository.dart';
+import 'package:flutter_ders/app/core/repository/news_repository.dart';
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/hive_note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/prefs_note_store.dart';
@@ -21,6 +23,10 @@ import 'package:flutter_ders/app/views/view_app_network/bloc/network_info_bloc.d
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/tips_bloc.dart';
+import 'package:flutter_ders/app/views/view_currency/view_model/currency_view_model.dart';
+import 'package:flutter_ders/app/views/view_currency/view_model/history_view_model.dart';
+import 'package:flutter_ders/app/views/view_currency/view_model/news_view_model.dart';
+import 'package:flutter_ders/app/views/view_currency/view_model/rates_view_model.dart';
 import 'package:flutter_ders/app/views/view_device_info/bloc/device_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
@@ -49,6 +55,21 @@ Future<void> configureDependencies() async {
     )
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),
+    )
+    // DERS 15 — MVVM (ChangeNotifier): depolar tek, ViewModel'ler her
+    // açılışta yeni. Üst ViewModel alt ViewModel'leri birlikte alır.
+    ..registerLazySingleton<CurrencyRepository>(
+      () => CurrencyApiRepository(getIt<Dio>()),
+    )
+    ..registerLazySingleton<NewsRepository>(
+      () => RssNewsRepository(getIt<Dio>()),
+    )
+    ..registerFactory<CurrencyViewModel>(
+      () => CurrencyViewModel(
+        rates: RatesViewModel(repository: getIt<CurrencyRepository>()),
+        history: HistoryViewModel(repository: getIt<CurrencyRepository>()),
+        news: NewsViewModel(repository: getIt<NewsRepository>()),
+      ),
     )
     // DERS 14 — Cihaz, uygulama ve ağ bilgisi (Bloc).
     ..registerLazySingleton<DeviceInfoSource>(PlusDeviceInfoSource.new)

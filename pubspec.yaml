@@ -56,6 +56,9 @@ dependencies:
   connectivity_plus: ^7.3.1
   network_info_plus: ^8.2.1
   package_info_plus: ^10.2.2
+  provider: ^6.1.5+1
+  xml: ^7.1.0
+  url_launcher: ^6.3.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

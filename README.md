@@ -444,6 +444,55 @@ değerleri içermez, yani `AppBlocObserver` konsola yazmaz. Wi-Fi adı için
 Android konum izni ister (Ders 12'deki izin); izin yoksa ad "—" görünür.
 Bu iki ekran deep link beyaz listesinde yok.
 
+### Ders 15 — MVVM: ChangeNotifier ile döviz yönetimi
+
+Ana sayfa → *Döviz yönetimi* (`views/view_currency/`). Tek ekran, tek üst
+ViewModel, üç alt ViewModel; ekrana `provider` paketiyle bağlanır.
+
+```
+views/view_currency/
+├── currency_view.dart              View: sayfa iskeleti
+├── view_model/
+│   ├── currency_view_model.dart    üst: ilk yükleme, hepsini yenile, koordinasyon
+│   ├── rates_view_model.dart       1. bölüm: 10 para birimi
+│   ├── history_view_model.dart     2. bölüm: haftalık / aylık / 3 aylık
+│   └── news_view_model.dart        3. bölüm: haberler, süzgeç, okundu
+└── widgets/                        her bölümün görünümü + haber modalı
+Model: models/currency/*, core/repository/{currency,news}_repository.dart
+Taban: core/base/base_change_notifier_view_model.dart
+```
+
+| Katman | Görevi | Bu ekranda |
+|---|---|---|
+| View | Çizer, kullanıcı hareketini ViewModel'e iletir | `RatesSection`, `HistorySection`, `NewsSection`, `NewsDetailSheet` |
+| ViewModel | Ekrana gidecek veriyi hazırlar ve sınırlar; alanları dışarıdan değiştirilemez | `CurrencyViewModel` → `Rates` / `History` / `News` ViewModel |
+| Model | Veriyi getirir, ekranı tanımaz | `CurrencyApiRepository`, `RssNewsRepository` |
+
+**Neden alt ViewModel?** Her bölüm yalnızca kendi ViewModel'ini dinler
+(`context.watch<NewsViewModel>()`): haber süzgeci değişince kur listesi
+yeniden çizilmez. Bölümler birbirini tanımaz; "USD'ye dokunuldu, grafiği
+USD'ye çevir" kararını üst ViewModel verir (`selectCurrency`).
+
+**ChangeNotifier ve Cubit farkı:** Cubit'te durum tek, değişmez bir nesnedir
+(`emit(yeniDurum)`). ChangeNotifier'da durum ViewModel'in kendi alanlarıdır;
+alan değişince `notifyListeners()` çağrılır. C#'taki `INotifyPropertyChanged`
+ile aynı fikir. `provider` karşılıkları: `ChangeNotifierProvider` (kur ve
+dispose et), `.value` (var olanı aşağı ver), `watch`, `select`, `read`.
+
+**Veri:**
+- Kurlar: [currency-api](https://github.com/fawazahmed0/exchange-api).
+  Ücretsiz, anahtar istemez, her gün ayrı dosya. Önce jsDelivr
+  (`cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2026.11.3/...`), açılmazsa
+  `{gün}.currency-api.pages.dev` denenir: bazı mobil operatörler pages.dev'i
+  engelliyor. Frankfurter'ın geçmiş kur servisi bu ders yazılırken 522 hatası
+  veriyordu.
+- Geçmiş: haftalık her gün (8 nokta), aylık iki günde bir (16), 3 aylık
+  haftada bir (14). Günler önbellekte tutulur; aralık değişince eski günler
+  yeniden indirilmez. Hızlı değiştirince yalnızca son isteğin sonucu yazılır.
+- Haberler: Anadolu Ajansı ve TRT Haber ekonomi RSS beslemeleri, `xml`
+  paketiyle. Biri çökerse diğeri gösterilir. Modaldaki "sitesinde oku"
+  yalnızca `aa.com.tr` ve `trthaber.com` adreslerini açar (`url_launcher`).
+
 ## Komutlar
 
 ```bash
