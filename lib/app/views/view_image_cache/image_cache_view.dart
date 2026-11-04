@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_image_cache/cubit/image_cache_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_image_cache/widgets/cache_panels.dart';
 import 'package:flutter_ders/app/views/view_image_cache/widgets/source_gallery.dart';
@@ -29,7 +30,7 @@ class ImageCacheView extends StatelessWidget {
       create: (_) => getIt<ImageCacheLabCubit>()..init(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Görsel önbelleği'),
+          title: const AppText('Görsel önbelleği'),
           titleTextStyle: t.titleLarge,
         ),
         body: SingleChildScrollView(

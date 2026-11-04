@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -86,7 +87,7 @@ class ExpenseDetailView extends StatelessWidget {
     final accent = expense.category.accent;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Harcama ayrıntısı'),
+        title: const AppText('Harcama ayrıntısı'),
         titleTextStyle: t.titleLarge,
       ),
       body: ListView(
@@ -103,7 +104,7 @@ class ExpenseDetailView extends StatelessWidget {
               children: [
                 IconBadge(expense.category.icon, accent: accent, size: 60),
                 const Gap(14),
-                Text(
+                AppText(
                   formatMoney(expense.amount),
                   key: const Key('expenseDetail_amount'),
                   style: const TextStyle(
@@ -181,7 +182,7 @@ class ExpenseDetailView extends StatelessWidget {
                 key: const Key('expenseDetail_edit'),
                 onPressed: () => _edit(context),
                 icon: const Icon(Icons.edit_rounded, size: 18),
-                label: const Text('Düzenle'),
+                label: const AppText('Düzenle'),
               ),
             ),
           ],
@@ -211,10 +212,10 @@ class _InfoRow extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: MfColors.slate500),
           const SizedBox(width: 12),
-          Text(label, style: t.bodyMedium),
+          AppText(label, style: t.bodyMedium),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
+            child: AppText(
               value,
               textAlign: TextAlign.right,
               style: t.titleMedium,

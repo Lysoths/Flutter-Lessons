@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_state.dart';
@@ -76,7 +77,7 @@ class PagedFooter extends StatelessWidget {
     if (!state.hasMore) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Text(
+        child: AppText(
           'Hepsi bu kadar · ${state.total} kayıt',
           key: const Key('pagedList_end'),
           textAlign: TextAlign.center,
@@ -116,12 +117,12 @@ class PagedRetry extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Kayıtlar yüklenemedi'),
+          const AppText('Kayıtlar yüklenemedi'),
           const Gap(8),
           OutlinedButton(
             key: const Key('pagedList_retry'),
             onPressed: onRetry,
-            child: const Text('Tekrar dene'),
+            child: const AppText('Tekrar dene'),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -63,9 +64,9 @@ class CategoryBreakdownWidget extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: Text(item.category.label, style: t.titleMedium),
+                        child: AppText(item.category.label, style: t.titleMedium),
                       ),
-                      Text(
+                      AppText(
                         '%${(item.amount / sum * 100).round()}',
                         style: const TextStyle(
                           color: MfColors.slate500,
@@ -76,7 +77,7 @@ class CategoryBreakdownWidget extends StatelessWidget {
                       const SizedBox(width: 12),
                       SizedBox(
                         width: 104,
-                        child: Text(
+                        child: AppText(
                           formatMoney(item.amount),
                           textAlign: TextAlign.right,
                           style: t.titleMedium,

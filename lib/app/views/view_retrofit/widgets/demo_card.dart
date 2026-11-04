@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
@@ -83,7 +84,7 @@ class _DemoCardState extends State<DemoCard>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        AppText(
                           demo.annotation,
                           style: const TextStyle(
                             fontFamily: 'monospace',
@@ -93,7 +94,7 @@ class _DemoCardState extends State<DemoCard>
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text(demo.title, style: t.titleSmall),
+                        AppText(demo.title, style: t.titleSmall),
                       ],
                     ),
                   ),
@@ -114,7 +115,7 @@ class _DemoCardState extends State<DemoCard>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(demo.description, style: t.bodySmall),
+                  AppText(demo.description, style: t.bodySmall),
                   const Gap(10),
                   CodeBox(demo.code),
                   if (demo.inputs.isNotEmpty) ...[
@@ -165,7 +166,7 @@ class _DemoCardState extends State<DemoCard>
                                 ),
                               )
                             : const Icon(Icons.send_rounded, size: 18),
-                        label: Text(running ? 'Gönderiliyor' : 'Gönder'),
+                        label: AppText(running ? 'Gönderiliyor' : 'Gönder'),
                       ),
                       if (demo.cancellable) ...[
                         const SizedBox(width: 8),
@@ -180,7 +181,7 @@ class _DemoCardState extends State<DemoCard>
                             minimumSize: const Size(0, 42),
                           ),
                           icon: const Icon(Icons.close_rounded, size: 18),
-                          label: const Text('İptal'),
+                          label: const AppText('İptal'),
                         ),
                       ],
                     ],
@@ -192,7 +193,7 @@ class _DemoCardState extends State<DemoCard>
                       value: run!.progress,
                     ),
                     const SizedBox(height: 4),
-                    Text(
+                    AppText(
                       '%${((run.progress ?? 0) * 100).round()}',
                       style: t.bodySmall,
                     ),
@@ -203,7 +204,7 @@ class _DemoCardState extends State<DemoCard>
                   ],
                   if (run != null && run.exchanges.isNotEmpty) ...[
                     const Gap(10),
-                    Text(
+                    AppText(
                       'Ağdan geçenler (${run.exchanges.length})',
                       style: t.labelMedium,
                     ),
@@ -242,7 +243,7 @@ class _StatusDot extends StatelessWidget {
         color: color.withValues(alpha: 0.15),
         shape: BoxShape.circle,
       ),
-      child: Text(
+      child: AppText(
         label,
         style: TextStyle(color: color, fontWeight: FontWeight.w800),
       ),
@@ -286,7 +287,7 @@ class _ResultBox extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               Expanded(
-                child: Text(
+                child: AppText(
                   run.resultType ?? '',
                   style: t.titleSmall?.copyWith(
                     color: color,
@@ -294,12 +295,12 @@ class _ResultBox extends StatelessWidget {
                   ),
                 ),
               ),
-              if (took != null) Text(formatDuration(took), style: t.bodySmall),
+              if (took != null) AppText(formatDuration(took), style: t.bodySmall),
             ],
           ),
           if (run.error case final error?) ...[
             const SizedBox(height: 6),
-            Text(error, style: t.bodyMedium),
+            AppText(error, style: t.bodyMedium),
           ],
           if (run.resultText case final text?) ...[
             const SizedBox(height: 6),

@@ -1,188 +1,379 @@
+<p align="center">
+  <a href="https://flutter.dev"><img alt="Flutter 3.47" src="https://img.shields.io/badge/Flutter-3.47-02569B?logo=flutter&logoColor=white"></a>
+  <a href="https://dart.dev"><img alt="Dart 3.13" src="https://img.shields.io/badge/Dart-3.13-0175C2?logo=dart&logoColor=white"></a>
+  <a href="ios/"><img alt="iOS 15 and later" src="https://img.shields.io/badge/iOS-15%2B-000000?logo=apple&logoColor=white"></a>
+  <a href="android/"><img alt="Android API 24 and later" src="https://img.shields.io/badge/Android-API%2024%2B-3DDC84?logo=android&logoColor=white"></a>
+  <a href="#lesson-flow"><img alt="Lessons 4 to 17" src="https://img.shields.io/badge/lessons-4%E2%80%9317-7C3AED"></a>
+  <a href="#data-flow"><img alt="Cubit, Bloc, and MVVM" src="https://img.shields.io/badge/architecture-Cubit%20%7C%20Bloc%20%7C%20MVVM-0F766E"></a>
+  <a href="#lesson-4--auto_route"><img alt="auto_route" src="https://img.shields.io/badge/routing-auto__route-E11D48"></a>
+  <a href="#platform-identity"><img alt="iOS bundle identifier" src="https://img.shields.io/badge/bundle-com.ogzhner.flutterDers-1D4ED8"></a>
+  <a href="#platform-identity"><img alt="Deep link scheme" src="https://img.shields.io/badge/deep%20link-harcamatakibim-0F172A"></a>
+  <a href="https://github.com/Lysoths"><img alt="Educator Oğuzhan ER" src="https://img.shields.io/badge/educator-O%C4%9Fuzhan%20ER-0F172A?logo=github&logoColor=white"></a>
+  <a href="https://github.com/gurkanfikretgunak"><img alt="Lesson author gurkanfikretgunak" src="https://img.shields.io/badge/lesson%20author-gurkanfikretgunak-2563EB?logo=github&logoColor=white"></a>
+</p>
+
 # Flutter Lessons
 
-Ders ders ilerleyen bir Flutter çalışması. Temeli, harcamaları telefon
-hafızasına kaydeden bir uygulama ("Harcama Takibim"); her ders bu uygulamaya
-yeni bir örnek ekran ekler. Yapı
+Expense Tracker is a Flutter app that stores expenses on the phone.
+Each lesson adds one sample screen to the same app. Folders follow
 [masterfabric-flutter-duo](https://github.com/masterfabric/masterfabric-flutter-duo)
-standardını izler (masterfabric_core konvansiyonları: `BaseViewModelCubit`,
-Equatable state, get_it, `view_<ad>/` klasörleri, sıkı lint); Cubit kullanımı
-[bloclibrary sayaç eğitimine](https://bloclibrary.dev/tutorials/flutter-counter/) dayanır.
+(`BaseViewModelCubit`, Equatable state, get_it, `view_<name>/`).
+Cubit usage follows the [bloclibrary counter tutorial](https://bloclibrary.dev/tutorials/flutter-counter/).
 
-**Gereken:** Flutter 3.47 (Dart 3.13). Ana hedef Android ve iOS; GPS,
-sensörler, sqflite, cihaz/ağ bilgisi gibi ekranlar web'de çalışmaz.
+| Role | Who |
+| --- | --- |
+| Educator | [Oğuzhan ER](https://github.com/Lysoths), repository owner ([Lysoths/Flutter-Lessons](https://github.com/Lysoths/Flutter-Lessons), [ogzhner.com](https://www.ogzhner.com)) |
+| Lesson author | [gurkanfikretgunak](https://github.com/gurkanfikretgunak) |
 
-## Yapı
+**Requires:** Flutter 3.47 (Dart 3.13). The main targets are Android and iOS.
+GPS, sensors, sqflite, and device or network info do not run on the web.
+
+## Contents
+
+- [Lesson flow](#lesson-flow)
+- [Data flow](#data-flow)
+- [Platform identity](#platform-identity)
+- [Settings languages](#settings-languages)
+- [Running on iOS](#running-on-ios)
+- [Layout](#layout)
+- [Lessons](#lessons)
+- [Commands](#commands)
+
+## Lesson flow
+
+Lessons 1–3 (Navigator, RouterDelegate, a hand-written deep link parser) live
+in the first commit (`b8b3616`). From lesson 4 on, all routing uses
+**auto_route**. Each lesson is its own commit: `git log --oneline`.
+
+```mermaid
+flowchart LR
+  A["4 auto_route"] --> B["5 Assets"]
+  B --> C["6 Transitions"]
+  C --> D["7 Paging"]
+  D --> E["8 Controller"]
+  E --> F["9 Lottie"]
+  F --> G["10 Storage"]
+  G --> H["11 Network"]
+  H --> I["12 GPS"]
+  I --> J["13 Bloc"]
+  J --> K["14 Device"]
+  K --> L["15 MVVM"]
+  L --> M["16 Retrofit"]
+  M --> N["17 Cache"]
+```
+
+Three layers sit side by side in the same app:
+
+```mermaid
+flowchart TB
+  subgraph view [View]
+    V[Screen]
+  end
+  subgraph vm [ViewModel]
+    C[Cubit]
+    B[Bloc]
+    N[ChangeNotifier]
+  end
+  subgraph model [Model]
+    R[Repository]
+  end
+  V --> C
+  V --> B
+  V --> N
+  C --> R
+  B --> R
+  N --> R
+  R --> P[phone storage]
+  R --> S[remote service]
+```
+
+## Data flow
+
+```mermaid
+sequenceDiagram
+  participant Screen
+  participant Cubit as ExpensesCubit
+  participant Repo as ExpenseRepository
+  participant Disk as phone storage
+  Screen->>Cubit: save()
+  Cubit->>Repo: add(expense)
+  Repo->>Disk: write
+  Disk-->>Repo: done
+  Repo-->>Cubit: new list
+  Cubit-->>Screen: emit(state)
+```
+
+Screens reach data only through a ViewModel. The ViewModel knows the
+repository interface (`ExpenseRepository`, `CurrencyRepository`) and does not
+know how the repository works. Tests pass fake repositories to those
+interfaces.
+
+## Platform identity
+
+One product, written with each platform's naming rule. Android uses an
+underscore. Apple uses camelCase. Both live under `com.ogzhner`.
+
+| | iOS | Android | macOS |
+| --- | --- | --- | --- |
+| Display name | Expense Tracker | Expense Tracker | flutter_ders |
+| Package / bundle | `com.ogzhner.flutterDers` | `com.ogzhner.flutter_ders` | `com.ogzhner.flutterDers` |
+| Test target | `com.ogzhner.flutterDers.RunnerTests` | — | `com.ogzhner.flutterDers.RunnerTests` |
+| Version | `1.0.0` (1), from `pubspec.yaml` | same | same |
+| Minimum | iOS 15.0 | API 24 | — |
+| Plugins | Swift Package (`FlutterGeneratedPluginSwiftPackage`) | Gradle | CocoaPods / SPM |
+
+The deep link is the same on both mobile targets. The scheme string stays
+`harcamatakibim` because it is an identifier, not a label.
+
+| Part | Value | File |
+| --- | --- | --- |
+| Scheme | `harcamatakibim` | `ios/Runner/Info.plist` → `CFBundleURLSchemes`, Android `intent-filter` |
+| Host | `app` | Android `android:host`, Dart `AppDeepLinks` |
+| URL name | `com.ogzhner.flutterDers` | `CFBundleURLName` |
+| Allow list | `/kategori/:slug`, `/yeni`, `/belgeler` | `lib/app/core/router/app_deep_links.dart` |
+
+```mermaid
+flowchart LR
+  L["harcamatakibim://app/..."] --> P["Info.plist CFBundleURLTypes"]
+  P --> S["SceneDelegate"]
+  S --> F["FlutterDeepLinkingEnabled"]
+  F --> T["AppDeepLinks.transform"]
+  T --> R["auto_route"]
+  R --> E["matching screen or /"]
+```
+
+Permissions stay on screen: they are not saved, sent, or printed to the console.
+
+| Permission | Where | Lesson |
+| --- | --- | --- |
+| Internet | Android `INTERNET` | 11, 13–17 |
+| Location while in use | iOS `NSLocationWhenInUseUsageDescription`, Android fine/coarse | 12 GPS, 14 Wi-Fi name |
+| `https` / `http` query | iOS `LSApplicationQueriesSchemes` | 15 article link |
+| Encryption declaration | iOS `ITSAppUsesNonExemptEncryption = false` | store export question |
+
+On iOS, the Wi-Fi name (`network_info_plus`) also needs Apple's Access WiFi
+Information capability. That capability needs a development team and a
+provisioning profile. On the simulator the name usually stays `—`. Location
+permission alone does not return the SSID.
+
+## Settings languages
+
+Home has a Settings card. It offers six languages and saves the choice on
+the device with `SharedPreferences`. The locale, the settings screen, and
+the rest of the app — including lesson text — follow that choice.
+
+| Settings code | Flutter locale | Name |
+| --- | --- | --- |
+| `en` | `en` | English |
+| `tr` | `tr` | Türkçe |
+| `fr` | `fr` | Français |
+| `cn` | `zh_CN` | 中文 |
+| `jp` | `ja` | 日本語 |
+| `de` | `de` | Deutsch |
+
+`cn` and `jp` are the codes shown in settings. Flutter itself uses `zh` and
+`ja`. The default is Turkish, so the existing lesson tests keep matching
+the same strings. `/settings` is not on the deep-link allow list.
+
+## Running on iOS
+
+`ios/` is not a CocoaPods project. The Runner loads plugins through
+`ios/Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage`. That
+folder, `Generated.xcconfig`, and `GeneratedPluginRegistrant` are not
+committed. `flutter pub get` creates them. Adding a `Podfile` conflicts with
+Swift Package Manager.
+
+Simulator signing does not need `DEVELOPMENT_TEAM`. The Debug build signs
+locally.
+
+```bash
+flutter pub get
+open -a Simulator
+flutter devices
+flutter run -d "iPhone 17"
+```
+
+Startup order: `AppDelegate` → `SceneDelegate` (`FlutterSceneDelegate`) →
+implicit Flutter engine → `GeneratedPluginRegistrant` → `lib/main.dart`.
+The display name is `CFBundleDisplayName`. The bundle id is Xcode's
+`PRODUCT_BUNDLE_IDENTIFIER` (`com.ogzhner.flutterDers`).
+
+<p align="center">
+  <img alt="Expense Tracker home screen on the iPhone 17 simulator" src="docs/ios-simulator-home.png" width="280">
+</p>
+
+Home-screen cards open the lesson screens. To try an allow-listed path while
+the app is open:
+
+```bash
+xcrun simctl openurl booted "harcamatakibim://app/belgeler"
+```
+
+iOS asks, using the display name, before it hands a custom scheme to the app.
+That prompt shows that `CFBundleDisplayName` and `CFBundleURLSchemes` point at
+the same target.
+
+<p align="center">
+  <img alt="System prompt for the harcamatakibim scheme" src="docs/ios-simulator-belgeler.png" width="280">
+</p>
+
+## Layout
 
 ```
 lib/
 ├── main.dart                     # observer + DI + runApp
 └── app/
-    ├── app.dart                  # HarcamaApp: tema, router, ağ banner'ı
+    ├── app.dart                  # ExpenseApp: theme, router, network banner
     ├── core/
-    │   ├── base/                 # ViewModel tabanları: Cubit, Bloc, ChangeNotifier
-    │   ├── cache/                # sürüme bağlı görsel önbelleği, bellek denetleyicisi
-    │   ├── bloc/                 # AppBlocObserver (geçişleri konsola yazar)
-    │   ├── device/               # GPS, sensörler, cihaz bilgisi kaynakları
-    │   ├── di/injection.dart     # get_it kayıtları (tüm depolar ve ViewModel'ler)
-    │   ├── network/              # retrofit servisleri, ortak Dio, kayıt interceptor'u
-    │   ├── repository/           # Model katmanı: harcama, örnek veri, kur, haber,
-    │   │                         # ağ, uygulama bilgisi, not depoları (prefs/Hive/sqflite)
-    │   └── router/               # auto_route tablosu, deep link beyaz listesi, geçişler
-    ├── helper/                   # para/tarih/ölçü biçimleri, ağ kontrolü, sahte socket
-    ├── models/                   # Expense, belgeler, Lottie, kur, haber, trace ...
-    ├── theme/                    # MfColors + AppTheme, kategori renkleri
-    ├── widgets/                  # ortak parçalar: Eyebrow, Gap, iskelet, bilgi kartı
+    │   ├── base/                 # ViewModel bases: Cubit, Bloc, ChangeNotifier
+    │   ├── cache/                # versioned image cache, memory controller
+    │   ├── bloc/                 # AppBlocObserver (prints transitions)
+    │   ├── device/               # GPS, sensors, device-info sources
+    │   ├── di/injection.dart     # get_it registrations (repositories and ViewModels)
+    │   ├── network/              # retrofit services, shared Dio, recording interceptor
+    │   ├── repository/           # Model layer: expenses, sample data, rates, news,
+    │   │                         # network, app info, note stores (prefs/Hive/sqflite)
+    │   └── router/               # auto_route table, deep-link allow list, transitions
+    ├── helper/                   # money/date/measure formats, network check, fake socket
+    ├── models/                   # Expense, documents, Lottie, rates, news, trace ...
+    ├── theme/                    # MfColors + AppTheme, category colors
+    ├── widgets/                  # shared pieces: Eyebrow, Gap, skeleton, info card
     └── views/
-        ├── view_expenses/        # ana sayfa: özet, kategoriler, liste, ders kartları
-        ├── view_new_expense/     # yeni harcama formu (alttan açılır)
-        ├── view_expense_detail/  # harcama ayrıntısı
-        ├── view_category/        # kategoriye göre harcamalar
-        ├── view_documents/ view_image_viewer/ view_pdf_viewer/ view_audio_player/  # Ders 5
-        ├── view_animations/      # Ders 6
-        ├── view_paged_list/ view_paged_grid/                                       # Ders 7
-        ├── view_animation_control/                                                 # Ders 8
-        ├── view_lottie/                                                            # Ders 9
-        ├── view_sync_async/ view_storage/                                          # Ders 10
-        ├── view_network/                                                           # Ders 11
-        ├── view_device/                                                            # Ders 12
-        ├── view_bloc_demo/                                                         # Ders 13
-        ├── view_device_info/ view_app_network/                                     # Ders 14
-        ├── view_currency/                                                          # Ders 15
-        ├── view_retrofit/                                                          # Ders 16
-        └── view_image_cache/                                                       # Ders 17
+        ├── view_expenses/        # home: summary, categories, list, lesson cards
+        ├── view_new_expense/     # new expense form (bottom sheet)
+        ├── view_expense_detail/  # expense detail
+        ├── view_category/        # expenses for one category
+        ├── view_documents/ view_image_viewer/ view_pdf_viewer/ view_audio_player/  # Lesson 5
+        ├── view_animations/      # Lesson 6
+        ├── view_paged_list/ view_paged_grid/                                       # Lesson 7
+        ├── view_animation_control/                                                 # Lesson 8
+        ├── view_lottie/                                                            # Lesson 9
+        ├── view_sync_async/ view_storage/                                          # Lesson 10
+        ├── view_network/                                                           # Lesson 11
+        ├── view_device/                                                            # Lesson 12
+        ├── view_bloc_demo/                                                         # Lesson 13
+        ├── view_device_info/ view_app_network/                                     # Lesson 14
+        ├── view_currency/                                                          # Lesson 15
+        ├── view_retrofit/                                                          # Lesson 16
+        └── view_image_cache/                                                       # Lesson 17
 assets/
-├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
-├── data/                         # Ders 7: 500 örnek harcama · 13: tasarruf ipuçları · 17: base64 görseller
-└── lottie/                       # Ders 9: beş Lottie animasyonu
-test/                             # her ders için birim, Bloc/ViewModel ve ekran testleri
+├── belgeler/                     # Lesson 5: sample PDF, image, audio
+├── data/                         # Lesson 7: 500 sample expenses · 13: saving tips · 17: base64 images
+└── lottie/                       # Lesson 9: five Lottie animations
+test/                             # unit, Bloc/ViewModel, and screen tests for each lesson
 ```
 
-Her ekran klasörü aynı düzende: `*_view.dart` (View), `cubit/`, `bloc/` ya
-da `view_model/` (ViewModel), `widgets/` (ekranın parçaları).
+Every screen folder uses the same shape: `*_view.dart` (View), `cubit/`,
+`bloc/`, or `view_model/` (ViewModel), and `widgets/` (pieces of that screen).
 
-## Veri akışı
+## Lessons
 
-```
-Ekran (View) ──çağırır──▶ ExpensesCubit ──kaydeder──▶ ExpenseRepository ──▶ telefon hafızası
-     ▲                         │
-     └────yeni state───────────┘
-```
+Order and the routing decision live in [Lesson flow](#lesson-flow). The table
+below matches the card on the home screen. Those card labels are still the
+Turkish strings drawn by the lesson UI.
 
-Ekranlar veriye yalnızca ViewModel üzerinden ulaşır; ViewModel'ler depo
-arayüzlerini (`ExpenseRepository`, `CurrencyRepository` ...) bilir, nasıl
-çalıştıklarını bilmez. Testler bu arayüzlere sahte depolar verir.
-
-## Dersler
-
-Ders 1–3 (Navigator push/pop, Navigation 2.0 RouterDelegate, elle yazılmış
-deep link parser) bu reponun ilk commit'indedir (`b8b3616`). Ders 4'ten
-itibaren uygulamanın tüm yönlendirmesi **auto_route** ile yapılır; ekranlar
-ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir: `git log --oneline`.
-
-| Ders | Konu | Ana sayfadaki kart |
+| Lesson | Topic | Home card |
 |---|---|---|
-| 4 | auto_route, tipli rotalar, deep link beyaz listesi | — |
-| 5 | Assets: PDF, görsel, ses | Belgeler |
-| 6 | Rota geçiş animasyonları | Geçiş animasyonları |
-| 7 | Sayfalama, `ListView.builder` / `GridView`, iskelet yükleme | Sayfalı liste, Sayfalı ızgara |
-| 8 | AnimationController, 3B nesne, nabız efektleri | Animasyon kontrolü |
-| 9 | Lottie: JSON'dan animasyon | Lottie animasyonları |
-| 10 | Sync/async; SharedPreferences, Hive, sqflite | Sync / Async, Yerel depolama |
-| 11 | Future/StreamBuilder, MaterialBanner, sahte WebSocket | Ağ kontrolü |
-| 12 | GPS ve hareket sensörleri | Konum ve sensörler |
-| 13 | Bloc: servis, canlı akış, asset | Bloc ile veri |
-| 14 | Cihaz, uygulama ve ağ bilgisi (Bloc, Cloudflare trace) | Cihaz bilgisi, Uygulama ve ağ |
-| 15 | MVVM: ChangeNotifier + provider, döviz yönetimi | Döviz yönetimi |
-| 16 | retrofit: tüm anotasyonlar, interceptor, CallAdapter | Retrofit ile ağ |
-| 17 | Sürüme bağlı görsel önbelleği, bellek denetimi; base64, S3, SFTP | Görsel önbelleği |
+| 4 | auto_route, typed routes, deep-link allow list | — |
+| 5 | Assets: PDF, image, audio | Documents |
+| 6 | Route transition animations | Transition animations |
+| 7 | Paging, `ListView.builder` / `GridView`, skeleton loading | Paged list, Paged grid |
+| 8 | AnimationController, 3D object, pulse effects | Animation control |
+| 9 | Lottie: animation from JSON | Lottie animations |
+| 10 | Sync/async; SharedPreferences, Hive, sqflite | Sync / Async, Local storage |
+| 11 | Future/StreamBuilder, MaterialBanner, fake WebSocket | Network check |
+| 12 | GPS and motion sensors | Location and sensors |
+| 13 | Bloc: service, live stream, asset | Data with Bloc |
+| 14 | Device, app, and network info (Bloc, Cloudflare trace) | Device info, App and network |
+| 15 | MVVM: ChangeNotifier + provider, currency desk | Currency desk |
+| 16 | retrofit: annotations, interceptor, CallAdapter | Network with Retrofit |
+| 17 | Versioned image cache, memory control; base64, S3, SFTP | Image cache |
 
-**Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
-veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
-currency-api (Ders 15), Anadolu Ajansı ve TRT Haber RSS (Ders 15),
-jsonplaceholder ve httpbin (Ders 16), AWS Open Data S3 ve Rebex SFTP test
-sunucusu (Ders 17).
+**Outside services** (all free, no API key, no personal data added to the
+request): Frankfurter (lesson 13), Cloudflare trace (lesson 14),
+currency-api (lesson 15), Anadolu Agency and TRT Haber RSS (lesson 15),
+jsonplaceholder and httpbin (lesson 16), AWS Open Data S3 and the Rebex SFTP
+test server (lesson 17).
 
-**İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı). Konum, IP ve
-Wi-Fi bilgileri yalnızca ekranda gösterilir: kaydedilmez, gönderilmez,
-konsola yazılmaz.
+**Permissions:** internet; location (lesson 12 GPS, lesson 14 Wi-Fi name).
+Location, IP, and Wi-Fi details are shown on screen only. They are not saved,
+sent, or printed.
 
-### Ders 4 — auto_route
+### Lesson 4 — auto_route
 
-auto_route, Navigation 2.0'ı (RouterDelegate + parser) sizin yerinize kurar.
-Sayfalar `@RoutePage()` ile işaretlenir, `build_runner` her sayfa için **tipli
-bir rota sınıfı** üretir:
+auto_route sets up Navigation 2.0 (RouterDelegate + parser). Pages are marked
+with `@RoutePage()`. `build_runner` generates a **typed route class** for
+each page:
 
-| Sayfa | Üretilen rota | Yol |
+| Page | Generated route | Path |
 |---|---|---|
 | `ExpensesView` | `ExpensesRoute()` | `/` |
 | `CategoryExpensesView` | `CategoryExpensesRoute(slug: 'yemek')` | `/kategori/:slug` |
-| `ExpenseDetailView` | `ExpenseDetailRoute(expense: e)` | dışarıya kapalı |
+| `ExpenseDetailView` | `ExpenseDetailRoute(expense: e)` | not openable from outside |
 | `NewExpenseView` | `NewExpenseRoute()` | `/yeni` (bottom sheet) |
 
 ```dart
-// Aç ve sonucu bekle (Navigator.push gibi, ama tipli rota ile)
+// Open and wait for a result (like Navigator.push, with a typed route)
 final result = await context.router.push<ExpenseDetailResult>(
   ExpenseDetailRoute(expense: expense),
 );
-// Kapat ve sonuç döndür
+// Close and return a result
 context.router.maybePop(const ExpenseDetailDeleted());
 ```
 
-| Ne | Nerede |
+| What | Where |
 |---|---|
-| Rota tablosu (`@AutoRouterConfig`, `RootStackRouter`) | `core/router/app_router.dart` |
-| Üretilen rota sınıfları (elle düzenlenmez) | `core/router/app_router.gr.dart` |
+| Route table (`@AutoRouterConfig`, `RootStackRouter`) | `core/router/app_router.dart` |
+| Generated route classes (do not edit) | `core/router/app_router.gr.dart` |
 | `MaterialApp.router(routerConfig: _router.config(...))` | `app.dart` |
-| Deep link beyaz listesi (`deepLinkTransformer`) | `core/router/app_deep_links.dart` |
+| Deep-link allow list (`deepLinkTransformer`) | `core/router/app_deep_links.dart` |
 | `@PathParam('slug')` | `views/view_category/category_expenses_view.dart` |
-| Testler | `test/deep_link_test.dart`, `test/widget_test.dart` |
+| Tests | `test/deep_link_test.dart`, `test/widget_test.dart` |
 
-Rota tablosu ya da bir `@RoutePage()` sayfanın parametreleri değişince:
+When the route table or a `@RoutePage()` page's parameters change:
 
 ```bash
 dart run build_runner build
 ```
 
-Deep link: `harcamatakibim://app/kategori/<ad>` ve `harcamatakibim://app/yeni`.
-auto_route linki rota tablosuyla
-eşlemeden önce `AppDeepLinks.transform` çalışır: yalnızca bu iki biçim geçer,
-sorgu parametreleri atılır, başka her şey `/` olur. Detay ekranı nesne
-istediği için dışarıdan açılamaz.
+Deep links: `harcamatakibim://app/kategori/<name>` and
+`harcamatakibim://app/yeni`. `AppDeepLinks.transform` runs before auto_route
+matches the table. Only those two shapes pass. Query parameters are dropped.
+Everything else becomes `/`. The detail screen needs an object, so it cannot
+be opened from outside.
 
-### Ders 5 — Assets (PDF, görsel, ses) + auto_route
+### Lesson 5 — Assets (PDF, image, audio) + auto_route
 
-Dosyalar uygulamanın içine gömülüdür (`assets/belgeler/`) ve
-`pubspec.yaml`'daki `assets:` bölümüyle tanıtılır. Kaynak: Wikimedia Commons,
-hepsi kamu malı.
+Files are bundled in the app (`assets/belgeler/`) and declared under
+`assets:` in `pubspec.yaml`. Source: Wikimedia Commons, all public domain.
 
-| Ne | Nerede |
+| What | Where |
 |---|---|
-| Dosyalar | `assets/belgeler/` |
+| Files | `assets/belgeler/` |
 | `pubspec.yaml` → `flutter: assets: - assets/belgeler/` | `pubspec.yaml` |
-| Belge listesi (`kDocuments`) | `models/document_item.dart` |
-| Liste sayfası `/belgeler` | `views/view_documents/documents_view.dart` |
-| Görsel: `Image.asset` + `InteractiveViewer` | `views/view_image_viewer/` |
+| Document list (`kDocuments`) | `models/document_item.dart` |
+| List page `/belgeler` | `views/view_documents/documents_view.dart` |
+| Image: `Image.asset` + `InteractiveViewer` | `views/view_image_viewer/` |
 | PDF: `PdfViewer.asset` (pdfrx) | `views/view_pdf_viewer/` |
-| Ses: `AudioPlayer().setAsset` (just_audio) | `views/view_audio_player/` |
-| Testler | `test/documents_test.dart` |
+| Audio: `AudioPlayer().setAsset` (just_audio) | `views/view_audio_player/` |
+| Tests | `test/documents_test.dart` |
 
-Görüntüleyiciler `DocumentItem` nesnesi ister (`PdfViewerRoute(document: d)`),
-bu yüzden dışarıdan yalnızca liste açılabilir: `harcamatakibim://app/belgeler`.
+Viewers need a `DocumentItem` (`PdfViewerRoute(document: d)`), so from outside
+only the list can open: `harcamatakibim://app/belgeler`.
 
-Not: `@AutoRouterConfig(replaceInRouteName: 'View,Route')` kuralı
-`ImageViewerView` içindeki "View" parçasını da değiştirip `ImageRouteerRoute`
-üretir; bu yüzden bu sayfalarda ad elle verilir:
-`@RoutePage(name: 'ImageViewerRoute')`.
+Note: `@AutoRouterConfig(replaceInRouteName: 'View,Route')` also rewrites the
+"View" inside `ImageViewerView` and would emit `ImageRouteerRoute`. Those
+pages set the name by hand: `@RoutePage(name: 'ImageViewerRoute')`.
 
-### Ders 6 — Rota geçiş animasyonları
+### Lesson 6 — Route transition animations
 
-Sayfa açılırken Flutter `animation` değerini 0'dan 1'e götürür (kapanırken
-tersine). Geçiş, bu değeri bir `*Transition` widget'ına bağlamaktır:
-`FadeTransition` (solma), `SlideTransition` (kayma), `ScaleTransition`
-(büyüme), `RotationTransition`, `SizeTransition`, ya da `AnimatedBuilder` ile
-kendi efektin (3B çevirme, dairesel açılma, bulanıklık).
+While a page opens, Flutter moves `animation` from 0 to 1 (and back when it
+closes). A transition binds that value to a `*Transition` widget:
+`FadeTransition`, `SlideTransition`, `ScaleTransition`,
+`RotationTransition`, `SizeTransition`, or your own effect with
+`AnimatedBuilder` (3D flip, circular reveal, blur).
 
-auto_route'ta geçiş rota tablosunda verilir:
+In auto_route the transition is set on the route table:
 
 ```dart
 CustomRoute(page: X.page, path: '/x',
@@ -190,125 +381,124 @@ CustomRoute(page: X.page, path: '/x',
   duration: const Duration(milliseconds: 400))
 ```
 
-**20 senaryo** (`core/router/route_transitions.dart` → `RouteAnimation`):
-solma, sağdan/soldan/alttan/üstten kayma, büyüme, küçülerek yerleşme, dönme,
-solup yükselme, perde, dairesel açılma, dikey/yatay kart çevirme, elastik,
-zıplama, netleşme, Hero (ortak öğe), iOS tarzı, Android tarzı, animasyonsuz.
+**20 scenarios** (`core/router/route_transitions.dart` → `RouteAnimation`):
+fade, slide from right/left/bottom/top, scale, scale down into place,
+rotation, fade and rise, curtain, circular reveal, vertical/horizontal card
+flip, elastic, bounce, focus, Hero (shared element), iOS style, Android
+style, no animation.
 
-**Mevcut sayfalar:** kategori ve belgeler sağdan kayar, harcama detayı solup
-yükselir, görsel küçülerek yerleşir, PDF alttan gelir, ses dairesel açılır.
+**Existing pages:** category and documents slide from the right, expense
+detail fades and rises, the image scales into place, the PDF comes from the
+bottom, audio opens in a circle.
 
-**Vitrin:** ana sayfa → *Geçiş animasyonları*. Tek bir demo rotası
-(`/animasyon/:senaryo`) 20 senaryoyu gösterir; `customRouteBuilder`,
-gönderilen senaryoya bakıp animasyonu seçer. *Yavaş çekim* anahtarı
-`timeDilation = 5` ile tüm animasyonları 5 kat yavaşlatır.
+**Showcase:** home → *Transition animations*. One demo route
+(`/animasyon/:senaryo`) shows all 20. `customRouteBuilder` reads the scenario
+and picks the animation. The *slow motion* switch sets `timeDilation = 5`.
 
-Not: auto_route rotaları varsayılan olarak **adıyla** tanır. Aynı adı taşıyan
-rotalar (20 senaryonun hepsi `AnimationDemoRoute`) tek sayfa sayılır ve üst
-üste açılamaz; bu yüzden demo rotası `usesPathAsKey: true` ile **yoluyla**
-tanınır.
+Note: auto_route identifies routes by **name** by default. Routes that share
+a name (all 20 scenarios are `AnimationDemoRoute`) count as one page and
+cannot stack. The demo route uses `usesPathAsKey: true` so it is identified
+by **path**.
 
-### Ders 7 — Sayfalama + ListView.builder
+### Lesson 7 — Paging + ListView.builder
 
-Ana sayfa → *Sayfalı liste*: 500 örnek harcama 20'şer (25 sayfa) yüklenir.
+Home → *Paged list*: 500 sample expenses load 20 at a time (25 pages).
 
-| Katman | Dosya |
+| Layer | File |
 |---|---|
-| Depo (arayüz) | `core/repository/sample_expense_repository.dart` → `fetchPage(page, pageSize)` |
-| Veri dosyası | `assets/data/ornek_harcamalar.json` — 500 kayıt (pubspec → `assets/data/`) |
-| Depo (JSON) | `core/repository/json_sample_expense_repository.dart` — `rootBundle.loadString` → `jsonDecode` → `Expense.fromJson`; dosya bir kez okunur, sayfa başı 0,6 sn bekleme |
-| Durum | `views/view_paged_list/cubit/paged_list_state.dart` — `status`, `items`, `page`, `hasMore`, `total` |
+| Repository (interface) | `core/repository/sample_expense_repository.dart` → `fetchPage(page, pageSize)` |
+| Data file | `assets/data/ornek_harcamalar.json` — 500 rows (pubspec → `assets/data/`) |
+| Repository (JSON) | `core/repository/json_sample_expense_repository.dart` — `rootBundle.loadString` → `jsonDecode` → `Expense.fromJson`; the file is read once, then 0.6 s per page |
+| State | `views/view_paged_list/cubit/paged_list_state.dart` — `status`, `items`, `page`, `hasMore`, `total` |
 | View model | `views/view_paged_list/cubit/paged_list_cubit.dart` — `loadFirstPage`, `loadNextPage`, `refresh`, `retry` |
-| Ekran | `views/view_paged_list/paged_list_view.dart` |
+| Screen | `views/view_paged_list/paged_list_view.dart` |
 
-- `ListView(children: [...])` 500 satırın hepsini baştan oluşturur;
-  `ListView.builder` yalnızca ekranda görünenleri oluşturur.
-- `ScrollController` listenin sonuna 300 px kala `loadNextPage()` çağırır.
-  Cubit aynı anda tek istek atar, kayıtlar bitince istek atmaz.
-- `itemCount = kayıt + 1`: son satır *yükleniyor / tekrar dene / hepsi bu kadar*.
-- Aşağı çekince (`RefreshIndicator`) 1. sayfaya döner.
-- Örnek kayıtlar yalnızca okunur; gerçek harcamalara yazılmaz. Rota deep
-  link beyaz listesinde yok.
+- `ListView(children: [...])` builds all 500 rows up front.
+  `ListView.builder` builds only the rows on screen.
+- `ScrollController` calls `loadNextPage()` 300 px before the end.
+  The cubit allows one request at a time and stops when the rows run out.
+- `itemCount = rows + 1`: the last row is *loading / retry / that is all*.
+- Pull to refresh (`RefreshIndicator`) returns to page 1.
+- Sample rows are read-only. They are not written into real expenses. The
+  route is not on the deep-link allow list.
 
-**2. ekran — Sayfalı ızgara** (ana sayfa → *Sayfalı ızgara*,
-`views/view_paged_grid/`): aynı depo ve aynı `PagedListCubit`, yalnızca
-görünüm farklı. Kartlar en fazla 200 px genişlikte
-(`SliverGridDelegateWithMaxCrossAxisExtent`): telefonda 2 sütun, geniş
-ekranda daha fazla. Alttaki "yükleniyor / hepsi bu kadar" satırı tek hücreye
-sığmayacağı için `CustomScrollView` içinde `SliverGrid.builder` +
-`SliverToBoxAdapter` kullanılır (`GridView.builder` da içeride aynı
-`SliverGrid`'i kurar). Sayaç ve alt satır iki ekranda ortaktır:
-`view_paged_list/widgets/paged_status_widgets.dart`.
+**Second screen — paged grid** (home → *Paged grid*,
+`views/view_paged_grid/`): same repository and the same `PagedListCubit`,
+different layout. Cards are at most 200 px wide
+(`SliverGridDelegateWithMaxCrossAxisExtent`): two columns on a phone, more
+on a wide screen. The footer row does not fit in one cell, so the screen
+uses `SliverGrid.builder` + `SliverToBoxAdapter` inside a `CustomScrollView`
+(`GridView.builder` builds the same `SliverGrid` internally). The counter
+and footer are shared: `view_paged_list/widgets/paged_status_widgets.dart`.
 
-**Lazy loading — iki sekme** (liste ve ızgarada *Standart* / *İskelet*):
-her sekmenin kendi cubit'i var, birbirinden bağımsız sayfalanır
+**Lazy loading — two tabs** (*Standard* / *Skeleton* on both list and grid):
+each tab has its own cubit and pages on its own
 (`view_paged_list/widgets/paged_tab.dart`, `AutomaticKeepAliveClientMixin`
-ile sekme değişince içerik korunur).
+keeps the tab alive).
 
-| | Standart | İskelet |
+| | Standard | Skeleton |
 |---|---|---|
-| Açılışta | ortada dönen gösterge | 8 iskelet satır/kart |
-| Sonraki sayfa beklenirken | en altta dönen gösterge | listenin sonunda 3 satır / 4 kart iskelet |
+| On open | a centered spinner | 8 skeleton rows/cards |
+| While the next page loads | a spinner at the bottom | 3 rows / 4 cards of skeleton at the end |
 
-İskelet paket kullanmadan yazıldı (`widgets/skeleton.dart`): `SkeletonBox`
-gri kutular, `Shimmer` ise `ShaderMask` + kayan `LinearGradient` ile
-üstlerinden parıltı geçirir. Sistemde "animasyonları azalt" açıksa parıltı
-oynamaz.
+The skeleton uses no package (`widgets/skeleton.dart`). `SkeletonBox` is a
+gray box. `Shimmer` runs a moving `LinearGradient` through a `ShaderMask`.
+If the system setting "reduce motion" is on, the shine does not play.
 
-### Ders 8 — AnimationController
+### Lesson 8 — AnimationController
 
-Ana sayfa → *Animasyon kontrolü* (`views/view_animation_control/`), iki sekme.
+Home → *Animation control* (`views/view_animation_control/`), two tabs.
 
-`AnimationController` bir saattir: her karede `value`'yu 0.0 → 1.0 ilerletir.
-`vsync` için State'e `SingleTickerProviderStateMixin` eklenir; sayfa
-kapanınca `dispose()` ile mutlaka kapatılır.
+`AnimationController` is a clock: each frame it moves `value` from 0.0 to
+1.0. The State mixes in `SingleTickerProviderStateMixin` for `vsync`, and
+`dispose()` stops the clock when the page closes.
 
-| Komut | Ne yapar |
+| Call | What it does |
 |---|---|
-| `forward()` / `reverse()` | ileri / geri oynat |
-| `stop()` / `reset()` | olduğu yerde dur / başa (0.0) dön |
-| `repeat()` / `repeat(reverse: true)` | sürekli tekrar / gidip gel |
-| `value = x` | elle istenen yere getir (ilerleme kaydırıcısı) |
-| `duration = ...` | hız (kaydırıcı; 0.25x–3x) |
+| `forward()` / `reverse()` | play forward / backward |
+| `stop()` / `reset()` | freeze in place / jump back to 0.0 |
+| `repeat()` / `repeat(reverse: true)` | loop / ping-pong |
+| `value = x` | jump to a point (progress slider) |
+| `duration = ...` | speed (slider, 0.25x–3x) |
 
-**3B obje:** paketsiz 3B kutu (`widgets/box_3d.dart`): altı yüz `Matrix4`
-ile yerine döndürülür, arkadakiler önce çizilir. Küp / Kart / Kule.
-- `CurvedAnimation` + `Curves` → doğrusal, yumuşak, yavaşlayan, geri
-  yaylanma, elastik, zıplama (`widgets/curve_option.dart`)
-- `AnimatedSwitcher` → obje değişirken eskisi söner, yenisi büyür
-- `AnimatedContainer` → sahnenin rengi (gece) ve yüksekliği (büyük sahne)
-- Durum yazısı `AnimationStatus`'u gösterir (ileri / geri / bitti / başta)
+**3D object:** a package-free box (`widgets/box_3d.dart`). Six faces are
+placed with `Matrix4`, back faces drawn first. Cube / Card / Tower.
+- `CurvedAnimation` + `Curves` → linear, ease, decelerate, ease-back,
+  elastic, bounce (`widgets/curve_option.dart`)
+- `AnimatedSwitcher` → the old object fades, the new one grows
+- `AnimatedContainer` → scene color (night) and height (large stage)
+- The status line shows `AnimationStatus` (forward / reverse / completed / dismissed)
 
-**Nabız:** 8 efekt (`widgets/pulse_effects.dart`), her biri kendi
-controller'ıyla (`widgets/pulse_card.dart`): kalp atışı (`TweenSequence`),
-dalga halkaları, nefes, EKG çizgisi (`CustomPainter` + `extractPath`),
-radar (`SweepGradient`), zil sallanması, "yazıyor..." noktaları, bpm ile
-hızı ayarlanan nabız. Her kartta Oynat/Durdur ve eğri seçimi var.
+**Pulse:** 8 effects (`widgets/pulse_effects.dart`), each with its own
+controller (`widgets/pulse_card.dart`): heartbeat (`TweenSequence`),
+wave rings, breath, EKG line (`CustomPainter` + `extractPath`),
+radar (`SweepGradient`), bell shake, "typing..." dots, and a pulse whose
+speed follows bpm. Each card has play/stop and a curve picker.
 
-### Ders 9 — Lottie: JSON'dan animasyon
+### Lesson 9 — Lottie: animation from JSON
 
-Ana sayfa → *Lottie animasyonları* (`views/view_lottie/`), paket: `lottie`.
+Home → *Lottie animations* (`views/view_lottie/`), package `lottie`.
 
-1. Tasarımcı animasyonu After Effects'te vektörle çizer.
-2. Bodymovin eklentisi onu **JSON**'a aktarır: katmanlar, şekiller ve
-   "şu karede şu değer" listeleri.
-3. `Lottie.asset('assets/lottie/x.json')` dosyayı okur ve her karede
-   şekilleri yeniden çizer. Video değil veridir: birkaç KB, her boyutta net,
-   rengi çalışırken değiştirilebilir (`LottieDelegates`).
+1. A designer draws the animation as vectors in After Effects.
+2. The Bodymovin plugin exports **JSON**: layers, shapes, and "at this frame,
+   this value" lists.
+3. `Lottie.asset('assets/lottie/x.json')` reads the file and redraws the
+   shapes every frame. It is data, not video: a few KB, sharp at any size,
+   and recolorable at runtime (`LottieDelegates`).
 
-JSON'un kökündeki anahtarlar (`models/lottie_json_info.dart` okur):
-`v` sürüm, `fr` saniyedeki kare, `ip`/`op` ilk/son kare, `w`/`h` tuval,
-`layers` katmanlar. Süre = (op − ip) / fr.
+Root keys (`models/lottie_json_info.dart` reads them): `v` version, `fr`
+frames per second, `ip`/`op` first/last frame, `w`/`h` canvas, `layers`.
+Duration = (op − ip) / fr.
 
-Oynatıcı, Ders 8'deki `AnimationController` ile yönetilir: oynat/durdur,
-istenen kareye git (`value`), hız (`duration`). Controller verilmezse Lottie
-kendi saatini kurar ve sürekli tekrar eder.
+The player is driven by the lesson 8 `AnimationController`: play/stop, seek
+(`value`), speed (`duration`). Without a controller, Lottie builds its own
+clock and loops.
 
-**Kaynak:** [lottiefiles.com/free-animations](https://lottiefiles.com/free-animations/json),
-Lottie Simple License. Dosyalar `.lottie` (zip) olarak indirildi, içlerindeki
-JSON `assets/lottie/` altına çıkarıldı:
+**Source:** [lottiefiles.com/free-animations](https://lottiefiles.com/free-animations/json),
+Lottie Simple License. Files were downloaded as `.lottie` (zip) and the JSON
+inside was extracted to `assets/lottie/`:
 
-| Dosya | LottieFiles |
+| File | LottieFiles |
 |---|---|
 | `heartbeat.json` | [Heartbeat](https://lottiefiles.com/free-animation/heartbeat-lottie-animation-Sph5eoJytj) |
 | `loading.json` | [Loading animation](https://lottiefiles.com/free-animation/loading-animation-0yMJ1aysad) |
@@ -316,227 +506,234 @@ JSON `assets/lottie/` altına çıkarıldı:
 | `clock.json` | [Clock](https://lottiefiles.com/free-animation/clock-lottie-animation-K2sPMoyo0P) |
 | `idea.json` | [Idea](https://lottiefiles.com/free-animation/idea-2xuoUIZh6Z) |
 
-### Ders 10 — Sync / async ve yerel depolama
+### Lesson 10 — Sync / async and local storage
 
-**Sync / Async** (ana sayfa → *Sync / Async*, `views/view_sync_async/`,
-`helper/sync_async_demo.dart`). Dart tek iş parçacığında çalışır; ekranı
-çizen ile düğmenin kodu aynı sıradadır. Sayfadaki çark ve kare sayacı her
-karede ilerler, kareler arasındaki en uzun boşluk "donma" olarak ölçülür.
+**Sync / Async** (home → *Sync / Async*, `views/view_sync_async/`,
+`helper/sync_async_demo.dart`). Dart runs on one thread. The code that paints
+the screen and the code behind a button share that queue. The gear and the
+square counter on the page advance every frame. The longest gap between
+frames is measured as a freeze.
 
-| Aynı 2 sn'lik iş | Sonuç |
+| The same 2-second job | Result |
 |---|---|
-| `busyWork(2000)` (senkron) | ekran donar |
-| `await Future.delayed(2 sn)` | ekran akar (bekleme, iş yok) |
-| `await Future(() => busyWork(2000))` | yine donar: async ≠ paralel |
-| `await Isolate.run(() => busyWork(2000))` | ekran akar: başka çekirdek |
+| `busyWork(2000)` (synchronous) | the screen freezes |
+| `await Future.delayed(2 s)` | the screen keeps moving (waiting, no work) |
+| `await Future(() => busyWork(2000))` | freezes again: async is not parallel |
+| `await Isolate.run(() => busyWork(2000))` | the screen keeps moving: another core |
 
-Event loop sırası: önce senkron kod, sonra microtask'lar, sonra olay
-kuyruğu (`Future()`, `Timer`). async fonksiyon ilk `await`'e kadar senkron
-çalışır.
+Event-loop order: synchronous code, then microtasks, then the event queue
+(`Future()`, `Timer`). An async function runs synchronously until its first
+`await`.
 
-**Yerel depolama** (ana sayfa → *Yerel depolama*, `views/view_storage/`).
-Aynı kayıt (`StorageNote`) üç yolla, üç ayrı ekranda; hepsi `NoteStore`
-arayüzünü ve aynı `StorageDemoCubit`'i kullanır
+**Local storage** (home → *Local storage*, `views/view_storage/`). The same
+record (`StorageNote`) is stored three ways, on three screens. All of them
+use the `NoteStore` interface and the same `StorageDemoCubit`
 (`core/repository/note_stores/`):
 
 | | SharedPreferences | Hive (hive_ce) | sqflite |
 |---|---|---|---|
-| Model | anahtar → değer | NoSQL, anahtar → nesne | SQL tablo, satır |
-| Liste nasıl saklanır | tek anahtarda JSON metni | kutuda nesneler (TypeAdapter) | tabloda satırlar |
-| Okuma | sync (bellekten) | sync (`box.get`) | async (SQL) |
-| Sorgu | yok | kodda elle | `WHERE`, `ORDER BY`, `SUM` |
-| En uygun | ayarlar, birkaç değer | nesneler, hızlı önbellek | çok kayıt, sorgu, ilişki |
+| Model | key → value | NoSQL, key → object | SQL table, row |
+| How a list is stored | JSON text under one key | objects in a box (TypeAdapter) | rows in a table |
+| Read | sync (from memory) | sync (`box.get`) | async (SQL) |
+| Query | none | by hand in code | `WHERE`, `ORDER BY`, `SUM` |
+| Best for | settings, a few values | objects, a fast cache | many rows, queries, relations |
 
-Her ekranda kayıt ekle / sil, 1000 kayıtla yazma-okuma ölçümü ve verinin
-diskte nasıl durduğunu gösteren ham görünüm var. Bu dersin verisi ayrı
-anahtar (`ders10_notes`), kutu ve veritabanında (`ders10.db`) durur; gerçek
-harcamalara dokunulmaz. Testlerde Hive geçici klasörde, sqflite
-`sqflite_common_ffi` ile bellekte çalışır.
+Each screen can add and delete records, measure a write/read of 1000
+records, and show the raw bytes on disk. This lesson's data lives in its own
+key (`ders10_notes`), box, and database (`ders10.db`). Real expenses are not
+touched. Tests run Hive in a temp folder and sqflite in memory through
+`sqflite_common_ffi`.
 
-### Ders 11 — Ağ kontrolü: Future, Stream ve WebSocket
+### Lesson 11 — Network check: Future, Stream, and WebSocket
 
-Ana sayfa → *Ağ kontrolü* (`views/view_network/`).
+Home → *Network check* (`views/view_network/`).
 
-**Helper** (`helper/network_checker.dart`): `example.com` adresini DNS ile
-çözmeyi dener (Wi-Fi'ye bağlı olmak internete çıkabilmek demek değildir).
+**Helper** (`helper/network_checker.dart`): tries to resolve `example.com`
+with DNS. Being on Wi-Fi does not mean the device can reach the internet.
 
-| | Ne döner | Ekranda |
+| | Returns | On screen |
 |---|---|---|
-| `check()` | `Future<NetworkResult>`: tek cevap | `FutureBuilder` |
-| `watch(every:)` | `Stream<NetworkResult>`: her N saniyede bir | `StreamBuilder` |
-| `refresh()` | dinleyenlere hemen yeni kontrol | "Tekrar dene" |
+| `check()` | `Future<NetworkResult>`: one answer | `FutureBuilder` |
+| `watch(every:)` | `Stream<NetworkResult>`: every N seconds | `StreamBuilder` |
+| `refresh()` | a new check pushed to listeners now | "Try again" |
 
-`ConnectionState`: `none` (başlamadı) → `waiting` (bekleniyor) → `active`
-(akış veri veriyor) → `done` (bitti). Future/Stream `build` içinde değil,
-`State`'te bir kez oluşturulur; yoksa her çizimde yeniden başlar.
+`ConnectionState`: `none` (not started) → `waiting` → `active` (the stream
+is emitting) → `done`. The Future or Stream is created once on the `State`,
+not inside `build`. Otherwise every frame starts it again.
 
-**MaterialBanner:** `app.dart` uygulama açılınca `watch()`'u dinler;
-bağlantı yoksa `ScaffoldMessenger` ile her sayfanın üstünde
-"İnternet bağlantısı yok" uyarısı çıkar, gelince kalkar ve kısa bir
-bildirim gösterilir. Sayfadaki *Çevrimdışı gibi davran* anahtarı Wi-Fi'yi
-kapatmadan bunu gösterir.
+**MaterialBanner:** `app.dart` listens to `watch()` at startup. When there is
+no connection, `ScaffoldMessenger` shows "No internet connection" above every
+page. When the connection returns, the banner leaves and a short notice
+appears. The *Act offline* switch on the page shows that banner without
+turning Wi-Fi off.
 
-**Sahte WebSocket** (`helper/mock_socket.dart`): paket ve kurulum
-gerektirmez. `HttpServer` telefonun içinde, yalnızca telefondan erişilen
-`127.0.0.1` adresinde açılır; her saniye sahte döviz kuru gönderir,
-yazılan mesajı geri yollar. İstemci gerçek bir `WebSocket`'tir;
-`StreamBuilder` gelen mesajları canlı gösterir.
+**Fake WebSocket** (`helper/mock_socket.dart`): no package and no setup.
+`HttpServer` opens inside the phone, on `127.0.0.1`, reachable only from the
+phone. It sends a fake exchange rate every second and echoes typed messages.
+The client is a real `WebSocket`. `StreamBuilder` shows incoming messages
+live.
 
-Android'de yayın (release) sürümünün internete çıkması için ana manifestte
-`INTERNET` izni gerekir; debug sürümünde Flutter bunu kendisi ekler.
+A release Android build needs the `INTERNET` permission in the main manifest.
+Flutter adds it for debug builds.
 
-### Ders 12 — GPS ve sensörler: donanımdan canlı veri
+### Lesson 12 — GPS and sensors: live data from hardware
 
-Ana sayfa → *Konum ve sensörler* (`views/view_device/`), iki sekme.
-Donanım ölçtükçe bir `Stream`'e yeni değer koyar; ekran `StreamBuilder` ile
-her değerde yeniden çizilir (Ders 11'deki fikir).
+Home → *Location and sensors* (`views/view_device/`), two tabs.
+Hardware pushes a new value onto a `Stream`. The screen rebuilds with
+`StreamBuilder` (the idea from lesson 11).
 
-**GPS** (`core/device/location_source.dart`, paket `geolocator`):
-1. İzin (`Future`): konum servisi açık mı, izin var mı? Yoksa ister;
-   kalıcı reddedilmişse "Ayarları aç" gösterilir.
-2. Konum akışı (`Stream`): saniyede bir enlem, boylam, doğruluk (± m), hız,
-   yön, yükseklik. Yürüdükçe iz çizilir, mesafe haversine formülüyle
-   toplanır; doğruluk yarıçapından küçük "titreme" adımları sayılmaz.
-Konum yalnızca ekranda gösterilir: kaydedilmez, gönderilmez.
-İzinler: Android `ACCESS_FINE/COARSE_LOCATION`, iOS
+**GPS** (`core/device/location_source.dart`, package `geolocator`):
+1. Permission (`Future`): is the location service on, and is permission
+   granted? If not, it asks. If it was denied forever, "Open settings" is
+   shown.
+2. Location stream (`Stream`): about once a second, latitude, longitude,
+   accuracy (± m), speed, heading, altitude. A trail is drawn as you walk.
+   Distance uses the haversine formula. Steps smaller than the accuracy
+   radius are ignored as jitter.
+Location is shown on screen only. It is not saved or sent.
+Permissions: Android `ACCESS_FINE/COARSE_LOCATION`, iOS
 `NSLocationWhenInUseUsageDescription`.
 
-**Sensörler** (`core/device/sensor_source.dart`, paket `sensors_plus`).
-Eksenler telefona göre: x sağ, y üst, z ekrandan size.
+**Sensors** (`core/device/sensor_source.dart`, package `sensors_plus`).
+Axes are relative to the phone: x right, y up, z out of the screen toward you.
 
-| Sensör | Birim | Ekranda |
+| Sensor | Unit | On screen |
 |---|---|---|
-| İvmeölçer (yerçekimi dahil) | m/s² | su terazisi, eğim açıları, canlı x/y/z grafiği |
-| Manyetometre | µT | yaklaşık pusula (telefon düzken), alan şiddeti |
-| Jiroskop | rad/s | eksenlerde dönüş hızı |
-| Kullanıcı ivmesi (yerçekimi hariç) | m/s² | sallama sayacı (12 m/s² üstü) |
+| Accelerometer (includes gravity) | m/s² | spirit level, tilt angles, live x/y/z chart |
+| Magnetometer | µT | approximate compass (phone held flat), field strength |
+| Gyroscope | rad/s | rotation speed on each axis |
+| User acceleration (gravity removed) | m/s² | shake counter (above 12 m/s²) |
 
-Her kartta saniyedeki ölçüm sayısı (Hz) ve `ConnectionState` görünür.
-Donanım `LocationSource` / `SensorSource` arayüzlerinin arkasında; testte
-sahte akışlar verilir.
+Each card shows samples per second (Hz) and `ConnectionState`. Hardware sits
+behind the `LocationSource` / `SensorSource` interfaces. Tests supply fake
+streams.
 
-Not: Bu iki sayfada ve ağ sayfasında tembel `ListView` yerine
-`SingleChildScrollView` kullanılır: ekrandan çıkan kart yok edilirse,
-yeniden kurulan `StreamBuilder` aynı akışı ikinci kez dinleyemez.
+Note: these two pages and the network page use `SingleChildScrollView`
+instead of a lazy `ListView`. If a card leaves the screen and is disposed,
+a new `StreamBuilder` cannot listen to the same single-subscription stream.
 
-### Ders 13 — Bloc ile durum yönetimi
+### Lesson 13 — State with Bloc
 
-Ana sayfa → *Bloc ile veri* (`views/view_bloc_demo/`), üç sekme.
+Home → *Data with Bloc* (`views/view_bloc_demo/`), three tabs.
 
 ```
-Ekran ──add(Olay)──▶ Bloc ──on<Olay>──▶ emit(Durum) ──▶ Ekran çizer
+Screen ──add(Event)──▶ Bloc ──on<Event>──▶ emit(State) ──▶ Screen paints
 ```
 
-Cubit'te ekran metot çağırır (`cubit.load()`); Bloc'ta **olay** gönderir
-(`bloc.add(RatesRequested())`). React'teki `useReducer` + `dispatch` gibi.
-Her Bloc `core/base/base_view_model_bloc.dart`'tan türer
-(masterfabric_core'daki `BaseViewModelBloc`); `AppBlocObserver.onTransition`
-her geçişi "olay → durum" olarak kayda yazar.
+With a Cubit the screen calls a method (`cubit.load()`). With a Bloc it
+sends an **event** (`bloc.add(RatesRequested())`). Same idea as React
+`useReducer` + `dispatch`. Every Bloc extends
+`core/base/base_view_model_bloc.dart` (masterfabric_core's
+`BaseViewModelBloc`). `AppBlocObserver.onTransition` records each change as
+"event → state".
 
-| Sekme | Kaynak | Bloc | Teknik |
+| Tab | Source | Bloc | Technique |
 |---|---|---|---|
-| Servis | Frankfurter API (`dio`) | `RatesBloc` | `sealed` durumlar + `switch`; `droppable()`: istek sürerken "Yenile" yok sayılır |
-| Canlı | Sahte WebSocket (Ders 11) | `LiveRatesBloc` | `emit.forEach(akış)`: her mesaj yeni durum |
-| Asset | `assets/data/tasarruf_ipuclari.json` | `TipsBloc` | `restartable()` + 300 ms bekleme: yalnızca son arama |
+| Service | Frankfurter API (`dio`) | `RatesBloc` | `sealed` states + `switch`; `droppable()`: "Refresh" is ignored while a request is in flight |
+| Live | Fake WebSocket (lesson 11) | `LiveRatesBloc` | `emit.forEach(stream)`: each message is a new state |
+| Asset | `assets/data/tasarruf_ipuclari.json` | `TipsBloc` | `restartable()` + 300 ms wait: only the latest search runs |
 
-Ekranda: `MultiBlocProvider` (üç Bloc sayfa seviyesinde), `BlocBuilder`
-(çizim), `BlocListener` (hata olunca bildirim), `BlocSelector` (durumun bir
-parçası değişince çizim).
+On screen: `MultiBlocProvider` (three Blocs at page level), `BlocBuilder`
+(paint), `BlocListener` (a notice on error), `BlocSelector` (repaint when
+one slice of state changes).
 
-**Servis:** `GET https://api.frankfurter.dev/v1/latest?base=TRY&symbols=...`
-Avrupa Merkez Bankası'nın günlük kurları; ücretsiz, anahtar istemez, isteğe
-kişisel veri eklenmez. `dio` hataları Türkçe `RatesFailure`'a çevrilir.
+**Service:** `GET https://api.frankfurter.dev/v1/latest?base=TRY&symbols=...`
+Daily rates from the European Central Bank. Free, no key, no personal data
+on the request. `dio` errors become a `RatesFailure`.
 
-**Katmanlar:** `core/repository/` → `rates_repository.dart`,
-`live_rates_repository.dart`, `tips_repository.dart`. Testler
-(`test/bloc_demo_test.dart`, `bloc_test`) gerçek ağa çıkmaz: dio'ya sahte
-bağdaştırıcı, Bloc'lara sahte depolar verilir.
+**Layers:** `core/repository/` → `rates_repository.dart`,
+`live_rates_repository.dart`, `tips_repository.dart`. Tests
+(`test/bloc_demo_test.dart`, `bloc_test`) do not hit the network: a fake
+adapter on dio, fake repositories on the Blocs.
 
-### Ders 14 — Cihaz, uygulama ve ağ bilgisi (Bloc)
+### Lesson 14 — Device, app, and network info (Bloc)
 
-Ana sayfa → *Cihaz bilgisi* (`views/view_device_info/`) ve *Uygulama ve ağ*
-(`views/view_app_network/`, iki sekme). Üç Bloc, aynı kalıp:
-olay → kaynak → `emit(durum)`.
+Home → *Device info* (`views/view_device_info/`) and *App and network*
+(`views/view_app_network/`, two tabs). Three Blocs, one pattern:
+event → source → `emit(state)`.
 
-| Ekran | Kaynak | Bloc | Neler |
+| Screen | Source | Bloc | What |
 |---|---|---|---|
-| Cihaz bilgisi | `device_info_plus`, `dart:io` | `DeviceInfoBloc` | Marka, model, Android/API, güvenlik yaması, derleme, yonga, ABI, RAM, disk, sistem özellikleri, ham veri |
-| (aynı ekran) | `MediaQuery`, `View` | — | Çözünürlük, dpr, Hz, güvenli alan, yazı ölçeği, tema. Telefon dönünce değişir; Bloc'a değil ekrana ait |
-| Uygulama | `package_info_plus`, `FlutterVersion` | `AppInfoBloc` | Sürüm, paket adı, kurulum zamanı, imza, derleme modu, Flutter/Dart sürümü |
-| Ağ | `connectivity_plus`, `network_info_plus`, `dart:io` | `NetworkInfoBloc` | Bağlantı türü, VPN, Wi-Fi adı/BSSID, yerel IP, ağ geçidi, maske, arayüzler |
-| Ağ | `GET https://1.1.1.1/cdn-cgi/trace` (`dio`) | `NetworkInfoBloc` | Genel IP, ülke, Cloudflare veri merkezi, TLS, HTTP sürümü, sunucu saati, gidiş-dönüş süresi |
+| Device info | `device_info_plus`, `dart:io` | `DeviceInfoBloc` | Brand, model, Android/API, security patch, build, chip, ABI, RAM, disk, system features, raw data |
+| (same screen) | `MediaQuery`, `View` | — | Resolution, dpr, Hz, safe area, text scale, theme. Changes when the phone rotates. Belongs to the screen, not the Bloc |
+| App | `package_info_plus`, `FlutterVersion` | `AppInfoBloc` | Version, package name, install time, signature, build mode, Flutter/Dart version |
+| Network | `connectivity_plus`, `network_info_plus`, `dart:io` | `NetworkInfoBloc` | Connection type, VPN, Wi-Fi name/BSSID, local IP, gateway, mask, interfaces |
+| Network | `GET https://1.1.1.1/cdn-cgi/trace` (`dio`) | `NetworkInfoBloc` | Public IP, country, Cloudflare data center, TLS, HTTP version, server time, round trip |
 
-**Genel IP neden cihazdan okunmaz?** Telefon modemin / operatörün arkasında
-(NAT); kendi bildiği adres yerel adrestir. İnternete hangi adresle çıktığını
-yalnızca dışarıdaki bir sunucu söyleyebilir. Trace cevabı JSON değil düz
-metin (`anahtar=değer` satırları); `CloudflareTrace.parse` ayrıştırır.
+**Why is the public IP not read from the device?** The phone sits behind a
+modem or carrier (NAT). The address it knows is the local one. Only a server
+outside can say which address reached the internet. The trace body is plain
+text (`key=value` lines). `CloudflareTrace.parse` splits it.
 
-**Bloc teknikleri:** iki parça (cihaz içi + trace) aynı anda başlar, hangisi
-önce biterse o önce ekrana gelir; "Yenile" `droppable()`; bağlantı değişince
-(`onConnectivityChanged` akışı) Bloc kendine olay gönderir, `restartable()`
-ile yalnızca sonuncusu işlenir.
+**Bloc techniques:** the on-device part and the trace start together.
+Whichever finishes first reaches the screen first. "Refresh" is
+`droppable()`. When connectivity changes (`onConnectivityChanged`), the Bloc
+sends itself an event. `restartable()` keeps only the latest one.
 
-**Gizlilik:** IP, Wi-Fi adı, BSSID ve ağ geçidi ekranda gizli başlar,
-dokununca görünür. Hiçbir bilgi kaydedilmez; durumların `toString`'i bu
-değerleri içermez, yani `AppBlocObserver` konsola yazmaz. Wi-Fi adı için
-Android konum izni ister (Ders 12'deki izin); izin yoksa ad "—" görünür.
-Bu iki ekran deep link beyaz listesinde yok.
+**Privacy:** IP, Wi-Fi name, BSSID, and gateway start hidden and appear on
+tap. Nothing is saved. `toString` on those states omits the values, so
+`AppBlocObserver` does not print them. The Wi-Fi name asks for the Android
+location permission from lesson 12. Without it the name is "—". These two
+screens are not on the deep-link allow list.
 
-### Ders 15 — MVVM: ChangeNotifier ile döviz yönetimi
+### Lesson 15 — MVVM: currency desk with ChangeNotifier
 
-Ana sayfa → *Döviz yönetimi* (`views/view_currency/`). Tek ekran, tek üst
-ViewModel, üç alt ViewModel; ekrana `provider` paketiyle bağlanır.
+Home → *Currency desk* (`views/view_currency/`). One screen, one parent
+ViewModel, three child ViewModels, bound with the `provider` package.
 
 ```
 views/view_currency/
-├── currency_view.dart              View: sayfa iskeleti
+├── currency_view.dart              View: page skeleton
 ├── view_model/
-│   ├── currency_view_model.dart    üst: ilk yükleme, hepsini yenile, koordinasyon
-│   ├── rates_view_model.dart       1. bölüm: 10 para birimi
-│   ├── history_view_model.dart     2. bölüm: haftalık / aylık / 3 aylık
-│   └── news_view_model.dart        3. bölüm: haberler, süzgeç, okundu
-└── widgets/                        her bölümün görünümü + haber modalı
+│   ├── currency_view_model.dart    parent: first load, refresh all, coordination
+│   ├── rates_view_model.dart       section 1: 10 currencies
+│   ├── history_view_model.dart     section 2: week / month / 3 months
+│   └── news_view_model.dart        section 3: news, filter, read
+└── widgets/                        each section plus the news sheet
 Model: models/currency/*, core/repository/{currency,news}_repository.dart
-Taban: core/base/base_change_notifier_view_model.dart
+Base: core/base/base_change_notifier_view_model.dart
 ```
 
-| Katman | Görevi | Bu ekranda |
+| Layer | Job | On this screen |
 |---|---|---|
-| View | Çizer, kullanıcı hareketini ViewModel'e iletir | `RatesSection`, `HistorySection`, `NewsSection`, `NewsDetailSheet` |
-| ViewModel | Ekrana gidecek veriyi hazırlar ve sınırlar; alanları dışarıdan değiştirilemez | `CurrencyViewModel` → `Rates` / `History` / `News` ViewModel |
-| Model | Veriyi getirir, ekranı tanımaz | `CurrencyApiRepository`, `RssNewsRepository` |
+| View | Paints and forwards gestures to the ViewModel | `RatesSection`, `HistorySection`, `NewsSection`, `NewsDetailSheet` |
+| ViewModel | Prepares and bounds the data the screen will show. Fields cannot be changed from outside | `CurrencyViewModel` → `Rates` / `History` / `News` ViewModel |
+| Model | Fetches data and does not know the screen | `CurrencyApiRepository`, `RssNewsRepository` |
 
-**Neden alt ViewModel?** Her bölüm yalnızca kendi ViewModel'ini dinler
-(`context.watch<NewsViewModel>()`): haber süzgeci değişince kur listesi
-yeniden çizilmez. Bölümler birbirini tanımaz; "USD'ye dokunuldu, grafiği
-USD'ye çevir" kararını üst ViewModel verir (`selectCurrency`).
+**Why child ViewModels?** Each section listens only to its own ViewModel
+(`context.watch<NewsViewModel>()`). Changing the news filter does not
+repaint the rate list. Sections do not know each other. "USD was tapped,
+point the chart at USD" is decided by the parent (`selectCurrency`).
 
-**ChangeNotifier ve Cubit farkı:** Cubit'te durum tek, değişmez bir nesnedir
-(`emit(yeniDurum)`). ChangeNotifier'da durum ViewModel'in kendi alanlarıdır;
-alan değişince `notifyListeners()` çağrılır. C#'taki `INotifyPropertyChanged`
-ile aynı fikir. `provider` karşılıkları: `ChangeNotifierProvider` (kur ve
-dispose et), `.value` (var olanı aşağı ver), `watch`, `select`, `read`.
+**ChangeNotifier versus Cubit:** in a Cubit, state is one immutable object
+(`emit(newState)`). In a ChangeNotifier, state is the ViewModel's own
+fields. A field change calls `notifyListeners()`. Same idea as C#
+`INotifyPropertyChanged`. `provider` counterparts: `ChangeNotifierProvider`
+(create and dispose), `.value` (pass an existing one down), `watch`,
+`select`, `read`.
 
-**Veri:**
-- Kurlar: [currency-api](https://github.com/fawazahmed0/exchange-api).
-  Ücretsiz, anahtar istemez, her gün ayrı dosya. Önce jsDelivr
-  (`cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2026.11.3/...`), açılmazsa
-  `{gün}.currency-api.pages.dev` denenir: bazı mobil operatörler pages.dev'i
-  engelliyor.
-- Geçmiş: haftalık her gün (8 nokta), aylık iki günde bir (16), 3 aylık
-  haftada bir (14). Günler önbellekte tutulur; aralık değişince eski günler
-  yeniden indirilmez. Hızlı değiştirince yalnızca son isteğin sonucu yazılır.
-- Haberler: Anadolu Ajansı ve TRT Haber ekonomi RSS beslemeleri, `xml`
-  paketiyle. Biri çökerse diğeri gösterilir. Modaldaki "sitesinde oku"
-  yalnızca `aa.com.tr` ve `trthaber.com` adreslerini açar (`url_launcher`).
+**Data:**
+- Rates: [currency-api](https://github.com/fawazahmed0/exchange-api).
+  Free, no key, one file per day. jsDelivr is tried first
+  (`cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2026.11.3/...`). If that
+  fails, `{day}.currency-api.pages.dev` is tried. Some mobile carriers block
+  pages.dev.
+- History: every day for a week (8 points), every other day for a month
+  (16), once a week for 3 months (14). Days stay in a cache. Changing the
+  range does not re-download old days. Fast changes keep only the last
+  request's result.
+- News: Anadolu Agency and TRT Haber economy RSS feeds, parsed with `xml`.
+  If one feed fails, the other is shown. "Read on site" in the sheet opens
+  only `aa.com.tr` and `trthaber.com` (`url_launcher`).
 
-### Ders 16 — retrofit ile ağ katmanı
+### Lesson 16 — Network layer with retrofit
 
-Ana sayfa → *Retrofit ile ağ* (`views/view_retrofit/`). Paketler: `retrofit`,
-`json_annotation`; geliştirme: `retrofit_generator`, `json_serializable`.
+Home → *Network with Retrofit* (`views/view_retrofit/`). Packages:
+`retrofit`, `json_annotation`. Dev packages: `retrofit_generator`,
+`json_serializable`.
 
-REST servisi bir Dart **arayüzü** olarak yazılır; isteği atan sınıfı
-`build_runner` üretir (C#'taki Refit, Android'deki Retrofit gibi):
+The REST service is written as a Dart **interface**. `build_runner` generates
+the class that sends the request (like Refit in C#, Retrofit on Android):
 
 ```dart
 @RestApi(baseUrl: 'https://jsonplaceholder.typicode.com')
@@ -548,111 +745,112 @@ abstract class PostsApi {
 }
 ```
 
-| Katman | Dosya |
+| Layer | File |
 |---|---|
-| Servis arayüzleri | `core/network/posts_api.dart` (jsonplaceholder), `core/network/echo_api.dart` (httpbin) |
-| Üretilen kod | `*.g.dart` (`dart run build_runner build`) |
+| Service interfaces | `core/network/posts_api.dart` (jsonplaceholder), `core/network/echo_api.dart` (httpbin) |
+| Generated code | `*.g.dart` (`dart run build_runner build`) |
 | Model (`@JsonSerializable`) | `models/post.dart` → `Post`, `PostDraft`, `Comment` |
-| Ortak Dio + kayıt | `core/network/retrofit_client.dart`, `core/network/recording_interceptor.dart` |
+| Shared Dio + recording | `core/network/retrofit_client.dart`, `core/network/recording_interceptor.dart` |
 | CallAdapter | `core/network/api_result.dart` → `ApiResult`, `ResultCallAdapter` |
-| Denemeler ve view model | `views/view_retrofit/cubit/` → `kRetrofitDemos`, `RetrofitLabCubit` |
+| Demos and view model | `views/view_retrofit/cubit/` → `kRetrofitDemos`, `RetrofitLabCubit` |
 
-Ekranda 23 canlı deneme, beş grupta. Her kartta anotasyon, arayüzdeki tanım,
-değiştirilebilen girdiler ve *Gönder* var; sonuçta retrofit'in döndürdüğü
-Dart nesnesi ve ağdan gerçekten geçen istek/cevap (başlıklar, gövde, süre)
-yan yana görünür. Sağ üstteki *Ağ kaydı* tüm istekleri listeler.
+The screen runs 23 live demos in five groups. Each card shows the
+annotation, the interface declaration, editable inputs, and *Send*. The
+result shows the Dart object retrofit returned next to the request and
+response that actually crossed the network (headers, body, duration).
+*Network log* at the top right lists every request.
 
-| Grup | Anotasyonlar |
+| Group | Annotations |
 |---|---|
-| HTTP metotları | `@GET` `@POST` `@PUT` `@PATCH` `@DELETE` `@HEAD` `@OPTIONS` |
-| Parametreler | `@Path` `@Query` `@Queries` `@Headers` `@Header` |
-| Gövde türleri | `@Body` `@BodyExtra` `@FormUrlEncoded` + `@Field` `@MultiPart` + `@Part` `@NoBody` `@PreventNullToAbsent` |
-| Dio özellikleri | `@CancelRequest` `@SendProgress` `@ReceiveProgress` `@DioResponseType` `@Extra` `@Extras` `@DioOptions` `@CacheControl` |
-| Cevap ve hata | `HttpResponse<T>` `@UseCallAdapter` `DioException` |
+| HTTP methods | `@GET` `@POST` `@PUT` `@PATCH` `@DELETE` `@HEAD` `@OPTIONS` |
+| Parameters | `@Path` `@Query` `@Queries` `@Headers` `@Header` |
+| Body types | `@Body` `@BodyExtra` `@FormUrlEncoded` + `@Field` `@MultiPart` + `@Part` `@NoBody` `@PreventNullToAbsent` |
+| Dio features | `@CancelRequest` `@SendProgress` `@ReceiveProgress` `@DioResponseType` `@Extra` `@Extras` `@DioOptions` `@CacheControl` |
+| Response and error | `HttpResponse<T>` `@UseCallAdapter` `DioException` |
 
-**İstek hangi denemeden geldi?** Cubit her denemeyi
-`runZoned(..., zoneValues: {zoneKey: id})` içinde çalıştırır;
-`RecordingInterceptor` isteği kaydederken `Zone.current[zoneKey]`'i okur.
-Retrofit metotlarının imzasına dokunmadan her istek kendi kartına düşer.
+**Which demo sent this request?** The cubit runs each demo inside
+`runZoned(..., zoneValues: {zoneKey: id})`. `RecordingInterceptor` reads
+`Zone.current[zoneKey]` while it records. Retrofit method signatures stay
+untouched, and each request lands on its own card.
 
-**Notlar:**
-- Ham JSON dönen metotlarda dönüş tipi `Map<String, Object?>`:
-  `retrofit_generator` 10.3, `Map<String, dynamic>` için derlenmeyen kod
-  (`dynamic.fromJson`) üretir.
-- `@PartMap` bu üretici sürümünde gövdeye yazılmıyor (üretilen kodda gövde
-  `null`); birden çok multipart alanı için `@Part` kullanılır.
-- `dio` ile `retrofit`'te aynı adlı `Headers` sınıfı var; servis dosyasında
+**Notes:**
+- Methods that return raw JSON use `Map<String, Object?>`.
+  `retrofit_generator` 10.3 emits code that does not compile for
+  `Map<String, dynamic>` (`dynamic.fromJson`).
+- `@PartMap` does not write a body in this generator version (the generated
+  body is `null`). Several multipart fields use `@Part`.
+- `dio` and `retrofit` both define `Headers`. Service files use
   `import 'package:dio/dio.dart' hide Headers;`.
-- jsonplaceholder sahte bir REST sunucusudur: yazma istekleri gerçekçi cevap
-  döner ama hiçbir şey kaydedilmez. httpbin gelen isteği olduğu gibi geri
-  yansıtır.
+- jsonplaceholder is a fake REST server: writes return a realistic response
+  and persist nothing. httpbin echoes the request it received.
 
-### Ders 17 — Sürüme bağlı görsel önbelleği
+### Lesson 17 — Versioned image cache
 
-Ana sayfa → *Görsel önbelleği* (`views/view_image_cache/`). Çekirdek
-`core/cache/` altında; paketler: `path_provider`, `crypto`, `dartssh2`.
+Home → *Image cache* (`views/view_image_cache/`). The core lives under
+`core/cache/`. Packages: `path_provider`, `crypto`, `dartssh2`.
 
-**Sorun:** Görseller diskte önbelleğe alınır. Yeni sürümde aynı adresteki
-görsel (logo, banner, kampanya) değişmişse uygulama eskisini göstermeye devam
-eder. Ağ yavaşsa ya da bellek dolarsa görseller yarım, parçalı ya da
-titreyerek çizilir.
+**Problem:** images are cached on disk. If a new release changes the image
+at the same URL (logo, banner, campaign), the app keeps showing the old
+one. On a slow network or a full memory budget, images draw half-finished,
+in pieces, or with flicker.
 
-**Sürüm denetimi** (`AppImageCache.ensureReady`, `main.dart`'ta açılışta):
-kayıtlı sürüm (`SharedPreferences`) ile `package_info_plus`'tan okunan
-`sürüm+derleme` karşılaştırılır. Farklıysa eski sürümün disk klasörü silinir,
-Flutter'ın bellek önbelleği (`ImageCache`) boşaltılır. Disk düzeni:
-`<uygulama>/image_cache/<sürüm>/<sha1(kaynak)>.img`.
+**Version check** (`AppImageCache.ensureReady`, at startup in `main.dart`):
+the stored version (`SharedPreferences`) is compared with `version+build`
+from `package_info_plus`. If they differ, the old version's disk folder is
+deleted and Flutter's memory cache (`ImageCache`) is cleared. Disk layout:
+`<app>/image_cache/<version>/<sha1(source)>.img`.
 
-**Bütünlük: yarım görsel ekrana gelmez**
+**Integrity: a partial image never reaches the screen**
 
-| Adım | Ne yapar |
+| Step | What it does |
 |---|---|
-| Boyut denetimi | HTTP'de `content-length`, SFTP'de `stat().size` gelen baytla karşılaştırılır |
-| Bitiş işareti | PNG `IEND`, JPEG `FF D9`, GIF `3B`, WebP RIFF boyutu; Skia kısaltılmış PNG'yi bazen hatasız ama yarım çizer |
-| Çözme denemesi | Baytlar diske yazılmadan önce bir kez çözülür (`instantiateImageCodec`) |
-| Atomik yazma | Önce `.part` yazılır, bitince adı `.img` olur; yazarken kapanan uygulama yarım dosya bırakmaz |
-| Diskten okurken | Aynı denetim; bozuk dosya silinip yeniden indirilir |
-| Yeniden deneme | Eksik/bozuk gelen indirme beklemeli olarak 2 kez daha denenir |
-| Ortak istek | Aynı görsel aynı anda iki yerden istenirse tek indirme yapılır |
-| Ekranda | `gaplessPlayback`: yeni görsel gelene kadar eskisi kalır; `frameBuilder` ile yumuşak geçiş |
+| Size check | HTTP `content-length`, or SFTP `stat().size`, compared with the bytes received |
+| End marker | PNG `IEND`, JPEG `FF D9`, GIF `3B`, WebP RIFF size. Skia sometimes draws a truncated PNG without an error, but only half of it |
+| Decode attempt | Bytes are decoded once (`instantiateImageCodec`) before they are written |
+| Atomic write | Written as `.part`, renamed to `.img` when finished. An app that dies mid-write does not leave a partial file |
+| Read from disk | The same checks. A corrupt file is deleted and downloaded again |
+| Retry | A short or corrupt download is tried twice more, with a wait |
+| Shared request | Two callers asking for the same image share one download |
+| On screen | `gaplessPlayback`: the old image stays until the new one arrives. `frameBuilder` fades it in |
 
-**Arka plan bellek denetleyicisi** (`ImageMemoryController`): çözülmüş bir
-görsel bellekte genişlik × yükseklik × 4 bayt tutar. Bütçe cihaz RAM'inin
-%2'si (48–256 MB, `device_info_plus`) olarak `ImageCache.maximumSizeBytes`'a
-yazılır. Her 2 saniyede önbellek boyutu, görsel sayısı, ekrandaki görseller
-ve uygulamanın belleği (RSS) ölçülür. Önbellek bütçenin %90'ını geçince, Android
-"bellek az" dediğinde (`didHaveMemoryPressure`) ve uygulama arka plana
-geçince ekranda olmayan görseller atılır. `ImageCache.clear()` ekranda
-görünenlere dokunmadığı için boşaltma sırasında titreme olmaz.
+**Background memory controller** (`ImageMemoryController`): a decoded image
+costs width × height × 4 bytes. The budget is 2% of device RAM (48–256 MB,
+from `device_info_plus`) and is written to `ImageCache.maximumSizeBytes`.
+Every 2 seconds it measures cache size, image count, images on screen, and
+the app's memory (RSS). Images that are not on screen are dropped when the
+cache passes 90% of the budget, when Android reports low memory
+(`didHaveMemoryPressure`), and when the app goes to the background.
+`ImageCache.clear()` does not touch images on screen, so the clear does not
+flicker.
 
-**Üç kaynak** (`models/image_demo_sources.dart`):
+**Three sources** (`models/image_demo_sources.dart`):
 
-| Kaynak | Nereden | Nasıl |
+| Source | From | How |
 |---|---|---|
-| Base64 | `assets/data/base64_gorseller.json` (API cevabı gibi) | `data:image/png;base64,...` → `base64Decode` |
-| S3 | AWS Open Data, `elevation-tiles-prod` kovası (herkese açık PNG karolar) | `dio`, `ResponseType.bytes` |
-| SFTP | `test.rebex.net` (herkese açık, salt okunur test sunucusu) | `dartssh2`; sunucu anahtarı sabitlenmiş |
+| Base64 | `assets/data/base64_gorseller.json` (shaped like an API response) | `data:image/png;base64,...` → `base64Decode` |
+| S3 | AWS Open Data, `elevation-tiles-prod` bucket (public PNG tiles) | `dio`, `ResponseType.bytes` |
+| SFTP | `test.rebex.net` (public, read-only test server) | `dartssh2`; the host key is pinned |
 
-**Neden FTP değil SFTP?** FTP (IIS FTP dahil) kullanıcı adını, şifreyi ve
-dosyayı açık metin gönderir; pasif modda ek portlar açtığı için mobil
-ağlarda ve güvenlik duvarlarında sık takılır. SFTP SSH üzerinden şifreli
-çalışır, tek port (22) kullanır ve sunucunun kimliği anahtar parmak iziyle
-doğrulanır: uygulama yalnızca bilinen anahtarlarla (`kSftpHostKeys`) konuşur,
-araya giren sahte sunucuyu reddeder. Görseller bir mobil uygulamaya
-dağıtılacaksa en iyi yol yine de HTTPS'tir (IIS'te statik site, S3 + CDN):
-önbellek başlıkları, CDN ve sürüm adlı dosyalar (`logo.v42.png`) kullanılabilir.
+**Why SFTP, not FTP?** FTP (including IIS FTP) sends the user name, password,
+and file in clear text. Passive mode opens extra ports, so it often fails on
+mobile networks and firewalls. SFTP runs encrypted over SSH, uses one port
+(22), and checks the server's identity with a key fingerprint. The app talks
+only to known keys (`kSftpHostKeys`) and rejects a stand-in server. For
+images shipped to a mobile app, HTTPS is still the better path (a static
+site on IIS, or S3 plus a CDN): cache headers, a CDN, and versioned file
+names (`logo.v42.png`).
 
-Ekranda: her görselin nereden geldiği (bellek / disk / kaynak) ve süresi,
-*Önceden yükle (precache)*, *Yük testi (24 karo)*, *Belleği boşalt*,
-*Diski boşalt*, *Bir dosyayı boz* (bozuk dosyanın fark edilip yeniden
-indirilmesi) ve *Yeni sürüm çıkmış gibi yap* (sürüm temizliği).
+On screen: where each image came from (memory / disk / source) and how long
+it took, plus *Precache*, *Load test (24 tiles)*, *Clear memory*,
+*Clear disk*, *Corrupt one file* (the bad file is detected and downloaded
+again), and *Pretend a new version shipped* (version cleanup).
 
-## Komutlar
+## Commands
 
 ```bash
 flutter pub get
-dart run build_runner build     # rota tablosu değişince (app_router.gr.dart)
+dart run build_runner build     # when the route table changes (app_router.gr.dart)
 flutter analyze
 flutter test
-flutter run                     # bağlı Android/iOS cihaz ya da emülatör
+flutter run -d "iPhone 17"      # iOS simulator; see Running on iOS
 ```

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/app_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -18,7 +19,7 @@ class AppInfoTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          AppText(
             'Uygulamanın kendisi: Android paket yöneticisinin bildiği sürüm, '
             'kurulum zamanı ve imza; derlemeye gömülen Flutter sürümü.',
             style: t.bodyMedium,
@@ -35,7 +36,7 @@ FlutterVersion.version; // flutter run derlemeye gömer'''),
               AppInfoLoading() => const Center(
                 child: CircularProgressIndicator(),
               ),
-              AppInfoError(:final message) => Text(message),
+              AppInfoError(:final message) => AppText(message),
               AppInfoLoaded(:final sections) => Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [for (final s in sections) InfoSectionCard(s)],

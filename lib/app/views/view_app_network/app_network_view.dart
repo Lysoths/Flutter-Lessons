@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/app_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/network_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/network_info_event.dart';
@@ -40,7 +41,7 @@ class AppNetworkView extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Uygulama ve ağ'),
+            title: const AppText('Uygulama ve ağ'),
             titleTextStyle: t.titleLarge,
             bottom: const TabBar(
               tabs: [

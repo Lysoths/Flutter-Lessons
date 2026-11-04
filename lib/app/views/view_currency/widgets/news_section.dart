@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/base/base_change_notifier_view_model.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/currency/currency_info.dart';
 import 'package:flutter_ders/app/models/currency/news_article.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -35,7 +36,7 @@ class NewsSection extends StatelessWidget {
                     ? null
                     : '${visible.length} haber',
               ),
-              Text(
+              AppText(
                 'Anadolu Ajansı ve TRT Haber ekonomi beslemeleri (RSS). '
                 'Habere dokun: ayrıntı alttan açılır.',
                 style: t.bodySmall,
@@ -48,14 +49,14 @@ class NewsSection extends StatelessWidget {
                   children: [
                     ChoiceChip(
                       key: const Key('news_filter_all'),
-                      label: const Text('Hepsi'),
+                      label: const AppText('Hepsi'),
                       selected: vm.filter == null,
                       onSelected: (_) => vm.toggleFilter(null),
                     ),
                     for (final m in vm.mentioned)
                       ChoiceChip(
                         key: Key('news_filter_${m.code}'),
-                        label: Text(
+                        label: AppText(
                           '${currencyInfo(m.code).flag} ${m.code} (${m.count})',
                         ),
                         selected: vm.filter == m.code,
@@ -67,7 +68,7 @@ class NewsSection extends StatelessWidget {
               if (vm.failedSources.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: Text(
+                  child: AppText(
                     'Okunamayan kaynak: ${vm.failedSources.join(', ')}',
                     style: t.bodySmall?.copyWith(color: MfColors.red600),
                   ),
@@ -130,7 +131,7 @@ class _NewsCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      AppText(
                         article.title,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
@@ -139,7 +140,7 @@ class _NewsCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
+                      AppText(
                         '${article.source} · ${newsTime(article.publishedAt)}'
                         '${read ? ' · okundu' : ''}',
                         style: t.bodySmall,

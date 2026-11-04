@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/models/saving_tip.dart';
@@ -25,7 +27,7 @@ class TipsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          AppText(
             'İpuçları internetten değil, uygulamanın içindeki '
             'assets/data/tasarruf_ipuclari.json dosyasından gelir.',
             style: t.bodyMedium,
@@ -38,9 +40,9 @@ on<TipsSearched>(_ara, transformer: restartable());
           const Gap(14),
           TextField(
             key: const Key('tips_search'),
-            decoration: const InputDecoration(
-              hintText: 'İpucu ara (ör. kahve, fatura)',
-              prefixIcon: Icon(Icons.search_rounded),
+            decoration: InputDecoration(
+              hintText: context.s('İpucu ara (ör. kahve, fatura)'),
+              prefixIcon: const Icon(Icons.search_rounded),
               isDense: true,
             ),
             onChanged: (q) => bloc.add(TipsSearched(q)),
@@ -55,14 +57,14 @@ on<TipsSearched>(_ara, transformer: restartable());
               children: [
                 ChoiceChip(
                   key: const Key('tips_category_all'),
-                  label: const Text('Hepsi'),
+                  label: const AppText('Hepsi'),
                   selected: selected == null,
                   onSelected: (_) => bloc.add(const TipsCategorySelected(null)),
                 ),
                 for (final c in ExpenseCategory.values)
                   ChoiceChip(
                     key: Key('tips_category_${c.name}'),
-                    label: Text(c.label),
+                    label: AppText(c.label),
                     selected: selected == c,
                     onSelected: (_) => bloc.add(TipsCategorySelected(c)),
                   ),
@@ -75,11 +77,11 @@ on<TipsSearched>(_ara, transformer: restartable());
               TipsStatus.loading => const Center(
                 child: CircularProgressIndicator(),
               ),
-              TipsStatus.failure => Text('İpuçları okunamadı: ${state.error}'),
+              TipsStatus.failure => AppText('İpuçları okunamadı: ${state.error}'),
               TipsStatus.ready => Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  AppText(
                     '${state.visible.length} / ${state.all.length} ipucu · '
                     'aylık ~${formatMoney(state.visibleSaving)} tasarruf',
                     key: const Key('tips_summary'),
@@ -87,7 +89,7 @@ on<TipsSearched>(_ara, transformer: restartable());
                   ),
                   const Gap(10),
                   if (state.visible.isEmpty)
-                    Text('Aramaya uyan ipucu yok.', style: t.bodyMedium),
+                    AppText('Aramaya uyan ipucu yok.', style: t.bodyMedium),
                   for (final tip in state.visible) _TipCard(tip),
                 ],
               ),
@@ -126,11 +128,11 @@ class _TipCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(tip.title, style: t.titleSmall),
+                AppText(tip.title, style: t.titleSmall),
                 const SizedBox(height: 2),
-                Text(tip.body, style: t.bodySmall),
+                AppText(tip.body, style: t.bodySmall),
                 const SizedBox(height: 6),
-                Text(
+                AppText(
                   'Aylık ~${formatMoney(tip.monthlySaving)}',
                   style: TextStyle(
                     color: accent,

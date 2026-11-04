@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_device/widgets/gps_panel.dart';
 import 'package:flutter_ders/app/views/view_device/widgets/sensors_panel.dart';
 
@@ -19,7 +20,7 @@ class DeviceView extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Konum ve sensörler'),
+          title: const AppText('Konum ve sensörler'),
           titleTextStyle: t.titleLarge,
           bottom: const TabBar(
             tabs: [

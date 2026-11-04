@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/cache/image_memory_controller.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_image_cache/cubit/image_cache_lab_cubit.dart';
@@ -44,7 +45,7 @@ class LabCard extends StatelessWidget {
             children: [
               IconBadge(icon),
               const SizedBox(width: 10),
-              Expanded(child: Text(title, style: t.titleSmall)),
+              Expanded(child: AppText(title, style: t.titleSmall)),
             ],
           ),
           const Gap(10),
@@ -81,8 +82,8 @@ class StatCell extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: t.labelSmall?.copyWith(color: MfColors.slate500)),
-          Text(value, style: t.titleSmall?.copyWith(color: color)),
+          AppText(label, style: t.labelSmall?.copyWith(color: MfColors.slate500)),
+          AppText(value, style: t.titleSmall?.copyWith(color: color)),
         ],
       ),
     );
@@ -105,7 +106,7 @@ class VersionPanel extends StatelessWidget {
       icon: Icons.new_releases_rounded,
       title: 'Sürüm denetimi (açılışta)',
       children: [
-        Text(
+        AppText(
           'Kayıtlı sürüm şimdikinden farklıysa disk ve bellek önbelleği '
           'boşaltılır: eski sürümün görseli ekranda kalmaz.',
           style: t.bodySmall,
@@ -130,7 +131,7 @@ class VersionPanel extends StatelessWidget {
           key: const Key('cache_upgrade'),
           onPressed: context.read<ImageCacheLabCubit>().simulateUpgrade,
           icon: const Icon(Icons.system_update_alt_rounded, size: 18),
-          label: const Text('Yeni sürüm çıkmış gibi yap'),
+          label: const AppText('Yeni sürüm çıkmış gibi yap'),
         ),
       ],
     );
@@ -154,7 +155,7 @@ class MemoryPanel extends StatelessWidget {
       icon: Icons.memory_rounded,
       title: 'Bellek denetleyicisi (arka planda, 2 sn)',
       children: [
-        Text(
+        AppText(
           'Bütçe cihaz RAM\'inin %2\'si. %90\'ı geçince ya da Android '
           '"bellek az" deyince ekranda olmayan görseller atılır; ekrandakiler '
           'kalır, bu yüzden titreme olmaz.',
@@ -182,14 +183,14 @@ class MemoryPanel extends StatelessWidget {
           child: CustomPaint(painter: _SamplesPainter(state.samples)),
         ),
         const SizedBox(height: 4),
-        Text(
+        AppText(
           'Mavi: önbellek · kesikli: bütçe',
           style: t.labelSmall?.copyWith(color: MfColors.slate400),
         ),
         if (state.trims.isNotEmpty) ...[
           const Gap(8),
           for (final e in state.trims)
-            Text(
+            AppText(
               '${_time(e.at)} · ${e.reason.label} · '
               '${formatBytes(e.freedBytes)} boşaldı',
               style: t.bodySmall,
@@ -203,12 +204,12 @@ class MemoryPanel extends StatelessWidget {
             OutlinedButton(
               key: const Key('cache_clear_memory'),
               onPressed: cubit.clearMemory,
-              child: const Text('Belleği boşalt'),
+              child: const AppText('Belleği boşalt'),
             ),
             OutlinedButton(
               key: const Key('cache_stress'),
               onPressed: cubit.stressTest,
-              child: const Text('Yük testi (24 karo)'),
+              child: const AppText('Yük testi (24 karo)'),
             ),
           ],
         ),
@@ -233,7 +234,7 @@ class DiskPanel extends StatelessWidget {
       icon: Icons.sd_storage_rounded,
       title: 'Disk önbelleği ve bütünlük',
       children: [
-        Text(
+        AppText(
           'Dosya önce .part adıyla yazılır, biçimin bitiş işareti ve çözme '
           'denetimi geçerse adı .img olur. Diskte bozulan dosya silinip '
           'yeniden indirilir.',
@@ -267,12 +268,12 @@ class DiskPanel extends StatelessWidget {
             OutlinedButton(
               key: const Key('cache_clear_disk'),
               onPressed: cubit.clearDisk,
-              child: const Text('Diski boşalt'),
+              child: const AppText('Diski boşalt'),
             ),
             OutlinedButton(
               key: const Key('cache_corrupt'),
               onPressed: cubit.corruptFirst,
-              child: const Text('Bir dosyayı boz'),
+              child: const AppText('Bir dosyayı boz'),
             ),
           ],
         ),

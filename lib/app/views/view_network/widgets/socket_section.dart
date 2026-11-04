@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/mock_socket.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
@@ -94,7 +96,7 @@ class _SocketSectionState extends State<SocketSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          AppText(
             _server.uri == null
                 ? 'Sunucu: kapalı'
                 : 'Sunucu: ${_server.uri} (yalnızca bu telefon)',
@@ -136,7 +138,7 @@ class _SocketSectionState extends State<SocketSection> {
                     ],
                   ),
                   const Gap(6),
-                  Text(
+                  AppText(
                     'Gelen kur mesajı: ${view?.ticks ?? 0} · sahte veri',
                     key: const Key('socket_ticks'),
                     style: t.bodySmall,
@@ -144,7 +146,7 @@ class _SocketSectionState extends State<SocketSection> {
                   if (view != null && view.echoes.isNotEmpty) ...[
                     const Gap(10),
                     for (final e in view.echoes)
-                      Text(
+                      AppText(
                         '↩ Sunucu geri yolladı: "${e.text}"',
                         style: t.bodyMedium,
                       ),
@@ -161,8 +163,8 @@ class _SocketSectionState extends State<SocketSection> {
                   child: TextField(
                     key: const Key('socket_input'),
                     controller: _text,
-                    decoration: const InputDecoration(
-                      hintText: 'Sunucuya mesaj yaz',
+                    decoration: InputDecoration(
+                      hintText: context.s('Sunucuya mesaj yaz'),
                       isDense: true,
                     ),
                     onSubmitted: (_) => _send(),
@@ -181,14 +183,14 @@ class _SocketSectionState extends State<SocketSection> {
               key: const Key('socket_disconnect'),
               onPressed: _disconnect,
               icon: const Icon(Icons.link_off_rounded),
-              label: const Text('Bağlantıyı kes'),
+              label: const AppText('Bağlantıyı kes'),
             )
           else
             FilledButton.icon(
               key: const Key('socket_connect'),
               onPressed: _connecting ? null : _connect,
               icon: const Icon(Icons.link_rounded),
-              label: Text(
+              label: AppText(
                 _connecting ? 'Bağlanıyor…' : 'Sahte sunucuya bağlan',
               ),
             ),
@@ -225,12 +227,12 @@ class _Rate extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: t.labelMedium),
+          AppText(label, style: t.labelMedium),
           const SizedBox(height: 4),
           Row(
             children: [
               Flexible(
-                child: Text(
+                child: AppText(
                   v == null ? '—' : v.toStringAsFixed(3),
                   style: t.titleLarge?.copyWith(
                     color: color,

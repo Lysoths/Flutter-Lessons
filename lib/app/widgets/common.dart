@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 
 /// Sayfa kenar boşluğu: 20pt + yatay güvenli alan (duo'daki `pagePadding`).
@@ -34,7 +35,7 @@ class Eyebrow extends StatelessWidget {
         color: background,
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(
+      child: AppText(
         text,
         style: TextStyle(
           fontSize: 12,
@@ -72,8 +73,8 @@ class SectionHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (eyebrow != null) ...[Eyebrow(eyebrow!), const Gap(12)],
-        Text(title, style: t.headlineSmall),
-        if (body != null) ...[const Gap(6), Text(body!, style: t.bodyMedium)],
+        AppText(title, style: t.headlineSmall),
+        if (body != null) ...[const Gap(6), AppText(body!, style: t.bodyMedium)],
       ],
     );
   }

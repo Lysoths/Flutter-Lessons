@@ -57,7 +57,9 @@ void main() {
       );
       await tester.pumpAndSettle();
     }
-    return tester.widget<Text>(key).data!;
+    return tester
+        .widget<Text>(find.descendant(of: key, matching: find.byType(Text)))
+        .data!;
   }
 
   Future<void> addExpense(
@@ -122,11 +124,18 @@ void main() {
     expect(find.byType(ExpenseDetailView), findsOneWidget);
     expect(find.text('Harcama ayrıntısı'), findsOneWidget);
     expect(
-      tester.widget<Text>(find.byKey(const Key('expenseDetail_amount'))).data,
+      tester
+          .widget<Text>(
+            find.descendant(
+              of: find.byKey(const Key('expenseDetail_amount')),
+              matching: find.byType(Text),
+            ),
+          )
+          .data,
       '45,50 ₺',
     );
 
-    await tester.pageBack();
+    await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     expect(find.byType(ExpenseDetailView), findsNothing);
     expect(await total(tester), '45,50 ₺');

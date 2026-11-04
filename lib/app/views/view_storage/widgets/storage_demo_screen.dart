@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
@@ -82,7 +84,7 @@ class _StorageBody extends StatelessWidget {
     final t = Theme.of(context).textTheme;
     final about = _about[kind]!;
     return Scaffold(
-      appBar: AppBar(title: Text(kind.label), titleTextStyle: t.titleLarge),
+      appBar: AppBar(title: AppText(kind.label), titleTextStyle: t.titleLarge),
       body: BlocBuilder<StorageDemoCubit, StorageDemoState>(
         builder: (context, state) {
           final cubit = context.read<StorageDemoCubit>();
@@ -102,8 +104,8 @@ class _StorageBody extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(kind.label, style: t.titleLarge),
-                        Text(kind.model, style: t.bodyMedium),
+                        AppText(kind.label, style: t.titleLarge),
+                        AppText(kind.model, style: t.bodyMedium),
                       ],
                     ),
                   ),
@@ -120,7 +122,7 @@ class _StorageBody extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 7, right: 8),
                         child: Icon(Icons.circle, size: 6, color: kind.color),
                       ),
-                      Expanded(child: Text(p, style: t.bodyMedium)),
+                      Expanded(child: AppText(p, style: t.bodyMedium)),
                     ],
                   ),
                 ),
@@ -129,14 +131,14 @@ class _StorageBody extends StatelessWidget {
               const Gap(20),
               Row(
                 children: [
-                  Text('Ölçüm boyutu', style: t.titleSmall),
+                  AppText('Ölçüm boyutu', style: t.titleSmall),
                   const SizedBox(width: 12),
                   Expanded(
                     child: SegmentedButton<int>(
                       key: const Key('storage_benchmarkSize'),
                       segments: const [
-                        ButtonSegment(value: 1000, label: Text('1.000')),
-                        ButtonSegment(value: 5000, label: Text('5.000')),
+                        ButtonSegment(value: 1000, label: AppText('1.000')),
+                        ButtonSegment(value: 5000, label: AppText('5.000')),
                       ],
                       selected: {state.benchmarkSize},
                       onSelectionChanged: busy
@@ -158,7 +160,7 @@ class _StorageBody extends StatelessWidget {
                       minimumSize: const Size(0, 44),
                     ),
                     icon: const Icon(Icons.add_rounded),
-                    label: const Text('Kayıt ekle'),
+                    label: const AppText('Kayıt ekle'),
                   ),
                   OutlinedButton.icon(
                     key: const Key('storage_benchmark'),
@@ -167,7 +169,7 @@ class _StorageBody extends StatelessWidget {
                       minimumSize: const Size(0, 44),
                     ),
                     icon: const Icon(Icons.speed_rounded),
-                    label: Text('${state.benchmarkSize} kayıt yaz / oku'),
+                    label: AppText('${state.benchmarkSize} kayıt yaz / oku'),
                   ),
                   TextButton.icon(
                     key: const Key('storage_clear'),
@@ -177,7 +179,7 @@ class _StorageBody extends StatelessWidget {
                       foregroundColor: MfColors.red600,
                     ),
                     icon: const Icon(Icons.delete_sweep_rounded),
-                    label: const Text('Hepsini sil'),
+                    label: const AppText('Hepsini sil'),
                   ),
                 ],
               ),
@@ -187,27 +189,27 @@ class _StorageBody extends StatelessWidget {
               if (b != null) _BenchmarkCard(b),
               if (state.error != null) ...[
                 const Gap(8),
-                Text(
+                AppText(
                   state.error!,
                   style: t.bodyMedium?.copyWith(color: MfColors.red600),
                 ),
               ],
               const Gap(20),
-              Text('Ham veri: diskte nasıl duruyor?', style: t.titleMedium),
+              AppText('Ham veri: diskte nasıl duruyor?', style: t.titleMedium),
               const Gap(8),
               _CodeBox(
                 state.raw.isEmpty ? '…' : state.raw,
                 key: const Key('storage_raw'),
               ),
               const Gap(20),
-              Text(
+              AppText(
                 'Kayıtlar (${state.notes.length})',
                 key: const Key('storage_count'),
                 style: t.titleMedium,
               ),
               const Gap(8),
               if (state.notes.isEmpty && !busy)
-                Text(
+                AppText(
                   'Henüz kayıt yok. "Kayıt ekle"ye dokunun.',
                   style: t.bodyMedium,
                 ),
@@ -216,8 +218,8 @@ class _StorageBody extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 6),
                   child: ListTile(
                     dense: true,
-                    title: Text(n.title),
-                    subtitle: Text(
+                    title: AppText(n.title),
+                    subtitle: AppText(
                       '${formatDate(n.createdAt)} '
                       '${n.createdAt.hour.toString().padLeft(2, '0')}:'
                       '${n.createdAt.minute.toString().padLeft(2, '0')}',
@@ -225,9 +227,9 @@ class _StorageBody extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(formatMoney(n.amount), style: t.titleSmall),
+                        AppText(formatMoney(n.amount), style: t.titleSmall),
                         IconButton(
-                          tooltip: 'Sil',
+                          tooltip: context.s('Sil'),
                           onPressed: busy ? null : () => cubit.delete(n.id),
                           icon: const Icon(Icons.close_rounded, size: 18),
                         ),
@@ -236,7 +238,7 @@ class _StorageBody extends StatelessWidget {
                   ),
                 ),
               if (state.notes.length > _shown)
-                Text(
+                AppText(
                   '+${state.notes.length - _shown} kayıt daha',
                   style: t.bodyMedium,
                 ),
@@ -262,7 +264,7 @@ class _CodeBox extends StatelessWidget {
         color: MfColors.terminal,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
+      child: AppText(
         code,
         style: const TextStyle(
           fontFamily: 'monospace',
@@ -300,8 +302,8 @@ class _BenchmarkCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            Expanded(child: Text(title, style: t.titleSmall)),
-            Text(formatDuration(sum), style: t.titleSmall),
+            Expanded(child: AppText(title, style: t.titleSmall)),
+            AppText(formatDuration(sum), style: t.titleSmall),
           ],
         ),
         const SizedBox(height: 6),
@@ -315,14 +317,14 @@ class _BenchmarkCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      AppText(
                         s.label,
                         style: t.bodyMedium?.copyWith(
                           color: MfColors.slate900,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(s.detail, style: t.bodySmall),
+                      AppText(s.detail, style: t.bodySmall),
                     ],
                   ),
                 ),
@@ -330,14 +332,14 @@ class _BenchmarkCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
+                    AppText(
                       formatDuration(s.time),
                       key: Key('storage_step_${s.label}'),
                       style: t.titleSmall?.copyWith(
                         fontFeatures: const [FontFeature.tabularFigures()],
                       ),
                     ),
-                    Text(formatPerItem(s.time, r.count), style: t.bodySmall),
+                    AppText(formatPerItem(s.time, r.count), style: t.bodySmall),
                   ],
                 ),
               ],
@@ -384,7 +386,7 @@ class _BenchmarkCard extends StatelessWidget {
           const Divider(height: 20),
           section('Okuma', false, readTotal),
           const Gap(4),
-          Text(
+          AppText(
             'Süreler Stopwatch ile mikrosaniye (µs) hassasiyetinde ölçülür; '
             '1 ms = 1.000 µs. "Bellekten" satırları diske gitmediği için '
             'çok kısadır; gerçek disk maliyeti "diskten" satırlarındadır. '

@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
 import 'package:flutter_ders/app/views/view_retrofit/cubit/retrofit_demos.dart';
 import 'package:flutter_ders/app/views/view_retrofit/cubit/retrofit_lab_cubit.dart';
@@ -43,18 +45,18 @@ class _RetrofitPage extends StatelessWidget {
     final cubit = context.read<RetrofitLabCubit>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Retrofit ile ağ'),
+        title: const AppText('Retrofit ile ağ'),
         titleTextStyle: t.titleLarge,
         actions: [
           BlocSelector<RetrofitLabCubit, RetrofitLabState, int>(
             selector: (s) => s.log.length,
             builder: (context, count) => IconButton(
               key: const Key('retrofit_log'),
-              tooltip: 'Ağ kaydı',
+              tooltip: context.s('Ağ kaydı'),
               onPressed: () => _showLog(context),
               icon: Badge(
                 isLabelVisible: count > 0,
-                label: Text('$count'),
+                label: AppText('$count'),
                 child: const Icon(Icons.receipt_long_rounded),
               ),
             ),
@@ -107,7 +109,7 @@ class _Header extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
+        AppText(
           'Servis bir arayüz olarak yazılır, istemci kodunu build_runner '
           'üretir. Karta dokun, değerleri değiştir, Gönder: retrofit\'in '
           'döndürdüğü nesneyi ve ağdan geçen ham isteği birlikte gör.',
@@ -131,7 +133,7 @@ final post = await PostsApi(dio).getPost(1);   // Post nesnesi'''),
             children: [
               ChoiceChip(
                 key: const Key('retrofit_group_all'),
-                label: Text('Hepsi (${kRetrofitDemos.length})'),
+                label: AppText('Hepsi (${kRetrofitDemos.length})'),
                 selected: group == null,
                 onSelected: (_) => onGroup(null),
               ),
@@ -139,7 +141,7 @@ final post = await PostsApi(dio).getPost(1);   // Post nesnesi'''),
                 const SizedBox(width: 6),
                 ChoiceChip(
                   key: Key('retrofit_group_${g.name}'),
-                  label: Text(
+                  label: AppText(
                     '${g.label} '
                     '(${kRetrofitDemos.where((d) => d.group == g).length})',
                   ),
@@ -176,7 +178,7 @@ class _LogSheet extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
+                      child: AppText(
                         'Ağ kaydı (${state.log.length})',
                         style: t.titleMedium,
                       ),
@@ -185,11 +187,11 @@ class _LogSheet extends StatelessWidget {
                       onPressed: state.log.isEmpty
                           ? null
                           : context.read<RetrofitLabCubit>().clearLog,
-                      child: const Text('Temizle'),
+                      child: const AppText('Temizle'),
                     ),
                   ],
                 ),
-                Text(
+                AppText(
                   'RecordingInterceptor: retrofit\'in attığı her istek Dio\'dan '
                   'geçer ve burada kaydedilir. Yeniden eskiye.',
                   style: t.bodySmall,
@@ -198,7 +200,7 @@ class _LogSheet extends StatelessWidget {
                 if (state.log.isEmpty)
                   const Padding(
                     padding: EdgeInsets.all(24),
-                    child: Center(child: Text('Henüz istek yok.')),
+                    child: Center(child: AppText('Henüz istek yok.')),
                   ),
                 for (final e in state.log) ExchangeTile(e, showDemo: true),
               ],

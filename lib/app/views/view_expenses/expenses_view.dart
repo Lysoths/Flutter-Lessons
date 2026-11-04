@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_copy.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
@@ -13,6 +16,8 @@ import 'package:flutter_ders/app/views/view_expenses/widgets/category_breakdown_
 import 'package:flutter_ders/app/views/view_expenses/widgets/category_shortcuts_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/expense_tile_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/month_summary_card.dart';
+import 'package:flutter_ders/app/views/view_settings/cubit/settings_cubit.dart';
+import 'package:flutter_ders/app/views/view_settings/cubit/settings_state.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
 
 /// Ana ekran: aylık özet, kategori dağılımı ve güne göre gruplu liste.
@@ -52,15 +57,16 @@ class ExpensesView extends StatelessWidget {
   Future<void> _delete(BuildContext context, String id) async {
     final cubit = context.read<ExpensesCubit>();
     final messenger = ScaffoldMessenger.of(context);
+    final undo = context.s('Geri al');
     final removed = await cubit.remove(id);
     if (removed == null) return;
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: Text('${removed.category.label} harcaması silindi'),
+          content: AppText('${removed.category.label} harcaması silindi'),
           action: SnackBarAction(
-            label: 'Geri al',
+            label: undo,
             onPressed: () => cubit.restore(removed),
           ),
         ),
@@ -70,13 +76,28 @@ class ExpensesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(titleSpacing: 20, title: const _BrandTitle()),
+      appBar: AppBar(
+        titleSpacing: 20,
+        title: const _BrandTitle(),
+        actions: [
+          BlocBuilder<SettingsCubit, SettingsState>(
+            builder: (context, settings) {
+              return IconButton(
+                key: const Key('expensesView_settingsButton'),
+                tooltip: AppCopy.of(settings.language).settingsTitle,
+                onPressed: () => context.router.push(const SettingsRoute()),
+                icon: const Icon(Icons.settings_rounded),
+              );
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('expensesView_add'),
         // DERS 4 — auto_route: form da bir rota (deep link: /yeni).
         onPressed: () => context.router.push(const NewExpenseRoute()),
         icon: const Icon(Icons.add_rounded),
-        label: const Text(
+        label: const AppText(
           'Harcama ekle',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
@@ -253,6 +274,19 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'Sürüme bağlı önbellek, bellek denetimi, base64 · S3 · SFTP',
                 onTap: () => context.router.push(const ImageCacheRoute()),
               ),
+              const Gap(10),
+              BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, settings) {
+                  final copy = AppCopy.of(settings.language);
+                  return _EntryCard(
+                    key: const Key('expensesView_settings'),
+                    icon: Icons.settings_rounded,
+                    title: copy.settingsTitle,
+                    subtitle: copy.settingsSubtitle,
+                    onTap: () => context.router.push(const SettingsRoute()),
+                  );
+                },
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(
@@ -299,7 +333,7 @@ class ExpensesView extends StatelessWidget {
         widgets.add(
           Padding(
             padding: const EdgeInsets.only(top: 14, bottom: 8),
-            child: Text(
+            child: AppText(
               label.toUpperCase(),
               style: Theme.of(context).textTheme.labelMedium,
             ),
@@ -336,10 +370,10 @@ class _SectionTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: t.titleLarge),
+        AppText(title, style: t.titleLarge),
         if (subtitle != null) ...[
           const SizedBox(height: 2),
-          Text(subtitle!, style: t.bodyMedium?.copyWith(fontSize: 13)),
+          AppText(subtitle!, style: t.bodyMedium?.copyWith(fontSize: 13)),
         ],
       ],
     );
@@ -373,7 +407,7 @@ class _BrandTitle extends StatelessWidget {
         const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            AppText(
               'Harcama Takibim',
               style: TextStyle(
                 fontSize: 17,
@@ -381,7 +415,7 @@ class _BrandTitle extends StatelessWidget {
                 color: MfColors.slate900,
               ),
             ),
-            Text(
+            AppText(
               'Kişisel bütçe defteri',
               style: TextStyle(fontSize: 11, color: MfColors.slate500),
             ),
@@ -430,9 +464,9 @@ class _EntryCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: t.titleMedium),
+                    AppText(title, style: t.titleMedium),
                     const SizedBox(height: 2),
-                    Text(subtitle, style: t.bodyMedium?.copyWith(fontSize: 13)),
+                    AppText(subtitle, style: t.bodyMedium?.copyWith(fontSize: 13)),
                   ],
                 ),
               ),
@@ -459,9 +493,9 @@ class _EmptyCard extends StatelessWidget {
           children: [
             const IconBadge(Icons.receipt_long_rounded, size: 52),
             const Gap(12),
-            Text('Henüz harcama yok', style: t.titleMedium),
+            AppText('Henüz harcama yok', style: t.titleMedium),
             const Gap(4),
-            Text(
+            AppText(
               'İlk harcamanızı "Harcama ekle" ile girin.',
               style: t.bodyMedium,
               textAlign: TextAlign.center,

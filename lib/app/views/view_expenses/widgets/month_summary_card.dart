@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 
@@ -62,7 +63,7 @@ class MonthSummaryCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 18),
-          const Text(
+          const AppText(
             'Bu ay harcanan',
             style: TextStyle(color: Colors.white70, fontSize: 14),
           ),
@@ -70,7 +71,7 @@ class MonthSummaryCard extends StatelessWidget {
           FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
-            child: Text(
+            child: AppText(
               formatMoney(monthTotal),
               key: const Key('expensesView_total'),
               style: const TextStyle(
@@ -122,7 +123,7 @@ class _Pill extends StatelessWidget {
         children: [
           Icon(icon, size: 14, color: Colors.white),
           const SizedBox(width: 6),
-          Text(
+          AppText(
             text,
             style: const TextStyle(
               color: Colors.white,

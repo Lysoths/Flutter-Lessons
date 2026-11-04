@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/device/device_info_source.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/models/info_section.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -47,12 +49,12 @@ class _DeviceInfoPage extends StatelessWidget {
     final t = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cihaz bilgisi'),
+        title: const AppText('Cihaz bilgisi'),
         titleTextStyle: t.titleLarge,
         actions: [
           IconButton(
             key: const Key('deviceInfo_refresh'),
-            tooltip: 'Yenile',
+            tooltip: context.s('Yenile'),
             onPressed: () =>
                 context.read<DeviceInfoBloc>().add(const DeviceInfoRefreshed()),
             icon: const Icon(Icons.refresh_rounded),
@@ -72,7 +74,7 @@ class _DeviceInfoPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                AppText(
                   'Uygulamanın izin istemeden okuyabildiği her şey. Bilgiler '
                   'yalnızca ekranda gösterilir; kaydedilmez, gönderilmez.',
                   style: t.bodyMedium,
@@ -94,7 +96,7 @@ info.systemFeatures;   // PackageManager özellik listesi'''),
                   const Gap(12),
                 ],
                 if (state case DeviceInfoError(:final message))
-                  Text(message, key: const Key('deviceInfo_error')),
+                  AppText(message, key: const Key('deviceInfo_error')),
                 const _ScreenCard(),
                 if (report != null)
                   Opacity(
@@ -132,7 +134,7 @@ class _Summary extends StatelessWidget {
         color: MfColors.blue50,
         borderRadius: BorderRadius.circular(14),
       ),
-      child: Text(
+      child: AppText(
         '${state.fieldCount} alan · ${state.report.raw.length} ham anahtar · '
         'okuma ${formatDuration(took)} · '
         '${two(readAt.hour)}:${two(readAt.minute)}:${two(readAt.second)}',
@@ -293,8 +295,8 @@ class _Expandable extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
         leading: IconBadge(icon),
-        title: Text(title, style: t.titleSmall),
-        subtitle: Text(subtitle, style: t.bodySmall),
+        title: AppText(title, style: t.titleSmall),
+        subtitle: AppText(subtitle, style: t.bodySmall),
         shape: const Border(),
         collapsedShape: const Border(),
         childrenPadding: const EdgeInsets.fromLTRB(14, 0, 14, 14),

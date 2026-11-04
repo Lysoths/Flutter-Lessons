@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/core/router/route_transitions.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -65,7 +66,7 @@ class AnimationDemoView extends StatelessWidget {
         backgroundColor: accent,
         surfaceTintColor: accent,
         foregroundColor: Colors.white,
-        title: Text('Senaryo ${index + 1} / ${all.length}'),
+        title: AppText('Senaryo ${index + 1} / ${all.length}'),
       ),
       body: SafeArea(
         child: Padding(
@@ -75,14 +76,14 @@ class AnimationDemoView extends StatelessWidget {
               const Spacer(),
               icon,
               const Gap(24),
-              Text(
+              AppText(
                 animation.label,
                 key: const Key('animationDemo_title'),
                 textAlign: TextAlign.center,
                 style: t.headlineSmall?.copyWith(color: Colors.white),
               ),
               const Gap(8),
-              Text(
+              AppText(
                 animation.description,
                 textAlign: TextAlign.center,
                 style: t.bodyLarge?.copyWith(color: Colors.white70),
@@ -101,7 +102,7 @@ class AnimationDemoView extends StatelessWidget {
                       key: const Key('animationDemo_previous'),
                       onPressed: () => go(index - 1 + all.length),
                       icon: const Icon(Icons.chevron_left_rounded),
-                      label: const Text('Önceki'),
+                      label: const AppText('Önceki'),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -110,7 +111,7 @@ class AnimationDemoView extends StatelessWidget {
                       key: const Key('animationDemo_next'),
                       onPressed: () => go(index + 1),
                       icon: const Icon(Icons.chevron_right_rounded),
-                      label: const Text('Sonraki'),
+                      label: const AppText('Sonraki'),
                     ),
                   ),
                 ],
@@ -119,7 +120,7 @@ class AnimationDemoView extends StatelessWidget {
               TextButton(
                 onPressed: () => context.router.maybePop(),
                 style: TextButton.styleFrom(foregroundColor: Colors.white),
-                child: const Text('Listeye dön (ters animasyon)'),
+                child: const AppText('Listeye dön (ters animasyon)'),
               ),
               const Gap(8),
             ],

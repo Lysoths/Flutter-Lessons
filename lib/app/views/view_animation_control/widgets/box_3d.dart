@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 
 /// DERS 8 — 3B objenin biçimi: hepsi en, boy ve derinliği farklı bir
 /// kutudur.
@@ -181,7 +182,7 @@ class _Face extends StatelessWidget {
       ),
       child: small
           ? null
-          : Text(
+          : AppText(
               label,
               style: const TextStyle(
                 color: Colors.white,

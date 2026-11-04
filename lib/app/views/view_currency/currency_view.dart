@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_currency/view_model/currency_view_model.dart';
 import 'package:flutter_ders/app/views/view_currency/widgets/history_section.dart';
 import 'package:flutter_ders/app/views/view_currency/widgets/news_section.dart';
@@ -75,12 +77,12 @@ class _CurrencyPage extends StatelessWidget {
     final padding = pagePadding(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Döviz yönetimi'),
+        title: const AppText('Döviz yönetimi'),
         titleTextStyle: t.titleLarge,
         actions: [
           IconButton(
             key: const Key('currency_refresh'),
-            tooltip: 'Hepsini yenile',
+            tooltip: context.s('Hepsini yenile'),
             onPressed: busy ? null : vm.refreshAll,
             icon: const Icon(Icons.refresh_rounded),
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_event.dart';
@@ -39,7 +41,7 @@ class _LiveRatesTabState extends State<LiveRatesTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          AppText(
             "Ders 11'deki sahte WebSocket sunucusu (telefonun içinde). Fark: "
             'akışı artık ekran değil Bloc dinliyor; ekran yalnızca durumu çizer.',
             style: t.bodyMedium,
@@ -79,7 +81,7 @@ on<LiveConnectRequested>((event, emit) async {
                             minimumSize: const Size(0, 40),
                           ),
                           icon: const Icon(Icons.link_off_rounded),
-                          label: const Text('Kes'),
+                          label: const AppText('Kes'),
                         )
                       else
                         FilledButton.icon(
@@ -90,7 +92,7 @@ on<LiveConnectRequested>((event, emit) async {
                             minimumSize: const Size(0, 40),
                           ),
                           icon: const Icon(Icons.link_rounded),
-                          label: const Text('Bağlan'),
+                          label: const AppText('Bağlan'),
                         ),
                     ],
                   ),
@@ -116,7 +118,7 @@ on<LiveConnectRequested>((event, emit) async {
                   ),
                   if (state.error != null) ...[
                     const Gap(8),
-                    Text(
+                    AppText(
                       state.error!,
                       style: t.bodyMedium?.copyWith(color: MfColors.red600),
                     ),
@@ -129,8 +131,8 @@ on<LiveConnectRequested>((event, emit) async {
                           child: TextField(
                             key: const Key('live_input'),
                             controller: _text,
-                            decoration: const InputDecoration(
-                              hintText: 'Sunucuya mesaj yaz',
+                            decoration: InputDecoration(
+                              hintText: context.s('Sunucuya mesaj yaz'),
                               isDense: true,
                             ),
                             onSubmitted: (_) => _send(),
@@ -147,7 +149,7 @@ on<LiveConnectRequested>((event, emit) async {
                   for (final e in state.echoes)
                     Padding(
                       padding: const EdgeInsets.only(top: 6),
-                      child: Text(
+                      child: AppText(
                         '↩ Sunucu geri yolladı: "${e.text}"',
                         style: t.bodyMedium,
                       ),
@@ -161,7 +163,7 @@ on<LiveConnectRequested>((event, emit) async {
           // echo gelince bu satır yeniden çizilmez.
           BlocSelector<LiveRatesBloc, LiveRatesState, int>(
             selector: (state) => state.ticks,
-            builder: (context, ticks) => Text(
+            builder: (context, ticks) => AppText(
               'Gelen kur mesajı: $ticks · sahte veri (BlocSelector)',
               key: const Key('live_ticks'),
               style: t.bodySmall,
@@ -200,12 +202,12 @@ class _Rate extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: t.labelMedium),
+          AppText(label, style: t.labelMedium),
           const SizedBox(height: 4),
           Row(
             children: [
               Flexible(
-                child: Text(
+                child: AppText(
                   v == null ? '—' : v.toStringAsFixed(3),
                   style: t.titleLarge?.copyWith(
                     color: color,

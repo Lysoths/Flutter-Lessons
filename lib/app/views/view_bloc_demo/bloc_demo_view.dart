@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/rates_event.dart';
@@ -46,7 +47,7 @@ class BlocDemoView extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Bloc ile veri'),
+            title: const AppText('Bloc ile veri'),
             titleTextStyle: t.titleLarge,
             bottom: const TabBar(
               tabs: [

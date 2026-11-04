@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/expense_tile_widget.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
@@ -37,7 +38,7 @@ class PagedListView extends StatelessWidget {
       length: LoadingStyle.values.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Sayfalı liste'),
+          title: const AppText('Sayfalı liste'),
           titleTextStyle: t.titleLarge,
           bottom: TabBar(
             tabs: [

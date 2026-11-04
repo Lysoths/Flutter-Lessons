@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/network/recording_interceptor.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -63,7 +64,7 @@ class ExchangeTile extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
+              child: AppText(
                 '${e.url.host}${e.url.path}'
                 '${e.url.hasQuery ? '?${e.url.query}' : ''}',
                 maxLines: 2,
@@ -73,7 +74,7 @@ class ExchangeTile extends StatelessWidget {
             ),
           ],
         ),
-        subtitle: Text(
+        subtitle: AppText(
           [
             if (took != null) formatDuration(took),
             if (showDemo && e.demoId != null) 'deneme: ${e.demoId}',
@@ -120,7 +121,7 @@ class _Pill extends StatelessWidget {
       color: color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(6),
     ),
-    child: Text(
+    child: AppText(
       text,
       style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w800),
     ),
@@ -142,7 +143,7 @@ class _Block extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(title, style: t.labelSmall?.copyWith(color: MfColors.slate500)),
+          AppText(title, style: t.labelSmall?.copyWith(color: MfColors.slate500)),
           const SizedBox(height: 2),
           SelectableText(text, style: style),
         ],

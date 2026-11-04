@@ -87,7 +87,14 @@ void main() {
     for (var i = 0; i < 7; i++) {
       final step = find.byKey(Key('syncAsync_step_$i'), skipOffstage: false);
       expect(step, findsOneWidget);
-      expect(tester.widget<Text>(step).data, startsWith('${i + 1} '));
+      expect(
+        tester
+            .widget<Text>(
+              find.descendant(of: step, matching: find.byType(Text)),
+            )
+            .data,
+        startsWith('${i + 1} '),
+      );
     }
   });
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/theme/category_style.dart';
@@ -37,7 +38,7 @@ class CategoryExpensesView extends StatelessWidget {
     final category = kCategorySlugs[slug.toLowerCase()];
     if (category == null) {
       // Uygulama içinden yanlış ad gelirse (link zaten süzülür).
-      return Scaffold(appBar: AppBar(title: const Text('Kategori bulunamadı')));
+      return Scaffold(appBar: AppBar(title: const AppText('Kategori bulunamadı')));
     }
     final accent = category.accent;
     return Scaffold(
@@ -46,7 +47,7 @@ class CategoryExpensesView extends StatelessWidget {
           key: const Key('categoryView_back'),
           onPressed: () => context.router.maybePop(),
         ),
-        title: Text(category.label),
+        title: AppText(category.label),
         titleTextStyle: t.titleLarge,
       ),
       body: BlocBuilder<ExpensesCubit, ExpensesState>(
@@ -91,7 +92,7 @@ class CategoryExpensesView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          AppText(
                             'Bu ay · ${formatMonth(now)}',
                             style: const TextStyle(
                               color: Colors.white70,
@@ -101,7 +102,7 @@ class CategoryExpensesView extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             alignment: Alignment.centerLeft,
-                            child: Text(
+                            child: AppText(
                               formatMoney(monthTotal),
                               key: const Key('categoryView_monthTotal'),
                               style: const TextStyle(
@@ -112,7 +113,7 @@ class CategoryExpensesView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Text(
+                          AppText(
                             '${items.length} kayıt · tüm zamanlar '
                             '${formatMoney(allTotal)}',
                             style: const TextStyle(
@@ -128,10 +129,10 @@ class CategoryExpensesView extends StatelessWidget {
                 ),
               ),
               const Gap(24),
-              Text('Harcamalar', style: t.titleLarge),
+              AppText('Harcamalar', style: t.titleLarge),
               const Gap(12),
               if (items.isEmpty)
-                Text('Bu kategoride harcama yok.', style: t.bodyMedium)
+                AppText('Bu kategoride harcama yok.', style: t.bodyMedium)
               else
                 for (final e in items)
                   Padding(

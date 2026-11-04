@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -69,7 +70,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
     const accent = Color(0xFF8B5CF6);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.document.title),
+        title: AppText(widget.document.title),
         titleTextStyle: t.titleLarge,
       ),
       body: Padding(
@@ -79,16 +80,16 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
           children: [
             const IconBadge(Icons.graphic_eq_rounded, accent: accent, size: 96),
             const Gap(20),
-            Text(widget.document.title, style: t.headlineSmall),
+            AppText(widget.document.title, style: t.headlineSmall),
             const Gap(6),
-            Text(
+            AppText(
               widget.document.description,
               style: t.bodyMedium,
               textAlign: TextAlign.center,
             ),
             const Gap(32),
             if (_error != null)
-              Text('Ses yüklenemedi: $_error', style: t.bodyMedium)
+              AppText('Ses yüklenemedi: $_error', style: t.bodyMedium)
             else ...[
               StreamBuilder<Duration>(
                 stream: _player.positionStream,
@@ -113,8 +114,8 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(_format(position), style: t.bodySmall),
-                          Text(_format(total), style: t.bodySmall),
+                          AppText(_format(position), style: t.bodySmall),
+                          AppText(_format(total), style: t.bodySmall),
                         ],
                       ),
                     ],
@@ -148,7 +149,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
               ),
             ],
             const Gap(24),
-            Text(
+            AppText(
               widget.document.source,
               style: t.bodySmall?.copyWith(color: MfColors.slate500),
             ),

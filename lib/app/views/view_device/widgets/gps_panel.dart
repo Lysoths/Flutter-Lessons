@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -92,7 +93,7 @@ class _GpsPanelState extends State<GpsPanel>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          AppText(
             'Konum yalnızca bu ekranda gösterilir; kaydedilmez, hiçbir yere '
             'gönderilmez.',
             style: t.bodyMedium,
@@ -115,14 +116,14 @@ StreamBuilder<GpsFix>(
               key: const Key('gps_stop'),
               onPressed: _stop,
               icon: const Icon(Icons.stop_rounded),
-              label: const Text('Durdur'),
+              label: const AppText('Durdur'),
             )
           else
             FilledButton.icon(
               key: const Key('gps_start'),
               onPressed: _asking ? null : _start,
               icon: const Icon(Icons.my_location_rounded),
-              label: Text(_asking ? 'İzin bekleniyor…' : 'Canlı konumu başlat'),
+              label: AppText(_asking ? 'İzin bekleniyor…' : 'Canlı konumu başlat'),
             ),
           const Gap(16),
           StreamBuilder<GpsView>(
@@ -138,7 +139,7 @@ StreamBuilder<GpsFix>(
                   ),
                   const Gap(10),
                   if (snapshot.hasError)
-                    Text(
+                    AppText(
                       'Konum alınamadı: ${snapshot.error}',
                       style: t.bodyMedium?.copyWith(color: MfColors.red600),
                     )
@@ -149,7 +150,7 @@ StreamBuilder<GpsFix>(
                         children: [
                           CircularProgressIndicator(),
                           Gap(10),
-                          Text('GPS uydu arıyor… (açık havada daha hızlı)'),
+                          AppText('GPS uydu arıyor… (açık havada daha hızlı)'),
                         ],
                       ),
                     )
@@ -189,9 +190,9 @@ class _AccessProblem extends StatelessWidget {
         children: [
           const Icon(Icons.location_off_rounded, color: MfColors.red600),
           const SizedBox(width: 10),
-          Expanded(child: Text(access.label, style: t.titleSmall)),
+          Expanded(child: AppText(access.label, style: t.titleSmall)),
           if (access != LocationAccess.denied)
-            TextButton(onPressed: onSettings, child: const Text('Ayarları aç')),
+            TextButton(onPressed: onSettings, child: const AppText('Ayarları aç')),
         ],
       ),
     );
@@ -254,11 +255,11 @@ class _Readings extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(label, style: t.bodySmall),
+                      AppText(label, style: t.bodySmall),
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerLeft,
-                        child: Text(
+                        child: AppText(
                           value,
                           style: t.titleSmall?.copyWith(
                             fontFeatures: const [FontFeature.tabularFigures()],
@@ -290,8 +291,8 @@ class _TrackCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(child: Text('İz (yukarısı kuzey)', style: t.titleSmall)),
-              Text(
+              Expanded(child: AppText('İz (yukarısı kuzey)', style: t.titleSmall)),
+              AppText(
                 'Mesafe: ${view.distance.toStringAsFixed(1)} m',
                 key: const Key('gps_distance'),
                 style: t.titleSmall,
@@ -304,7 +305,7 @@ class _TrackCard extends StatelessWidget {
             child: CustomPaint(painter: _TrackPainter(view.track)),
           ),
           const Gap(6),
-          Text(
+          AppText(
             'Mavi daire GPS doğruluğudur: gerçek konum büyük olasılıkla bu '
             'dairenin içindedir. Yürüdükçe iz uzar.',
             style: t.bodySmall,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/theme/category_style.dart';
@@ -50,7 +51,7 @@ class CategoryShortcutsWidget extends StatelessWidget {
                       child: Icon(category.icon, color: Colors.white, size: 22),
                     ),
                     const SizedBox(height: 8),
-                    Text(
+                    AppText(
                       category.label,
                       style: const TextStyle(
                         fontSize: 12,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/info_section.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -52,9 +53,9 @@ class InfoSectionCard extends StatelessWidget {
             children: [
               IconBadge(infoSectionIcon(section.id)),
               const SizedBox(width: 10),
-              Expanded(child: Text(section.title, style: t.titleSmall)),
+              Expanded(child: AppText(section.title, style: t.titleSmall)),
               ?trailing,
-              Text(
+              AppText(
                 '${section.entries.length}',
                 style: t.labelSmall?.copyWith(color: MfColors.slate400),
               ),
@@ -100,7 +101,7 @@ class _InfoRowState extends State<InfoRow> {
           children: [
             Expanded(
               flex: 4,
-              child: Text(
+              child: AppText(
                 e.label,
                 style: t.bodySmall?.copyWith(color: MfColors.slate500),
               ),
@@ -108,7 +109,7 @@ class _InfoRowState extends State<InfoRow> {
             const SizedBox(width: 10),
             Expanded(
               flex: 6,
-              child: Text(
+              child: AppText(
                 hidden ? '•••••• (göster)' : e.value,
                 key: Key('info_value_${e.label}'),
                 textAlign: TextAlign.end,

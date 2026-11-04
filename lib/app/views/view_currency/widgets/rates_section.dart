@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/base/base_change_notifier_view_model.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/currency/currency_info.dart';
 import 'package:flutter_ders/app/models/currency/currency_quote.dart';
@@ -80,32 +81,32 @@ class _QuoteRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           child: Row(
             children: [
-              Text(quote.info.flag, style: const TextStyle(fontSize: 22)),
+              AppText(quote.info.flag, style: const TextStyle(fontSize: 22)),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    AppText(
                       quote.info.code,
                       style: t.titleSmall?.copyWith(
                         color: selected ? MfColors.blue700 : null,
                       ),
                     ),
-                    Text(quote.info.name, style: t.bodySmall),
+                    AppText(quote.info.name, style: t.bodySmall),
                   ],
                 ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
+                  AppText(
                     formatTryRate(quote.tryPerUnit),
                     style: t.titleSmall?.copyWith(
                       fontFeatures: const [FontFeature.tabularFigures()],
                     ),
                   ),
-                  Text(
+                  AppText(
                     quote.previous == null ? '—' : formatChange(change),
                     style: t.bodySmall?.copyWith(
                       color: changeColor(change),

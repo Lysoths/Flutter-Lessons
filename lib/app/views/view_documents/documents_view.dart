@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -37,7 +38,7 @@ class DocumentsView extends StatelessWidget {
     final t = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Belgeler'),
+        title: const AppText('Belgeler'),
         titleTextStyle: t.titleLarge,
       ),
       body: ListView(
@@ -49,7 +50,7 @@ class DocumentsView extends StatelessWidget {
               children: [
                 Icon(kind.icon, size: 18, color: _accent(kind)),
                 const SizedBox(width: 8),
-                Text(kind.label.toUpperCase(), style: t.labelMedium),
+                AppText(kind.label.toUpperCase(), style: t.labelMedium),
               ],
             ),
             const Gap(8),
@@ -64,7 +65,7 @@ class DocumentsView extends StatelessWidget {
               ),
           ],
           const Gap(12),
-          Text(
+          AppText(
             'Tüm dosyalar Wikimedia Commons\'tan alınmıştır ve kamu malıdır.',
             style: t.bodySmall?.copyWith(color: MfColors.slate500),
           ),
@@ -115,9 +116,9 @@ class _DocumentTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(document.title, style: t.titleMedium),
+                    AppText(document.title, style: t.titleMedium),
                     const SizedBox(height: 2),
-                    Text(
+                    AppText(
                       document.description,
                       style: t.bodyMedium?.copyWith(fontSize: 13),
                       maxLines: 1,

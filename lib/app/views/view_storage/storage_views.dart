@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -34,7 +35,7 @@ class StorageHubView extends StatelessWidget {
     final t = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yerel depolama'),
+        title: const AppText('Yerel depolama'),
         titleTextStyle: t.titleLarge,
       ),
       body: ListView(
@@ -59,7 +60,7 @@ class StorageHubView extends StatelessWidget {
             const Gap(10),
           ],
           const Gap(16),
-          Text('Hangisi daha sağlıklı?', style: t.titleLarge),
+          AppText('Hangisi daha sağlıklı?', style: t.titleLarge),
           const Gap(10),
           const _Verdict(
             kind: StorageKind.sharedPreferences,
@@ -93,7 +94,7 @@ class StorageHubView extends StatelessWidget {
               color: MfColors.blue50,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Text(
+            child: AppText(
               'Bu uygulamada: gerçek harcamalarınız şimdilik '
               'SharedPreferences\'ta JSON metni olarak duruyor (Ders 1). '
               'Kayıt sayısı büyüdükçe ve aylık toplam / kategori filtresi '
@@ -143,8 +144,8 @@ class _KindCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('$number. ${kind.label}', style: t.titleMedium),
-                    Text(kind.model, style: t.bodyMedium),
+                    AppText('$number. ${kind.label}', style: t.titleMedium),
+                    AppText(kind.model, style: t.bodyMedium),
                   ],
                 ),
               ),
@@ -176,12 +177,12 @@ class _Verdict extends StatelessWidget {
             children: [
               Icon(kind.icon, size: 18, color: kind.color),
               const SizedBox(width: 6),
-              Text(kind.label, style: t.titleSmall),
+              AppText(kind.label, style: t.titleSmall),
             ],
           ),
           const SizedBox(height: 4),
-          Text('✓ $when', style: t.bodyMedium),
-          Text('✗ $not', style: t.bodyMedium),
+          AppText('✓ $when', style: t.bodyMedium),
+          AppText('✗ $not', style: t.bodyMedium),
         ],
       ),
     );

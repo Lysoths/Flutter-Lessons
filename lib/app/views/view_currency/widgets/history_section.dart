@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/base/base_change_notifier_view_model.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/models/currency/currency_info.dart';
 import 'package:flutter_ders/app/models/currency/rate_history.dart';
@@ -36,7 +37,7 @@ class HistorySection extends StatelessWidget {
             for (final p in HistoryPeriod.values)
               ButtonSegment(
                 value: p,
-                label: Text(p.label, key: Key('period_${p.name}')),
+                label: AppText(p.label, key: Key('period_${p.name}')),
               ),
           ],
           selected: {vm.period},
@@ -87,14 +88,14 @@ class HistorySection extends StatelessWidget {
                 const Gap(6),
                 Row(
                   children: [
-                    Text(_short(history.points.first.date), style: t.bodySmall),
+                    AppText(_short(history.points.first.date), style: t.bodySmall),
                     const Spacer(),
-                    Text(
+                    AppText(
                       '${history.points.length} nokta',
                       style: t.bodySmall?.copyWith(color: MfColors.slate400),
                     ),
                     const Spacer(),
-                    Text(_short(history.points.last.date), style: t.bodySmall),
+                    AppText(_short(history.points.last.date), style: t.bodySmall),
                   ],
                 ),
               ],
@@ -120,11 +121,11 @@ class _Stats extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: t.bodySmall),
+              AppText(label, style: t.bodySmall),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.centerLeft,
-                child: Text(
+                child: AppText(
                   value,
                   key: key,
                   style: t.titleSmall?.copyWith(color: color),

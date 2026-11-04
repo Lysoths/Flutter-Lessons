@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/curve_option.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/pulse_effects.dart';
@@ -83,9 +84,9 @@ class _PulseCardState extends State<PulseCard>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(e.label, style: t.titleMedium),
+          AppText(e.label, style: t.titleMedium),
           const SizedBox(height: 2),
-          Text(e.description, style: t.bodyMedium?.copyWith(fontSize: 13)),
+          AppText(e.description, style: t.bodyMedium?.copyWith(fontSize: 13)),
           SizedBox(
             height: 150,
             child: Center(
@@ -110,7 +111,7 @@ class _PulseCardState extends State<PulseCard>
                 ),
                 SizedBox(
                   width: 64,
-                  child: Text(
+                  child: AppText(
                     '${_bpm.round()} bpm',
                     key: const Key('pulse_bpm_value'),
                     style: t.titleSmall,
@@ -128,7 +129,7 @@ class _PulseCardState extends State<PulseCard>
                 icon: Icon(
                   playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
                 ),
-                label: Text(playing ? 'Durdur' : 'Oynat'),
+                label: AppText(playing ? 'Durdur' : 'Oynat'),
               ),
               const SizedBox(width: 8),
               // Dar ekranda taşmasın: kalan yeri alır, sığmazsa küçülür.
@@ -141,7 +142,7 @@ class _PulseCardState extends State<PulseCard>
                     onSelected: _setCurve,
                     itemBuilder: (_) => [
                       for (final c in CurveOption.values)
-                        PopupMenuItem(value: c, child: Text(c.label)),
+                        PopupMenuItem(value: c, child: AppText(c.label)),
                     ],
                     child: Padding(
                       padding: const EdgeInsets.all(8),

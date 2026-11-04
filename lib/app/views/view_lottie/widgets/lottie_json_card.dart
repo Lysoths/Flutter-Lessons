@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/lottie_item.dart';
 import 'package:flutter_ders/app/models/lottie_json_info.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -34,7 +35,7 @@ class LottieJsonCard extends StatelessWidget {
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item.assetPath, style: t.labelMedium),
+                AppText(item.assetPath, style: t.labelMedium),
                 const Gap(10),
                 // Dosyanın ilk karakterleri: gerçekten düz bir JSON metni.
                 Container(
@@ -44,7 +45,7 @@ class LottieJsonCard extends StatelessWidget {
                     color: MfColors.terminal,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text(
+                  child: AppText(
                     i.preview,
                     key: const Key('lottieJson_preview'),
                     style: const TextStyle(
@@ -118,7 +119,7 @@ class _Row extends StatelessWidget {
         children: [
           SizedBox(
             width: 92,
-            child: Text(
+            child: AppText(
               jsonKey,
               style: const TextStyle(
                 fontFamily: 'monospace',
@@ -128,8 +129,8 @@ class _Row extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: Text(label, style: t.bodyMedium)),
-          Text(value, key: valueKey, style: t.titleSmall),
+          Expanded(child: AppText(label, style: t.bodyMedium)),
+          AppText(value, key: valueKey, style: t.titleSmall),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/lottie_item.dart';
 import 'package:flutter_ders/app/models/lottie_json_info.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -60,7 +61,7 @@ class _LottieViewState extends State<LottieView> {
     final t = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lottie animasyonları'),
+        title: const AppText('Lottie animasyonları'),
         titleTextStyle: t.titleLarge,
       ),
       body: ListView(
@@ -79,7 +80,7 @@ class _LottieViewState extends State<LottieView> {
           const Gap(16),
           const _Compare(),
           const Gap(28),
-          Text('1. Animasyonu seç', style: t.titleLarge),
+          AppText('1. Animasyonu seç', style: t.titleLarge),
           const Gap(10),
           Wrap(
             spacing: 8,
@@ -88,18 +89,18 @@ class _LottieViewState extends State<LottieView> {
               for (final a in kLottieAnimations)
                 ChoiceChip(
                   key: Key('lottieChip_${a.id}'),
-                  label: Text(a.title),
+                  label: AppText(a.title),
                   selected: a == _selected,
                   onSelected: (_) => _select(a),
                 ),
             ],
           ),
           const Gap(6),
-          Text(_selected.useCase, style: t.bodyMedium),
+          AppText(_selected.useCase, style: t.bodyMedium),
           const Gap(20),
-          Text('2. JSON\'dan çiz ve kontrol et', style: t.titleLarge),
+          AppText('2. JSON\'dan çiz ve kontrol et', style: t.titleLarge),
           const Gap(4),
-          Text(
+          AppText(
             'Lottie.asset(dosya, controller: ...) — Ders 8\'deki '
             'AnimationController burada da saattir.',
             style: t.bodyMedium,
@@ -107,9 +108,9 @@ class _LottieViewState extends State<LottieView> {
           const Gap(10),
           LottiePlayerCard(key: ValueKey(_selected.id), item: _selected),
           const Gap(20),
-          Text('3. Dosyanın içi', style: t.titleLarge),
+          AppText('3. Dosyanın içi', style: t.titleLarge),
           const Gap(4),
-          Text(
+          AppText(
             'rootBundle.loadString → jsonDecode: Ders 7\'deki örnek '
             'harcamalarla aynı okuma.',
             style: t.bodyMedium,
@@ -117,9 +118,9 @@ class _LottieViewState extends State<LottieView> {
           const Gap(10),
           LottieJsonCard(item: _selected, info: _infos[_selected.id]),
           const Gap(28),
-          Text('Hepsi birlikte', style: t.titleLarge),
+          AppText('Hepsi birlikte', style: t.titleLarge),
           const Gap(4),
-          Text(
+          AppText(
             'controller verilmezse Lottie kendi saatini kurar ve sürekli '
             'tekrar eder (repeat: true).',
             style: t.bodyMedium,
@@ -146,7 +147,7 @@ class _LottieViewState extends State<LottieView> {
             ],
           ),
           const Gap(20),
-          Text(
+          AppText(
             'Kaynak: lottiefiles.com/free-animations · Lottie Simple License',
             style: t.bodySmall,
           ),
@@ -185,9 +186,9 @@ class _Flow extends StatelessWidget {
               children: [
                 IconBadge(s.$1, size: 44),
                 const Gap(8),
-                Text(s.$2, textAlign: TextAlign.center, style: t.titleSmall),
+                AppText(s.$2, textAlign: TextAlign.center, style: t.titleSmall),
                 const SizedBox(height: 2),
-                Text(s.$3, textAlign: TextAlign.center, style: t.bodySmall),
+                AppText(s.$3, textAlign: TextAlign.center, style: t.bodySmall),
               ],
             ),
           ),
@@ -212,7 +213,7 @@ class _Compare extends StatelessWidget {
     ];
     Widget cell(String s, {bool head = false, Color? color}) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-      child: Text(
+      child: AppText(
         s,
         style: (head ? t.titleSmall : t.bodyMedium)?.copyWith(color: color),
       ),
