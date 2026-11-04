@@ -182,13 +182,23 @@ void main() {
 
     // bpm kartı en sonda: kaydırıcıyı sağa çek, değer artar.
     final value = find.byKey(const Key('pulse_bpm_value'));
-    expect(tester.widget<Text>(value).data, '72 bpm');
+    expect(
+      tester
+          .widget<Text>(find.descendant(of: value, matching: find.byType(Text)))
+          .data,
+      '72 bpm',
+    );
     await tester.drag(
       find.byKey(const Key('pulse_bpm_slider')),
       const Offset(200, 0),
     );
     await frames(tester, 200);
-    expect(tester.widget<Text>(value).data, isNot('72 bpm'));
+    expect(
+      tester
+          .widget<Text>(find.descendant(of: value, matching: find.byType(Text)))
+          .data,
+      isNot('72 bpm'),
+    );
 
     await tapIn(tester, 'pulse_bpm_toggle');
     expect(find.text('Oynat'), findsOneWidget);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/lottie_item.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -102,7 +103,7 @@ class _LottiePlayerCardState extends State<LottiePlayerCard>
                       )
                     : null,
                 errorBuilder: (context, error, _) =>
-                    const Center(child: Text('Animasyon okunamadı')),
+                    const Center(child: AppText('Animasyon okunamadı')),
               ),
             ),
             const Gap(8),
@@ -152,7 +153,7 @@ class _LottiePlayerCardState extends State<LottiePlayerCard>
             ),
             Row(
               children: [
-                Text('Hız', style: t.titleSmall),
+                AppText('Hız', style: t.titleSmall),
                 Expanded(
                   child: Slider(
                     key: const Key('lottiePlayer_speed'),
@@ -165,7 +166,7 @@ class _LottiePlayerCardState extends State<LottiePlayerCard>
                 ),
                 SizedBox(
                   width: 44,
-                  child: Text(
+                  child: AppText(
                     '${_speed.toStringAsFixed(2)}x',
                     textAlign: TextAlign.end,
                   ),
@@ -175,8 +176,8 @@ class _LottiePlayerCardState extends State<LottiePlayerCard>
             SwitchListTile(
               key: const Key('lottiePlayer_recolor'),
               contentPadding: EdgeInsets.zero,
-              title: const Text('Renkleri değiştir'),
-              subtitle: const Text('LottieDelegates: JSON çalışırken boyanır'),
+              title: const AppText('Renkleri değiştir'),
+              subtitle: const AppText('LottieDelegates: JSON çalışırken boyanır'),
               value: _recolor,
               onChanged: (v) => setState(() => _recolor = v),
             ),
@@ -188,7 +189,7 @@ class _LottiePlayerCardState extends State<LottiePlayerCard>
                     ? Icons.pause_rounded
                     : Icons.play_arrow_rounded,
               ),
-              label: Text(_controller.isAnimating ? 'Durdur' : 'Oynat'),
+              label: AppText(_controller.isAnimating ? 'Durdur' : 'Oynat'),
             ),
           ],
         ),

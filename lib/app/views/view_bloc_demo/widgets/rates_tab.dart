@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/exchange_rates.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -35,14 +36,14 @@ class _RatesTabState extends State<RatesTab> {
     return BlocListener<RatesBloc, RatesState>(
       listenWhen: (previous, current) => current is RatesError,
       listener: (context, state) => ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text((state as RatesError).message))),
+          .showSnackBar(SnackBar(content: AppText((state as RatesError).message))),
       child: SingleChildScrollView(
         key: const Key('rates_list'),
         padding: pagePadding(context).copyWith(top: 16, bottom: 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            AppText(
               'Avrupa Merkez Bankası kurları, internetten gerçek bir servis '
               'isteğiyle (dio) gelir. Ekran yalnızca OLAY gönderir.',
               style: t.bodyMedium,
@@ -67,7 +68,7 @@ BlocBuilder<RatesBloc, RatesState>(
                   onPressed: _refresh,
                   style: FilledButton.styleFrom(minimumSize: const Size(0, 44)),
                   icon: const Icon(Icons.refresh_rounded),
-                  label: const Text('Yenile'),
+                  label: const AppText('Yenile'),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -78,7 +79,7 @@ BlocBuilder<RatesBloc, RatesState>(
                         RatesError(:final handled) => handled,
                         _ => null,
                       };
-                      return Text(
+                      return AppText(
                         'Basılan: $_presses · işlenen istek: ${handled ?? '…'}\n'
                         'İstek sürerken basılanlar yok sayılır (droppable).',
                         key: const Key('rates_counts'),
@@ -92,7 +93,7 @@ BlocBuilder<RatesBloc, RatesState>(
             const Gap(16),
             BlocBuilder<RatesBloc, RatesState>(
               builder: (context, state) => switch (state) {
-                RatesInitial() => const Text('Henüz istek gönderilmedi.'),
+                RatesInitial() => const AppText('Henüz istek gönderilmedi.'),
                 RatesLoading(:final previous) => Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -106,7 +107,7 @@ BlocBuilder<RatesBloc, RatesState>(
                 RatesLoaded(:final rates, :final fetchedAt) => Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
+                    AppText(
                       'ECB · ${formatDate(rates.date)} tarihli · alındı '
                       '${fetchedAt.hour.toString().padLeft(2, '0')}:'
                       '${fetchedAt.minute.toString().padLeft(2, '0')}:'
@@ -134,10 +135,10 @@ BlocBuilder<RatesBloc, RatesState>(
                             color: MfColors.red600,
                           ),
                           const SizedBox(width: 10),
-                          Expanded(child: Text(message, style: t.titleSmall)),
+                          Expanded(child: AppText(message, style: t.titleSmall)),
                           TextButton(
                             onPressed: _refresh,
-                            child: const Text('Tekrar dene'),
+                            child: const AppText('Tekrar dene'),
                           ),
                         ],
                       ),
@@ -188,14 +189,14 @@ class _RatesList extends StatelessWidget {
                       color: MfColors.blue50,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
+                    child: AppText(
                       e.key,
                       style: t.labelMedium?.copyWith(color: MfColors.blue700),
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Expanded(child: Text(e.value, style: t.bodyMedium)),
-                  Text(
+                  Expanded(child: AppText(e.value, style: t.bodyMedium)),
+                  AppText(
                     '1 ${e.key} = ${formatMoney(value)}',
                     style: t.titleSmall?.copyWith(
                       fontFeatures: const [FontFeature.tabularFigures()],

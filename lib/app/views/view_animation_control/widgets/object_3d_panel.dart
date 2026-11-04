@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/box_3d.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/curve_option.dart';
@@ -185,7 +186,7 @@ class _Object3DPanelState extends State<Object3DPanel>
           onChanged: _setSpeed,
         ),
         const Gap(8),
-        Text('Eğri (Curves)', style: t.titleSmall),
+        AppText('Eğri (Curves)', style: t.titleSmall),
         const Gap(8),
         Wrap(
           spacing: 8,
@@ -194,21 +195,21 @@ class _Object3DPanelState extends State<Object3DPanel>
             for (final c in CurveOption.values)
               ChoiceChip(
                 key: Key('object3d_curve_${c.name}'),
-                label: Text(c.label),
+                label: AppText(c.label),
                 selected: _curve == c,
                 onSelected: (_) => _setCurve(c),
               ),
           ],
         ),
         const Gap(16),
-        Text('Obje (AnimatedSwitcher)', style: t.titleSmall),
+        AppText('Obje (AnimatedSwitcher)', style: t.titleSmall),
         const Gap(8),
         SegmentedButton<Shape3D>(
           segments: [
             for (final s in Shape3D.values)
               ButtonSegment(
                 value: s,
-                label: Text(s.label, key: Key('object3d_shape_${s.name}')),
+                label: AppText(s.label, key: Key('object3d_shape_${s.name}')),
               ),
           ],
           selected: {_shape},
@@ -220,29 +221,29 @@ class _Object3DPanelState extends State<Object3DPanel>
             children: [
               SwitchListTile(
                 key: const Key('object3d_loop'),
-                title: const Text('Sürekli tekrar'),
-                subtitle: const Text('repeat()'),
+                title: const AppText('Sürekli tekrar'),
+                subtitle: const AppText('repeat()'),
                 value: _loop,
                 onChanged: (v) => _setLoop(loop: v),
               ),
               SwitchListTile(
                 key: const Key('object3d_pingPong'),
-                title: const Text('Gidip gel'),
-                subtitle: const Text('repeat(reverse: true)'),
+                title: const AppText('Gidip gel'),
+                subtitle: const AppText('repeat(reverse: true)'),
                 value: _pingPong,
                 onChanged: (v) => _setLoop(pingPong: v),
               ),
               SwitchListTile(
                 key: const Key('object3d_night'),
-                title: const Text('Gece sahnesi'),
-                subtitle: const Text('AnimatedContainer rengi'),
+                title: const AppText('Gece sahnesi'),
+                subtitle: const AppText('AnimatedContainer rengi'),
                 value: _night,
                 onChanged: (v) => setState(() => _night = v),
               ),
               SwitchListTile(
                 key: const Key('object3d_bigStage'),
-                title: const Text('Büyük sahne'),
-                subtitle: const Text('AnimatedContainer yüksekliği'),
+                title: const AppText('Büyük sahne'),
+                subtitle: const AppText('AnimatedContainer yüksekliği'),
                 value: _bigStage,
                 onChanged: (v) => setState(() => _bigStage = v),
               ),
@@ -315,7 +316,7 @@ class _Object3DPanelState extends State<Object3DPanel>
           children: [
             Icon(icon, size: 20),
             const SizedBox(height: 2),
-            Text(label, style: const TextStyle(fontSize: 11)),
+            AppText(label, style: const TextStyle(fontSize: 11)),
           ],
         ),
       ),
@@ -367,7 +368,7 @@ class _LabeledSlider extends StatelessWidget {
     final t = Theme.of(context).textTheme;
     return Row(
       children: [
-        SizedBox(width: 64, child: Text(label, style: t.titleSmall)),
+        SizedBox(width: 64, child: AppText(label, style: t.titleSmall)),
         Expanded(
           child: Slider(
             key: sliderKey,
@@ -380,7 +381,7 @@ class _LabeledSlider extends StatelessWidget {
         ),
         SizedBox(
           width: 48,
-          child: Text(valueText, textAlign: TextAlign.end, style: t.bodyMedium),
+          child: AppText(valueText, textAlign: TextAlign.end, style: t.bodyMedium),
         ),
       ],
     );

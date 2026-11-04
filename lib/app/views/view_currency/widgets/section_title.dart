@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 
 /// DERS 15 — Bölüm başlığı: numara, başlık, sağda isteğe bağlı bilgi.
@@ -35,7 +36,7 @@ class CurrencySectionTitle extends StatelessWidget {
               color: MfColors.blue600,
               shape: BoxShape.circle,
             ),
-            child: Text(
+            child: AppText(
               '$number',
               style: const TextStyle(
                 color: Colors.white,
@@ -44,9 +45,9 @@ class CurrencySectionTitle extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(child: Text(title, style: t.titleMedium)),
+          Expanded(child: AppText(title, style: t.titleMedium)),
           if (trailing case final text?)
-            Text(text, style: t.bodySmall?.copyWith(color: MfColors.slate500)),
+            AppText(text, style: t.bodySmall?.copyWith(color: MfColors.slate500)),
         ],
       ),
     );
@@ -81,8 +82,8 @@ class CurrencyErrorRow extends StatelessWidget {
         children: [
           const Icon(Icons.cloud_off_rounded, color: MfColors.red600),
           const SizedBox(width: 10),
-          Expanded(child: Text(message, style: t.titleSmall)),
-          TextButton(onPressed: onRetry, child: const Text('Tekrar dene')),
+          Expanded(child: AppText(message, style: t.titleSmall)),
+          TextButton(onPressed: onRetry, child: const AppText('Tekrar dene')),
         ],
       ),
     );

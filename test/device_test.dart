@@ -223,7 +223,14 @@ void main() {
       await tester.scrollUntilVisible(shakes, 300, scrollable: list);
       sensors.user.add(reading(14, 0, 0, 100));
       await tester.pump();
-      expect(tester.widget<Text>(shakes).data, 'Sallama: 1');
+      expect(
+        tester
+            .widget<Text>(
+              find.descendant(of: shakes, matching: find.byType(Text)),
+            )
+            .data,
+        'Sallama: 1',
+      );
     });
   });
 }

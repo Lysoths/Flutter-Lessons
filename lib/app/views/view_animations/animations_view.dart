@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/core/router/route_transitions.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -41,7 +42,7 @@ class _AnimationsViewState extends State<AnimationsView> {
     final t = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Geçiş animasyonları'),
+        title: const AppText('Geçiş animasyonları'),
         titleTextStyle: t.titleLarge,
       ),
       body: ListView(
@@ -52,8 +53,8 @@ class _AnimationsViewState extends State<AnimationsView> {
               key: const Key('animations_slowMotion'),
               value: _slowMotion,
               onChanged: _setSlowMotion,
-              title: Text('Yavaş çekim (5x)', style: t.titleMedium),
-              subtitle: const Text('Geçişleri incelemek için yavaşlatır'),
+              title: AppText('Yavaş çekim (5x)', style: t.titleMedium),
+              subtitle: const AppText('Geçişleri incelemek için yavaşlatır'),
               secondary: const Icon(Icons.slow_motion_video_rounded),
             ),
           ),
@@ -110,7 +111,7 @@ class _AnimationTile extends StatelessWidget {
             children: [
               SizedBox(
                 width: 26,
-                child: Text(
+                child: AppText(
                   '$number',
                   style: t.labelMedium,
                   textAlign: TextAlign.center,
@@ -123,9 +124,9 @@ class _AnimationTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(animation.label, style: t.titleMedium),
+                    AppText(animation.label, style: t.titleMedium),
                     const SizedBox(height: 2),
-                    Text(
+                    AppText(
                       animation.description,
                       style: t.bodyMedium?.copyWith(fontSize: 13),
                       maxLines: 2,

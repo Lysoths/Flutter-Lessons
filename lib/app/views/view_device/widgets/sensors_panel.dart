@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/device/sensor_source.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -102,7 +103,7 @@ class _SensorsPanelState extends State<SensorsPanel>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          AppText(
             'Her sensör üç eksende (x: sağ, y: üst, z: ekrandan size) sayı '
             'üretir ve saniyede onlarca kez Stream ile gönderir.',
             style: t.bodyMedium,
@@ -131,7 +132,7 @@ StreamBuilder<SensorReading>(
                   ),
                 ),
                 const Gap(6),
-                Text(
+                AppText(
                   'Telefon düzken z ≈ 9,8: yerçekimi. Eğdikçe yerçekimi x ve y '
                   'eksenlerine dağılır; terazi bunu kullanır.',
                   style: t.bodySmall,
@@ -154,7 +155,7 @@ StreamBuilder<SensorReading>(
               children: [
                 _Axes(v.last, unit: 'rad/s'),
                 const Gap(8),
-                Text(
+                AppText(
                   'Telefonu çevirdikçe o eksendeki değer büyür; durunca 0\'a '
                   'döner. Saniyede '
                   '${(_magnitude(v.last) * 180 / pi).toStringAsFixed(0)}° dönüyor.',
@@ -172,7 +173,7 @@ StreamBuilder<SensorReading>(
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text('Sallama · kullanıcı ivmesi', style: t.titleMedium),
+                    AppText('Sallama · kullanıcı ivmesi', style: t.titleMedium),
                     const Gap(6),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -180,9 +181,9 @@ StreamBuilder<SensorReading>(
                     ),
                     const Gap(10),
                     if (snapshot.hasError)
-                      const Text('Bu telefonda bu sensör yok.')
+                      const AppText('Bu telefonda bu sensör yok.')
                     else ...[
-                      Text(
+                      AppText(
                         'Sallama: ${s?.shakes ?? 0}',
                         key: const Key('sensors_shakes'),
                         style: t.headlineSmall,
@@ -194,7 +195,7 @@ StreamBuilder<SensorReading>(
                         borderRadius: BorderRadius.circular(4),
                       ),
                       const Gap(6),
-                      Text(
+                      AppText(
                         'Yerçekimi çıkarılmış ivme: '
                         '${(s?.magnitude ?? 0).toStringAsFixed(1)} m/s² '
                         '(12 üstü = sallama)',
@@ -239,7 +240,7 @@ class _SensorStream extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Expanded(child: Text(title, style: t.titleMedium)),
+                  Expanded(child: AppText(title, style: t.titleMedium)),
                   if (v != null)
                     Eyebrow(
                       '${v.hz.toStringAsFixed(0)} Hz',
@@ -255,7 +256,7 @@ class _SensorStream extends StatelessWidget {
               ),
               const Gap(12),
               if (snapshot.hasError)
-                const Text('Bu telefonda bu sensör yok.')
+                const AppText('Bu telefonda bu sensör yok.')
               else if (v == null)
                 const LinearProgressIndicator()
               else
@@ -298,11 +299,11 @@ class _Axes extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: t.labelMedium?.copyWith(color: colors[i])),
+                  AppText(name, style: t.labelMedium?.copyWith(color: colors[i])),
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
-                    child: Text(
+                    child: AppText(
                       values[i].toStringAsFixed(2),
                       key: Key('sensors_${unit}_$name'),
                       style: t.titleMedium?.copyWith(
@@ -310,7 +311,7 @@ class _Axes extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(unit, style: t.bodySmall),
+                  AppText(unit, style: t.bodySmall),
                 ],
               ),
             ),
@@ -384,7 +385,7 @@ class _Level extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              AppText(
                 flat ? 'Düz ✓' : 'Eğik',
                 key: const Key('sensors_flat'),
                 style: t.titleLarge?.copyWith(
@@ -392,11 +393,11 @@ class _Level extends StatelessWidget {
                 ),
               ),
               const Gap(6),
-              Text(
+              AppText(
                 'Sağa / sola: ${roll.toStringAsFixed(1)}°',
                 style: t.bodyMedium,
               ),
-              Text(
+              AppText(
                 'İleri / geri: ${pitch.toStringAsFixed(1)}°',
                 style: t.bodyMedium,
               ),
@@ -498,18 +499,18 @@ class _Compass extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              AppText(
                 '${heading.toStringAsFixed(0)}° $name',
                 key: const Key('sensors_heading'),
                 style: t.headlineSmall,
               ),
-              Text('Telefonun üstünün baktığı yön', style: t.bodySmall),
+              AppText('Telefonun üstünün baktığı yön', style: t.bodySmall),
               const Gap(8),
-              Text(
+              AppText(
                 'Alan: ${strength.toStringAsFixed(0)} µT',
                 style: t.bodyMedium,
               ),
-              Text(
+              AppText(
                 strength > 100
                     ? 'Yakında metal / mıknatıs var, yön şaşabilir.'
                     : 'Dünya\'nın alanı 25–65 µT. Telefon düzken yaklaşıktır.',

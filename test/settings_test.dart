@@ -83,5 +83,23 @@ void main() {
     expect(find.text('Réglages'), findsWidgets);
     expect(find.text('Bonjour'), findsOneWidget);
     expect(find.text('Active'), findsOneWidget);
+
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(find.text('Ajouter une dépense'), findsOneWidget);
+    expect(find.text('Harcama ekle'), findsNothing);
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('expensesView_documents')),
+      -300,
+      scrollable: scrollable,
+    );
+    expect(find.text('Documents'), findsWidgets);
+    expect(find.text('Belgeler'), findsNothing);
+
+    await tester.tap(find.byKey(const Key('expensesView_documents')));
+    await tester.pumpAndSettle();
+    expect(find.text('IMAGES'), findsOneWidget);
+    expect(find.text('GÖRSELLER'), findsNothing);
   });
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_paged_grid/widgets/expense_grid_card.dart';
 import 'package:flutter_ders/app/views/view_paged_grid/widgets/expense_grid_card_skeleton.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
@@ -42,7 +43,7 @@ class PagedGridView extends StatelessWidget {
       length: LoadingStyle.values.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Sayfalı ızgara'),
+          title: const AppText('Sayfalı ızgara'),
           titleTextStyle: t.titleLarge,
           bottom: TabBar(
             tabs: [

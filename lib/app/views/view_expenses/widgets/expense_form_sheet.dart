@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -148,7 +150,7 @@ class _ExpenseFormSheetState extends State<ExpenseFormSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            AppText(
               _isEditing ? 'Harcamayı düzenle' : 'Yeni harcama',
               textAlign: TextAlign.center,
               style: t.titleLarge,
@@ -164,7 +166,7 @@ class _ExpenseFormSheetState extends State<ExpenseFormSheet> {
               ),
               child: Column(
                 children: [
-                  Text(
+                  AppText(
                     'Tutar',
                     style: TextStyle(
                       color: accent,
@@ -210,7 +212,7 @@ class _ExpenseFormSheetState extends State<ExpenseFormSheet> {
               ),
             ),
             const Gap(20),
-            Text('Kategori', style: t.labelMedium),
+            AppText('Kategori', style: t.labelMedium),
             const Gap(10),
             LayoutBuilder(
               builder: (context, c) {
@@ -238,9 +240,9 @@ class _ExpenseFormSheetState extends State<ExpenseFormSheet> {
               key: const Key('expenseForm_note'),
               controller: _note,
               textCapitalization: TextCapitalization.sentences,
-              decoration: const InputDecoration(
-                labelText: 'Not (isteğe bağlı)',
-                prefixIcon: Icon(Icons.edit_note_rounded),
+              decoration: InputDecoration(
+                labelText: context.s('Not (isteğe bağlı)'),
+                prefixIcon: const Icon(Icons.edit_note_rounded),
               ),
             ),
             const Gap(10),
@@ -268,12 +270,12 @@ class _ExpenseFormSheetState extends State<ExpenseFormSheet> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: Text(
+                        child: AppText(
                           formatDayLabel(_date),
                           style: t.titleMedium,
                         ),
                       ),
-                      const Text(
+                      const AppText(
                         'Değiştir',
                         style: TextStyle(
                           color: MfColors.blue600,
@@ -314,7 +316,7 @@ class _ExpenseFormSheetState extends State<ExpenseFormSheet> {
                   child: FilledButton(
                     key: const Key('expenseForm_save'),
                     onPressed: _save,
-                    child: Text(
+                    child: AppText(
                       _isEditing ? 'Değişiklikleri kaydet' : 'Kaydet',
                     ),
                   ),
@@ -363,7 +365,7 @@ class _CategoryTile extends StatelessWidget {
                 color: selected ? Colors.white : accent,
               ),
               const SizedBox(height: 6),
-              Text(
+              AppText(
                 category.label,
                 style: TextStyle(
                   fontSize: 13,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/socket_section.dart';
@@ -56,7 +57,7 @@ class _NetworkViewState extends State<NetworkView> {
     final t = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ağ kontrolü'),
+        title: const AppText('Ağ kontrolü'),
         titleTextStyle: t.titleLarge,
       ),
       // ListView.builder gibi tembel listeler ekrandan çıkan kartı yok eder;
@@ -82,8 +83,8 @@ class _NetworkViewState extends State<NetworkView> {
               child: SwitchListTile(
                 key: const Key('network_simulate'),
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Çevrimdışı gibi davran'),
-                subtitle: const Text(
+                title: const AppText('Çevrimdışı gibi davran'),
+                subtitle: const AppText(
                   "Wi-Fi'yi kapatmadan banner'ı görmek için",
                 ),
                 value: _checker.simulateOffline,
@@ -94,7 +95,7 @@ class _NetworkViewState extends State<NetworkView> {
               ),
             ),
             const Gap(24),
-            Text('1. FutureBuilder: bir kez sor', style: t.titleLarge),
+            AppText('1. FutureBuilder: bir kez sor', style: t.titleLarge),
             const Gap(8),
             const CodeBox('''
 late Future<NetworkResult> _future = checker.check();
@@ -123,7 +124,7 @@ FutureBuilder(
                     if (snapshot.connectionState == ConnectionState.waiting)
                       const LinearProgressIndicator()
                     else if (snapshot.hasError)
-                      Text('Hata: ${snapshot.error}')
+                      AppText('Hata: ${snapshot.error}')
                     else if (snapshot.hasData)
                       NetworkResultRow(snapshot.data!),
                     const Gap(12),
@@ -134,14 +135,14 @@ FutureBuilder(
                           ? null
                           : _recheck,
                       icon: const Icon(Icons.refresh_rounded),
-                      label: const Text('Tekrar kontrol et'),
+                      label: const AppText('Tekrar kontrol et'),
                     ),
                   ],
                 ),
               ),
             ),
             const Gap(24),
-            Text('2. StreamBuilder: sürekli dinle', style: t.titleLarge),
+            AppText('2. StreamBuilder: sürekli dinle', style: t.titleLarge),
             const Gap(8),
             const CodeBox('''
 StreamBuilder(
@@ -161,7 +162,7 @@ StreamBuilder(
                     children: [
                       ConnectionChip(snapshot.connectionState),
                       const Gap(6),
-                      Text(
+                      AppText(
                         'Her 3 saniyede bir yeni değer gelir; son 6 kontrol:',
                         style: t.bodySmall,
                       ),
@@ -177,9 +178,9 @@ StreamBuilder(
               ),
             ),
             const Gap(24),
-            Text('3. StreamBuilder + WebSocket', style: t.titleLarge),
+            AppText('3. StreamBuilder + WebSocket', style: t.titleLarge),
             const Gap(4),
-            Text(
+            AppText(
               'Telefonun içinde sahte bir WebSocket sunucusu açılır '
               '(kurulum yok, internet gerekmez). Sunucu her saniye sahte '
               'kur gönderir, yazdığınızı geri yollar.',

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 
 /// DERS 5 — Görsel asset: `Image.asset` ile gösterilir, iki parmakla
@@ -22,7 +23,7 @@ class ImageViewerView extends StatelessWidget {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         surfaceTintColor: Colors.black,
-        title: Text(document.title),
+        title: AppText(document.title),
       ),
       body: InteractiveViewer(
         maxScale: 5,
@@ -36,7 +37,7 @@ class ImageViewerView extends StatelessWidget {
       ),
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.all(16),
-        child: Text(
+        child: AppText(
           'Yakınlaştırmak için iki parmakla açın · ${document.source}',
           textAlign: TextAlign.center,
           style: const TextStyle(color: Colors.white60, fontSize: 12),

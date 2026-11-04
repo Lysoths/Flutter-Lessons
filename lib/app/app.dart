@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/core/locale/app_copy.dart';
 import 'package:flutter_ders/app/core/locale/app_language.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
@@ -68,7 +70,7 @@ class _HarcamaAppState extends State<HarcamaApp> {
         ..showSnackBar(
           const SnackBar(
             key: Key('networkBanner_back'),
-            content: Text('İnternet bağlantısı geri geldi'),
+            content: AppText('İnternet bağlantısı geri geldi'),
           ),
         );
     }
@@ -82,18 +84,18 @@ class _HarcamaAppState extends State<HarcamaApp> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        const AppText(
           'İnternet bağlantısı yok',
           style: TextStyle(fontWeight: FontWeight.w700),
         ),
-        Text(r.detail, style: const TextStyle(fontSize: 12)),
+        AppText(r.detail, style: const TextStyle(fontSize: 12)),
       ],
     ),
     actions: [
       TextButton(
         key: const Key('networkBanner_retry'),
         onPressed: getIt<NetworkChecker>().refresh,
-        child: const Text('Tekrar dene'),
+        child: const AppText('Tekrar dene'),
       ),
     ],
   );
@@ -123,6 +125,7 @@ class _HarcamaAppState extends State<HarcamaApp> {
             locale: settings.language.locale,
             supportedLocales: AppLanguage.supportedLocales,
             localizationsDelegates: const [
+              AppStringsDelegate(),
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,

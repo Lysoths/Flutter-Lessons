@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/cache/app_image_cache.dart';
 import 'package:flutter_ders/app/core/cache/image_source.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/models/image_demo_sources.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -49,7 +50,7 @@ client.sftp() → open('/pub/example/KeyGenerator.png') → read()''',
             for (final k in ImageSourceKind.values)
               ButtonSegment(
                 value: k,
-                label: Text(k.label, key: Key('kind_${k.name}')),
+                label: AppText(k.label, key: Key('kind_${k.name}')),
               ),
           ],
           selected: {state.kind},
@@ -57,7 +58,7 @@ client.sftp() → open('/pub/example/KeyGenerator.png') → read()''',
           onSelectionChanged: (s) => cubit.showKind(s.first),
         ),
         const Gap(8),
-        Text(state.kind.description, style: t.bodySmall),
+        AppText(state.kind.description, style: t.bodySmall),
         const Gap(8),
         CodeBox(_code[state.kind]!),
         const Gap(10),
@@ -71,13 +72,13 @@ client.sftp() → open('/pub/example/KeyGenerator.png') → read()''',
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
               : const Icon(Icons.download_for_offline_rounded),
-          label: Text(
+          label: AppText(
             'Önceden yükle (precache) · ${state.sources.length} görsel',
           ),
         ),
         if (state.message case final m?) ...[
           const Gap(8),
-          Text(
+          AppText(
             m,
             key: const Key('cache_message'),
             style: t.bodySmall?.copyWith(color: MfColors.blue700),
@@ -144,7 +145,7 @@ class _Tile extends StatelessWidget {
                           : s?.phase == ItemPhase.failed
                           ? Padding(
                               padding: const EdgeInsets.all(8),
-                              child: Text(
+                              child: AppText(
                                 s?.error ?? 'Hata',
                                 textAlign: TextAlign.center,
                                 style: t.bodySmall?.copyWith(
@@ -183,7 +184,7 @@ class _Tile extends StatelessWidget {
                       errorBuilder: (context, error, _) => Padding(
                         padding: const EdgeInsets.all(8),
                         child: Center(
-                          child: Text(
+                          child: AppText(
                             '$error',
                             textAlign: TextAlign.center,
                             style: t.bodySmall?.copyWith(
@@ -202,7 +203,7 @@ class _Tile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AppText(
                   source.label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -219,7 +220,7 @@ class _Tile extends StatelessWidget {
                               background: _originColor(origin)
                                   .withValues(alpha: 0.1),
                             )
-                          : Text(
+                          : AppText(
                               s?.phase == ItemPhase.failed
                                   ? 'Hata'
                                   : 'Bekliyor',
@@ -232,7 +233,7 @@ class _Tile extends StatelessWidget {
                     ),
                     const Spacer(),
                     if (took != null)
-                      Text(formatDuration(took), style: t.labelSmall),
+                      AppText(formatDuration(took), style: t.labelSmall),
                   ],
                 ),
               ],

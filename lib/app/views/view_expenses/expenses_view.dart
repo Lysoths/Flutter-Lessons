@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/locale/app_copy.dart';
+import 'package:flutter_ders/app/core/locale/app_strings.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
@@ -55,15 +57,16 @@ class ExpensesView extends StatelessWidget {
   Future<void> _delete(BuildContext context, String id) async {
     final cubit = context.read<ExpensesCubit>();
     final messenger = ScaffoldMessenger.of(context);
+    final undo = context.s('Geri al');
     final removed = await cubit.remove(id);
     if (removed == null) return;
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: Text('${removed.category.label} harcaması silindi'),
+          content: AppText('${removed.category.label} harcaması silindi'),
           action: SnackBarAction(
-            label: 'Geri al',
+            label: undo,
             onPressed: () => cubit.restore(removed),
           ),
         ),
@@ -94,7 +97,7 @@ class ExpensesView extends StatelessWidget {
         // DERS 4 — auto_route: form da bir rota (deep link: /yeni).
         onPressed: () => context.router.push(const NewExpenseRoute()),
         icon: const Icon(Icons.add_rounded),
-        label: const Text(
+        label: const AppText(
           'Harcama ekle',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
@@ -330,7 +333,7 @@ class ExpensesView extends StatelessWidget {
         widgets.add(
           Padding(
             padding: const EdgeInsets.only(top: 14, bottom: 8),
-            child: Text(
+            child: AppText(
               label.toUpperCase(),
               style: Theme.of(context).textTheme.labelMedium,
             ),
@@ -367,10 +370,10 @@ class _SectionTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: t.titleLarge),
+        AppText(title, style: t.titleLarge),
         if (subtitle != null) ...[
           const SizedBox(height: 2),
-          Text(subtitle!, style: t.bodyMedium?.copyWith(fontSize: 13)),
+          AppText(subtitle!, style: t.bodyMedium?.copyWith(fontSize: 13)),
         ],
       ],
     );
@@ -404,7 +407,7 @@ class _BrandTitle extends StatelessWidget {
         const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            AppText(
               'Harcama Takibim',
               style: TextStyle(
                 fontSize: 17,
@@ -412,7 +415,7 @@ class _BrandTitle extends StatelessWidget {
                 color: MfColors.slate900,
               ),
             ),
-            Text(
+            AppText(
               'Kişisel bütçe defteri',
               style: TextStyle(fontSize: 11, color: MfColors.slate500),
             ),
@@ -461,9 +464,9 @@ class _EntryCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: t.titleMedium),
+                    AppText(title, style: t.titleMedium),
                     const SizedBox(height: 2),
-                    Text(subtitle, style: t.bodyMedium?.copyWith(fontSize: 13)),
+                    AppText(subtitle, style: t.bodyMedium?.copyWith(fontSize: 13)),
                   ],
                 ),
               ),
@@ -490,9 +493,9 @@ class _EmptyCard extends StatelessWidget {
           children: [
             const IconBadge(Icons.receipt_long_rounded, size: 52),
             const Gap(12),
-            Text('Henüz harcama yok', style: t.titleMedium),
+            AppText('Henüz harcama yok', style: t.titleMedium),
             const Gap(4),
-            Text(
+            AppText(
               'İlk harcamanızı "Harcama ekle" ile girin.',
               style: t.bodyMedium,
               textAlign: TextAlign.center,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -20,7 +21,7 @@ class CodeBox extends StatelessWidget {
         color: MfColors.terminal,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
+      child: AppText(
         code,
         style: const TextStyle(
           fontFamily: 'monospace',
@@ -115,15 +116,15 @@ class NetworkResultRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              AppText(
                 r.online ? 'Çevrimiçi' : 'Çevrimdışı',
                 style: t.titleSmall?.copyWith(color: color),
               ),
-              Text(r.detail, style: t.bodySmall),
+              AppText(r.detail, style: t.bodySmall),
             ],
           ),
         ),
-        Text(
+        AppText(
           '$time\n${r.latency.inMilliseconds} ms',
           textAlign: TextAlign.end,
           style: t.bodySmall,

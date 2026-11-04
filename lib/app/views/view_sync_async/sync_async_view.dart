@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/sync_async_demo.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -100,7 +101,7 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
     final t = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sync / Async'),
+        title: const AppText('Sync / Async'),
         titleTextStyle: t.titleLarge,
       ),
       body: ListView(
@@ -118,7 +119,7 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
           const Gap(16),
           _heartbeat(t),
           const Gap(20),
-          Text('Aynı 2 saniyelik iş, dört yol', style: t.titleLarge),
+          AppText('Aynı 2 saniyelik iş, dört yol', style: t.titleLarge),
           const Gap(10),
           for (final m in WorkMode.values) ...[
             _ModeCard(
@@ -132,9 +133,9 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
             const Gap(10),
           ],
           const Gap(16),
-          Text('Çalışma sırası (event loop)', style: t.titleLarge),
+          AppText('Çalışma sırası (event loop)', style: t.titleLarge),
           const Gap(4),
-          Text(
+          AppText(
             'Satırlar kodda bu sırayla yazıldı; çıktıdaki numaralar '
             'çalıştıkları sıradır.',
             style: t.bodyMedium,
@@ -145,20 +146,20 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
           FilledButton.tonal(
             key: const Key('syncAsync_order'),
             onPressed: _runOrder,
-            child: const Text('Sırayı göster'),
+            child: const AppText('Sırayı göster'),
           ),
           const Gap(8),
           for (final (i, step) in _order.indexed)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 3),
-              child: Text(
+              child: AppText(
                 step,
                 key: Key('syncAsync_step_$i'),
                 style: t.bodyMedium?.copyWith(color: MfColors.slate900),
               ),
             ),
           const Gap(24),
-          Text('Depolamada sync / async', style: t.titleLarge),
+          AppText('Depolamada sync / async', style: t.titleLarge),
           const Gap(10),
           const _StorageTable(),
         ],
@@ -190,11 +191,11 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Ana iş parçacığının nabzı', style: t.titleSmall),
+                AppText('Ana iş parçacığının nabzı', style: t.titleSmall),
                 const SizedBox(height: 4),
                 ValueListenableBuilder<int>(
                   valueListenable: _frames,
-                  builder: (context, frames, _) => Text(
+                  builder: (context, frames, _) => AppText(
                     'Çizilen kare: $frames',
                     key: const Key('syncAsync_frames'),
                     style: t.titleMedium?.copyWith(
@@ -203,7 +204,7 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
+                AppText(
                   busy ? 'Çalışıyor: ${_running!.label}…' : 'Boşta',
                   style: t.bodyMedium,
                 ),
@@ -250,11 +251,11 @@ class _ModeCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(mode.label, style: t.titleMedium),
+            AppText(mode.label, style: t.titleMedium),
             const Gap(6),
             _CodeBox(mode.code),
             const Gap(6),
-            Text(mode.explanation, style: t.bodyMedium),
+            AppText(mode.explanation, style: t.bodyMedium),
             const Gap(10),
             Row(
               children: [
@@ -262,7 +263,7 @@ class _ModeCard extends StatelessWidget {
                   key: Key('syncAsync_run_${mode.name}'),
                   onPressed: enabled ? onRun : null,
                   style: FilledButton.styleFrom(minimumSize: const Size(0, 40)),
-                  child: Text(running ? 'Çalışıyor…' : 'Çalıştır'),
+                  child: AppText(running ? 'Çalışıyor…' : 'Çalıştır'),
                 ),
                 const SizedBox(width: 10),
                 if (r != null)
@@ -310,7 +311,7 @@ class _CodeBox extends StatelessWidget {
         color: MfColors.terminal,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Text(
+      child: AppText(
         code,
         style: const TextStyle(
           fontFamily: 'monospace',
@@ -362,10 +363,10 @@ class _StorageTable extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(r.$1, style: t.titleSmall),
+                  AppText(r.$1, style: t.titleSmall),
                   const SizedBox(height: 4),
-                  Text('Açma: ${r.$2}', style: t.bodyMedium),
-                  Text('Okuma: ${r.$3}', style: t.bodyMedium),
+                  AppText('Açma: ${r.$2}', style: t.bodyMedium),
+                  AppText('Okuma: ${r.$3}', style: t.bodyMedium),
                 ],
               ),
             ),

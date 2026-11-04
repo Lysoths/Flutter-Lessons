@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:pdfrx/pdfrx.dart';
@@ -21,7 +22,7 @@ class PdfViewerView extends StatelessWidget {
     return Scaffold(
       backgroundColor: MfColors.slate100,
       appBar: AppBar(
-        title: Text(document.title),
+        title: AppText(document.title),
         titleTextStyle: Theme.of(context).textTheme.titleLarge,
       ),
       body: PdfViewer.asset(document.assetPath),

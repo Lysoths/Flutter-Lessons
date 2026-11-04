@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -76,7 +77,7 @@ class ExpenseTileWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    AppText(
                       expense.note.isEmpty
                           ? expense.category.label
                           : expense.note,
@@ -85,7 +86,7 @@ class ExpenseTileWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
-                    Text(
+                    AppText(
                       subtitle ?? expense.category.label,
                       style: TextStyle(
                         color: accent,
@@ -97,7 +98,7 @@ class ExpenseTileWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(
+              AppText(
                 formatMoney(expense.amount),
                 style: t.titleMedium?.copyWith(fontWeight: FontWeight.w700),
               ),

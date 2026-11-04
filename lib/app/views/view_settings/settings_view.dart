@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/locale/app_copy.dart';
 import 'package:flutter_ders/app/core/locale/app_language.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_settings/cubit/settings_cubit.dart';
 import 'package:flutter_ders/app/views/view_settings/cubit/settings_state.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
 
-/// Language settings. Lesson screens keep their original copy.
+/// Language settings. The choice applies to every screen.
 @RoutePage()
 class SettingsView extends StatelessWidget {
   /// Creates the settings screen.
@@ -24,20 +25,20 @@ class SettingsView extends StatelessWidget {
         final theme = Theme.of(context).textTheme;
         return Scaffold(
           appBar: AppBar(
-            title: Text(copy.settingsTitle),
+            title: AppText(copy.settingsTitle),
             titleTextStyle: theme.titleLarge,
           ),
           body: ListView(
             padding: pagePadding(context).copyWith(top: 8, bottom: 24),
             children: [
-              Text(copy.greeting, style: theme.headlineSmall),
+              AppText(copy.greeting, style: theme.headlineSmall),
               const Gap(8),
-              Text(
+              AppText(
                 copy.languageBody,
                 style: theme.bodyMedium?.copyWith(color: MfColors.slate600),
               ),
               const Gap(24),
-              Text(copy.languageHeading, style: theme.titleMedium),
+              AppText(copy.languageHeading, style: theme.titleMedium),
               const Gap(12),
               for (final language in AppLanguage.values) ...[
                 _LanguageTile(
@@ -91,7 +92,7 @@ class _LanguageTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
             children: [
-              Text(
+              AppText(
                 language.code.toUpperCase(),
                 style: theme.labelLarge?.copyWith(
                   color: selected ? MfColors.blue600 : MfColors.slate500,
@@ -100,10 +101,10 @@ class _LanguageTile extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: Text(language.nativeName, style: theme.titleMedium),
+                child: AppText(language.nativeName, style: theme.titleMedium),
               ),
               if (selected)
-                Text(
+                AppText(
                   activeLabel,
                   style: theme.labelMedium?.copyWith(color: MfColors.blue600),
                 ),

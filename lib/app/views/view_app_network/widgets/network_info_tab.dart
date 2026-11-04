@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/repository/network_info_repository.dart';
 import 'package:flutter_ders/app/helper/measure_format.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -28,7 +29,7 @@ class NetworkInfoTab extends StatelessWidget {
         builder: (context, state) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            AppText(
               'Telefon internete hangi adresten çıktığını bilemez; '
               'Cloudflare\'e sorar. IP\'ler gizli başlar, dokununca görünür.',
               style: t.bodyMedium,
@@ -48,11 +49,11 @@ on<NetworkConnectivityChanged>(_, transformer: restartable());'''),
                   onPressed: () => bloc.add(const NetworkInfoRefreshed()),
                   style: FilledButton.styleFrom(minimumSize: const Size(0, 44)),
                   icon: const Icon(Icons.refresh_rounded),
-                  label: const Text('Yenile'),
+                  label: const AppText('Yenile'),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
+                  child: AppText(
                     'İstek: ${state.traceCount} · '
                     'bağlantı değişimi: ${state.connectionChanges}\n'
                     'Wi-Fi\'yi kapatıp açınca kendiliğinden yenilenir.',
@@ -81,7 +82,7 @@ on<NetworkConnectivityChanged>(_, transformer: restartable());'''),
                 state.localSections.isEmpty)
               const LinearProgressIndicator(),
             if (state.localStatus == PartStatus.failure)
-              const Text('Cihaz içi ağ bilgisi okunamadı.'),
+              const AppText('Cihaz içi ağ bilgisi okunamadı.'),
             // Wi-Fi'deyken ad gelmediyse sebep konum iznidir.
             if (state.connection.contains(ConnectivityResult.wifi) &&
                 state.localStatus == PartStatus.ready &&
@@ -124,14 +125,14 @@ class _TracePart extends StatelessWidget {
               children: [
                 const Icon(Icons.cloud_off_rounded, color: MfColors.red600),
                 const SizedBox(width: 10),
-                Expanded(child: Text(message, style: t.titleSmall)),
+                Expanded(child: AppText(message, style: t.titleSmall)),
               ],
             ),
           ),
         if (state.traceLatency case final latency? when at != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: Text(
+            child: AppText(
               'Gidiş-dönüş ${formatDuration(latency)} · '
               '${two(at.hour)}:${two(at.minute)}:${two(at.second)}',
               key: const Key('trace_latency'),
@@ -173,7 +174,7 @@ class _WifiAccessCard extends StatelessWidget {
           const Icon(Icons.location_on_rounded, color: MfColors.blue700),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(
+            child: AppText(
               'Android, Wi-Fi adını (SSID) ve BSSID\'yi yalnızca konum izni '
               'olan uygulamalara verir.'
               '${access == null ? '' : '\nDurum: ${access!.label}'}',
@@ -185,7 +186,7 @@ class _WifiAccessCard extends StatelessWidget {
             onPressed: () => context.read<NetworkInfoBloc>().add(
               const NetworkWifiAccessRequested(),
             ),
-            child: const Text('İzin ver'),
+            child: const AppText('İzin ver'),
           ),
         ],
       ),

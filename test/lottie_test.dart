@@ -110,7 +110,14 @@ void main() {
           .first,
     );
     // Saat animasyonunda 18 katman var (JSON'daki layers dizisi).
-    expect(tester.widget<Text>(layers).data, '18');
+    expect(
+      tester
+          .widget<Text>(
+            find.descendant(of: layers, matching: find.byType(Text)),
+          )
+          .data,
+      '18',
+    );
     expect(find.byKey(const Key('lottieJson_preview')), findsOneWidget);
   });
 }

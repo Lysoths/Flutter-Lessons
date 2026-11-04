@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/core/repository/news_repository.dart';
 import 'package:flutter_ders/app/models/currency/currency_info.dart';
 import 'package:flutter_ders/app/models/currency/news_article.dart';
@@ -39,7 +40,7 @@ class NewsDetailSheet extends StatelessWidget {
         await launchUrl(article.link, mode: LaunchMode.externalApplication);
     if (!ok) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Haber kaynağı açılamadı.')),
+        const SnackBar(content: AppText('Haber kaynağı açılamadı.')),
       );
     }
   }
@@ -61,9 +62,9 @@ class NewsDetailSheet extends StatelessWidget {
             NewsImage(article.imageUrl, height: 190),
             const Gap(14),
           ],
-          Text(article.title, style: t.titleLarge),
+          AppText(article.title, style: t.titleLarge),
           const Gap(8),
-          Text(
+          AppText(
             '${article.source} · ${newsTime(article.publishedAt, full: true)}',
             style: t.bodySmall,
           ),
@@ -79,7 +80,7 @@ class NewsDetailSheet extends StatelessWidget {
             ),
           ],
           const Gap(16),
-          Text(
+          AppText(
             article.summary.isEmpty ? 'Özet yok.' : article.summary,
             style: t.bodyLarge?.copyWith(height: 1.5),
           ),
@@ -89,10 +90,10 @@ class NewsDetailSheet extends StatelessWidget {
             onPressed: _trustedLink ? () => _open(context) : null,
             style: FilledButton.styleFrom(minimumSize: const Size(0, 48)),
             icon: const Icon(Icons.open_in_new_rounded),
-            label: Text('${article.source} sitesinde oku'),
+            label: AppText('${article.source} sitesinde oku'),
           ),
           const Gap(8),
-          Text(
+          AppText(
             article.link.host,
             textAlign: TextAlign.center,
             style: t.bodySmall?.copyWith(color: MfColors.slate400),

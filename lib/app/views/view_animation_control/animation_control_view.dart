@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/locale/app_text.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/object_3d_panel.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/pulse_card.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/pulse_effects.dart';
@@ -23,7 +24,7 @@ class AnimationControlView extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Animasyon kontrolü'),
+          title: const AppText('Animasyon kontrolü'),
           titleTextStyle: t.titleLarge,
           bottom: const TabBar(
             tabs: [

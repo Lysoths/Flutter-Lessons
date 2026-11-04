@@ -58,4 +58,17 @@ enum AppLanguage {
     }
     return tr;
   }
+
+  /// Locale applied by settings. `zh` and `ja` map back to [cn] and [jp].
+  static AppLanguage fromLocale(Locale locale) {
+    return switch (locale.languageCode) {
+      'en' => en,
+      'tr' => tr,
+      'fr' => fr,
+      'de' => de,
+      'zh' => cn,
+      'ja' => jp,
+      _ => tr,
+    };
+  }
 }

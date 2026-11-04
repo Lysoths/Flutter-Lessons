@@ -159,8 +159,8 @@ permission alone does not return the SSID.
 ## Settings languages
 
 Home has a Settings card. It offers six languages and saves the choice on
-the device with `SharedPreferences`. The app locale and the settings copy
-follow that choice. Lesson screens stay in their original Turkish copy.
+the device with `SharedPreferences`. The locale, the settings screen, and
+the rest of the app — including lesson text — follow that choice.
 
 | Settings code | Flutter locale | Name |
 | --- | --- | --- |
