@@ -25,6 +25,7 @@ import 'package:flutter_ders/app/views/view_paged_grid/paged_grid_view.dart';
 import 'package:flutter_ders/app/views/view_paged_list/paged_list_view.dart';
 import 'package:flutter_ders/app/views/view_pdf_viewer/pdf_viewer_view.dart';
 import 'package:flutter_ders/app/views/view_retrofit/retrofit_view.dart';
+import 'package:flutter_ders/app/views/view_settings/settings_view.dart';
 import 'package:flutter_ders/app/views/view_storage/storage_views.dart';
 import 'package:flutter_ders/app/views/view_sync_async/sync_async_view.dart';
 
@@ -93,6 +94,8 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     AutoRoute(page: ExpensesRoute.page, path: '/', initial: true),
+    // Settings. Not on the deep-link allow list.
+    _animated(SettingsRoute.page, '/settings', RouteAnimation.slideFromRight),
     // DERS 6 — Mevcut sayfaların geçişleri:
     _animated(
       CategoryExpensesRoute.page,

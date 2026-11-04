@@ -39,6 +39,7 @@ import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_image_cache/cubit/image_cache_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_retrofit/cubit/retrofit_lab_cubit.dart';
+import 'package:flutter_ders/app/views/view_settings/cubit/settings_cubit.dart';
 import 'package:flutter_ders/app/views/view_storage/cubit/storage_demo_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
@@ -55,6 +56,9 @@ Future<void> configureDependencies() async {
   if (getIt.isRegistered<ExpenseRepository>()) return;
   final prefs = await SharedPreferences.getInstance();
   getIt
+    ..registerLazySingleton<SettingsCubit>(
+      () => SettingsCubit(preferences: prefs),
+    )
     ..registerSingleton<ExpenseRepository>(LocalExpenseRepository(prefs))
     ..registerFactory<ExpensesCubit>(
       () => ExpensesCubit(repository: getIt<ExpenseRepository>()),

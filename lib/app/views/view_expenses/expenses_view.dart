@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/locale/app_copy.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
@@ -13,6 +14,8 @@ import 'package:flutter_ders/app/views/view_expenses/widgets/category_breakdown_
 import 'package:flutter_ders/app/views/view_expenses/widgets/category_shortcuts_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/expense_tile_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/month_summary_card.dart';
+import 'package:flutter_ders/app/views/view_settings/cubit/settings_cubit.dart';
+import 'package:flutter_ders/app/views/view_settings/cubit/settings_state.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
 
 /// Ana ekran: aylık özet, kategori dağılımı ve güne göre gruplu liste.
@@ -70,7 +73,22 @@ class ExpensesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(titleSpacing: 20, title: const _BrandTitle()),
+      appBar: AppBar(
+        titleSpacing: 20,
+        title: const _BrandTitle(),
+        actions: [
+          BlocBuilder<SettingsCubit, SettingsState>(
+            builder: (context, settings) {
+              return IconButton(
+                key: const Key('expensesView_settingsButton'),
+                tooltip: AppCopy.of(settings.language).settingsTitle,
+                onPressed: () => context.router.push(const SettingsRoute()),
+                icon: const Icon(Icons.settings_rounded),
+              );
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('expensesView_add'),
         // DERS 4 — auto_route: form da bir rota (deep link: /yeni).
@@ -252,6 +270,19 @@ class ExpensesView extends StatelessWidget {
                 title: 'Görsel önbelleği',
                 subtitle: 'Sürüme bağlı önbellek, bellek denetimi, base64 · S3 · SFTP',
                 onTap: () => context.router.push(const ImageCacheRoute()),
+              ),
+              const Gap(10),
+              BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, settings) {
+                  final copy = AppCopy.of(settings.language);
+                  return _EntryCard(
+                    key: const Key('expensesView_settings'),
+                    icon: Icons.settings_rounded,
+                    title: copy.settingsTitle,
+                    subtitle: copy.settingsSubtitle,
+                    onTap: () => context.router.push(const SettingsRoute()),
+                  );
+                },
               ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),

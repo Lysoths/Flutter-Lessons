@@ -3,11 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/locale/app_copy.dart';
+import 'package:flutter_ders/app/core/locale/app_language.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
+import 'package:flutter_ders/app/views/view_settings/cubit/settings_cubit.dart';
+import 'package:flutter_ders/app/views/view_settings/cubit/settings_state.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 /// Kök widget: uygulama genelindeki cubit, tema ve yönlendirme.
 class HarcamaApp extends StatefulWidget {
@@ -28,7 +33,11 @@ class _HarcamaAppState extends State<HarcamaApp> {
   late final ExpensesCubit _expenses = getIt<ExpensesCubit>();
 
   // DERS 4 — auto_route: rota tablosu (app_router.dart).
+  // Config is created once so a language change does not reset the page.
   final AppRouter _router = AppRouter();
+  late final _routerConfig = _router.config(
+    deepLinkTransformer: AppDeepLinks.transform,
+  );
 
   // DERS 11 — Ağ uyarısı. ScaffoldMessenger tüm sayfaların ortak
   // "bildirim yöneticisi"dir; anahtarı sayesinde sayfa bilmeden banner
@@ -99,18 +108,32 @@ class _HarcamaAppState extends State<HarcamaApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ExpensesCubit>.value(
-      value: _expenses,
-      child: MaterialApp.router(
-        title: 'Harcama Takibim',
-        debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: _messenger,
-        theme: AppTheme.light(),
-        // auto_route; RouterDelegate, parser ve geri tuşunu kendisi kurar.
-        // Gelen linkler önce beyaz listeden geçer (app_deep_links.dart).
-        routerConfig: _router.config(
-          deepLinkTransformer: AppDeepLinks.transform,
-        ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ExpensesCubit>.value(value: _expenses),
+        BlocProvider<SettingsCubit>.value(value: getIt<SettingsCubit>()),
+      ],
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, settings) {
+          return MaterialApp.router(
+            title: AppCopy.of(settings.language).appTitle,
+            debugShowCheckedModeBanner: false,
+            scaffoldMessengerKey: _messenger,
+            theme: AppTheme.light(),
+            locale: settings.language.locale,
+            supportedLocales: AppLanguage.supportedLocales,
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            // auto_route; RouterDelegate, parser ve geri tuşunu kendisi kurar.
+            // Gelen linkler önce beyaz listeden geçer (app_deep_links.dart).
+            // Config is created once so a language change does not reset
+            // the open page.
+            routerConfig: _routerConfig,
+          );
+        },
       ),
     );
   }

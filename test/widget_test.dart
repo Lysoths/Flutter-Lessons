@@ -126,7 +126,7 @@ void main() {
       '45,50 ₺',
     );
 
-    await tester.pageBack();
+    await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     expect(find.byType(ExpenseDetailView), findsNothing);
     expect(await total(tester), '45,50 ₺');

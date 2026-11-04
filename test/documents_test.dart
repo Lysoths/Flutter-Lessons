@@ -60,7 +60,7 @@ void main() {
       expect(find.byType(ImageViewerView), findsOneWidget);
       expect(find.byKey(const Key('imageViewer_image')), findsOneWidget);
 
-      await tester.pageBack();
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.byType(DocumentsView), findsOneWidget);
     });

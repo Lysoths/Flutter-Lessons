@@ -61,7 +61,7 @@ void main() {
     // 1'den geri: sona (20) sarar.
     expect(find.text('Senaryo 20 / 20'), findsOneWidget);
 
-    await tester.pageBack();
+    await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     expect(find.byType(AnimationsView), findsOneWidget);
     expect(find.byType(AnimationDemoView), findsNothing);
@@ -113,7 +113,7 @@ void main() {
     await tester.pump();
     expect(timeDilation, 5);
 
-    await tester.pageBack();
+    await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     expect(timeDilation, 1);
   });

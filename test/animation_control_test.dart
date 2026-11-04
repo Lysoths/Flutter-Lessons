@@ -194,7 +194,7 @@ void main() {
     expect(find.text('Oynat'), findsOneWidget);
 
     // Sayfadan çık: tüm saatler kapanmalı (yoksa test hata verir).
-    await tester.pageBack();
+    await tester.tap(find.byType(BackButton));
     await frames(tester);
     expect(find.byType(PulseCard), findsNothing);
   });

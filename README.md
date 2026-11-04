@@ -33,6 +33,7 @@ GPS, sensors, sqflite, and device or network info do not run on the web.
 - [Lesson flow](#lesson-flow)
 - [Data flow](#data-flow)
 - [Platform identity](#platform-identity)
+- [Settings languages](#settings-languages)
 - [Running on iOS](#running-on-ios)
 - [Layout](#layout)
 - [Lessons](#lessons)
@@ -154,6 +155,25 @@ On iOS, the Wi-Fi name (`network_info_plus`) also needs Apple's Access WiFi
 Information capability. That capability needs a development team and a
 provisioning profile. On the simulator the name usually stays `—`. Location
 permission alone does not return the SSID.
+
+## Settings languages
+
+Home has a Settings card. It offers six languages and saves the choice on
+the device with `SharedPreferences`. The app locale and the settings copy
+follow that choice. Lesson screens stay in their original Turkish copy.
+
+| Settings code | Flutter locale | Name |
+| --- | --- | --- |
+| `en` | `en` | English |
+| `tr` | `tr` | Türkçe |
+| `fr` | `fr` | Français |
+| `cn` | `zh_CN` | 中文 |
+| `jp` | `ja` | 日本語 |
+| `de` | `de` | Deutsch |
+
+`cn` and `jp` are the codes shown in settings. Flutter itself uses `zh` and
+`ja`. The default is Turkish, so the existing lesson tests keep matching
+the same strings. `/settings` is not on the deep-link allow list.
 
 ## Running on iOS
 
