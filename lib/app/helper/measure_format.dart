@@ -7,11 +7,14 @@ String formatDuration(Duration d) {
   return '${_decimal(us / 1000000)} sn';
 }
 
-/// Bayt sayısını okunur yazar: `512 B`, `12,3 KB`, `1,20 MB`.
+/// Bayt sayısını okunur yazar: `512 B`, `12,3 KB`, `1,20 MB`, `3,45 GB`.
 String formatBytes(int bytes) {
   if (bytes < 1024) return '$bytes B';
   if (bytes < 1024 * 1024) return '${_decimal(bytes / 1024, 1)} KB';
-  return '${_decimal(bytes / (1024 * 1024))} MB';
+  if (bytes < 1024 * 1024 * 1024) {
+    return '${_decimal(bytes / (1024 * 1024))} MB';
+  }
+  return '${_decimal(bytes / (1024 * 1024 * 1024))} GB';
 }
 
 /// [count] kayıt [d] sürdüyse kayıt başına süre: `0,8 µs/kayıt`.

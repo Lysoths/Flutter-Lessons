@@ -208,6 +208,23 @@ class ExpensesView extends StatelessWidget {
                 subtitle: 'Servis isteği, canlı akış ve asset',
                 onTap: () => context.router.push(const BlocDemoRoute()),
               ),
+              const Gap(10),
+              // DERS 14 — Cihaz, uygulama ve ağ bilgisi.
+              _EntryCard(
+                key: const Key('expensesView_deviceInfo'),
+                icon: Icons.perm_device_information_rounded,
+                title: 'Cihaz bilgisi',
+                subtitle: 'Model, Android, RAM, disk, ekran, özellikler',
+                onTap: () => context.router.push(const DeviceInfoRoute()),
+              ),
+              const Gap(10),
+              _EntryCard(
+                key: const Key('expensesView_appNetwork'),
+                icon: Icons.public_rounded,
+                title: 'Uygulama ve ağ',
+                subtitle: 'Sürüm, Wi-Fi, genel IP (Cloudflare trace)',
+                onTap: () => context.router.push(const AppNetworkRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

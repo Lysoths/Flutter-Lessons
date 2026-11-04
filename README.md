@@ -414,6 +414,36 @@ kişisel veri eklenmez. `dio` hataları Türkçe `RatesFailure`'a çevrilir.
 (`test/bloc_demo_test.dart`, `bloc_test`) gerçek ağa çıkmaz: dio'ya sahte
 bağdaştırıcı, Bloc'lara sahte depolar verilir.
 
+### Ders 14 — Cihaz, uygulama ve ağ bilgisi (Bloc)
+
+Ana sayfa → *Cihaz bilgisi* (`views/view_device_info/`) ve *Uygulama ve ağ*
+(`views/view_app_network/`, iki sekme). Üç Bloc, aynı kalıp:
+olay → kaynak → `emit(durum)`.
+
+| Ekran | Kaynak | Bloc | Neler |
+|---|---|---|---|
+| Cihaz bilgisi | `device_info_plus`, `dart:io` | `DeviceInfoBloc` | Marka, model, Android/API, güvenlik yaması, derleme, yonga, ABI, RAM, disk, sistem özellikleri, ham veri |
+| (aynı ekran) | `MediaQuery`, `View` | — | Çözünürlük, dpr, Hz, güvenli alan, yazı ölçeği, tema. Telefon dönünce değişir; Bloc'a değil ekrana ait |
+| Uygulama | `package_info_plus`, `FlutterVersion` | `AppInfoBloc` | Sürüm, paket adı, kurulum zamanı, imza, derleme modu, Flutter/Dart sürümü |
+| Ağ | `connectivity_plus`, `network_info_plus`, `dart:io` | `NetworkInfoBloc` | Bağlantı türü, VPN, Wi-Fi adı/BSSID, yerel IP, ağ geçidi, maske, arayüzler |
+| Ağ | `GET https://1.1.1.1/cdn-cgi/trace` (`dio`) | `NetworkInfoBloc` | Genel IP, ülke, Cloudflare veri merkezi, TLS, HTTP sürümü, sunucu saati, gidiş-dönüş süresi |
+
+**Genel IP neden cihazdan okunmaz?** Telefon modemin / operatörün arkasında
+(NAT); kendi bildiği adres yerel adrestir. İnternete hangi adresle çıktığını
+yalnızca dışarıdaki bir sunucu söyleyebilir. Trace cevabı JSON değil düz
+metin (`anahtar=değer` satırları); `CloudflareTrace.parse` ayrıştırır.
+
+**Bloc teknikleri:** iki parça (cihaz içi + trace) aynı anda başlar, hangisi
+önce biterse o önce ekrana gelir; "Yenile" `droppable()`; bağlantı değişince
+(`onConnectivityChanged` akışı) Bloc kendine olay gönderir, `restartable()`
+ile yalnızca sonuncusu işlenir.
+
+**Gizlilik:** IP, Wi-Fi adı, BSSID ve ağ geçidi ekranda gizli başlar,
+dokununca görünür. Hiçbir bilgi kaydedilmez; durumların `toString`'i bu
+değerleri içermez, yani `AppBlocObserver` konsola yazmaz. Wi-Fi adı için
+Android konum izni ister (Ders 12'deki izin); izin yoksa ad "—" görünür.
+Bu iki ekran deep link beyaz listesinde yok.
+
 ## Komutlar
 
 ```bash

@@ -95,6 +95,22 @@ class AnimationsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AppNetworkView]
+class AppNetworkRoute extends PageRouteInfo<void> {
+  const AppNetworkRoute({List<PageRouteInfo>? children})
+    : super(AppNetworkRoute.name, initialChildren: children);
+
+  static const String name = 'AppNetworkRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AppNetworkView();
+    },
+  );
+}
+
+/// generated route for
 /// [AudioPlayerView]
 class AudioPlayerRoute extends PageRouteInfo<AudioPlayerRouteArgs> {
   AudioPlayerRoute({
@@ -207,6 +223,22 @@ class CategoryExpensesRouteArgs {
 
   @override
   int get hashCode => slug.hashCode ^ key.hashCode;
+}
+
+/// generated route for
+/// [DeviceInfoView]
+class DeviceInfoRoute extends PageRouteInfo<void> {
+  const DeviceInfoRoute({List<PageRouteInfo>? children})
+    : super(DeviceInfoRoute.name, initialChildren: children);
+
+  static const String name = 'DeviceInfoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DeviceInfoView();
+    },
+  );
 }
 
 /// generated route for

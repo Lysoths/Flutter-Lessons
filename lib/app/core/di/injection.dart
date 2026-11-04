@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_ders/app/core/device/device_info_source.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/device/sensor_source.dart';
+import 'package:flutter_ders/app/core/repository/app_info_repository.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/json_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/live_rates_repository.dart';
 import 'package:flutter_ders/app/core/repository/local_expense_repository.dart';
+import 'package:flutter_ders/app/core/repository/network_info_repository.dart';
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/hive_note_store.dart';
 import 'package:flutter_ders/app/core/repository/note_stores/prefs_note_store.dart';
@@ -13,9 +16,12 @@ import 'package:flutter_ders/app/core/repository/rates_repository.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/tips_repository.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
+import 'package:flutter_ders/app/views/view_app_network/bloc/app_info_bloc.dart';
+import 'package:flutter_ders/app/views/view_app_network/bloc/network_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/tips_bloc.dart';
+import 'package:flutter_ders/app/views/view_device_info/bloc/device_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_storage/cubit/storage_demo_cubit.dart';
@@ -43,6 +49,26 @@ Future<void> configureDependencies() async {
     )
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),
+    )
+    // DERS 14 — Cihaz, uygulama ve ağ bilgisi (Bloc).
+    ..registerLazySingleton<DeviceInfoSource>(PlusDeviceInfoSource.new)
+    ..registerLazySingleton<AppInfoRepository>(PlatformAppInfoRepository.new)
+    ..registerLazySingleton<LocalNetworkSource>(DeviceLocalNetworkSource.new)
+    ..registerLazySingleton<TraceRepository>(
+      () => CloudflareTraceRepository(getIt<Dio>()),
+    )
+    ..registerFactory<DeviceInfoBloc>(
+      () => DeviceInfoBloc(source: getIt<DeviceInfoSource>()),
+    )
+    ..registerFactory<AppInfoBloc>(
+      () => AppInfoBloc(repository: getIt<AppInfoRepository>()),
+    )
+    ..registerFactory<NetworkInfoBloc>(
+      () => NetworkInfoBloc(
+        local: getIt<LocalNetworkSource>(),
+        trace: getIt<TraceRepository>(),
+        location: getIt<LocationSource>(),
+      ),
     )
     // DERS 13 — Bloc: servis (dio), canlı akış ve asset depoları.
     ..registerLazySingleton<Dio>(createDio)

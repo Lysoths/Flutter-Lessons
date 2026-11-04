@@ -6,10 +6,12 @@ import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/views/view_animation_control/animation_control_view.dart';
 import 'package:flutter_ders/app/views/view_animations/animation_demo_view.dart';
 import 'package:flutter_ders/app/views/view_animations/animations_view.dart';
+import 'package:flutter_ders/app/views/view_app_network/app_network_view.dart';
 import 'package:flutter_ders/app/views/view_audio_player/audio_player_view.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc_demo_view.dart';
 import 'package:flutter_ders/app/views/view_category/category_expenses_view.dart';
 import 'package:flutter_ders/app/views/view_device/device_view.dart';
+import 'package:flutter_ders/app/views/view_device_info/device_info_view.dart';
 import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
@@ -51,6 +53,8 @@ part 'app_router.gr.dart';
 //   NetworkView          → NetworkRoute()                  (Ders 11)
 //   DeviceView           → DeviceRoute()                   (Ders 12)
 //   BlocDemoView         → BlocDemoRoute()                 (Ders 13)
+//   DeviceInfoView       → DeviceInfoRoute()               (Ders 14)
+//   AppNetworkView       → AppNetworkRoute()               (Ders 14)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -134,6 +138,18 @@ class AppRouter extends RootStackRouter {
     _animated(
       PagedListRoute.page,
       '/ornek-liste',
+      RouteAnimation.slideFromRight,
+    ),
+    // DERS 14 — Cihaz / uygulama / ağ bilgisi. Deep link beyaz listesinde
+    // yok: kişiyi tanıtan bilgi gösterir, yalnızca uygulama içinden açılır.
+    _animated(
+      DeviceInfoRoute.page,
+      '/cihaz-bilgisi',
+      RouteAnimation.slideFromRight,
+    ),
+    _animated(
+      AppNetworkRoute.page,
+      '/uygulama-ag',
       RouteAnimation.slideFromRight,
     ),
     // DERS 13 — Bloc. Deep link beyaz listesinde yok.
