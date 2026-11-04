@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Ders 12: konumunuz yalnızca ekranda canlı gösterilir, kaydedilmez ve gönderilmez.</string>
+	<string>Lesson 12: your location is shown live on screen only. It is not saved or sent.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Flutter Ders</string>
+	<string>Expense Tracker</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -68,7 +68,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<!-- DERS 3 — Deep link: harcamatakibim://app/... -->
+	<!-- Lesson 15: url_launcher queries the scheme before opening an external browser. -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<!-- Lesson 3: deep link harcamatakibim://app/... -->
 	<key>FlutterDeepLinkingEnabled</key>
 	<true/>
 	<key>CFBundleURLTypes</key>

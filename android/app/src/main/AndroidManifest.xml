@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- DERS 11 — Ağ kontrolü: yayın (release) sürümünde de internete çıkabilsin. -->
+    <!-- Lesson 11: release builds need this permission to reach the network. -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- DERS 12 — GPS: konum yalnızca ekranda gösterilir, saklanmaz. -->
+    <!-- Lesson 12: GPS. Location is shown on screen only and is not stored. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
-        android:label="flutter_ders"
+        android:label="Expense Tracker"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -29,11 +29,10 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            <!-- DERS 3 — Deep link: harcamatakibim://app/... linklerini bu
-                 uygulama açar. Özel şema (https değil) olduğu için
-                 assetlinks.json gerekmez; ama başka bir uygulama da aynı
-                 şemayı tanımlayabilir, bu yüzden Flutter tarafında yalnızca
-                 beyaz listedeki yollar kabul edilir (app_route_parser.dart). -->
+            <!-- Lesson 3: this app opens harcamatakibim://app/... links.
+                 A custom scheme is not https, so assetlinks.json is not
+                 required. Another app can claim the same scheme, so Flutter
+                 accepts only the allow-listed paths. -->
             <meta-data
                 android:name="flutter_deeplinking_enabled"
                 android:value="true" />
@@ -60,7 +59,7 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
-        <!-- DERS 15 — Haberi kaynağında açmak için tarayıcı (url_launcher). -->
+        <!-- Lesson 15: url_launcher opens the article in a browser. -->
         <intent>
             <action android:name="android.intent.action.VIEW"/>
             <data android:scheme="https"/>

@@ -1,11 +1,11 @@
 {
-    "name": "flutter_ders",
-    "short_name": "flutter_ders",
+    "name": "Expense Tracker",
+    "short_name": "Expense Tracker",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#007AFF",
+    "theme_color": "#007AFF",
+    "description": "A personal expense ledger used as a Flutter lesson series.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
