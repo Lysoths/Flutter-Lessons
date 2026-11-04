@@ -23,6 +23,7 @@ import 'package:flutter_ders/app/views/view_new_expense/new_expense_view.dart';
 import 'package:flutter_ders/app/views/view_paged_grid/paged_grid_view.dart';
 import 'package:flutter_ders/app/views/view_paged_list/paged_list_view.dart';
 import 'package:flutter_ders/app/views/view_pdf_viewer/pdf_viewer_view.dart';
+import 'package:flutter_ders/app/views/view_retrofit/retrofit_view.dart';
 import 'package:flutter_ders/app/views/view_storage/storage_views.dart';
 import 'package:flutter_ders/app/views/view_sync_async/sync_async_view.dart';
 
@@ -57,6 +58,7 @@ part 'app_router.gr.dart';
 //   DeviceInfoView       → DeviceInfoRoute()               (Ders 14)
 //   AppNetworkView       → AppNetworkRoute()               (Ders 14)
 //   CurrencyView         → CurrencyRoute()                 (Ders 15)
+//   RetrofitView         → RetrofitRoute()                 (Ders 16)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -142,6 +144,8 @@ class AppRouter extends RootStackRouter {
       '/ornek-liste',
       RouteAnimation.slideFromRight,
     ),
+    // DERS 16 — retrofit. Deep link beyaz listesinde yok.
+    _animated(RetrofitRoute.page, '/retrofit', RouteAnimation.slideFromRight),
     // DERS 15 — MVVM döviz ekranı. Deep link beyaz listesinde yok.
     _animated(CurrencyRoute.page, '/doviz', RouteAnimation.slideFromRight),
     // DERS 14 — Cihaz / uygulama / ağ bilgisi. Deep link beyaz listesinde

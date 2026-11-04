@@ -543,6 +543,22 @@ class PdfViewerRouteArgs {
 }
 
 /// generated route for
+/// [RetrofitView]
+class RetrofitRoute extends PageRouteInfo<void> {
+  const RetrofitRoute({List<PageRouteInfo>? children})
+    : super(RetrofitRoute.name, initialChildren: children);
+
+  static const String name = 'RetrofitRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RetrofitView();
+    },
+  );
+}
+
+/// generated route for
 /// [SharedPreferencesView]
 class SharedPreferencesRoute extends PageRouteInfo<void> {
   const SharedPreferencesRoute({List<PageRouteInfo>? children})

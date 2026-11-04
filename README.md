@@ -23,6 +23,7 @@ lib/
     │   ├── bloc/                 # AppBlocObserver (geçişleri konsola yazar)
     │   ├── device/               # GPS, sensörler, cihaz bilgisi kaynakları
     │   ├── di/injection.dart     # get_it kayıtları (tüm depolar ve ViewModel'ler)
+    │   ├── network/              # retrofit servisleri, ortak Dio, kayıt interceptor'u
     │   ├── repository/           # Model katmanı: harcama, örnek veri, kur, haber,
     │   │                         # ağ, uygulama bilgisi, not depoları (prefs/Hive/sqflite)
     │   └── router/               # auto_route tablosu, deep link beyaz listesi, geçişler
@@ -45,7 +46,8 @@ lib/
         ├── view_device/                                                            # Ders 12
         ├── view_bloc_demo/                                                         # Ders 13
         ├── view_device_info/ view_app_network/                                     # Ders 14
-        └── view_currency/                                                          # Ders 15
+        ├── view_currency/                                                          # Ders 15
+        └── view_retrofit/                                                          # Ders 16
 assets/
 ├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
 ├── data/                         # Ders 7: 500 örnek harcama · Ders 13: tasarruf ipuçları
@@ -89,10 +91,12 @@ ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir: `git log --oneline
 | 13 | Bloc: servis, canlı akış, asset | Bloc ile veri |
 | 14 | Cihaz, uygulama ve ağ bilgisi (Bloc, Cloudflare trace) | Cihaz bilgisi, Uygulama ve ağ |
 | 15 | MVVM: ChangeNotifier + provider, döviz yönetimi | Döviz yönetimi |
+| 16 | retrofit: tüm anotasyonlar, interceptor, CallAdapter | Retrofit ile ağ |
 
 **Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
 veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
-currency-api (Ders 15), Anadolu Ajansı ve TRT Haber RSS (Ders 15).
+currency-api (Ders 15), Anadolu Ajansı ve TRT Haber RSS (Ders 15),
+jsonplaceholder ve httpbin (Ders 16).
 
 **İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı). Konum, IP ve
 Wi-Fi bilgileri yalnızca ekranda gösterilir: kaydedilmez, gönderilmez,
@@ -521,6 +525,63 @@ dispose et), `.value` (var olanı aşağı ver), `watch`, `select`, `read`.
 - Haberler: Anadolu Ajansı ve TRT Haber ekonomi RSS beslemeleri, `xml`
   paketiyle. Biri çökerse diğeri gösterilir. Modaldaki "sitesinde oku"
   yalnızca `aa.com.tr` ve `trthaber.com` adreslerini açar (`url_launcher`).
+
+### Ders 16 — retrofit ile ağ katmanı
+
+Ana sayfa → *Retrofit ile ağ* (`views/view_retrofit/`). Paketler: `retrofit`,
+`json_annotation`; geliştirme: `retrofit_generator`, `json_serializable`.
+
+REST servisi bir Dart **arayüzü** olarak yazılır; isteği atan sınıfı
+`build_runner` üretir (C#'taki Refit, Android'deki Retrofit gibi):
+
+```dart
+@RestApi(baseUrl: 'https://jsonplaceholder.typicode.com')
+abstract class PostsApi {
+  factory PostsApi(Dio dio) = _PostsApi;      // posts_api.g.dart
+
+  @GET('/posts/{id}')
+  Future<Post> getPost(@Path('id') int id);   // JSON → Post.fromJson
+}
+```
+
+| Katman | Dosya |
+|---|---|
+| Servis arayüzleri | `core/network/posts_api.dart` (jsonplaceholder), `core/network/echo_api.dart` (httpbin) |
+| Üretilen kod | `*.g.dart` (`dart run build_runner build`) |
+| Model (`@JsonSerializable`) | `models/post.dart` → `Post`, `PostDraft`, `Comment` |
+| Ortak Dio + kayıt | `core/network/retrofit_client.dart`, `core/network/recording_interceptor.dart` |
+| CallAdapter | `core/network/api_result.dart` → `ApiResult`, `ResultCallAdapter` |
+| Denemeler ve view model | `views/view_retrofit/cubit/` → `kRetrofitDemos`, `RetrofitLabCubit` |
+
+Ekranda 23 canlı deneme, beş grupta. Her kartta anotasyon, arayüzdeki tanım,
+değiştirilebilen girdiler ve *Gönder* var; sonuçta retrofit'in döndürdüğü
+Dart nesnesi ve ağdan gerçekten geçen istek/cevap (başlıklar, gövde, süre)
+yan yana görünür. Sağ üstteki *Ağ kaydı* tüm istekleri listeler.
+
+| Grup | Anotasyonlar |
+|---|---|
+| HTTP metotları | `@GET` `@POST` `@PUT` `@PATCH` `@DELETE` `@HEAD` `@OPTIONS` |
+| Parametreler | `@Path` `@Query` `@Queries` `@Headers` `@Header` |
+| Gövde türleri | `@Body` `@BodyExtra` `@FormUrlEncoded` + `@Field` `@MultiPart` + `@Part` `@NoBody` `@PreventNullToAbsent` |
+| Dio özellikleri | `@CancelRequest` `@SendProgress` `@ReceiveProgress` `@DioResponseType` `@Extra` `@Extras` `@DioOptions` `@CacheControl` |
+| Cevap ve hata | `HttpResponse<T>` `@UseCallAdapter` `DioException` |
+
+**İstek hangi denemeden geldi?** Cubit her denemeyi
+`runZoned(..., zoneValues: {zoneKey: id})` içinde çalıştırır;
+`RecordingInterceptor` isteği kaydederken `Zone.current[zoneKey]`'i okur.
+Retrofit metotlarının imzasına dokunmadan her istek kendi kartına düşer.
+
+**Notlar:**
+- Ham JSON dönen metotlarda dönüş tipi `Map<String, Object?>`:
+  `retrofit_generator` 10.3, `Map<String, dynamic>` için derlenmeyen kod
+  (`dynamic.fromJson`) üretir.
+- `@PartMap` bu üretici sürümünde gövdeye yazılmıyor (üretilen kodda gövde
+  `null`); birden çok multipart alanı için `@Part` kullanılır.
+- `dio` ile `retrofit`'te aynı adlı `Headers` sınıfı var; servis dosyasında
+  `import 'package:dio/dio.dart' hide Headers;`.
+- jsonplaceholder sahte bir REST sunucusudur: yazma istekleri gerçekçi cevap
+  döner ama hiçbir şey kaydedilmez. httpbin gelen isteği olduğu gibi geri
+  yansıtır.
 
 ## Komutlar
 

@@ -234,6 +234,16 @@ class ExpensesView extends StatelessWidget {
                 subtitle: '10 para birimi, geçmiş grafik, finans haberleri',
                 onTap: () => context.router.push(const CurrencyRoute()),
               ),
+              const Gap(10),
+              // DERS 16 — retrofit.
+              _EntryCard(
+                key: const Key('expensesView_retrofit'),
+                icon: Icons.api_rounded,
+                title: 'Retrofit ile ağ',
+                subtitle:
+                    '23 canlı deneme: metotlar, gövdeler, iptal, ilerleme',
+                onTap: () => context.router.push(const RetrofitRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

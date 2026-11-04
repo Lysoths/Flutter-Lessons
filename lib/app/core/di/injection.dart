@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_ders/app/core/device/device_info_source.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/device/sensor_source.dart';
+import 'package:flutter_ders/app/core/network/retrofit_client.dart';
 import 'package:flutter_ders/app/core/repository/app_info_repository.dart';
 import 'package:flutter_ders/app/core/repository/currency_repository.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
@@ -30,6 +31,7 @@ import 'package:flutter_ders/app/views/view_currency/view_model/rates_view_model
 import 'package:flutter_ders/app/views/view_device_info/bloc/device_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
+import 'package:flutter_ders/app/views/view_retrofit/cubit/retrofit_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_storage/cubit/storage_demo_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
@@ -55,6 +57,12 @@ Future<void> configureDependencies() async {
     )
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),
+    )
+    // DERS 16 — retrofit: tek istemci (iki servis, tek Dio), cubit her
+    // açılışta yeni.
+    ..registerLazySingleton<RetrofitClient>(RetrofitClient.new)
+    ..registerFactory<RetrofitLabCubit>(
+      () => RetrofitLabCubit(api: getIt<RetrofitClient>()),
     )
     // DERS 15 — MVVM (ChangeNotifier): depolar tek, ViewModel'ler her
     // açılışta yeni. Üst ViewModel alt ViewModel'leri birlikte alır.
