@@ -244,6 +244,15 @@ class ExpensesView extends StatelessWidget {
                     '23 canlı deneme: metotlar, gövdeler, iptal, ilerleme',
                 onTap: () => context.router.push(const RetrofitRoute()),
               ),
+              const Gap(10),
+              // DERS 17 — Görsel önbelleği.
+              _EntryCard(
+                key: const Key('expensesView_imageCache'),
+                icon: Icons.photo_library_rounded,
+                title: 'Görsel önbelleği',
+                subtitle: 'Sürüme bağlı önbellek, bellek denetimi, base64 · S3 · SFTP',
+                onTap: () => context.router.push(const ImageCacheRoute()),
+              ),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(

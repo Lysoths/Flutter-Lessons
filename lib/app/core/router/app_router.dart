@@ -16,6 +16,7 @@ import 'package:flutter_ders/app/views/view_device_info/device_info_view.dart';
 import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
+import 'package:flutter_ders/app/views/view_image_cache/image_cache_view.dart';
 import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart';
 import 'package:flutter_ders/app/views/view_lottie/lottie_view.dart';
 import 'package:flutter_ders/app/views/view_network/network_view.dart';
@@ -59,6 +60,7 @@ part 'app_router.gr.dart';
 //   AppNetworkView       → AppNetworkRoute()               (Ders 14)
 //   CurrencyView         → CurrencyRoute()                 (Ders 15)
 //   RetrofitView         → RetrofitRoute()                 (Ders 16)
+//   ImageCacheView       → ImageCacheRoute()               (Ders 17)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -142,6 +144,12 @@ class AppRouter extends RootStackRouter {
     _animated(
       PagedListRoute.page,
       '/ornek-liste',
+      RouteAnimation.slideFromRight,
+    ),
+    // DERS 17 — Görsel önbelleği. Deep link beyaz listesinde yok.
+    _animated(
+      ImageCacheRoute.page,
+      '/gorsel-onbellek',
       RouteAnimation.slideFromRight,
     ),
     // DERS 16 — retrofit. Deep link beyaz listesinde yok.

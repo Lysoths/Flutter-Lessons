@@ -369,6 +369,22 @@ class HiveStorageRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ImageCacheView]
+class ImageCacheRoute extends PageRouteInfo<void> {
+  const ImageCacheRoute({List<PageRouteInfo>? children})
+    : super(ImageCacheRoute.name, initialChildren: children);
+
+  static const String name = 'ImageCacheRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ImageCacheView();
+    },
+  );
+}
+
+/// generated route for
 /// [ImageViewerView]
 class ImageViewerRoute extends PageRouteInfo<ImageViewerRouteArgs> {
   ImageViewerRoute({

@@ -20,6 +20,7 @@ lib/
     ├── app.dart                  # HarcamaApp: tema, router, ağ banner'ı
     ├── core/
     │   ├── base/                 # ViewModel tabanları: Cubit, Bloc, ChangeNotifier
+    │   ├── cache/                # sürüme bağlı görsel önbelleği, bellek denetleyicisi
     │   ├── bloc/                 # AppBlocObserver (geçişleri konsola yazar)
     │   ├── device/               # GPS, sensörler, cihaz bilgisi kaynakları
     │   ├── di/injection.dart     # get_it kayıtları (tüm depolar ve ViewModel'ler)
@@ -47,10 +48,11 @@ lib/
         ├── view_bloc_demo/                                                         # Ders 13
         ├── view_device_info/ view_app_network/                                     # Ders 14
         ├── view_currency/                                                          # Ders 15
-        └── view_retrofit/                                                          # Ders 16
+        ├── view_retrofit/                                                          # Ders 16
+        └── view_image_cache/                                                       # Ders 17
 assets/
 ├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
-├── data/                         # Ders 7: 500 örnek harcama · Ders 13: tasarruf ipuçları
+├── data/                         # Ders 7: 500 örnek harcama · 13: tasarruf ipuçları · 17: base64 görseller
 └── lottie/                       # Ders 9: beş Lottie animasyonu
 test/                             # her ders için birim, Bloc/ViewModel ve ekran testleri
 ```
@@ -92,11 +94,13 @@ ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir: `git log --oneline
 | 14 | Cihaz, uygulama ve ağ bilgisi (Bloc, Cloudflare trace) | Cihaz bilgisi, Uygulama ve ağ |
 | 15 | MVVM: ChangeNotifier + provider, döviz yönetimi | Döviz yönetimi |
 | 16 | retrofit: tüm anotasyonlar, interceptor, CallAdapter | Retrofit ile ağ |
+| 17 | Sürüme bağlı görsel önbelleği, bellek denetimi; base64, S3, SFTP | Görsel önbelleği |
 
 **Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
 veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
 currency-api (Ders 15), Anadolu Ajansı ve TRT Haber RSS (Ders 15),
-jsonplaceholder ve httpbin (Ders 16).
+jsonplaceholder ve httpbin (Ders 16), AWS Open Data S3 ve Rebex SFTP test
+sunucusu (Ders 17).
 
 **İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı). Konum, IP ve
 Wi-Fi bilgileri yalnızca ekranda gösterilir: kaydedilmez, gönderilmez,
@@ -582,6 +586,66 @@ Retrofit metotlarının imzasına dokunmadan her istek kendi kartına düşer.
 - jsonplaceholder sahte bir REST sunucusudur: yazma istekleri gerçekçi cevap
   döner ama hiçbir şey kaydedilmez. httpbin gelen isteği olduğu gibi geri
   yansıtır.
+
+### Ders 17 — Sürüme bağlı görsel önbelleği
+
+Ana sayfa → *Görsel önbelleği* (`views/view_image_cache/`). Çekirdek
+`core/cache/` altında; paketler: `path_provider`, `crypto`, `dartssh2`.
+
+**Sorun:** Görseller diskte önbelleğe alınır. Yeni sürümde aynı adresteki
+görsel (logo, banner, kampanya) değişmişse uygulama eskisini göstermeye devam
+eder. Ağ yavaşsa ya da bellek dolarsa görseller yarım, parçalı ya da
+titreyerek çizilir.
+
+**Sürüm denetimi** (`AppImageCache.ensureReady`, `main.dart`'ta açılışta):
+kayıtlı sürüm (`SharedPreferences`) ile `package_info_plus`'tan okunan
+`sürüm+derleme` karşılaştırılır. Farklıysa eski sürümün disk klasörü silinir,
+Flutter'ın bellek önbelleği (`ImageCache`) boşaltılır. Disk düzeni:
+`<uygulama>/image_cache/<sürüm>/<sha1(kaynak)>.img`.
+
+**Bütünlük: yarım görsel ekrana gelmez**
+
+| Adım | Ne yapar |
+|---|---|
+| Boyut denetimi | HTTP'de `content-length`, SFTP'de `stat().size` gelen baytla karşılaştırılır |
+| Bitiş işareti | PNG `IEND`, JPEG `FF D9`, GIF `3B`, WebP RIFF boyutu; Skia kısaltılmış PNG'yi bazen hatasız ama yarım çizer |
+| Çözme denemesi | Baytlar diske yazılmadan önce bir kez çözülür (`instantiateImageCodec`) |
+| Atomik yazma | Önce `.part` yazılır, bitince adı `.img` olur; yazarken kapanan uygulama yarım dosya bırakmaz |
+| Diskten okurken | Aynı denetim; bozuk dosya silinip yeniden indirilir |
+| Yeniden deneme | Eksik/bozuk gelen indirme beklemeli olarak 2 kez daha denenir |
+| Ortak istek | Aynı görsel aynı anda iki yerden istenirse tek indirme yapılır |
+| Ekranda | `gaplessPlayback`: yeni görsel gelene kadar eskisi kalır; `frameBuilder` ile yumuşak geçiş |
+
+**Arka plan bellek denetleyicisi** (`ImageMemoryController`): çözülmüş bir
+görsel bellekte genişlik × yükseklik × 4 bayt tutar. Bütçe cihaz RAM'inin
+%2'si (48–256 MB, `device_info_plus`) olarak `ImageCache.maximumSizeBytes`'a
+yazılır. Her 2 saniyede önbellek boyutu, görsel sayısı, ekrandaki görseller
+ve uygulamanın belleği (RSS) ölçülür. Önbellek bütçenin %90'ını geçince, Android
+"bellek az" dediğinde (`didHaveMemoryPressure`) ve uygulama arka plana
+geçince ekranda olmayan görseller atılır. `ImageCache.clear()` ekranda
+görünenlere dokunmadığı için boşaltma sırasında titreme olmaz.
+
+**Üç kaynak** (`models/image_demo_sources.dart`):
+
+| Kaynak | Nereden | Nasıl |
+|---|---|---|
+| Base64 | `assets/data/base64_gorseller.json` (API cevabı gibi) | `data:image/png;base64,...` → `base64Decode` |
+| S3 | AWS Open Data, `elevation-tiles-prod` kovası (herkese açık PNG karolar) | `dio`, `ResponseType.bytes` |
+| SFTP | `test.rebex.net` (herkese açık, salt okunur test sunucusu) | `dartssh2`; sunucu anahtarı sabitlenmiş |
+
+**Neden FTP değil SFTP?** FTP (IIS FTP dahil) kullanıcı adını, şifreyi ve
+dosyayı açık metin gönderir; pasif modda ek portlar açtığı için mobil
+ağlarda ve güvenlik duvarlarında sık takılır. SFTP SSH üzerinden şifreli
+çalışır, tek port (22) kullanır ve sunucunun kimliği anahtar parmak iziyle
+doğrulanır: uygulama yalnızca bilinen anahtarlarla (`kSftpHostKeys`) konuşur,
+araya giren sahte sunucuyu reddeder. Görseller bir mobil uygulamaya
+dağıtılacaksa en iyi yol yine de HTTPS'tir (IIS'te statik site, S3 + CDN):
+önbellek başlıkları, CDN ve sürüm adlı dosyalar (`logo.v42.png`) kullanılabilir.
+
+Ekranda: her görselin nereden geldiği (bellek / disk / kaynak) ve süresi,
+*Önceden yükle (precache)*, *Yük testi (24 karo)*, *Belleği boşalt*,
+*Diski boşalt*, *Bir dosyayı boz* (bozuk dosyanın fark edilip yeniden
+indirilmesi) ve *Yeni sürüm çıkmış gibi yap* (sürüm temizliği).
 
 ## Komutlar
 

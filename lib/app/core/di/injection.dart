@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_ders/app/core/cache/app_image_cache.dart';
+import 'package:flutter_ders/app/core/cache/image_fetchers.dart';
+import 'package:flutter_ders/app/core/cache/image_memory_controller.dart';
 import 'package:flutter_ders/app/core/device/device_info_source.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/device/sensor_source.dart';
@@ -30,11 +36,14 @@ import 'package:flutter_ders/app/views/view_currency/view_model/news_view_model.
 import 'package:flutter_ders/app/views/view_currency/view_model/rates_view_model.dart';
 import 'package:flutter_ders/app/views/view_device_info/bloc/device_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
+import 'package:flutter_ders/app/views/view_image_cache/cubit/image_cache_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_retrofit/cubit/retrofit_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_storage/cubit/storage_demo_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Servis bulucu, masterfabric_core'daki `di/` (GetIt) ile aynı.
@@ -57,6 +66,41 @@ Future<void> configureDependencies() async {
     )
     ..registerFactory<PagedListCubit>(
       () => PagedListCubit(repository: getIt<SampleExpenseRepository>()),
+    )
+    // DERS 17 — Sürüme bağlı görsel önbelleği ve bellek denetleyicisi.
+    // İkisi de tek; main.dart açılışta başlatır.
+    ..registerLazySingleton<AppImageCache>(
+      () => AppImageCache(
+        rootDirectory: getApplicationSupportDirectory,
+        appVersion: () async {
+          final p = await PackageInfo.fromPlatform();
+          return '${p.version}+${p.buildNumber}';
+        },
+        fetcher: DefaultImageFetcher(
+          Dio(
+            BaseOptions(
+              connectTimeout: const Duration(seconds: 10),
+              receiveTimeout: const Duration(seconds: 20),
+            ),
+          ),
+        ),
+        prefs: SharedPreferences.getInstance,
+      ),
+    )
+    ..registerLazySingleton<ImageMemoryController>(
+      () => ImageMemoryController(
+        totalRamMb: () async => Platform.isAndroid
+            ? (await DeviceInfoPlugin().androidInfo).physicalRamSize
+            : Platform.isIOS
+            ? (await DeviceInfoPlugin().iosInfo).physicalRamSize
+            : null,
+      ),
+    )
+    ..registerFactory<ImageCacheLabCubit>(
+      () => ImageCacheLabCubit(
+        cache: getIt<AppImageCache>(),
+        memory: getIt<ImageMemoryController>(),
+      ),
     )
     // DERS 16 — retrofit: tek istemci (iki servis, tek Dio), cubit her
     // açılışta yeni.

@@ -12,6 +12,9 @@ class AppBlocObserver extends BlocObserver {
     super.onChange(bloc, change);
     // Bloc'lar aşağıdaki onTransition'da olayıyla birlikte yazılır.
     if (bloc is Bloc) return;
+    // Yazılı hâli değişmeyen güncellemeler (ör. Ders 17'nin 2 sn'lik bellek
+    // ölçümü) konsolu doldurmasın.
+    if ('${change.currentState}' == '${change.nextState}') return;
     debugPrint('${bloc.runtimeType} $change');
   }
 
