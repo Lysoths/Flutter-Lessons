@@ -73,6 +73,7 @@ void main() {
         RcKeys.minVersion,
         RcKeys.latestVersion,
         RcKeys.updateUrl,
+        RcKeys.assistantModel,
       });
       final texts = jsonDecode(_defaults[RcKeys.texts]!) as Map;
       expect(

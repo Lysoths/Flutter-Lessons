@@ -1,9 +1,17 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- DERS 11 — Ağ kontrolü: yayın (release) sürümünde de internete çıkabilsin. -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- DERS 12 — GPS: konum yalnızca ekranda gösterilir, saklanmaz. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- DERS 19 — Arka plan servisi: uygulama arkadayken konum alabilmek için
+         "location" tipli ön plan servisi (Android 14+ ayrıca bu izni ister)
+         ve bildirim izni (Android 13+). "Her zaman" konum izni istenmez:
+         servis uygulama açıkken başlatıldığı için "kullanırken" izni yeter. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:label="flutter_ders"
         android:name="${applicationName}"
@@ -44,6 +52,16 @@
                 <data android:scheme="harcamatakibim" android:host="app"/>
             </intent-filter>
         </activity>
+        <!-- DERS 19 — Paketin servisi konum tipiyle tanımlanır. -->
+        <service
+            android:name="id.flutter.flutter_background_service.BackgroundService"
+            android:foregroundServiceType="location"
+            android:exported="false"
+            tools:replace="android:exported" />
+        <!-- DERS 19 — Bildirim düğmeleri (aksiyonlar) bu alıcıdan geçer. -->
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

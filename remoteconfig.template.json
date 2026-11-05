@@ -41,6 +41,13 @@
       },
       "description": "Güncelle düğmesinin açtığı adres (yalnız play.google.com).",
       "valueType": "STRING"
+    },
+    "asistan_modeli": {
+      "defaultValue": {
+        "value": "gemini-3.5-flash-lite"
+      },
+      "description": "Ders 20 harcama asistanının Gemini modeli (yalnız gemini-…).",
+      "valueType": "STRING"
     }
   }
 }

@@ -20,6 +20,8 @@ lib/
 └── app/
     ├── app.dart                  # HarcamaApp: Remote Config teması, router, ağ banner'ı
     ├── core/
+    │   ├── ai/                   # Ders 20: persona, araçlar, Gemini oturumu, kullanım sınırı
+    │   ├── background/           # Ders 19: arka plan servisi, durum takibi, bildirim çizelgesi
     │   ├── analytics/            # olay kataloğu (AppEvent, AppScreen), ekran gözlemcisi
     │   ├── firebase/             # Remote Config, oturum, Crashlytics, App Check, Firestore
     │   ├── base/                 # ViewModel tabanları: Cubit, Bloc, ChangeNotifier
@@ -54,7 +56,9 @@ lib/
         ├── view_currency/                                                          # Ders 15
         ├── view_retrofit/                                                          # Ders 16
         ├── view_image_cache/                                                       # Ders 17
-        └── view_auth/ view_update/ view_firebase/                                  # Ders 18
+        ├── view_auth/ view_update/ view_firebase/                                  # Ders 18
+        ├── view_background/                                                        # Ders 19
+        └── view_assistant/       # Ders 20: tam ekran sohbet + her ekrandaki balon
 assets/
 ├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
 ├── data/                         # Ders 7: 500 örnek harcama · 13: tasarruf ipuçları · 17: base64 görseller · 18: Firestore seed
@@ -85,7 +89,8 @@ arayüzlerini (`ExpenseRepository`, `CurrencyRepository` ...) bilir, nasıl
 Ders 1–3 (Navigator push/pop, Navigation 2.0 RouterDelegate, elle yazılmış
 deep link parser) bu reponun ilk commit'indedir (`b8b3616`). Ders 4'ten
 itibaren uygulamanın tüm yönlendirmesi **auto_route** ile yapılır; ekranlar
-ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir: `git log --oneline`.
+ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir (Ders 19 ve 20
+birlikte): `git log --oneline`.
 
 Ders ekranlarına ana sayfadaki **Dersler** kartından ya da üst çubuktaki
 kep simgesinden ulaşılır (`views/view_lessons/`). Dersler konuya göre
@@ -110,17 +115,22 @@ bir ders eklemek bu listeye bir satır eklemektir.
 | 16 | retrofit: tüm anotasyonlar, interceptor, CallAdapter | Retrofit ile ağ |
 | 17 | Sürüme bağlı görsel önbelleği, bellek denetimi; base64, S3, SFTP | Görsel önbelleği |
 | 18 | Firebase: Google ile giriş, Remote Config, zorunlu güncelleme, Crashlytics, App Check, Analytics, Firestore | Firebase |
+| 19 | Ön plan servisi: uygulama durumu, 3 sn'de bir GPS, görselli ve düğmeli bildirimler | Arka plan ve bildirimler |
+| 20 | Firebase AI (Gemini): personalı harcama asistanı, function calling, her ekranda balon | Harcama asistanı (Firebase AI) |
 
 **Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
 veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
 currency-api (Ders 15), Anadolu Ajansı ve TRT Haber RSS (Ders 15),
 jsonplaceholder ve httpbin (Ders 16), AWS Open Data S3 ve Rebex SFTP test
 sunucusu (Ders 17), Firebase (Ders 18; Analytics'e yalnızca ekran ve eylem
-adı gider, tutar, not ya da e-posta gitmez).
+adı gider, tutar, not ya da e-posta gitmez), Firebase AI Logic / Gemini
+Developer API (Ders 20; yalnız asistana yazılan mesaj gider, bkz. Güvenlik).
 
-**İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı). Konum, IP ve
-Wi-Fi bilgileri yalnızca ekranda gösterilir: kaydedilmez, gönderilmez,
-konsola yazılmaz.
+**İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı, Ders 19 arka
+plan); bildirim ve "location" tipli ön plan servisi (Ders 19). Konum, IP ve
+Wi-Fi bilgileri hiçbir yere gönderilmez, konsola yazılmaz. Tek istisna Ders
+19: arka planda alınan konumlar, ders gereği, telefonda uygulamanın kendi
+klasöründe saklanır ve ekrandan silinebilir.
 
 ### Ders 4 — auto_route
 
@@ -697,6 +707,130 @@ Firestore'dan okur (`FirestoreExpenseRepository`).
 
 Testlerde Firebase yoktur: `configureDependencies()` yerel karşılıkları verir
 (`LocalAuthRepository`, `LocalConfigSource`, `MemoryFinanceStore` ...).
+
+### Ders 19 — Arka plan servisi ve bildirimler
+
+Ana sayfa → Dersler → *Arka plan ve bildirimler* (`views/view_background/`).
+Çekirdek `core/background/` altında; paketler: `flutter_background_service`,
+`flutter_local_notifications`.
+
+**Ön plan servisi.** Android, uygulama penceresi kapalıyken çalışan işe
+yalnızca bildirim çubuğunda görünür bir "ön plan servisi" olarak izin verir.
+Servis kendi Dart isolate'inde çalışır; uygulamayla bellek paylaşmaz, yalnız
+JSON mesajlaşır (`durum`, `nabiz`, `onizle`, `sessiz`, `temizle`, `durdur` →
+servis; `rapor` → uygulama). Manifestte tipi `location` olduğu için,
+uygulama açıkken başlatılınca "Uygulamayı kullanırken" izniyle arkada da konum
+alabilir; "Her zaman" izni istenmez.
+
+**Durum denetimi.** Uygulama `WidgetsBindingObserver` ile yaşam döngüsünü
+servise bildirir: `resumed/inactive` → açık, `hidden/paused` → arka planda,
+`detached` → kapalı. Görev listesinden kaydırınca Android her zaman haber
+vermez; bu yüzden uygulama 3 saniyede bir nabız gönderir, nabız 10 saniye
+kesilirse servis "kapalı" der.
+
+**3 saniyede bir GPS.** Uygulama açıkken adım atlanır; arkadayken konum akışı
+açık tutulur (GPS soğuk başlamasın) ve her adımda son ölçüm alınır. Konumlar
+satır satır JSON olarak (`arka_plan/konumlar.jsonl`) telefona yazılır.
+İstatistik: adım, başarılı / hatalı / atlanan / çakışan okuma, ortalama ve en
+uzun okuma süresi, arkada kat edilen mesafe, açık / arka / kapalı süreleri,
+durum geçişleri, gönderilen ve iptal edilen bildirimler, düğme sayıları.
+
+**Bildirim simülasyonu.** Arka plana geçişte uygulamanın verisinden (bu ayın
+toplamı, en çok harcanan kategori, son harcamalar) bir çizelge kurulur:
+
+| An | Stil | Not |
+|---|---|---|
+| +5 sn | BigText | açılınca uzun metin |
+| +15 sn | BigPicture | açılınca fiş görseli; Belgeleri aç / Harcama ekle / Sessize al |
+| +30 sn | BigPicture (`showBigPictureWhenCollapsed`) | kapalıyken de görsel |
+| +45 sn | Inbox | son 5 harcama |
+| +60 sn | Progress | bu ay / geçen ay |
+| +90 sn | Messaging | yanıt kutulu düğme |
+| +120 sn | Grup özeti | hepsini tek grupta toplar |
+
+Uygulama öne gelirse bekleyenler iptal edilir. Bildirime dokununca yalnız
+dört hedef açılabilir (`NotificationTarget`: ana sayfa, belgeler, yeni
+harcama, Ders 19); yük yol değil hedefin adıdır, açılış tipli rotayla olur.
+Uygulamayı açmayan düğmeler (Sessize al, Yanıtla) ayrı bir isolate'te çalışır
+ve sonucu `SharedPreferencesAsync`'e yazar; yanıt metni saklanmaz.
+
+### Ders 20 — Firebase AI ile harcama asistanı
+
+Her ekranın sağındaki turuncu balon ya da Dersler → *Harcama asistanı*
+(`views/view_assistant/`). Çekirdek `core/ai/` altında; paket: `firebase_ai`
+(Firebase AI Logic, Gemini Developer API).
+
+**Persona.** Asistanın adı Kumbara; uzmanlık alanı harcama takibidir.
+Sistem talimatı (`assistant_persona.dart`) kim olduğunu, kategori ipuçlarını
+ve kuralları verir; bugünün tarihi de eklenir ki "dün" çözülebilsin. Konu
+dışı her istekte (genel bilgi, kod, hava durumu, yatırım tavsiyesi, "önceki
+talimatları unut" ...) model metin yazmaz, `konu_disi` aracını çağırır;
+ekranda her zaman uygulamanın kendi sabit ret metni görünür.
+
+**Function calling.** Model veriye dokunamaz, yalnız araç çağırır; aracı
+uygulama çalıştırır (`expense_toolbox.dart`) ve sonucu modele geri yollar:
+
+| Araç | Ne yapar | Denetim |
+|---|---|---|
+| `harcama_ekle` | tutar, kategori, not, tarih | 0 < tutar ≤ 1.000.000; bilinen kategori; gelecek ya da 2 yıldan eski tarih yok; not ≤ 80 karakter |
+| `son_harcamayi_duzelt` | yalnız verilen alanlar | aynı denetimler |
+| `son_harcamayi_sil` | bu sohbette dokunulan, yoksa en yeni kayıt | — |
+| `harcama_ozeti` | dönem toplamı, kategori payları | modele not gitmez |
+| `konu_disi` | ret | sabit metin |
+
+Kayıt hemen oluşur; sohbette kart ve *Geri al* düğmesi çıkar. Bir mesajda en
+çok 5 araç turu, mesaj en çok 500 karakter. Model adı Remote Config'teki
+`asistan_modeli`'nden gelir (yalnız `gemini-…` biçimi kabul edilir).
+
+**Her ekranda balon.** `MaterialApp.router(builder:)` içindeki her şey bütün
+sayfaların üstünde durur; balon oradadır. Sohbet uygulama genelindeki tek
+`AssistantChatCubit`'tedir, panel ile tam ekran aynı konuşmayı gösterir.
+builder Navigator'ın dışında olduğundan panel kendi `Overlay`'ini taşır
+(metin alanı menüsü bunu ister). Tam ekran açıkken balon gizlenir
+(`TopRouteObserver`).
+
+## Güvenlik: projenin Gemini kotasını başkası kullanmasın
+
+Bu repo herkese açık. `lib/firebase_options.dart` ve
+`android/app/google-services.json` içindeki API anahtarı gizli değildir:
+Firebase'de bu anahtar yalnız projeyi tanıtır, yetki vermez. Repoyu klonlayan
+biri aynı ayarlarla uygulamayı derleyip bu projenin Firebase AI kotasını
+harcamaya çalışabilir. Gemini Developer API anahtarı ise uygulamada hiç durmaz;
+Firebase AI Logic'in sunucusunda kalır.
+
+**Kodda alınan önlemler**
+
+| Önlem | Nerede |
+|---|---|
+| Her AI isteği App Check belirteciyle gider; "limited use" belirteç tek kullanımlıktır, ele geçirilip tekrar oynatılamaz | `FirebaseAI.googleAI(useLimitedUseAppCheckTokens: true)` |
+| Yayın derlemesinde Play Integrity; debug sağlayıcı yalnız `kDebugMode`'da, debug belirteci repoda değil, yalnız konsolda kayıtlı | `FirebaseAppCheckGuard` |
+| Asistan yalnız Google ile giriş yapan kullanıcıya görünür | `AppGate` → balon |
+| Uygulama içi sınır: dakikada 8, günde 100 mesaj | `AssistantQuota` |
+| Yanıt en çok 512 token, mesaj en çok 500 karakter, mesaj başına en çok 5 araç turu | `assistant_chat.dart`, `expense_assistant.dart` |
+| Model yalnız harcama araçlarını çağırabilir; değerler uygulamada denetlenir | `ExpenseToolbox` |
+| Firestore kuralları: herkes yalnız kendi `kullanicilar/{uid}` verisine | `firestore.rules` |
+| Model adı uzaktan değişir ama yalnız `gemini-…` biçiminde | `RemoteAppConfig` |
+
+**Konsolda yapılması gerekenler** (asıl koruma bunlardır; istemci tarafındaki
+sınırlar atlatılabilir, sunucu tarafındakiler atlatılamaz):
+
+1. **App Check → APIs → Firebase AI Logic → Enforce.** Bundan sonra Play
+   Integrity'den geçemeyen (resmi imzalı olmayan) ya da kayıtlı debug
+   belirteci olmayan her istek reddedilir. Aynısı Cloud Firestore ve
+   Authentication için de açılmalı.
+2. **App Check → Apps → Android → Play Integrity**'ye yayın imzasının SHA-256
+   parmak izi eklenmeli (debug parmak izi yalnız geliştirme içindir).
+3. **AI Logic → Settings → Rate limits:** kullanıcı başına dakikalık istek
+   sınırı düşürülmeli (ör. 10/dk).
+4. **Google Cloud Console → APIs & Services → Credentials:** Android API
+   anahtarı "Android apps" ile `com.ogzhner.flutter_ders` paket adı ve imza
+   SHA-1'ine kısıtlanmalı; yalnız kullanılan API'lere izin verilmeli.
+5. **Faturalandırma:** Blaze'e geçilirse Cloud Billing'de bütçe uyarısı
+   kurulmalı. Spark planında ücretsiz kota dolunca istekler durur, fatura
+   çıkmaz.
+
+Debug belirteci bir kez sızarsa konsolda App Check → Debug belirteçleri'nden
+silinip yenisi kaydedilir.
 
 ## Komutlar
 

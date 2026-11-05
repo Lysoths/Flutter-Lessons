@@ -111,6 +111,22 @@ class AppNetworkRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AssistantView]
+class AssistantRoute extends PageRouteInfo<void> {
+  const AssistantRoute({List<PageRouteInfo>? children})
+    : super(AssistantRoute.name, initialChildren: children);
+
+  static const String name = 'AssistantRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AssistantView();
+    },
+  );
+}
+
+/// generated route for
 /// [AudioPlayerView]
 class AudioPlayerRoute extends PageRouteInfo<AudioPlayerRouteArgs> {
   AudioPlayerRoute({
@@ -155,6 +171,22 @@ class AudioPlayerRouteArgs {
 
   @override
   int get hashCode => document.hashCode ^ key.hashCode;
+}
+
+/// generated route for
+/// [BackgroundView]
+class BackgroundRoute extends PageRouteInfo<void> {
+  const BackgroundRoute({List<PageRouteInfo>? children})
+    : super(BackgroundRoute.name, initialChildren: children);
+
+  static const String name = 'BackgroundRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BackgroundView();
+    },
+  );
 }
 
 /// generated route for

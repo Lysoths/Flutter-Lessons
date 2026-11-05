@@ -7,7 +7,9 @@ import 'package:flutter_ders/app/views/view_animation_control/animation_control_
 import 'package:flutter_ders/app/views/view_animations/animation_demo_view.dart';
 import 'package:flutter_ders/app/views/view_animations/animations_view.dart';
 import 'package:flutter_ders/app/views/view_app_network/app_network_view.dart';
+import 'package:flutter_ders/app/views/view_assistant/assistant_view.dart';
 import 'package:flutter_ders/app/views/view_audio_player/audio_player_view.dart';
+import 'package:flutter_ders/app/views/view_background/background_view.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc_demo_view.dart';
 import 'package:flutter_ders/app/views/view_category/category_expenses_view.dart';
 import 'package:flutter_ders/app/views/view_currency/currency_view.dart';
@@ -63,6 +65,8 @@ part 'app_router.gr.dart';
 //   CurrencyView         → CurrencyRoute()                 (Ders 15)
 //   RetrofitView         → RetrofitRoute()                 (Ders 16)
 //   ImageCacheView       → ImageCacheRoute()               (Ders 17)
+//   BackgroundView       → BackgroundRoute()               (Ders 19)
+//   AssistantView        → AssistantRoute()                (Ders 20)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -150,6 +154,15 @@ class AppRouter extends RootStackRouter {
     ),
     // Ders dizini. Deep link beyaz listesinde yok.
     _animated(LessonsRoute.page, '/dersler', RouteAnimation.slideFromRight),
+    // DERS 20 — Harcama asistanı. Deep link beyaz listesinde yok.
+    _animated(AssistantRoute.page, '/asistan', RouteAnimation.slideFromRight),
+    // DERS 19 — Arka plan servisi. Deep link beyaz listesinde yok;
+    // bildirimler de buraya yol değil tipli rotayla gelir.
+    _animated(
+      BackgroundRoute.page,
+      '/arka-plan',
+      RouteAnimation.slideFromRight,
+    ),
     // DERS 18 — Firebase. Deep link beyaz listesinde yok.
     _animated(FirebaseRoute.page, '/firebase', RouteAnimation.slideFromRight),
     // DERS 17 — Görsel önbelleği. Deep link beyaz listesinde yok.

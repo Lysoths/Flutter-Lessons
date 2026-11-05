@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/analytics/app_analytics.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
+import 'package:flutter_ders/app/core/background/app_presence_reporter.dart';
+import 'package:flutter_ders/app/core/background/notification_plan.dart';
+import 'package:flutter_ders/app/core/background/notification_service.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/core/firebase/app_config_cubit.dart';
 import 'package:flutter_ders/app/core/firebase/session_cubit.dart';
@@ -10,17 +14,26 @@ import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
+import 'package:flutter_ders/app/views/view_assistant/cubit/assistant_chat_cubit.dart';
+import 'package:flutter_ders/app/views/view_assistant/widgets/assistant_bubble.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/widgets/app_gate.dart';
 
 /// Kök widget: uygulama genelindeki cubit, tema ve yönlendirme.
 class HarcamaApp extends StatefulWidget {
   /// Uygulamayı oluşturur. Önce [configureDependencies] çağrılmalıdır.
-  const HarcamaApp({super.key, this.watchNetwork = true});
+  const HarcamaApp({
+    super.key,
+    this.watchNetwork = true,
+    this.assistantBubble = true,
+  });
 
   /// İnternet durumu izlensin ve bağlantı yokken üstte uyarı çıksın mı?
   /// (Testlerde gerçek ağa çıkmamak için kapatılır.)
   final bool watchNetwork;
+
+  /// Sağdaki asistan balonu gösterilsin mi?
+  final bool assistantBubble;
 
   @override
   State<HarcamaApp> createState() => _HarcamaAppState();
@@ -46,6 +59,16 @@ class _HarcamaAppState extends State<HarcamaApp> {
   final SessionCubit _session = getIt<SessionCubit>();
   StreamSubscription<String?>? _sessionSub;
 
+  // DERS 19 — Uygulamanın durumu arka plan servisine; bildirime dokunma
+  // tipli rotaya.
+  final AppPresenceReporter _presence = getIt<AppPresenceReporter>();
+
+  // DERS 20 — Harcama asistanı: tek sohbet, her ekranda aynı.
+  late final AssistantChatCubit _assistant = getIt<AssistantChatCubit>(
+    param1: _expenses,
+  );
+  final TopRouteObserver _topRoute = TopRouteObserver();
+
   @override
   void initState() {
     super.initState();
@@ -56,9 +79,24 @@ class _HarcamaAppState extends State<HarcamaApp> {
         .map((s) => s.user?.uid)
         .distinct()
         .listen((_) => _expenses.load());
+    _presence.snapshot = () => snapshotOf(_expenses.state, DateTime.now());
+    unawaited(_presence.start());
+    unawaited(getIt<NotificationGateway>().init(_onNotificationTap));
     if (widget.watchNetwork) {
       _network = getIt<NetworkChecker>().watch().listen(_onNetwork);
     }
+  }
+
+  // Bildirimden gelen hedef yalnız bu dört ekrandan biri olabilir; yük
+  // (payload) yol değil, NotificationTarget adıdır.
+  void _onNotificationTap(NotificationTarget target) {
+    track(AppEvent.notificationOpened, target.name);
+    unawaited(switch (target) {
+      NotificationTarget.home => _router.navigate(const ExpensesRoute()),
+      NotificationTarget.documents => _router.push(const DocumentsRoute()),
+      NotificationTarget.newExpense => _router.push(const NewExpenseRoute()),
+      NotificationTarget.background => _router.push(const BackgroundRoute()),
+    });
   }
 
   void _onNetwork(NetworkResult r) {
@@ -108,6 +146,8 @@ class _HarcamaAppState extends State<HarcamaApp> {
   void dispose() {
     unawaited(_network?.cancel());
     unawaited(_sessionSub?.cancel());
+    _presence.dispose();
+    unawaited(_assistant.close());
     _router.dispose();
     unawaited(_expenses.close());
     super.dispose();
@@ -120,6 +160,7 @@ class _HarcamaAppState extends State<HarcamaApp> {
         BlocProvider<ExpensesCubit>.value(value: _expenses),
         BlocProvider<AppConfigCubit>.value(value: _config),
         BlocProvider<SessionCubit>.value(value: _session),
+        BlocProvider<AssistantChatCubit>.value(value: _assistant),
       ],
       child: BlocBuilder<AppConfigCubit, AppConfigState>(
         // Yalnız tasarım ya da uygulama adı değişince tema yeniden kurulur.
@@ -132,13 +173,27 @@ class _HarcamaAppState extends State<HarcamaApp> {
           scaffoldMessengerKey: _messenger,
           theme: AppTheme.light(config.config.design),
           // Sürüm kilidi ve giriş ekranı yönlendiricinin önünde durur.
-          builder: (context, child) => AppGate(child: child!),
+          // Ders 20: giriş yapılmışsa her sayfanın sağında asistan balonu.
+          builder: (context, child) => AppGate(
+            child: widget.assistantBubble
+                ? AssistantBubble(
+                    routeChanges: _topRoute.top,
+                    hidden: () => _topRoute.top.value == AssistantRoute.name,
+                    onFullScreen: () =>
+                        unawaited(_router.push(const AssistantRoute())),
+                    child: child!,
+                  )
+                : child!,
+          ),
           // auto_route; RouterDelegate, parser ve geri tuşunu kendisi kurar.
           // Gelen linkler önce beyaz listeden geçer (app_deep_links.dart).
           routerConfig: _router.config(
             deepLinkTransformer: AppDeepLinks.transform,
             // Ekran geçişleri Firebase Analytics'e screen_view olarak gider.
-            navigatorObservers: () => [AnalyticsRouteObserver(getIt())],
+            navigatorObservers: () => [
+              AnalyticsRouteObserver(getIt()),
+              _topRoute,
+            ],
           ),
         ),
       ),

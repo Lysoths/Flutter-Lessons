@@ -4,7 +4,14 @@ import 'dart:ui' show PlatformDispatcher;
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_ders/app/core/ai/assistant_chat.dart';
+import 'package:flutter_ders/app/core/ai/assistant_quota.dart';
 import 'package:flutter_ders/app/core/analytics/app_analytics.dart';
+import 'package:flutter_ders/app/core/background/app_presence_reporter.dart';
+import 'package:flutter_ders/app/core/background/background_models.dart';
+import 'package:flutter_ders/app/core/background/background_service.dart';
+import 'package:flutter_ders/app/core/background/background_tracker.dart';
+import 'package:flutter_ders/app/core/background/notification_service.dart';
 import 'package:flutter_ders/app/core/cache/app_image_cache.dart';
 import 'package:flutter_ders/app/core/cache/image_fetchers.dart';
 import 'package:flutter_ders/app/core/cache/image_memory_controller.dart';
@@ -35,7 +42,9 @@ import 'package:flutter_ders/app/core/repository/tips_repository.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/app_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/network_info_bloc.dart';
+import 'package:flutter_ders/app/views/view_assistant/cubit/assistant_chat_cubit.dart';
 import 'package:flutter_ders/app/views/view_auth/cubit/sign_in_cubit.dart';
+import 'package:flutter_ders/app/views/view_background/cubit/background_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/tips_bloc.dart';
@@ -69,6 +78,55 @@ Future<void> configureDependencies({bool firebase = false}) async {
   if (getIt.isRegistered<ExpenseRepository>()) return;
   final prefs = await SharedPreferences.getInstance();
   getIt
+    // DERS 20 — Firebase AI ile harcama asistanı. Model adı Remote
+    // Config'ten okunur; her sohbet yeni bir oturumdur. Testlerde ağ yok:
+    // testler kendi senaryolu oturumunu kaydeder.
+    ..registerLazySingleton<AssistantChatFactory>(
+      () => firebase
+          ? () => FirebaseAssistantChat(
+              model: getIt<AppConfigCubit>().state.config.assistantModel,
+            )
+          : OfflineAssistantChat.new,
+    )
+    ..registerLazySingleton<AssistantQuota>(
+      () => AssistantQuota(prefs: SharedPreferences.getInstance),
+    )
+    ..registerFactoryParam<AssistantChatCubit, ExpensesCubit, void>(
+      (expenses, _) => AssistantChatCubit(
+        chatFactory: getIt<AssistantChatFactory>(),
+        expenses: expenses,
+        quota: getIt<AssistantQuota>(),
+      ),
+    )
+    // DERS 19 — Arka plan servisi ve yerel bildirimler. Testlerde servis
+    // ve bildirim yoktur; bellekteki sahteleri kaydedilir.
+    ..registerLazySingleton<BackgroundChannel>(
+      firebase ? PluginBackgroundChannel.new : MemoryBackgroundChannel.new,
+    )
+    ..registerLazySingleton<NotificationGateway>(
+      firebase ? PluginNotificationGateway.new : NoopNotificationGateway.new,
+    )
+    ..registerLazySingleton<TrackStore>(
+      firebase
+          ? () => FileTrackStore(getApplicationSupportDirectory)
+          : MemoryTrackStore.new,
+    )
+    ..registerLazySingleton<AppPresenceReporter>(
+      () => AppPresenceReporter(channel: getIt<BackgroundChannel>()),
+    )
+    ..registerFactory<BackgroundLabCubit>(
+      () => BackgroundLabCubit(
+        channel: getIt<BackgroundChannel>(),
+        reporter: getIt<AppPresenceReporter>(),
+        location: getIt<LocationSource>(),
+        notifications: getIt<NotificationGateway>(),
+        store: getIt<TrackStore>(),
+        snapshot: () =>
+            getIt<AppPresenceReporter>().snapshot?.call() ??
+            const AppSnapshot(),
+        clearShared: firebase ? null : () async {},
+      ),
+    )
     // DERS 18 — Firebase servisleri ve uygulama genelindeki iki cubit.
     ..registerSingleton<AppAnalytics>(
       firebase ? const FirebaseAppAnalytics() : const NoopAnalytics(),

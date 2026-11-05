@@ -38,7 +38,15 @@ abstract final class RcKeys {
 
   /// Mağaza adresi.
   static const updateUrl = 'guncelleme_adresi';
+
+  /// Ders 20 — harcama asistanının modeli.
+  static const assistantModel = 'asistan_modeli';
 }
+
+/// Uzaktan model adı geçersizse kullanılan model.
+const kDefaultAssistantModel = 'gemini-3.5-flash-lite';
+
+final _modelName = RegExp(r'^gemini-[a-z0-9][a-z0-9.\-]{1,60}$');
 
 /// Desteklenen diller.
 const kSupportedLanguages = ['tr', 'en'];
@@ -213,6 +221,7 @@ class RemoteAppConfig extends Equatable {
     required this.texts,
     required this.defaultLanguage,
     required this.policy,
+    this.assistantModel = kDefaultAssistantModel,
   });
 
   /// Ham değerlerden okur. [fallback] her alan için yedek kaynaktır
@@ -265,6 +274,13 @@ class RemoteAppConfig extends Equatable {
             ? url
             : null,
       ),
+      // Yalnız "gemini-…" biçimindeki adlar kabul edilir.
+      assistantModel: [values, fallback]
+          .map((m) => m[RcKeys.assistantModel]?.trim())
+          .firstWhere(
+            (v) => v != null && _modelName.hasMatch(v),
+            orElse: () => kDefaultAssistantModel,
+          )!,
     );
   }
 
@@ -279,6 +295,9 @@ class RemoteAppConfig extends Equatable {
 
   /// Sürüm kuralları.
   final VersionPolicy policy;
+
+  /// Ders 20 — asistanın Gemini modeli.
+  final String assistantModel;
 
   /// [deviceLanguage] ve kullanıcı seçimi ([override]) ile geçerli dil.
   String resolveLanguage({String? override, String? deviceLanguage}) {
@@ -295,7 +314,13 @@ class RemoteAppConfig extends Equatable {
       texts[lang]?[key] ?? texts[kSupportedLanguages.first]?[key] ?? key;
 
   @override
-  List<Object?> get props => [design, texts, defaultLanguage, policy];
+  List<Object?> get props => [
+    design,
+    texts,
+    defaultLanguage,
+    policy,
+    assistantModel,
+  ];
 }
 
 Map<String, String> _stringMap(Object? v) => v is Map

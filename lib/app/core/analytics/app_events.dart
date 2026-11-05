@@ -88,7 +88,13 @@ enum AppScreen {
   signIn('giris'),
 
   /// Güncelleme ekranı / kartı.
-  update('guncelleme');
+  update('guncelleme'),
+
+  /// Ders 19 — arka plan servisi ve bildirimler.
+  background('arka_plan'),
+
+  /// Ders 20 — harcama asistanı.
+  assistant('asistan');
 
   const AppScreen(this.key);
 
@@ -293,7 +299,48 @@ enum AppEvent {
   updateOpened('guncelleme_acildi', AppScreen.update),
 
   /// İsteğe bağlı güncelleme ertelendi.
-  updatePostponed('guncelleme_ertelendi', AppScreen.update);
+  updatePostponed('guncelleme_ertelendi', AppScreen.update),
+
+  // Ders 19 — arka plan servisi ve bildirim simülasyonu.
+  /// Servis başlatıldı.
+  backgroundStarted('arka_plan_baslatildi', AppScreen.background),
+
+  /// Servis durduruldu.
+  backgroundStopped('arka_plan_durduruldu', AppScreen.background),
+
+  /// Bütün bildirim türleri önizlendi.
+  backgroundPreview('bildirim_onizleme', AppScreen.background),
+
+  /// Simülasyon susturuldu / açıldı (seçenek: acik, kapali).
+  backgroundMuted('bildirim_sessiz', AppScreen.background),
+
+  /// Konumlar ve istatistik silindi.
+  backgroundCleared('arka_plan_temizlendi', AppScreen.background),
+
+  /// Bildirime dokunuldu (seçenek: hedef ekran).
+  notificationOpened('bildirim_acildi', AppScreen.background),
+
+  // Ders 20 — harcama asistanı. Mesaj metni, tutar ve not gönderilmez.
+  /// Asistana mesaj gönderildi.
+  assistantSent('asistan_mesaj', AppScreen.assistant),
+
+  /// Konu dışı istek reddedildi.
+  assistantRefused('asistan_reddetti', AppScreen.assistant),
+
+  /// Asistan kayıt değiştirdi (seçenek: added, edited, deleted).
+  assistantRecorded('asistan_kayit', AppScreen.assistant),
+
+  /// Asistanın değişikliği geri alındı (seçenek: değişiklik türü).
+  assistantUndone('asistan_geri_al', AppScreen.assistant),
+
+  /// Asistan hatası (seçenek: hata kodu).
+  assistantFailed('asistan_hata', AppScreen.assistant),
+
+  /// Sohbet sıfırlandı.
+  assistantReset('asistan_sifirla', AppScreen.assistant),
+
+  /// Yüzen balondan asistan açıldı.
+  assistantBubbleOpened('asistan_balon_acildi', AppScreen.assistant);
 
   const AppEvent(this.key, this.screen);
 

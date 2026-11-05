@@ -201,6 +201,15 @@ const kLessons = <Lesson>[
     route: AppNetworkRoute(),
   ),
   Lesson(
+    id: 'background',
+    number: 19,
+    topic: LessonTopic.device,
+    title: 'Arka plan ve bildirimler',
+    subtitle: 'Ön plan servisi, 3 sn GPS, görselli ve düğmeli bildirimler',
+    icon: Icons.notifications_active_rounded,
+    route: BackgroundRoute(),
+  ),
+  Lesson(
     id: 'bloc',
     number: 13,
     topic: LessonTopic.architecture,
@@ -228,5 +237,14 @@ const kLessons = <Lesson>[
         'App Check',
     icon: Icons.local_fire_department_rounded,
     route: FirebaseRoute(),
+  ),
+  Lesson(
+    id: 'assistant',
+    number: 20,
+    topic: LessonTopic.firebase,
+    title: 'Harcama asistanı (Firebase AI)',
+    subtitle: 'Gemini ile sohbet: masrafını yaz, kaydı o oluştursun',
+    icon: Icons.savings_rounded,
+    route: AssistantRoute(),
   ),
 ];
