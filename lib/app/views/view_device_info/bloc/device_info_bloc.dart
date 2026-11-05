@@ -1,5 +1,6 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_bloc.dart';
 import 'package:flutter_ders/app/core/device/device_info_source.dart';
 import 'package:flutter_ders/app/views/view_device_info/bloc/device_info_event.dart';
@@ -17,7 +18,10 @@ class DeviceInfoBloc
   /// [source] üzerinden çalışan Bloc oluşturur.
   DeviceInfoBloc({required this.source}) : super(const DeviceInfoInitial()) {
     on<DeviceInfoRequested>(_read);
-    on<DeviceInfoRefreshed>(_read, transformer: droppable());
+    on<DeviceInfoRefreshed>((e, emit) {
+      track(AppEvent.deviceInfoRefreshed);
+      return _read(e, emit);
+    }, transformer: droppable());
   }
 
   /// Bilginin geldiği yer.

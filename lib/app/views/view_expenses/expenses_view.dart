@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/money_format.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_ders/app/views/view_expenses/widgets/category_breakdown_
 import 'package:flutter_ders/app/views/view_expenses/widgets/category_shortcuts_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/expense_tile_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/month_summary_card.dart';
+import 'package:flutter_ders/app/views/view_lessons/widgets/lessons_entry_card.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
 
 /// Ana ekran: aylık özet, kategori dağılımı ve güne göre gruplu liste.
@@ -45,6 +47,7 @@ class ExpensesView extends StatelessWidget {
 
   /// DERS 4 — auto_route: kategori sayfası `/kategori/:slug` rotası.
   void _openCategory(BuildContext context, ExpenseCategory category) {
+    track(AppEvent.categoryOpened, category.name);
     context.router.push(CategoryExpensesRoute(slug: category.slug));
   }
 
@@ -61,7 +64,10 @@ class ExpensesView extends StatelessWidget {
           content: Text('${removed.category.label} harcaması silindi'),
           action: SnackBarAction(
             label: 'Geri al',
-            onPressed: () => cubit.restore(removed),
+            onPressed: () {
+              track(AppEvent.expenseRestored);
+              cubit.restore(removed);
+            },
           ),
         ),
       );
@@ -70,7 +76,19 @@ class ExpensesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(titleSpacing: 20, title: const _BrandTitle()),
+      appBar: AppBar(
+        titleSpacing: 20,
+        title: const _BrandTitle(),
+        actions: [
+          IconButton(
+            key: const Key('expensesView_lessonsAction'),
+            tooltip: 'Dersler',
+            onPressed: () => context.router.push(const LessonsRoute()),
+            icon: const Icon(Icons.school_rounded),
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('expensesView_add'),
         // DERS 4 — auto_route: form da bir rota (deep link: /yeni).
@@ -111,148 +129,8 @@ class ExpensesView extends StatelessWidget {
                 onSelected: (c) => _openCategory(context, c),
               ),
               const Gap(16),
-              // DERS 5 — Belgeler listesi: tipli rota ile açılır.
-              _EntryCard(
-                key: const Key('expensesView_documents'),
-                icon: Icons.folder_open_rounded,
-                title: 'Belgeler',
-                subtitle: "Fatura PDF'leri, fiş görselleri ve sesler",
-                onTap: () => context.router.push(const DocumentsRoute()),
-              ),
-              const Gap(10),
-              // DERS 6 — 20 geçiş animasyonu vitrini.
-              _EntryCard(
-                key: const Key('expensesView_animations'),
-                icon: Icons.animation_rounded,
-                title: 'Geçiş animasyonları',
-                subtitle: '20 farklı sayfa geçişi senaryosu',
-                onTap: () => context.router.push(const AnimationsRoute()),
-              ),
-              const Gap(10),
-              // DERS 7 — 500 örnek kayıt, sayfa sayfa.
-              _EntryCard(
-                key: const Key('expensesView_pagedList'),
-                icon: Icons.view_list_rounded,
-                title: 'Sayfalı liste',
-                subtitle: '500 örnek harcama, 20\'şer yüklenir',
-                onTap: () => context.router.push(const PagedListRoute()),
-              ),
-              const Gap(10),
-              _EntryCard(
-                key: const Key('expensesView_pagedGrid'),
-                icon: Icons.grid_view_rounded,
-                title: 'Sayfalı ızgara',
-                subtitle: 'Aynı 500 kayıt, kartlar hâlinde',
-                onTap: () => context.router.push(const PagedGridRoute()),
-              ),
-              const Gap(10),
-              // DERS 8 — AnimationController.
-              _EntryCard(
-                key: const Key('expensesView_animationControl'),
-                icon: Icons.view_in_ar_rounded,
-                title: 'Animasyon kontrolü',
-                subtitle: '3B obje ve nabız efektleri',
-                onTap: () => context.router.push(const AnimationControlRoute()),
-              ),
-              const Gap(10),
-              // DERS 9 — Lottie.
-              _EntryCard(
-                key: const Key('expensesView_lottie'),
-                icon: Icons.movie_filter_rounded,
-                title: 'Lottie animasyonları',
-                subtitle: 'JSON dosyasından çizilen animasyonlar',
-                onTap: () => context.router.push(const LottieRoute()),
-              ),
-              const Gap(10),
-              // DERS 10 — Sync / async.
-              _EntryCard(
-                key: const Key('expensesView_syncAsync'),
-                icon: Icons.sync_alt_rounded,
-                title: 'Sync / Async',
-                subtitle: 'Ekran neden donar? Farkı canlı gör',
-                onTap: () => context.router.push(const SyncAsyncRoute()),
-              ),
-              const Gap(10),
-              // DERS 10 — Yerel depolama.
-              _EntryCard(
-                key: const Key('expensesView_storage'),
-                icon: Icons.storage_rounded,
-                title: 'Yerel depolama',
-                subtitle: 'SharedPreferences, Hive ve sqflite',
-                onTap: () => context.router.push(const StorageHubRoute()),
-              ),
-              const Gap(10),
-              // DERS 11 — Ağ kontrolü.
-              _EntryCard(
-                key: const Key('expensesView_network'),
-                icon: Icons.wifi_rounded,
-                title: 'Ağ kontrolü',
-                subtitle: 'FutureBuilder, StreamBuilder ve WebSocket',
-                onTap: () => context.router.push(const NetworkRoute()),
-              ),
-              const Gap(10),
-              // DERS 12 — GPS ve sensörler.
-              _EntryCard(
-                key: const Key('expensesView_device'),
-                icon: Icons.sensors_rounded,
-                title: 'Konum ve sensörler',
-                subtitle: 'Canlı GPS, su terazisi, pusula, sallama',
-                onTap: () => context.router.push(const DeviceRoute()),
-              ),
-              const Gap(10),
-              // DERS 13 — Bloc.
-              _EntryCard(
-                key: const Key('expensesView_bloc'),
-                icon: Icons.account_tree_rounded,
-                title: 'Bloc ile veri',
-                subtitle: 'Servis isteği, canlı akış ve asset',
-                onTap: () => context.router.push(const BlocDemoRoute()),
-              ),
-              const Gap(10),
-              // DERS 14 — Cihaz, uygulama ve ağ bilgisi.
-              _EntryCard(
-                key: const Key('expensesView_deviceInfo'),
-                icon: Icons.perm_device_information_rounded,
-                title: 'Cihaz bilgisi',
-                subtitle: 'Model, Android, RAM, disk, ekran, özellikler',
-                onTap: () => context.router.push(const DeviceInfoRoute()),
-              ),
-              const Gap(10),
-              _EntryCard(
-                key: const Key('expensesView_appNetwork'),
-                icon: Icons.public_rounded,
-                title: 'Uygulama ve ağ',
-                subtitle: 'Sürüm, Wi-Fi, genel IP (Cloudflare trace)',
-                onTap: () => context.router.push(const AppNetworkRoute()),
-              ),
-              const Gap(10),
-              // DERS 15 — MVVM (ChangeNotifier).
-              _EntryCard(
-                key: const Key('expensesView_currency'),
-                icon: Icons.currency_exchange_rounded,
-                title: 'Döviz yönetimi',
-                subtitle: '10 para birimi, geçmiş grafik, finans haberleri',
-                onTap: () => context.router.push(const CurrencyRoute()),
-              ),
-              const Gap(10),
-              // DERS 16 — retrofit.
-              _EntryCard(
-                key: const Key('expensesView_retrofit'),
-                icon: Icons.api_rounded,
-                title: 'Retrofit ile ağ',
-                subtitle:
-                    '23 canlı deneme: metotlar, gövdeler, iptal, ilerleme',
-                onTap: () => context.router.push(const RetrofitRoute()),
-              ),
-              const Gap(10),
-              // DERS 17 — Görsel önbelleği.
-              _EntryCard(
-                key: const Key('expensesView_imageCache'),
-                icon: Icons.photo_library_rounded,
-                title: 'Görsel önbelleği',
-                subtitle: 'Sürüme bağlı önbellek, bellek denetimi, base64 · S3 · SFTP',
-                onTap: () => context.router.push(const ImageCacheRoute()),
-              ),
+              // Ders ekranları ayrı bir dizinde (LessonsView).
+              const LessonsEntryCard(key: Key('expensesView_lessons')),
               if (categories.isNotEmpty) ...[
                 const Gap(28),
                 const _SectionTitle(
@@ -370,77 +248,30 @@ class _BrandTitle extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Harcama Takibim',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-                color: MfColors.slate900,
-              ),
-            ),
-            Text(
-              'Kişisel bütçe defteri',
-              style: TextStyle(fontSize: 11, color: MfColors.slate500),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-/// Ana sayfadan bir bölüme giriş kartı (Belgeler, Animasyonlar).
-class _EntryCard extends StatelessWidget {
-  const _EntryCard({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-    super.key,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
-    final radius = BorderRadius.circular(16);
-    return Material(
-      color: MfColors.slate50,
-      shape: RoundedRectangleBorder(
-        borderRadius: radius,
-        side: const BorderSide(color: MfColors.slate200),
-      ),
-      child: InkWell(
-        borderRadius: radius,
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Row(
+        const Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconBadge(icon, size: 44),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: t.titleMedium),
-                    const SizedBox(height: 2),
-                    Text(subtitle, style: t.bodyMedium?.copyWith(fontSize: 13)),
-                  ],
+              Text(
+                'Harcama Takibim',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: MfColors.slate900,
                 ),
               ),
-              const Icon(Icons.chevron_right_rounded, color: MfColors.slate400),
+              Text(
+                'Kişisel bütçe defteri',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 11, color: MfColors.slate500),
+              ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }

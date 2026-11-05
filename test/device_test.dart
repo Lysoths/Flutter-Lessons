@@ -11,6 +11,8 @@ import 'package:flutter_ders/app/views/view_device/widgets/sensors_panel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 /// Elle konum gönderilebilen sahte GPS.
 class _FakeLocation implements LocationSource {
   _FakeLocation(this.access);
@@ -141,7 +143,8 @@ void main() {
 
       await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
-      final card = find.byKey(const Key('expensesView_device'));
+      await openLessonsHub(tester);
+      final card = find.byKey(const Key('lessons_device'));
       await tester.scrollUntilVisible(
         card,
         200,

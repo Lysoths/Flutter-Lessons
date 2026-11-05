@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/curve_option.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/pulse_effects.dart';
@@ -43,6 +44,7 @@ class _PulseCardState extends State<PulseCard>
   }
 
   void _toggle() {
+    track(AppEvent.pulseToggled, widget.effect.name);
     setState(() {
       if (_controller.isAnimating) {
         _controller.stop();

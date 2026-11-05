@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_cubit.dart';
 import 'package:flutter_ders/app/core/network/api_result.dart';
 import 'package:flutter_ders/app/core/network/recording_interceptor.dart';
@@ -34,6 +35,7 @@ class RetrofitLabCubit extends BaseViewModelCubit<RetrofitLabState> {
 
   /// [demo]'yu [input] değerleriyle çalıştırır.
   Future<void> run(RetrofitDemo demo, Map<String, String> input) async {
+    track(AppEvent.retrofitRun, demo.id);
     if (state.runs[demo.id]?.status == RunStatus.running) return;
     final token = _cancelTokens[demo.id] = CancelToken();
     _setRun(demo.id, const DemoRun(status: RunStatus.running));
@@ -97,8 +99,10 @@ class RetrofitLabCubit extends BaseViewModelCubit<RetrofitLabState> {
   }
 
   /// Çalışan [demo]'yu iptal eder (`CancelToken.cancel`).
-  void cancel(RetrofitDemo demo) =>
-      _cancelTokens[demo.id]?.cancel('Kullanıcı iptal etti');
+  void cancel(RetrofitDemo demo) {
+    track(AppEvent.retrofitCancelled, demo.id);
+    _cancelTokens[demo.id]?.cancel('Kullanıcı iptal etti');
+  }
 
   /// Ağ kaydını temizler.
   void clearLog() => stateChanger(state.copyWith(log: const []));

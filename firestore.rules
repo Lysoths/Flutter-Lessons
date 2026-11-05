@@ -1,0 +1,102 @@
+rules_version = '2';
+
+// DERS 18 — Firestore güvenlik kuralları
+//
+// Her kullanıcının verisi kendi belgesinin altındadır:
+//
+//   kullanicilar/{uid}
+//     ├─ kategoriler/{id}       ad, ikon, renk, sira
+//     ├─ odeme_yontemleri/{id}  ad, tur
+//     ├─ magazalar/{id}         ad, kategoriId
+//     ├─ etiketler/{id}         ad
+//     ├─ butceler/{id}          kategoriId, ay, limit
+//     └─ harcamalar/{id}        tutar, tarih, not, kategoriId,
+//                               odemeYontemiId, magazaId?, etiketIdleri[]
+//
+// Yalnız sahibi okur ve yazar. Belge alanları türleriyle denetlenir;
+// bilinmeyen alan kabul edilmez. Başka her yol kapalıdır.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function onlyKeys(allowed) {
+      return request.resource.data.keys().hasOnly(allowed);
+    }
+
+    function shortString(v, max) {
+      return v is string && v.size() > 0 && v.size() <= max;
+    }
+
+    match /kullanicilar/{uid} {
+      allow read, delete: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && onlyKeys(['olusturuldu', 'paraBirimi', 'seedSurumu'])
+        && request.resource.data.paraBirimi is string;
+
+      match /kategoriler/{id} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && onlyKeys(['ad', 'ikon', 'renk', 'sira'])
+          && shortString(request.resource.data.ad, 40)
+          && request.resource.data.sira is int;
+      }
+
+      match /odeme_yontemleri/{id} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && onlyKeys(['ad', 'tur'])
+          && shortString(request.resource.data.ad, 40)
+          && request.resource.data.tur in ['nakit', 'kart', 'havale'];
+      }
+
+      match /magazalar/{id} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && onlyKeys(['ad', 'kategoriId'])
+          && shortString(request.resource.data.ad, 60)
+          && exists(/databases/$(database)/documents/kullanicilar/$(uid)/kategoriler/$(request.resource.data.kategoriId));
+      }
+
+      match /etiketler/{id} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && onlyKeys(['ad'])
+          && shortString(request.resource.data.ad, 30);
+      }
+
+      match /butceler/{id} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && onlyKeys(['kategoriId', 'ay', 'limit'])
+          && request.resource.data.ay is string
+          && request.resource.data.ay.matches('^[0-9]{4}-[0-9]{2}$')
+          && request.resource.data.limit is number
+          && request.resource.data.limit > 0
+          && exists(/databases/$(database)/documents/kullanicilar/$(uid)/kategoriler/$(request.resource.data.kategoriId));
+      }
+
+      match /harcamalar/{id} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && onlyKeys(['tutar', 'tarih', 'not', 'kategoriId', 'odemeYontemiId',
+                       'magazaId', 'etiketIdleri'])
+          && request.resource.data.tutar is number
+          && request.resource.data.tutar > 0
+          && request.resource.data.tarih is timestamp
+          && request.resource.data.not is string
+          && request.resource.data.not.size() <= 200
+          && request.resource.data.etiketIdleri is list
+          && request.resource.data.etiketIdleri.size() <= 5
+          && exists(/databases/$(database)/documents/kullanicilar/$(uid)/kategoriler/$(request.resource.data.kategoriId))
+          && exists(/databases/$(database)/documents/kullanicilar/$(uid)/odeme_yontemleri/$(request.resource.data.odemeYontemiId));
+      }
+    }
+  }
+}

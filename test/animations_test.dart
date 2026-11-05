@@ -12,6 +12,8 @@ import 'package:flutter_ders/app/views/view_animations/animations_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 // DERS 6 — Rota geçiş animasyonları.
 void main() {
   setUp(() async {
@@ -39,10 +41,9 @@ void main() {
     tester,
   ) async {
     await pump(tester);
-    await tester.ensureVisible(
-      find.byKey(const Key('expensesView_animations')),
-    );
-    await tester.tap(find.byKey(const Key('expensesView_animations')));
+    await openLessonsHub(tester);
+    await tester.ensureVisible(find.byKey(const Key('lessons_animations')));
+    await tester.tap(find.byKey(const Key('lessons_animations')));
     await tester.pumpAndSettle();
     expect(find.byType(AnimationsView), findsOneWidget);
 

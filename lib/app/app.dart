@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/analytics/app_analytics.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
+import 'package:flutter_ders/app/core/firebase/app_config_cubit.dart';
+import 'package:flutter_ders/app/core/firebase/session_cubit.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
+import 'package:flutter_ders/app/widgets/app_gate.dart';
 
 /// Kök widget: uygulama genelindeki cubit, tema ve yönlendirme.
 class HarcamaApp extends StatefulWidget {
@@ -37,10 +41,21 @@ class _HarcamaAppState extends State<HarcamaApp> {
   StreamSubscription<NetworkResult>? _network;
   bool _bannerShown = false;
 
+  // DERS 18 — Remote Config ayarları ve oturum: tüm uygulamanın üstünde.
+  final AppConfigCubit _config = getIt<AppConfigCubit>();
+  final SessionCubit _session = getIt<SessionCubit>();
+  StreamSubscription<String?>? _sessionSub;
+
   @override
   void initState() {
     super.initState();
+    unawaited(_config.start());
     unawaited(_expenses.load());
+    // Harcamalar oturuma bağlı (Firestore): giriş/çıkışta yeniden okunur.
+    _sessionSub = _session.stream
+        .map((s) => s.user?.uid)
+        .distinct()
+        .listen((_) => _expenses.load());
     if (widget.watchNetwork) {
       _network = getIt<NetworkChecker>().watch().listen(_onNetwork);
     }
@@ -92,6 +107,7 @@ class _HarcamaAppState extends State<HarcamaApp> {
   @override
   void dispose() {
     unawaited(_network?.cancel());
+    unawaited(_sessionSub?.cancel());
     _router.dispose();
     unawaited(_expenses.close());
     super.dispose();
@@ -99,17 +115,31 @@ class _HarcamaAppState extends State<HarcamaApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ExpensesCubit>.value(
-      value: _expenses,
-      child: MaterialApp.router(
-        title: 'Harcama Takibim',
-        debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: _messenger,
-        theme: AppTheme.light(),
-        // auto_route; RouterDelegate, parser ve geri tuşunu kendisi kurar.
-        // Gelen linkler önce beyaz listeden geçer (app_deep_links.dart).
-        routerConfig: _router.config(
-          deepLinkTransformer: AppDeepLinks.transform,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ExpensesCubit>.value(value: _expenses),
+        BlocProvider<AppConfigCubit>.value(value: _config),
+        BlocProvider<SessionCubit>.value(value: _session),
+      ],
+      child: BlocBuilder<AppConfigCubit, AppConfigState>(
+        // Yalnız tasarım ya da uygulama adı değişince tema yeniden kurulur.
+        buildWhen: (a, b) =>
+            a.config.design != b.config.design ||
+            a.t('uygulama.ad') != b.t('uygulama.ad'),
+        builder: (context, config) => MaterialApp.router(
+          title: config.t('uygulama.ad'),
+          debugShowCheckedModeBanner: false,
+          scaffoldMessengerKey: _messenger,
+          theme: AppTheme.light(config.config.design),
+          // Sürüm kilidi ve giriş ekranı yönlendiricinin önünde durur.
+          builder: (context, child) => AppGate(child: child!),
+          // auto_route; RouterDelegate, parser ve geri tuşunu kendisi kurar.
+          // Gelen linkler önce beyaz listeden geçer (app_deep_links.dart).
+          routerConfig: _router.config(
+            deepLinkTransformer: AppDeepLinks.transform,
+            // Ekran geçişleri Firebase Analytics'e screen_view olarak gider.
+            navigatorObservers: () => [AnalyticsRouteObserver(getIt())],
+          ),
         ),
       ),
     );

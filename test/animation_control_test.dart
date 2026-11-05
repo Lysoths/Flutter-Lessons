@@ -8,6 +8,8 @@ import 'package:flutter_ders/app/views/view_animation_control/widgets/pulse_effe
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 // DERS 8 — AnimationController ile animasyon kontrolü.
 void main() {
   setUp(() async {
@@ -36,7 +38,8 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_animationControl'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_animationControl'));
     await tester.scrollUntilVisible(
       card,
       200,

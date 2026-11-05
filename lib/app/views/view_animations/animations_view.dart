@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/core/router/route_transitions.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -25,6 +26,7 @@ class _AnimationsViewState extends State<AnimationsView> {
   bool _slowMotion = false;
 
   void _setSlowMotion(bool value) {
+    track(AppEvent.slowMotionToggled, value ? 'acik' : 'kapali');
     // timeDilation tüm animasyonları yavaşlatır (5 = beş kat yavaş).
     setState(() => _slowMotion = value);
     timeDilation = value ? 5 : 1;
@@ -64,8 +66,10 @@ class _AnimationsViewState extends State<AnimationsView> {
               child: _AnimationTile(
                 number: i + 1,
                 animation: a,
-                onTap: () =>
-                    context.router.push(AnimationDemoRoute(senaryo: a.name)),
+                onTap: () {
+                  track(AppEvent.transitionOpened, a.name);
+                  context.router.push(AnimationDemoRoute(senaryo: a.name));
+                },
               ),
             ),
         ],

@@ -15,6 +15,8 @@ import 'package:flutter_ders/app/views/view_retrofit/cubit/retrofit_lab_state.da
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 const _post = {'id': 1, 'userId': 1, 'title': 'Başlık', 'body': 'Metin'};
 
 /// Gerçek ağa çıkmadan cevap veren bağdaştırıcı; gelen istekleri saklar.
@@ -288,7 +290,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_retrofit'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_retrofit'));
     await tester.scrollUntilVisible(
       card,
       200,

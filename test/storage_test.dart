@@ -15,6 +15,8 @@ import 'package:hive_ce/hive_ce.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+import 'support/lessons.dart';
+
 // DERS 10 — Yerel depolama: aynı kayıt, üç yöntem.
 void main() {
   final older = StorageNote(
@@ -255,7 +257,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_storage'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_storage'));
     await tester.scrollUntilVisible(
       card,
       200,

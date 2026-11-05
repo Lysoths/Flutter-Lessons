@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_bloc.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/repository/network_info_repository.dart';
@@ -24,10 +25,10 @@ class NetworkInfoBloc
     required this.location,
   }) : super(const NetworkInfoState()) {
     on<NetworkInfoStarted>(_start);
-    on<NetworkInfoRefreshed>(
-      (_, emit) => _loadAll(emit),
-      transformer: droppable(),
-    );
+    on<NetworkInfoRefreshed>((_, emit) {
+      track(AppEvent.networkInfoRefreshed);
+      return _loadAll(emit);
+    }, transformer: droppable());
     // Wi-Fi ↔ mobil geçişinde art arda olay gelebilir; yalnızca sonuncusu
     // işlenir, öncekinin okuması iptal edilir.
     on<NetworkConnectivityChanged>(_changed, transformer: restartable());
@@ -76,6 +77,7 @@ class NetworkInfoBloc
     NetworkWifiAccessRequested event,
     Emitter<NetworkInfoState> emit,
   ) async {
+    track(AppEvent.wifiAccessRequested);
     final access = await location.requestAccess();
     emit(state.copyWith(wifiAccess: access));
     await _loadLocal(emit);

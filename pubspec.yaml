@@ -64,6 +64,14 @@ dependencies:
   dartssh2: ^4.1.0
   path_provider: ^2.1.6
   crypto: ^3.0.8
+  firebase_core: ^5.1.0
+  firebase_analytics: ^13.0.1
+  firebase_auth: ^7.0.1
+  firebase_crashlytics: ^6.0.1
+  firebase_app_check: ^0.5.1
+  firebase_remote_config: ^7.0.1
+  google_sign_in: ^7.2.0
+  cloud_firestore: ^7.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -95,6 +103,7 @@ flutter:
 
   # Ders 5: uygulamaya gömülü belgeler (PDF, görsel, ses)
   assets:
+    - remoteconfig.template.json
     - assets/belgeler/
     - assets/data/
     - assets/lottie/

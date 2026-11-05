@@ -353,6 +353,22 @@ class ExpensesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FirebaseView]
+class FirebaseRoute extends PageRouteInfo<void> {
+  const FirebaseRoute({List<PageRouteInfo>? children})
+    : super(FirebaseRoute.name, initialChildren: children);
+
+  static const String name = 'FirebaseRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FirebaseView();
+    },
+  );
+}
+
+/// generated route for
 /// [HiveStorageView]
 class HiveStorageRoute extends PageRouteInfo<void> {
   const HiveStorageRoute({List<PageRouteInfo>? children})
@@ -429,6 +445,22 @@ class ImageViewerRouteArgs {
 
   @override
   int get hashCode => document.hashCode ^ key.hashCode;
+}
+
+/// generated route for
+/// [LessonsView]
+class LessonsRoute extends PageRouteInfo<void> {
+  const LessonsRoute({List<PageRouteInfo>? children})
+    : super(LessonsRoute.name, initialChildren: children);
+
+  static const String name = 'LessonsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LessonsView();
+    },
+  );
 }
 
 /// generated route for

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/views/view_currency/view_model/currency_view_model.dart';
 import 'package:flutter_ders/app/views/view_currency/widgets/history_section.dart';
@@ -81,13 +82,21 @@ class _CurrencyPage extends StatelessWidget {
           IconButton(
             key: const Key('currency_refresh'),
             tooltip: 'Hepsini yenile',
-            onPressed: busy ? null : vm.refreshAll,
+            onPressed: busy
+                ? null
+                : () {
+                    track(AppEvent.currencyRefreshed);
+                    vm.refreshAll();
+                  },
             icon: const Icon(Icons.refresh_rounded),
           ),
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: vm.refreshAll,
+        onRefresh: () {
+          track(AppEvent.currencyRefreshed);
+          return vm.refreshAll();
+        },
         child: CustomScrollView(
           key: const Key('currency_scroll'),
           slivers: [

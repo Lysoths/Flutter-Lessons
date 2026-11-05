@@ -1,0 +1,6192 @@
+{
+ "surum": 2,
+ "kategoriler": [
+  {
+   "id": "food",
+   "ad": "Yemek",
+   "ikon": "restaurant",
+   "renk": "#F97316",
+   "sira": 1
+  },
+  {
+   "id": "transport",
+   "ad": "Ulaşım",
+   "ikon": "directions_bus",
+   "renk": "#2563EB",
+   "sira": 2
+  },
+  {
+   "id": "bills",
+   "ad": "Fatura",
+   "ikon": "receipt_long",
+   "renk": "#DC2626",
+   "sira": 3
+  },
+  {
+   "id": "fun",
+   "ad": "Eğlence",
+   "ikon": "celebration",
+   "renk": "#9333EA",
+   "sira": 4
+  },
+  {
+   "id": "other",
+   "ad": "Diğer",
+   "ikon": "more_horiz",
+   "renk": "#64748B",
+   "sira": 5
+  }
+ ],
+ "odeme_yontemleri": [
+  {
+   "id": "nakit",
+   "ad": "Nakit",
+   "tur": "nakit"
+  },
+  {
+   "id": "kredi_karti",
+   "ad": "Kredi kartı",
+   "tur": "kart"
+  },
+  {
+   "id": "banka_karti",
+   "ad": "Banka kartı",
+   "tur": "kart"
+  },
+  {
+   "id": "yemek_karti",
+   "ad": "Yemek kartı",
+   "tur": "kart"
+  },
+  {
+   "id": "havale",
+   "ad": "Havale / EFT",
+   "tur": "havale"
+  }
+ ],
+ "etiketler": [
+  {
+   "id": "is",
+   "ad": "İş"
+  },
+  {
+   "id": "aile",
+   "ad": "Aile"
+  },
+  {
+   "id": "aylik",
+   "ad": "Aylık"
+  },
+  {
+   "id": "indirim",
+   "ad": "İndirimli"
+  },
+  {
+   "id": "hafta_sonu",
+   "ad": "Hafta sonu"
+  },
+  {
+   "id": "acil",
+   "ad": "Acil"
+  },
+  {
+   "id": "hediye",
+   "ad": "Hediye"
+  },
+  {
+   "id": "saglik",
+   "ad": "Sağlık"
+  }
+ ],
+ "magazalar": [
+  {
+   "id": "mahalle_market",
+   "ad": "Mahalle Market",
+   "kategoriId": "food"
+  },
+  {
+   "id": "zincir_market",
+   "ad": "Zincir Market",
+   "kategoriId": "food"
+  },
+  {
+   "id": "kose_kafe",
+   "ad": "Köşe Kafe",
+   "kategoriId": "food"
+  },
+  {
+   "id": "esnaf_lokanta",
+   "ad": "Esnaf Lokantası",
+   "kategoriId": "food"
+  },
+  {
+   "id": "firin",
+   "ad": "Fırın",
+   "kategoriId": "food"
+  },
+  {
+   "id": "paket_servis",
+   "ad": "Paket Servis",
+   "kategoriId": "food"
+  },
+  {
+   "id": "toplu_tasima",
+   "ad": "Toplu Taşıma Kart Dolum",
+   "kategoriId": "transport"
+  },
+  {
+   "id": "taksi",
+   "ad": "Taksi",
+   "kategoriId": "transport"
+  },
+  {
+   "id": "akaryakit",
+   "ad": "Akaryakıt İstasyonu",
+   "kategoriId": "transport"
+  },
+  {
+   "id": "otopark",
+   "ad": "Otopark",
+   "kategoriId": "transport"
+  },
+  {
+   "id": "elektrik",
+   "ad": "Elektrik Dağıtım",
+   "kategoriId": "bills"
+  },
+  {
+   "id": "dogalgaz",
+   "ad": "Doğal Gaz",
+   "kategoriId": "bills"
+  },
+  {
+   "id": "su",
+   "ad": "Su İdaresi",
+   "kategoriId": "bills"
+  },
+  {
+   "id": "internet",
+   "ad": "Ev İnterneti",
+   "kategoriId": "bills"
+  },
+  {
+   "id": "mobil_hat",
+   "ad": "Mobil Hat",
+   "kategoriId": "bills"
+  },
+  {
+   "id": "sinema",
+   "ad": "Sinema Salonu",
+   "kategoriId": "fun"
+  },
+  {
+   "id": "konser",
+   "ad": "Konser Salonu",
+   "kategoriId": "fun"
+  },
+  {
+   "id": "dijital_abonelik",
+   "ad": "Dijital Abonelik",
+   "kategoriId": "fun"
+  },
+  {
+   "id": "kitapci",
+   "ad": "Kitapçı",
+   "kategoriId": "fun"
+  },
+  {
+   "id": "spor_salonu",
+   "ad": "Spor Salonu",
+   "kategoriId": "fun"
+  },
+  {
+   "id": "kirtasiye",
+   "ad": "Kırtasiye",
+   "kategoriId": "other"
+  },
+  {
+   "id": "eczane",
+   "ad": "Eczane",
+   "kategoriId": "other"
+  },
+  {
+   "id": "kuafor",
+   "ad": "Kuaför",
+   "kategoriId": "other"
+  },
+  {
+   "id": "hediyelik",
+   "ad": "Hediyelik Eşya",
+   "kategoriId": "other"
+  }
+ ],
+ "butceler": [
+  {
+   "id": "2026-06_food",
+   "kategoriId": "food",
+   "ay": "2026-06",
+   "limit": 9000
+  },
+  {
+   "id": "2026-06_transport",
+   "kategoriId": "transport",
+   "ay": "2026-06",
+   "limit": 3500
+  },
+  {
+   "id": "2026-06_bills",
+   "kategoriId": "bills",
+   "ay": "2026-06",
+   "limit": 4500
+  },
+  {
+   "id": "2026-06_fun",
+   "kategoriId": "fun",
+   "ay": "2026-06",
+   "limit": 3000
+  },
+  {
+   "id": "2026-06_other",
+   "kategoriId": "other",
+   "ay": "2026-06",
+   "limit": 1500
+  },
+  {
+   "id": "2026-07_food",
+   "kategoriId": "food",
+   "ay": "2026-07",
+   "limit": 9000
+  },
+  {
+   "id": "2026-07_transport",
+   "kategoriId": "transport",
+   "ay": "2026-07",
+   "limit": 3500
+  },
+  {
+   "id": "2026-07_bills",
+   "kategoriId": "bills",
+   "ay": "2026-07",
+   "limit": 4500
+  },
+  {
+   "id": "2026-07_fun",
+   "kategoriId": "fun",
+   "ay": "2026-07",
+   "limit": 3000
+  },
+  {
+   "id": "2026-07_other",
+   "kategoriId": "other",
+   "ay": "2026-07",
+   "limit": 1500
+  },
+  {
+   "id": "2026-08_food",
+   "kategoriId": "food",
+   "ay": "2026-08",
+   "limit": 9000
+  },
+  {
+   "id": "2026-08_transport",
+   "kategoriId": "transport",
+   "ay": "2026-08",
+   "limit": 3500
+  },
+  {
+   "id": "2026-08_bills",
+   "kategoriId": "bills",
+   "ay": "2026-08",
+   "limit": 4500
+  },
+  {
+   "id": "2026-08_fun",
+   "kategoriId": "fun",
+   "ay": "2026-08",
+   "limit": 3000
+  },
+  {
+   "id": "2026-08_other",
+   "kategoriId": "other",
+   "ay": "2026-08",
+   "limit": 1500
+  },
+  {
+   "id": "2026-09_food",
+   "kategoriId": "food",
+   "ay": "2026-09",
+   "limit": 9000
+  },
+  {
+   "id": "2026-09_transport",
+   "kategoriId": "transport",
+   "ay": "2026-09",
+   "limit": 3500
+  },
+  {
+   "id": "2026-09_bills",
+   "kategoriId": "bills",
+   "ay": "2026-09",
+   "limit": 4500
+  },
+  {
+   "id": "2026-09_fun",
+   "kategoriId": "fun",
+   "ay": "2026-09",
+   "limit": 3000
+  },
+  {
+   "id": "2026-09_other",
+   "kategoriId": "other",
+   "ay": "2026-09",
+   "limit": 1500
+  },
+  {
+   "id": "2026-10_food",
+   "kategoriId": "food",
+   "ay": "2026-10",
+   "limit": 9000
+  },
+  {
+   "id": "2026-10_transport",
+   "kategoriId": "transport",
+   "ay": "2026-10",
+   "limit": 3500
+  },
+  {
+   "id": "2026-10_bills",
+   "kategoriId": "bills",
+   "ay": "2026-10",
+   "limit": 4500
+  },
+  {
+   "id": "2026-10_fun",
+   "kategoriId": "fun",
+   "ay": "2026-10",
+   "limit": 3000
+  },
+  {
+   "id": "2026-10_other",
+   "kategoriId": "other",
+   "ay": "2026-10",
+   "limit": 1500
+  },
+  {
+   "id": "2026-11_food",
+   "kategoriId": "food",
+   "ay": "2026-11",
+   "limit": 9000
+  },
+  {
+   "id": "2026-11_transport",
+   "kategoriId": "transport",
+   "ay": "2026-11",
+   "limit": 3500
+  },
+  {
+   "id": "2026-11_bills",
+   "kategoriId": "bills",
+   "ay": "2026-11",
+   "limit": 4500
+  },
+  {
+   "id": "2026-11_fun",
+   "kategoriId": "fun",
+   "ay": "2026-11",
+   "limit": 3000
+  },
+  {
+   "id": "2026-11_other",
+   "kategoriId": "other",
+   "ay": "2026-11",
+   "limit": 1500
+  }
+ ],
+ "harcamalar": [
+  {
+   "id": "h001",
+   "tutar": 267.04,
+   "tarih": "2026-06-01T09:15+03:00",
+   "not": "İlaç",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h002",
+   "tutar": 750,
+   "tarih": "2026-06-01T10:20+03:00",
+   "not": "Spor salonu üyeliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "spor_salonu",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h003",
+   "tutar": 152.23,
+   "tarih": "2026-06-01T14:45+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h004",
+   "tutar": 649.62,
+   "tarih": "2026-06-01T15:25+03:00",
+   "not": "Doğum günü hediyesi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye"
+   ]
+  },
+  {
+   "id": "h005",
+   "tutar": 197.18,
+   "tarih": "2026-06-01T19:40+03:00",
+   "not": "İlaç",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h006",
+   "tutar": 48.7,
+   "tarih": "2026-06-01T20:25+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h007",
+   "tutar": 382.43,
+   "tarih": "2026-06-01T21:30+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h008",
+   "tutar": 147.24,
+   "tarih": "2026-06-02T09:15+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "is"
+   ]
+  },
+  {
+   "id": "h009",
+   "tutar": 1309.25,
+   "tarih": "2026-06-02T10:35+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h010",
+   "tutar": 267.73,
+   "tarih": "2026-06-02T15:10+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h011",
+   "tutar": 449.9,
+   "tarih": "2026-06-02T18:45+03:00",
+   "not": "Ev interneti",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "internet",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h012",
+   "tutar": 145.86,
+   "tarih": "2026-06-03T09:10+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h013",
+   "tutar": 70.32,
+   "tarih": "2026-06-03T10:10+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h014",
+   "tutar": 254.82,
+   "tarih": "2026-06-03T11:05+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h015",
+   "tutar": 1195.29,
+   "tarih": "2026-06-03T12:05+03:00",
+   "not": "Elektrik faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "elektrik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h016",
+   "tutar": 115.72,
+   "tarih": "2026-06-04T12:25+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h017",
+   "tutar": 188.83,
+   "tarih": "2026-06-04T16:30+03:00",
+   "not": "İki kişilik sinema",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h018",
+   "tutar": 156.72,
+   "tarih": "2026-06-04T17:55+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h019",
+   "tutar": 272.16,
+   "tarih": "2026-06-05T11:30+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h020",
+   "tutar": 1374.04,
+   "tarih": "2026-06-05T20:10+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h021",
+   "tutar": 1185.56,
+   "tarih": "2026-06-05T22:10+03:00",
+   "not": "Doğal gaz faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dogalgaz",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h022",
+   "tutar": 197.48,
+   "tarih": "2026-06-06T07:05+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h023",
+   "tutar": 193.07,
+   "tarih": "2026-06-06T11:10+03:00",
+   "not": "Defter ve kalem",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kirtasiye",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h024",
+   "tutar": 200.19,
+   "tarih": "2026-06-06T14:35+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h025",
+   "tutar": 242.61,
+   "tarih": "2026-06-06T15:15+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h026",
+   "tutar": 361.97,
+   "tarih": "2026-06-06T17:20+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h027",
+   "tutar": 323.06,
+   "tarih": "2026-06-06T19:05+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h028",
+   "tutar": 73.64,
+   "tarih": "2026-06-07T11:50+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h029",
+   "tutar": 31.88,
+   "tarih": "2026-06-07T19:50+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h030",
+   "tutar": 407.62,
+   "tarih": "2026-06-08T09:00+03:00",
+   "not": "Doğum günü hediyesi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye"
+   ]
+  },
+  {
+   "id": "h031",
+   "tutar": 290.97,
+   "tarih": "2026-06-08T10:25+03:00",
+   "not": "Su faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "su",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h032",
+   "tutar": 69.39,
+   "tarih": "2026-06-08T11:10+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h033",
+   "tutar": 809.91,
+   "tarih": "2026-06-08T11:30+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h034",
+   "tutar": 79.17,
+   "tarih": "2026-06-08T19:40+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "is"
+   ]
+  },
+  {
+   "id": "h035",
+   "tutar": 851.03,
+   "tarih": "2026-06-09T09:00+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h036",
+   "tutar": 16.0,
+   "tarih": "2026-06-09T09:50+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h037",
+   "tutar": 402.56,
+   "tarih": "2026-06-09T13:30+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h038",
+   "tutar": 56.1,
+   "tarih": "2026-06-09T21:25+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h039",
+   "tutar": 179.54,
+   "tarih": "2026-06-10T13:30+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h040",
+   "tutar": 74.65,
+   "tarih": "2026-06-10T15:00+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h041",
+   "tutar": 432.99,
+   "tarih": "2026-06-10T19:10+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h042",
+   "tutar": 457.73,
+   "tarih": "2026-06-10T19:30+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h043",
+   "tutar": 248.37,
+   "tarih": "2026-06-11T08:00+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h044",
+   "tutar": 278.33,
+   "tarih": "2026-06-11T10:20+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h045",
+   "tutar": 335.62,
+   "tarih": "2026-06-11T16:00+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h046",
+   "tutar": 299,
+   "tarih": "2026-06-12T07:25+03:00",
+   "not": "Telefon faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mobil_hat",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h047",
+   "tutar": 142.74,
+   "tarih": "2026-06-12T08:15+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h048",
+   "tutar": 49.47,
+   "tarih": "2026-06-12T20:55+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h049",
+   "tutar": 97.55,
+   "tarih": "2026-06-13T08:40+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h050",
+   "tutar": 1830.92,
+   "tarih": "2026-06-13T18:25+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h051",
+   "tutar": 537.11,
+   "tarih": "2026-06-15T10:55+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h052",
+   "tutar": 71.25,
+   "tarih": "2026-06-15T15:20+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h053",
+   "tutar": 190.71,
+   "tarih": "2026-06-15T18:45+03:00",
+   "not": "Dizi aboneliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dijital_abonelik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h054",
+   "tutar": 397.29,
+   "tarih": "2026-06-16T08:20+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h055",
+   "tutar": 999.57,
+   "tarih": "2026-06-16T20:10+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h056",
+   "tutar": 382.1,
+   "tarih": "2026-06-17T17:00+03:00",
+   "not": "Vitamin",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "indirim",
+    "saglik"
+   ]
+  },
+  {
+   "id": "h057",
+   "tutar": 691.23,
+   "tarih": "2026-06-17T22:35+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h058",
+   "tutar": 48.99,
+   "tarih": "2026-06-18T09:00+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h059",
+   "tutar": 1005.71,
+   "tarih": "2026-06-18T10:05+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h060",
+   "tutar": 547.82,
+   "tarih": "2026-06-19T07:45+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h061",
+   "tutar": 418.38,
+   "tarih": "2026-06-21T12:15+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h062",
+   "tutar": 72.45,
+   "tarih": "2026-06-21T16:15+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h063",
+   "tutar": 1628.43,
+   "tarih": "2026-06-22T09:30+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h064",
+   "tutar": 90.22,
+   "tarih": "2026-06-22T14:35+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h065",
+   "tutar": 206.63,
+   "tarih": "2026-06-22T14:45+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h066",
+   "tutar": 82.6,
+   "tarih": "2026-06-22T15:20+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h067",
+   "tutar": 134.83,
+   "tarih": "2026-06-22T17:25+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h068",
+   "tutar": 1423.51,
+   "tarih": "2026-06-22T20:35+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h069",
+   "tutar": 443.09,
+   "tarih": "2026-06-23T18:10+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "acil"
+   ]
+  },
+  {
+   "id": "h070",
+   "tutar": 17.67,
+   "tarih": "2026-06-24T07:45+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h071",
+   "tutar": 66.46,
+   "tarih": "2026-06-24T10:35+03:00",
+   "not": "Defter ve kalem",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kirtasiye",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h072",
+   "tutar": 1570.41,
+   "tarih": "2026-06-24T21:40+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h073",
+   "tutar": 174.53,
+   "tarih": "2026-06-25T22:50+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "indirim",
+    "is"
+   ]
+  },
+  {
+   "id": "h074",
+   "tutar": 331.24,
+   "tarih": "2026-06-26T15:15+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h075",
+   "tutar": 328.99,
+   "tarih": "2026-06-26T18:40+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h076",
+   "tutar": 693.83,
+   "tarih": "2026-06-26T19:10+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h077",
+   "tutar": 207.83,
+   "tarih": "2026-06-27T17:25+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h078",
+   "tutar": 128.91,
+   "tarih": "2026-06-27T18:25+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h079",
+   "tutar": 363.58,
+   "tarih": "2026-06-27T22:00+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h080",
+   "tutar": 506.8,
+   "tarih": "2026-06-28T08:40+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h081",
+   "tutar": 2124.36,
+   "tarih": "2026-06-28T12:50+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h082",
+   "tutar": 397.18,
+   "tarih": "2026-06-29T09:35+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h083",
+   "tutar": 187.98,
+   "tarih": "2026-06-29T09:40+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h084",
+   "tutar": 113.76,
+   "tarih": "2026-06-29T09:40+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h085",
+   "tutar": 445.82,
+   "tarih": "2026-06-29T20:15+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h086",
+   "tutar": 857.26,
+   "tarih": "2026-06-30T07:35+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h087",
+   "tutar": 1815.95,
+   "tarih": "2026-06-30T11:25+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h088",
+   "tutar": 288.9,
+   "tarih": "2026-06-30T16:50+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h089",
+   "tutar": 153.09,
+   "tarih": "2026-07-01T12:20+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h090",
+   "tutar": 332.79,
+   "tarih": "2026-07-01T12:55+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h091",
+   "tutar": 750,
+   "tarih": "2026-07-01T18:10+03:00",
+   "not": "Spor salonu üyeliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "spor_salonu",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h092",
+   "tutar": 392.06,
+   "tarih": "2026-07-01T20:40+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h093",
+   "tutar": 368.41,
+   "tarih": "2026-07-02T08:50+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h094",
+   "tutar": 449.9,
+   "tarih": "2026-07-02T09:40+03:00",
+   "not": "Ev interneti",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "internet",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h095",
+   "tutar": 1604.65,
+   "tarih": "2026-07-02T20:15+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h096",
+   "tutar": 774.88,
+   "tarih": "2026-07-03T10:50+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h097",
+   "tutar": 786.15,
+   "tarih": "2026-07-03T12:15+03:00",
+   "not": "Elektrik faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "elektrik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h098",
+   "tutar": 54.49,
+   "tarih": "2026-07-03T12:50+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h099",
+   "tutar": 936.71,
+   "tarih": "2026-07-03T13:50+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h100",
+   "tutar": 96.4,
+   "tarih": "2026-07-03T14:00+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h101",
+   "tutar": 1484.91,
+   "tarih": "2026-07-03T16:05+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h102",
+   "tutar": 770.85,
+   "tarih": "2026-07-03T21:30+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h103",
+   "tutar": 234.78,
+   "tarih": "2026-07-04T08:50+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h104",
+   "tutar": 576.76,
+   "tarih": "2026-07-04T17:10+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h105",
+   "tutar": 261.29,
+   "tarih": "2026-07-04T17:20+03:00",
+   "not": "Vitamin",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "saglik"
+   ]
+  },
+  {
+   "id": "h106",
+   "tutar": 621.01,
+   "tarih": "2026-07-05T09:30+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h107",
+   "tutar": 642.41,
+   "tarih": "2026-07-05T10:55+03:00",
+   "not": "Doğal gaz faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dogalgaz",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h108",
+   "tutar": 132.58,
+   "tarih": "2026-07-05T11:05+03:00",
+   "not": "Kitap",
+   "kategoriId": "fun",
+   "odemeYontemiId": "banka_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h109",
+   "tutar": 431.24,
+   "tarih": "2026-07-05T12:10+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h110",
+   "tutar": 1852.38,
+   "tarih": "2026-07-05T17:30+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h111",
+   "tutar": 184.65,
+   "tarih": "2026-07-07T13:40+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h112",
+   "tutar": 629.68,
+   "tarih": "2026-07-07T16:15+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h113",
+   "tutar": 945.48,
+   "tarih": "2026-07-07T20:25+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h114",
+   "tutar": 1419.09,
+   "tarih": "2026-07-08T13:55+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h115",
+   "tutar": 101.26,
+   "tarih": "2026-07-08T18:10+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h116",
+   "tutar": 282.75,
+   "tarih": "2026-07-08T22:05+03:00",
+   "not": "Su faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "su",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h117",
+   "tutar": 602.09,
+   "tarih": "2026-07-09T19:45+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h118",
+   "tutar": 183.83,
+   "tarih": "2026-07-10T08:05+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h119",
+   "tutar": 945.86,
+   "tarih": "2026-07-10T14:05+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h120",
+   "tutar": 408.99,
+   "tarih": "2026-07-10T21:35+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h121",
+   "tutar": 261.17,
+   "tarih": "2026-07-11T14:50+03:00",
+   "not": "Sinema bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h122",
+   "tutar": 799.81,
+   "tarih": "2026-07-11T15:45+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h123",
+   "tutar": 599.49,
+   "tarih": "2026-07-12T07:30+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h124",
+   "tutar": 91.26,
+   "tarih": "2026-07-12T18:25+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h125",
+   "tutar": 299,
+   "tarih": "2026-07-12T19:45+03:00",
+   "not": "Telefon faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mobil_hat",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h126",
+   "tutar": 304.44,
+   "tarih": "2026-07-13T07:00+03:00",
+   "not": "Dergi ve kitap",
+   "kategoriId": "fun",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kitapci",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h127",
+   "tutar": 725.13,
+   "tarih": "2026-07-13T21:00+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h128",
+   "tutar": 2277.91,
+   "tarih": "2026-07-13T22:40+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h129",
+   "tutar": 2011.1,
+   "tarih": "2026-07-14T21:15+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h130",
+   "tutar": 126.13,
+   "tarih": "2026-07-15T10:00+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h131",
+   "tutar": 128.02,
+   "tarih": "2026-07-15T19:30+03:00",
+   "not": "Dizi aboneliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dijital_abonelik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h132",
+   "tutar": 152.04,
+   "tarih": "2026-07-15T20:40+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h133",
+   "tutar": 544.08,
+   "tarih": "2026-07-16T09:00+03:00",
+   "not": "Vitamin",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h134",
+   "tutar": 665.29,
+   "tarih": "2026-07-17T16:50+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h135",
+   "tutar": 167.19,
+   "tarih": "2026-07-19T07:40+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h136",
+   "tutar": 291.89,
+   "tarih": "2026-07-19T09:25+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h137",
+   "tutar": 335.8,
+   "tarih": "2026-07-19T14:15+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h138",
+   "tutar": 538.08,
+   "tarih": "2026-07-19T15:45+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h139",
+   "tutar": 737.0,
+   "tarih": "2026-07-19T18:50+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h140",
+   "tutar": 177.32,
+   "tarih": "2026-07-20T07:30+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h141",
+   "tutar": 160.58,
+   "tarih": "2026-07-20T10:40+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h142",
+   "tutar": 153.37,
+   "tarih": "2026-07-20T20:55+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h143",
+   "tutar": 347.77,
+   "tarih": "2026-07-21T08:15+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h144",
+   "tutar": 45.42,
+   "tarih": "2026-07-22T07:25+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h145",
+   "tutar": 530.9,
+   "tarih": "2026-07-22T08:10+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h146",
+   "tutar": 154.65,
+   "tarih": "2026-07-22T08:45+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h147",
+   "tutar": 334.44,
+   "tarih": "2026-07-22T09:25+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h148",
+   "tutar": 2132.24,
+   "tarih": "2026-07-22T15:50+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h149",
+   "tutar": 180.01,
+   "tarih": "2026-07-22T16:30+03:00",
+   "not": "İki kişilik sinema",
+   "kategoriId": "fun",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h150",
+   "tutar": 60.58,
+   "tarih": "2026-07-23T08:35+03:00",
+   "not": "Defter ve kalem",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kirtasiye",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h151",
+   "tutar": 1485.96,
+   "tarih": "2026-07-23T09:15+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h152",
+   "tutar": 121.6,
+   "tarih": "2026-07-23T11:05+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h153",
+   "tutar": 87.1,
+   "tarih": "2026-07-23T17:35+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h154",
+   "tutar": 107.92,
+   "tarih": "2026-07-25T09:45+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h155",
+   "tutar": 528.02,
+   "tarih": "2026-07-25T11:10+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h156",
+   "tutar": 1865.23,
+   "tarih": "2026-07-25T11:35+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h157",
+   "tutar": 1385.68,
+   "tarih": "2026-07-26T13:00+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h158",
+   "tutar": 838.66,
+   "tarih": "2026-07-26T19:45+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h159",
+   "tutar": 674.8,
+   "tarih": "2026-07-27T13:50+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h160",
+   "tutar": 153.74,
+   "tarih": "2026-07-27T13:55+03:00",
+   "not": "Doğum günü hediyesi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h161",
+   "tutar": 431.73,
+   "tarih": "2026-07-27T19:40+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h162",
+   "tutar": 624.88,
+   "tarih": "2026-07-28T13:40+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h163",
+   "tutar": 449.33,
+   "tarih": "2026-07-28T18:25+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h164",
+   "tutar": 485.92,
+   "tarih": "2026-07-29T13:30+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h165",
+   "tutar": 30.4,
+   "tarih": "2026-07-30T13:35+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h166",
+   "tutar": 255.11,
+   "tarih": "2026-07-30T16:30+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h167",
+   "tutar": 186.41,
+   "tarih": "2026-07-30T16:35+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h168",
+   "tutar": 238.5,
+   "tarih": "2026-07-30T21:45+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h169",
+   "tutar": 333.14,
+   "tarih": "2026-07-30T22:35+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h170",
+   "tutar": 106.93,
+   "tarih": "2026-07-31T08:55+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h171",
+   "tutar": 99.94,
+   "tarih": "2026-07-31T09:50+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h172",
+   "tutar": 169.41,
+   "tarih": "2026-07-31T15:00+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h173",
+   "tutar": 750,
+   "tarih": "2026-08-01T09:25+03:00",
+   "not": "Spor salonu üyeliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "spor_salonu",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h174",
+   "tutar": 116.21,
+   "tarih": "2026-08-01T12:10+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h175",
+   "tutar": 1995.61,
+   "tarih": "2026-08-01T14:15+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h176",
+   "tutar": 227.56,
+   "tarih": "2026-08-01T19:00+03:00",
+   "not": "Defter ve kalem",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kirtasiye",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h177",
+   "tutar": 57.13,
+   "tarih": "2026-08-01T20:30+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h178",
+   "tutar": 261.69,
+   "tarih": "2026-08-02T07:25+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h179",
+   "tutar": 462.2,
+   "tarih": "2026-08-02T08:30+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h180",
+   "tutar": 449.9,
+   "tarih": "2026-08-02T11:15+03:00",
+   "not": "Ev interneti",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "internet",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h181",
+   "tutar": 66.78,
+   "tarih": "2026-08-02T16:15+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h182",
+   "tutar": 1494.92,
+   "tarih": "2026-08-03T11:30+03:00",
+   "not": "Elektrik faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "elektrik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h183",
+   "tutar": 1506.73,
+   "tarih": "2026-08-03T16:00+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h184",
+   "tutar": 333.98,
+   "tarih": "2026-08-03T19:25+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h185",
+   "tutar": 103.66,
+   "tarih": "2026-08-04T08:45+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h186",
+   "tutar": 2227.9,
+   "tarih": "2026-08-04T20:55+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h187",
+   "tutar": 45.05,
+   "tarih": "2026-08-05T08:40+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h188",
+   "tutar": 849.89,
+   "tarih": "2026-08-05T12:50+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h189",
+   "tutar": 1253.12,
+   "tarih": "2026-08-05T20:00+03:00",
+   "not": "Doğal gaz faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "dogalgaz",
+   "etiketIdleri": [
+    "aylik",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h190",
+   "tutar": 520.33,
+   "tarih": "2026-08-06T10:35+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h191",
+   "tutar": 352.27,
+   "tarih": "2026-08-06T11:55+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h192",
+   "tutar": 102.43,
+   "tarih": "2026-08-06T20:10+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h193",
+   "tutar": 618.93,
+   "tarih": "2026-08-07T09:45+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h194",
+   "tutar": 322.39,
+   "tarih": "2026-08-07T10:40+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h195",
+   "tutar": 510.57,
+   "tarih": "2026-08-07T13:50+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h196",
+   "tutar": 840.82,
+   "tarih": "2026-08-07T21:10+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h197",
+   "tutar": 565.08,
+   "tarih": "2026-08-07T22:05+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h198",
+   "tutar": 352.89,
+   "tarih": "2026-08-08T08:00+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h199",
+   "tutar": 350.55,
+   "tarih": "2026-08-08T15:30+03:00",
+   "not": "Su faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "su",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h200",
+   "tutar": 291.26,
+   "tarih": "2026-08-08T17:00+03:00",
+   "not": "Vitamin",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h201",
+   "tutar": 549.04,
+   "tarih": "2026-08-09T07:25+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h202",
+   "tutar": 160.17,
+   "tarih": "2026-08-09T07:30+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h203",
+   "tutar": 395.83,
+   "tarih": "2026-08-09T08:25+03:00",
+   "not": "Havalimanı yolu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "acil",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h204",
+   "tutar": 248.22,
+   "tarih": "2026-08-09T18:55+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h205",
+   "tutar": 137.29,
+   "tarih": "2026-08-09T20:05+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h206",
+   "tutar": 874.55,
+   "tarih": "2026-08-10T13:00+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h207",
+   "tutar": 1815.42,
+   "tarih": "2026-08-10T17:05+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h208",
+   "tutar": 222.43,
+   "tarih": "2026-08-11T10:55+03:00",
+   "not": "Havalimanı yolu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h209",
+   "tutar": 195.54,
+   "tarih": "2026-08-11T13:20+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h210",
+   "tutar": 330.28,
+   "tarih": "2026-08-11T18:20+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h211",
+   "tutar": 131.8,
+   "tarih": "2026-08-11T20:10+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h212",
+   "tutar": 209.32,
+   "tarih": "2026-08-11T20:30+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h213",
+   "tutar": 299,
+   "tarih": "2026-08-12T08:05+03:00",
+   "not": "Telefon faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mobil_hat",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h214",
+   "tutar": 1324.28,
+   "tarih": "2026-08-12T15:05+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h215",
+   "tutar": 321.85,
+   "tarih": "2026-08-12T18:15+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h216",
+   "tutar": 2182.27,
+   "tarih": "2026-08-13T12:50+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h217",
+   "tutar": 561.98,
+   "tarih": "2026-08-13T13:55+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h218",
+   "tutar": 196.77,
+   "tarih": "2026-08-13T21:15+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h219",
+   "tutar": 866.15,
+   "tarih": "2026-08-14T10:35+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h220",
+   "tutar": 249.24,
+   "tarih": "2026-08-14T16:15+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h221",
+   "tutar": 197.54,
+   "tarih": "2026-08-14T17:25+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h222",
+   "tutar": 348.24,
+   "tarih": "2026-08-14T21:35+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h223",
+   "tutar": 357.41,
+   "tarih": "2026-08-15T10:50+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h224",
+   "tutar": 216.0,
+   "tarih": "2026-08-15T11:45+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h225",
+   "tutar": 250.38,
+   "tarih": "2026-08-15T13:20+03:00",
+   "not": "Müzik aboneliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dijital_abonelik",
+   "etiketIdleri": [
+    "aylik",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h226",
+   "tutar": 258.9,
+   "tarih": "2026-08-15T14:50+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h227",
+   "tutar": 1588.81,
+   "tarih": "2026-08-15T19:10+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h228",
+   "tutar": 464.66,
+   "tarih": "2026-08-16T08:20+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h229",
+   "tutar": 354.77,
+   "tarih": "2026-08-16T18:50+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h230",
+   "tutar": 42.44,
+   "tarih": "2026-08-17T08:45+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h231",
+   "tutar": 1112.65,
+   "tarih": "2026-08-17T22:05+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h232",
+   "tutar": 372.02,
+   "tarih": "2026-08-18T07:00+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h233",
+   "tutar": 829.81,
+   "tarih": "2026-08-19T09:25+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h234",
+   "tutar": 63.15,
+   "tarih": "2026-08-20T09:30+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h235",
+   "tutar": 727.76,
+   "tarih": "2026-08-20T12:45+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h236",
+   "tutar": 128.94,
+   "tarih": "2026-08-20T14:05+03:00",
+   "not": "Kitap",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kitapci",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h237",
+   "tutar": 394.94,
+   "tarih": "2026-08-20T18:25+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h238",
+   "tutar": 205.32,
+   "tarih": "2026-08-21T07:25+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h239",
+   "tutar": 333.37,
+   "tarih": "2026-08-21T13:55+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h240",
+   "tutar": 150.55,
+   "tarih": "2026-08-21T18:40+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h241",
+   "tutar": 2110.68,
+   "tarih": "2026-08-22T11:55+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h242",
+   "tutar": 326.26,
+   "tarih": "2026-08-22T19:55+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h243",
+   "tutar": 136.42,
+   "tarih": "2026-08-22T22:50+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h244",
+   "tutar": 219.11,
+   "tarih": "2026-08-23T08:50+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h245",
+   "tutar": 345.46,
+   "tarih": "2026-08-23T09:55+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h246",
+   "tutar": 364.9,
+   "tarih": "2026-08-23T13:55+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h247",
+   "tutar": 170.68,
+   "tarih": "2026-08-23T15:20+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h248",
+   "tutar": 507.01,
+   "tarih": "2026-08-24T12:50+03:00",
+   "not": "Hediye",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye"
+   ]
+  },
+  {
+   "id": "h249",
+   "tutar": 464.53,
+   "tarih": "2026-08-24T13:35+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h250",
+   "tutar": 114.88,
+   "tarih": "2026-08-24T15:20+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h251",
+   "tutar": 214.06,
+   "tarih": "2026-08-25T16:35+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "indirim",
+    "is"
+   ]
+  },
+  {
+   "id": "h252",
+   "tutar": 75.88,
+   "tarih": "2026-08-26T10:30+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h253",
+   "tutar": 75.7,
+   "tarih": "2026-08-26T13:55+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h254",
+   "tutar": 101.31,
+   "tarih": "2026-08-26T17:45+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h255",
+   "tutar": 277.96,
+   "tarih": "2026-08-26T18:35+03:00",
+   "not": "Dergi ve kitap",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kitapci",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h256",
+   "tutar": 367.34,
+   "tarih": "2026-08-27T07:15+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h257",
+   "tutar": 140.44,
+   "tarih": "2026-08-27T19:40+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h258",
+   "tutar": 163.89,
+   "tarih": "2026-08-27T20:25+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h259",
+   "tutar": 343.68,
+   "tarih": "2026-08-28T20:15+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h260",
+   "tutar": 425.09,
+   "tarih": "2026-08-29T16:05+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h261",
+   "tutar": 96.2,
+   "tarih": "2026-08-29T16:05+03:00",
+   "not": "Kitap",
+   "kategoriId": "fun",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kitapci",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h262",
+   "tutar": 402.18,
+   "tarih": "2026-08-29T18:00+03:00",
+   "not": "İlaç",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "indirim",
+    "saglik"
+   ]
+  },
+  {
+   "id": "h263",
+   "tutar": 462.3,
+   "tarih": "2026-08-29T20:55+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h264",
+   "tutar": 1214.18,
+   "tarih": "2026-08-30T11:20+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h265",
+   "tutar": 359.63,
+   "tarih": "2026-08-30T14:05+03:00",
+   "not": "İki kişilik sinema",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h266",
+   "tutar": 469.48,
+   "tarih": "2026-08-30T18:15+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h267",
+   "tutar": 321.77,
+   "tarih": "2026-08-30T19:05+03:00",
+   "not": "İki kişilik sinema",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h268",
+   "tutar": 190.71,
+   "tarih": "2026-08-30T22:45+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h269",
+   "tutar": 484.0,
+   "tarih": "2026-08-31T18:50+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h270",
+   "tutar": 457.41,
+   "tarih": "2026-09-01T07:05+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h271",
+   "tutar": 565.94,
+   "tarih": "2026-09-01T12:05+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h272",
+   "tutar": 750,
+   "tarih": "2026-09-01T13:50+03:00",
+   "not": "Spor salonu üyeliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "spor_salonu",
+   "etiketIdleri": [
+    "aylik",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h273",
+   "tutar": 453.52,
+   "tarih": "2026-09-01T14:15+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h274",
+   "tutar": 317.38,
+   "tarih": "2026-09-01T15:00+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h275",
+   "tutar": 518.26,
+   "tarih": "2026-09-02T10:20+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h276",
+   "tutar": 281.51,
+   "tarih": "2026-09-02T17:05+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h277",
+   "tutar": 122.81,
+   "tarih": "2026-09-02T17:30+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h278",
+   "tutar": 94.82,
+   "tarih": "2026-09-02T18:45+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h279",
+   "tutar": 449.9,
+   "tarih": "2026-09-02T21:40+03:00",
+   "not": "Ev interneti",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "internet",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h280",
+   "tutar": 286.44,
+   "tarih": "2026-09-03T11:45+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h281",
+   "tutar": 712.8,
+   "tarih": "2026-09-03T17:00+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h282",
+   "tutar": 967.12,
+   "tarih": "2026-09-03T19:55+03:00",
+   "not": "Elektrik faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "elektrik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h283",
+   "tutar": 781.75,
+   "tarih": "2026-09-03T20:05+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h284",
+   "tutar": 171.2,
+   "tarih": "2026-09-04T08:35+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h285",
+   "tutar": 622.69,
+   "tarih": "2026-09-04T15:15+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h286",
+   "tutar": 673.76,
+   "tarih": "2026-09-04T22:45+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h287",
+   "tutar": 108.16,
+   "tarih": "2026-09-05T08:00+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h288",
+   "tutar": 749.86,
+   "tarih": "2026-09-05T08:45+03:00",
+   "not": "Doğal gaz faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "dogalgaz",
+   "etiketIdleri": [
+    "aylik",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h289",
+   "tutar": 191.31,
+   "tarih": "2026-09-05T11:25+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h290",
+   "tutar": 1085.27,
+   "tarih": "2026-09-05T15:05+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h291",
+   "tutar": 213.48,
+   "tarih": "2026-09-06T11:00+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h292",
+   "tutar": 649.61,
+   "tarih": "2026-09-07T10:50+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h293",
+   "tutar": 125.05,
+   "tarih": "2026-09-07T19:15+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h294",
+   "tutar": 587.33,
+   "tarih": "2026-09-08T10:00+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h295",
+   "tutar": 338.85,
+   "tarih": "2026-09-08T11:40+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h296",
+   "tutar": 374.37,
+   "tarih": "2026-09-08T14:50+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h297",
+   "tutar": 178.91,
+   "tarih": "2026-09-08T21:05+03:00",
+   "not": "Su faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "su",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h298",
+   "tutar": 196.29,
+   "tarih": "2026-09-09T10:10+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h299",
+   "tutar": 556.6,
+   "tarih": "2026-09-09T14:55+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h300",
+   "tutar": 998.62,
+   "tarih": "2026-09-09T22:55+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h301",
+   "tutar": 271.74,
+   "tarih": "2026-09-10T08:45+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h302",
+   "tutar": 256.08,
+   "tarih": "2026-09-10T12:10+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h303",
+   "tutar": 116.34,
+   "tarih": "2026-09-10T12:20+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h304",
+   "tutar": 1434.77,
+   "tarih": "2026-09-10T17:20+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h305",
+   "tutar": 285.97,
+   "tarih": "2026-09-11T07:20+03:00",
+   "not": "Vitamin",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h306",
+   "tutar": 328.06,
+   "tarih": "2026-09-11T18:05+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h307",
+   "tutar": 569.41,
+   "tarih": "2026-09-11T18:20+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h308",
+   "tutar": 690.34,
+   "tarih": "2026-09-12T08:25+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h309",
+   "tutar": 64.65,
+   "tarih": "2026-09-12T09:55+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h310",
+   "tutar": 228.82,
+   "tarih": "2026-09-12T12:30+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h311",
+   "tutar": 111.18,
+   "tarih": "2026-09-12T16:10+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h312",
+   "tutar": 299,
+   "tarih": "2026-09-12T17:10+03:00",
+   "not": "Telefon faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mobil_hat",
+   "etiketIdleri": [
+    "aylik",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h313",
+   "tutar": 2102.51,
+   "tarih": "2026-09-12T18:20+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h314",
+   "tutar": 463.32,
+   "tarih": "2026-09-13T12:30+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h315",
+   "tutar": 386.14,
+   "tarih": "2026-09-13T20:50+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h316",
+   "tutar": 152.57,
+   "tarih": "2026-09-13T21:05+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h317",
+   "tutar": 103.26,
+   "tarih": "2026-09-14T09:30+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h318",
+   "tutar": 72.05,
+   "tarih": "2026-09-14T15:05+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h319",
+   "tutar": 207.44,
+   "tarih": "2026-09-15T12:45+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "acil"
+   ]
+  },
+  {
+   "id": "h320",
+   "tutar": 207.27,
+   "tarih": "2026-09-15T19:30+03:00",
+   "not": "Dizi aboneliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dijital_abonelik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h321",
+   "tutar": 45.9,
+   "tarih": "2026-09-15T19:30+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h322",
+   "tutar": 213.95,
+   "tarih": "2026-09-15T22:30+03:00",
+   "not": "Çıktı ve fotokopi",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kirtasiye",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h323",
+   "tutar": 200.75,
+   "tarih": "2026-09-15T22:45+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h324",
+   "tutar": 426.59,
+   "tarih": "2026-09-16T09:30+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h325",
+   "tutar": 206.44,
+   "tarih": "2026-09-17T15:25+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h326",
+   "tutar": 1692.45,
+   "tarih": "2026-09-17T16:35+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h327",
+   "tutar": 317.9,
+   "tarih": "2026-09-17T17:40+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h328",
+   "tutar": 1270.37,
+   "tarih": "2026-09-17T18:10+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h329",
+   "tutar": 307.23,
+   "tarih": "2026-09-18T11:25+03:00",
+   "not": "Dergi ve kitap",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h330",
+   "tutar": 281.61,
+   "tarih": "2026-09-18T13:40+03:00",
+   "not": "İki kişilik sinema",
+   "kategoriId": "fun",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h331",
+   "tutar": 1474.05,
+   "tarih": "2026-09-18T14:55+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h332",
+   "tutar": 206.29,
+   "tarih": "2026-09-18T15:30+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h333",
+   "tutar": 84.83,
+   "tarih": "2026-09-18T22:40+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h334",
+   "tutar": 604.97,
+   "tarih": "2026-09-19T08:55+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h335",
+   "tutar": 230.42,
+   "tarih": "2026-09-19T20:25+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h336",
+   "tutar": 1051.75,
+   "tarih": "2026-09-19T22:20+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h337",
+   "tutar": 230.74,
+   "tarih": "2026-09-21T07:40+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h338",
+   "tutar": 213.04,
+   "tarih": "2026-09-21T11:35+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h339",
+   "tutar": 334.36,
+   "tarih": "2026-09-21T16:40+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h340",
+   "tutar": 639.38,
+   "tarih": "2026-09-22T09:45+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h341",
+   "tutar": 331.6,
+   "tarih": "2026-09-22T10:00+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h342",
+   "tutar": 107.98,
+   "tarih": "2026-09-22T14:30+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h343",
+   "tutar": 94.29,
+   "tarih": "2026-09-22T15:00+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h344",
+   "tutar": 28.58,
+   "tarih": "2026-09-22T15:55+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h345",
+   "tutar": 1357.58,
+   "tarih": "2026-09-22T16:20+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h346",
+   "tutar": 189.0,
+   "tarih": "2026-09-23T10:50+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "aile",
+    "is"
+   ]
+  },
+  {
+   "id": "h347",
+   "tutar": 357.79,
+   "tarih": "2026-09-23T15:05+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h348",
+   "tutar": 42.68,
+   "tarih": "2026-09-23T18:55+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h349",
+   "tutar": 575.52,
+   "tarih": "2026-09-23T19:25+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h350",
+   "tutar": 160.25,
+   "tarih": "2026-09-23T20:50+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h351",
+   "tutar": 121.9,
+   "tarih": "2026-09-24T09:00+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h352",
+   "tutar": 1590.01,
+   "tarih": "2026-09-24T09:30+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h353",
+   "tutar": 455.0,
+   "tarih": "2026-09-24T10:05+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h354",
+   "tutar": 360.64,
+   "tarih": "2026-09-24T12:00+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h355",
+   "tutar": 36.21,
+   "tarih": "2026-09-24T19:00+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h356",
+   "tutar": 126.63,
+   "tarih": "2026-09-24T21:35+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h357",
+   "tutar": 503.3,
+   "tarih": "2026-09-25T08:45+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h358",
+   "tutar": 178.8,
+   "tarih": "2026-09-25T09:25+03:00",
+   "not": "İki kişilik sinema",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h359",
+   "tutar": 180.11,
+   "tarih": "2026-09-25T15:40+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h360",
+   "tutar": 795.08,
+   "tarih": "2026-09-25T19:45+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h361",
+   "tutar": 188.56,
+   "tarih": "2026-09-25T21:40+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h362",
+   "tutar": 233.05,
+   "tarih": "2026-09-26T14:40+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h363",
+   "tutar": 233.04,
+   "tarih": "2026-09-27T09:10+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h364",
+   "tutar": 469.12,
+   "tarih": "2026-09-27T14:25+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h365",
+   "tutar": 77.36,
+   "tarih": "2026-09-27T15:55+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h366",
+   "tutar": 420.49,
+   "tarih": "2026-09-27T17:10+03:00",
+   "not": "İlaç",
+   "kategoriId": "other",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h367",
+   "tutar": 69.59,
+   "tarih": "2026-09-27T19:45+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h368",
+   "tutar": 718.87,
+   "tarih": "2026-09-27T20:30+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h369",
+   "tutar": 181.76,
+   "tarih": "2026-09-29T14:50+03:00",
+   "not": "Çıktı ve fotokopi",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kirtasiye",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h370",
+   "tutar": 328.34,
+   "tarih": "2026-09-29T20:25+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h371",
+   "tutar": 29.04,
+   "tarih": "2026-10-01T07:05+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h372",
+   "tutar": 197.03,
+   "tarih": "2026-10-01T11:00+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "acil",
+    "is"
+   ]
+  },
+  {
+   "id": "h373",
+   "tutar": 275.09,
+   "tarih": "2026-10-01T11:15+03:00",
+   "not": "Havalimanı yolu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "acil",
+    "is"
+   ]
+  },
+  {
+   "id": "h374",
+   "tutar": 750,
+   "tarih": "2026-10-01T12:00+03:00",
+   "not": "Spor salonu üyeliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "spor_salonu",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h375",
+   "tutar": 513.85,
+   "tarih": "2026-10-02T07:55+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h376",
+   "tutar": 460.75,
+   "tarih": "2026-10-02T10:55+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h377",
+   "tutar": 348.22,
+   "tarih": "2026-10-02T11:45+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h378",
+   "tutar": 449.9,
+   "tarih": "2026-10-02T18:40+03:00",
+   "not": "Ev interneti",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "internet",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h379",
+   "tutar": 22.27,
+   "tarih": "2026-10-02T22:05+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h380",
+   "tutar": 659.47,
+   "tarih": "2026-10-03T18:55+03:00",
+   "not": "Elektrik faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "elektrik",
+   "etiketIdleri": [
+    "aylik",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h381",
+   "tutar": 1348.28,
+   "tarih": "2026-10-03T20:20+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h382",
+   "tutar": 1023.54,
+   "tarih": "2026-10-03T22:40+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h383",
+   "tutar": 765.74,
+   "tarih": "2026-10-04T09:45+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h384",
+   "tutar": 469.3,
+   "tarih": "2026-10-04T15:25+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h385",
+   "tutar": 48.83,
+   "tarih": "2026-10-04T16:45+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h386",
+   "tutar": 370.0,
+   "tarih": "2026-10-04T18:50+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h387",
+   "tutar": 320.41,
+   "tarih": "2026-10-05T12:50+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h388",
+   "tutar": 1173.16,
+   "tarih": "2026-10-05T13:15+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h389",
+   "tutar": 2092.31,
+   "tarih": "2026-10-05T17:00+03:00",
+   "not": "Doğal gaz faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dogalgaz",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h390",
+   "tutar": 73.47,
+   "tarih": "2026-10-05T19:00+03:00",
+   "not": "İlaç",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h391",
+   "tutar": 210.42,
+   "tarih": "2026-10-05T19:55+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h392",
+   "tutar": 1015.77,
+   "tarih": "2026-10-05T22:30+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h393",
+   "tutar": 290.68,
+   "tarih": "2026-10-06T07:10+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h394",
+   "tutar": 276.56,
+   "tarih": "2026-10-06T07:25+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h395",
+   "tutar": 90.94,
+   "tarih": "2026-10-06T11:30+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h396",
+   "tutar": 94.18,
+   "tarih": "2026-10-06T17:20+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h397",
+   "tutar": 108.02,
+   "tarih": "2026-10-06T19:00+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h398",
+   "tutar": 624.39,
+   "tarih": "2026-10-07T15:25+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h399",
+   "tutar": 1210.41,
+   "tarih": "2026-10-07T16:15+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h400",
+   "tutar": 378.12,
+   "tarih": "2026-10-07T17:00+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h401",
+   "tutar": 432.37,
+   "tarih": "2026-10-07T17:20+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h402",
+   "tutar": 328.6,
+   "tarih": "2026-10-07T18:15+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h403",
+   "tutar": 85.7,
+   "tarih": "2026-10-07T19:00+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h404",
+   "tutar": 135.36,
+   "tarih": "2026-10-08T08:10+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h405",
+   "tutar": 261.98,
+   "tarih": "2026-10-08T12:20+03:00",
+   "not": "Su faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "havale",
+   "magazaId": "su",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h406",
+   "tutar": 473.01,
+   "tarih": "2026-10-08T13:20+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h407",
+   "tutar": 1200.45,
+   "tarih": "2026-10-08T15:10+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h408",
+   "tutar": 1766.39,
+   "tarih": "2026-10-08T16:25+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h409",
+   "tutar": 399.21,
+   "tarih": "2026-10-08T16:45+03:00",
+   "not": "İlaç",
+   "kategoriId": "other",
+   "odemeYontemiId": "nakit",
+   "magazaId": "eczane",
+   "etiketIdleri": [
+    "saglik"
+   ]
+  },
+  {
+   "id": "h410",
+   "tutar": 1588.7,
+   "tarih": "2026-10-08T18:25+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h411",
+   "tutar": 116.9,
+   "tarih": "2026-10-08T18:45+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h412",
+   "tutar": 69.94,
+   "tarih": "2026-10-08T19:30+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h413",
+   "tutar": 124.86,
+   "tarih": "2026-10-09T17:35+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h414",
+   "tutar": 268.95,
+   "tarih": "2026-10-09T20:35+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h415",
+   "tutar": 162.74,
+   "tarih": "2026-10-10T09:40+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h416",
+   "tutar": 1347.28,
+   "tarih": "2026-10-10T13:20+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h417",
+   "tutar": 658.83,
+   "tarih": "2026-10-10T19:45+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h418",
+   "tutar": 216.51,
+   "tarih": "2026-10-11T07:25+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h419",
+   "tutar": 706.17,
+   "tarih": "2026-10-11T09:35+03:00",
+   "not": "Hediye",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "hediye"
+   ]
+  },
+  {
+   "id": "h420",
+   "tutar": 327.15,
+   "tarih": "2026-10-11T12:55+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h421",
+   "tutar": 299.12,
+   "tarih": "2026-10-11T14:25+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h422",
+   "tutar": 392.24,
+   "tarih": "2026-10-11T19:05+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h423",
+   "tutar": 1551.04,
+   "tarih": "2026-10-11T19:10+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "konser",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h424",
+   "tutar": 157.15,
+   "tarih": "2026-10-12T10:25+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h425",
+   "tutar": 146.94,
+   "tarih": "2026-10-12T11:10+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h426",
+   "tutar": 133.36,
+   "tarih": "2026-10-12T14:10+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h427",
+   "tutar": 465.75,
+   "tarih": "2026-10-12T14:45+03:00",
+   "not": "Kitap",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kitapci",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h428",
+   "tutar": 638.52,
+   "tarih": "2026-10-12T15:15+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h429",
+   "tutar": 91.7,
+   "tarih": "2026-10-12T16:35+03:00",
+   "not": "Gece dönüşü taksi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h430",
+   "tutar": 299,
+   "tarih": "2026-10-12T16:55+03:00",
+   "not": "Telefon faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mobil_hat",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h431",
+   "tutar": 93.9,
+   "tarih": "2026-10-12T17:55+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h432",
+   "tutar": 540.96,
+   "tarih": "2026-10-12T18:00+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h433",
+   "tutar": 1192.41,
+   "tarih": "2026-10-12T21:25+03:00",
+   "not": "Hediye",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye"
+   ]
+  },
+  {
+   "id": "h434",
+   "tutar": 83.5,
+   "tarih": "2026-10-12T21:30+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h435",
+   "tutar": 174.48,
+   "tarih": "2026-10-12T22:20+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h436",
+   "tutar": 354.75,
+   "tarih": "2026-10-13T14:00+03:00",
+   "not": "Sinema bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "sinema",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h437",
+   "tutar": 103.04,
+   "tarih": "2026-10-13T14:50+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h438",
+   "tutar": 210.53,
+   "tarih": "2026-10-13T15:15+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "aile",
+    "is"
+   ]
+  },
+  {
+   "id": "h439",
+   "tutar": 362.31,
+   "tarih": "2026-10-13T18:10+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h440",
+   "tutar": 235.16,
+   "tarih": "2026-10-13T18:35+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h441",
+   "tutar": 722.63,
+   "tarih": "2026-10-13T20:25+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h442",
+   "tutar": 42.95,
+   "tarih": "2026-10-14T18:25+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h443",
+   "tutar": 117.48,
+   "tarih": "2026-10-14T19:15+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h444",
+   "tutar": 850.56,
+   "tarih": "2026-10-14T20:10+03:00",
+   "not": "Ekmek, süt, yumurta",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h445",
+   "tutar": 786.37,
+   "tarih": "2026-10-15T08:35+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h446",
+   "tutar": 20.43,
+   "tarih": "2026-10-15T10:40+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h447",
+   "tutar": 125.81,
+   "tarih": "2026-10-15T13:00+03:00",
+   "not": "Dizi aboneliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dijital_abonelik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h448",
+   "tutar": 138.4,
+   "tarih": "2026-10-15T16:50+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h449",
+   "tutar": 1969.23,
+   "tarih": "2026-10-16T09:55+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h450",
+   "tutar": 552.1,
+   "tarih": "2026-10-16T10:50+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h451",
+   "tutar": 484.98,
+   "tarih": "2026-10-16T13:35+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h452",
+   "tutar": 166.88,
+   "tarih": "2026-10-16T13:40+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h453",
+   "tutar": 122.56,
+   "tarih": "2026-10-16T14:30+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h454",
+   "tutar": 56.27,
+   "tarih": "2026-10-16T22:05+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h455",
+   "tutar": 434.67,
+   "tarih": "2026-10-17T20:05+03:00",
+   "not": "Konser bileti",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h456",
+   "tutar": 469.94,
+   "tarih": "2026-10-18T08:10+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h457",
+   "tutar": 1160.82,
+   "tarih": "2026-10-18T11:35+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h458",
+   "tutar": 104.64,
+   "tarih": "2026-10-18T15:10+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h459",
+   "tutar": 1304.64,
+   "tarih": "2026-10-18T17:05+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h460",
+   "tutar": 687.42,
+   "tarih": "2026-10-19T07:20+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h461",
+   "tutar": 1461.08,
+   "tarih": "2026-10-19T07:30+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h462",
+   "tutar": 328.56,
+   "tarih": "2026-10-19T14:20+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h463",
+   "tutar": 192.64,
+   "tarih": "2026-10-19T21:05+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h464",
+   "tutar": 306.54,
+   "tarih": "2026-10-19T22:55+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h465",
+   "tutar": 69.6,
+   "tarih": "2026-10-20T08:25+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h466",
+   "tutar": 861.72,
+   "tarih": "2026-10-20T09:40+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h467",
+   "tutar": 197.77,
+   "tarih": "2026-10-20T21:15+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h468",
+   "tutar": 611.42,
+   "tarih": "2026-10-20T21:45+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h469",
+   "tutar": 78.24,
+   "tarih": "2026-10-21T13:45+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h470",
+   "tutar": 297.84,
+   "tarih": "2026-10-21T15:15+03:00",
+   "not": "Öğle yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h471",
+   "tutar": 628.41,
+   "tarih": "2026-10-22T07:05+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h472",
+   "tutar": 932.57,
+   "tarih": "2026-10-22T07:20+03:00",
+   "not": "Yakıt",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h473",
+   "tutar": 879.17,
+   "tarih": "2026-10-22T08:55+03:00",
+   "not": "Haftalık market alışverişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h474",
+   "tutar": 331.37,
+   "tarih": "2026-10-22T13:15+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h475",
+   "tutar": 63.34,
+   "tarih": "2026-10-22T16:05+03:00",
+   "not": "Sabah kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "is"
+   ]
+  },
+  {
+   "id": "h476",
+   "tutar": 1562.15,
+   "tarih": "2026-10-22T16:20+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h477",
+   "tutar": 61.6,
+   "tarih": "2026-10-24T14:35+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h478",
+   "tutar": 1050.96,
+   "tarih": "2026-10-25T07:25+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h479",
+   "tutar": 86.52,
+   "tarih": "2026-10-25T09:35+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile",
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h480",
+   "tutar": 995.34,
+   "tarih": "2026-10-25T18:25+03:00",
+   "not": "Temizlik ve gıda",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h481",
+   "tutar": 126.95,
+   "tarih": "2026-10-25T22:50+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h482",
+   "tutar": 137.92,
+   "tarih": "2026-10-26T13:15+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h483",
+   "tutar": 121.25,
+   "tarih": "2026-10-26T22:55+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h484",
+   "tutar": 2052.24,
+   "tarih": "2026-10-29T13:10+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h485",
+   "tutar": 1348.17,
+   "tarih": "2026-10-29T16:05+03:00",
+   "not": "Kampanyalı ürünler",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h486",
+   "tutar": 267.25,
+   "tarih": "2026-10-29T22:25+03:00",
+   "not": "Saç kesimi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "kuafor",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h487",
+   "tutar": 80.08,
+   "tarih": "2026-10-30T15:55+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h488",
+   "tutar": 360.76,
+   "tarih": "2026-10-30T18:20+03:00",
+   "not": "Döner siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h489",
+   "tutar": 131.03,
+   "tarih": "2026-10-31T08:15+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h490",
+   "tutar": 387.3,
+   "tarih": "2026-10-31T17:45+03:00",
+   "not": "Doğum günü hediyesi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "hediye"
+   ]
+  },
+  {
+   "id": "h491",
+   "tutar": 314.93,
+   "tarih": "2026-10-31T21:10+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h492",
+   "tutar": 261.71,
+   "tarih": "2026-11-01T12:15+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "hafta_sonu"
+   ]
+  },
+  {
+   "id": "h493",
+   "tutar": 2170.26,
+   "tarih": "2026-11-01T13:15+03:00",
+   "not": "Depo dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "akaryakit",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h494",
+   "tutar": 750,
+   "tarih": "2026-11-01T15:25+03:00",
+   "not": "Spor salonu üyeliği",
+   "kategoriId": "fun",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "spor_salonu",
+   "etiketIdleri": [
+    "aylik",
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h495",
+   "tutar": 580.57,
+   "tarih": "2026-11-01T18:35+03:00",
+   "not": "Meyve sebze",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h496",
+   "tutar": 1452.88,
+   "tarih": "2026-11-01T19:05+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "hafta_sonu",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h497",
+   "tutar": 449.9,
+   "tarih": "2026-11-02T08:50+03:00",
+   "not": "Ev interneti",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "internet",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h498",
+   "tutar": 54.55,
+   "tarih": "2026-11-02T14:15+03:00",
+   "not": "Simit ve poğaça",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h499",
+   "tutar": 1067.21,
+   "tarih": "2026-11-02T15:50+03:00",
+   "not": "Doğum günü hediyesi",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye"
+   ]
+  },
+  {
+   "id": "h500",
+   "tutar": 1191.82,
+   "tarih": "2026-11-02T18:25+03:00",
+   "not": "Hediye",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye"
+   ]
+  },
+  {
+   "id": "h501",
+   "tutar": 31.34,
+   "tarih": "2026-11-02T19:20+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h502",
+   "tutar": 124.6,
+   "tarih": "2026-11-03T07:05+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "is"
+   ]
+  },
+  {
+   "id": "h503",
+   "tutar": 488.89,
+   "tarih": "2026-11-03T10:40+03:00",
+   "not": "Akşam siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h504",
+   "tutar": 60.11,
+   "tarih": "2026-11-03T11:50+03:00",
+   "not": "Toplantı kahvesi",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile",
+    "is"
+   ]
+  },
+  {
+   "id": "h505",
+   "tutar": 370.46,
+   "tarih": "2026-11-03T13:30+03:00",
+   "not": "Hediye",
+   "kategoriId": "other",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "hediyelik",
+   "etiketIdleri": [
+    "hediye",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h506",
+   "tutar": 166.27,
+   "tarih": "2026-11-03T15:50+03:00",
+   "not": "Havalimanı yolu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": [
+    "indirim",
+    "is"
+   ]
+  },
+  {
+   "id": "h507",
+   "tutar": 70.23,
+   "tarih": "2026-11-03T16:25+03:00",
+   "not": "Otopark ücreti",
+   "kategoriId": "transport",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "otopark",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h508",
+   "tutar": 472.67,
+   "tarih": "2026-11-03T16:45+03:00",
+   "not": "Ulaşım kartı dolumu",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "toplu_tasima",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h509",
+   "tutar": 296.74,
+   "tarih": "2026-11-03T17:30+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h510",
+   "tutar": 91.91,
+   "tarih": "2026-11-03T20:45+03:00",
+   "not": "Ekmek",
+   "kategoriId": "food",
+   "odemeYontemiId": "nakit",
+   "magazaId": "firin",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h511",
+   "tutar": 321.4,
+   "tarih": "2026-11-03T21:25+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile",
+    "indirim"
+   ]
+  },
+  {
+   "id": "h512",
+   "tutar": 787.68,
+   "tarih": "2026-11-03T22:35+03:00",
+   "not": "Elektrik faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "elektrik",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h513",
+   "tutar": 180.82,
+   "tarih": "2026-11-04T09:10+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "yemek_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  },
+  {
+   "id": "h514",
+   "tutar": 59.49,
+   "tarih": "2026-11-04T21:35+03:00",
+   "not": "Kahve ve tatlı",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "kose_kafe",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h515",
+   "tutar": 714.25,
+   "tarih": "2026-11-05T07:20+03:00",
+   "not": "Akşam yemeği için alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "mahalle_market",
+   "etiketIdleri": [
+    "aile"
+   ]
+  },
+  {
+   "id": "h516",
+   "tutar": 987.48,
+   "tarih": "2026-11-05T11:15+03:00",
+   "not": "Doğal gaz faturası",
+   "kategoriId": "bills",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "dogalgaz",
+   "etiketIdleri": [
+    "aylik"
+   ]
+  },
+  {
+   "id": "h517",
+   "tutar": 214.25,
+   "tarih": "2026-11-05T18:35+03:00",
+   "not": "Yağmurlu gün taksisi",
+   "kategoriId": "transport",
+   "odemeYontemiId": "nakit",
+   "magazaId": "taksi",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h518",
+   "tutar": 512.12,
+   "tarih": "2026-11-05T20:30+03:00",
+   "not": "Aylık büyük alışveriş",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "zincir_market",
+   "etiketIdleri": [
+    "indirim"
+   ]
+  },
+  {
+   "id": "h519",
+   "tutar": 388.14,
+   "tarih": "2026-11-05T20:30+03:00",
+   "not": "Pizza siparişi",
+   "kategoriId": "food",
+   "odemeYontemiId": "kredi_karti",
+   "magazaId": "paket_servis",
+   "etiketIdleri": []
+  },
+  {
+   "id": "h520",
+   "tutar": 245.51,
+   "tarih": "2026-11-05T21:05+03:00",
+   "not": "Ev yemeği",
+   "kategoriId": "food",
+   "odemeYontemiId": "banka_karti",
+   "magazaId": "esnaf_lokanta",
+   "etiketIdleri": [
+    "is"
+   ]
+  }
+ ]
+}

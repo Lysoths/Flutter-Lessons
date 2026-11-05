@@ -13,6 +13,8 @@ import 'package:flutter_ders/app/views/view_paged_list/widgets/expense_tile_skel
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 /// İstekleri sayan, istenirse hata veren depo.
 class _CountingRepository implements SampleExpenseRepository {
   final _inner = JsonSampleExpenseRepository(delay: Duration.zero);
@@ -188,6 +190,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
+      await openLessonsHub(tester);
       await tester.scrollUntilVisible(
         find.byKey(Key(cardKey)),
         200,
@@ -209,7 +212,7 @@ void main() {
       tester,
     ) async {
       await slowRepository(tester, const Duration(milliseconds: 600));
-      await openSkeletonTab(tester, 'expensesView_pagedList');
+      await openSkeletonTab(tester, 'lessons_pagedList');
 
       // Veri gelmeden: dönen gösterge yok, iskelet satırlar var.
       expect(
@@ -240,7 +243,7 @@ void main() {
 
     testWidgets('ızgara İskelet sekmesi: önce iskelet kartlar', (tester) async {
       await slowRepository(tester, const Duration(milliseconds: 600));
-      await openSkeletonTab(tester, 'expensesView_pagedGrid');
+      await openSkeletonTab(tester, 'lessons_pagedGrid');
 
       expect(
         find.byKey(const Key('pagedGrid_initialSkeleton')),
@@ -256,7 +259,7 @@ void main() {
 
     testWidgets('sekmeler birbirinden bağımsız sayfalanır', (tester) async {
       await slowRepository(tester, Duration.zero);
-      await openSkeletonTab(tester, 'expensesView_pagedList');
+      await openSkeletonTab(tester, 'lessons_pagedList');
       await settle(tester);
       await tester.drag(
         find.byKey(const Key('pagedList_list_skeleton')),
@@ -277,8 +280,9 @@ void main() {
 
       await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
+      await openLessonsHub(tester);
       await tester.scrollUntilVisible(
-        find.byKey(const Key('expensesView_pagedList')),
+        find.byKey(const Key('lessons_pagedList')),
         200,
         scrollable: find
             .byWidgetPredicate(
@@ -286,7 +290,7 @@ void main() {
             )
             .first,
       );
-      await tester.tap(find.byKey(const Key('expensesView_pagedList')));
+      await tester.tap(find.byKey(const Key('lessons_pagedList')));
       await settle(tester);
 
       expect(counter(tester), '20 / 500 kayıt');
@@ -317,8 +321,9 @@ void main() {
 
       await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
+      await openLessonsHub(tester);
       await tester.scrollUntilVisible(
-        find.byKey(const Key('expensesView_pagedGrid')),
+        find.byKey(const Key('lessons_pagedGrid')),
         200,
         scrollable: find
             .byWidgetPredicate(
@@ -326,7 +331,7 @@ void main() {
             )
             .first,
       );
-      await tester.tap(find.byKey(const Key('expensesView_pagedGrid')));
+      await tester.tap(find.byKey(const Key('lessons_pagedGrid')));
       await settle(tester);
 
       expect(counter(tester), '20 / 500 kayıt');

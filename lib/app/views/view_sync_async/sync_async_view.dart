@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/helper/sync_async_demo.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -68,6 +69,7 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
   }
 
   Future<void> _run(WorkMode mode) async {
+    track(AppEvent.syncAsyncRun, mode.name);
     setState(() => _running = mode);
     // "Çalışıyor" yazısı ekrana çizilsin, sonra iş başlasın.
     await WidgetsBinding.instance.endOfFrame;
@@ -91,6 +93,7 @@ class _SyncAsyncViewState extends State<SyncAsyncView>
   }
 
   Future<void> _runOrder() async {
+    track(AppEvent.orderRun);
     setState(_order.clear);
     await runOrderDemo((step) => setState(() => _order.add(step)));
   }

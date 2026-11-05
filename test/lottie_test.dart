@@ -9,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 // DERS 9 — Lottie: JSON'dan animasyon.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -62,7 +64,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_lottie'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_lottie'));
     await tester.scrollUntilVisible(
       card,
       200,

@@ -15,10 +15,13 @@ sensörler, sqflite, cihaz/ağ bilgisi gibi ekranlar web'de çalışmaz.
 
 ```
 lib/
-├── main.dart                     # observer + DI + runApp
+├── main.dart                     # Firebase, observer, DI, Crashlytics, runApp
+├── firebase_options.dart         # flutterfire configure çıktısı
 └── app/
-    ├── app.dart                  # HarcamaApp: tema, router, ağ banner'ı
+    ├── app.dart                  # HarcamaApp: Remote Config teması, router, ağ banner'ı
     ├── core/
+    │   ├── analytics/            # olay kataloğu (AppEvent, AppScreen), ekran gözlemcisi
+    │   ├── firebase/             # Remote Config, oturum, Crashlytics, App Check, Firestore
     │   ├── base/                 # ViewModel tabanları: Cubit, Bloc, ChangeNotifier
     │   ├── cache/                # sürüme bağlı görsel önbelleği, bellek denetleyicisi
     │   ├── bloc/                 # AppBlocObserver (geçişleri konsola yazar)
@@ -31,9 +34,10 @@ lib/
     ├── helper/                   # para/tarih/ölçü biçimleri, ağ kontrolü, sahte socket
     ├── models/                   # Expense, belgeler, Lottie, kur, haber, trace ...
     ├── theme/                    # MfColors + AppTheme, kategori renkleri
-    ├── widgets/                  # ortak parçalar: Eyebrow, Gap, iskelet, bilgi kartı
+    ├── widgets/                  # ortak parçalar; app_gate: güncelleme → giriş → uygulama
     └── views/
-        ├── view_expenses/        # ana sayfa: özet, kategoriler, liste, ders kartları
+        ├── view_expenses/        # ana sayfa: özet, kategoriler, liste, Dersler girişi
+        ├── view_lessons/         # Dersler ekranı: konu süzgeci, arama, ders kataloğu
         ├── view_new_expense/     # yeni harcama formu (alttan açılır)
         ├── view_expense_detail/  # harcama ayrıntısı
         ├── view_category/        # kategoriye göre harcamalar
@@ -49,11 +53,15 @@ lib/
         ├── view_device_info/ view_app_network/                                     # Ders 14
         ├── view_currency/                                                          # Ders 15
         ├── view_retrofit/                                                          # Ders 16
-        └── view_image_cache/                                                       # Ders 17
+        ├── view_image_cache/                                                       # Ders 17
+        └── view_auth/ view_update/ view_firebase/                                  # Ders 18
 assets/
 ├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
-├── data/                         # Ders 7: 500 örnek harcama · 13: tasarruf ipuçları · 17: base64 görseller
+├── data/                         # Ders 7: 500 örnek harcama · 13: tasarruf ipuçları · 17: base64 görseller · 18: Firestore seed
 └── lottie/                       # Ders 9: beş Lottie animasyonu
+firestore.rules                   # Ders 18: kullanıcıya özel, alan ve ilişki denetimli kurallar
+remoteconfig.template.json        # Ders 18: Remote Config şablonu (yayın + uygulama varsayılanı)
+tool/firestore_seed_uret.py       # Ders 18: 520 harcamalık ilişkili örnek veri üretici
 test/                             # her ders için birim, Bloc/ViewModel ve ekran testleri
 ```
 
@@ -63,7 +71,7 @@ da `view_model/` (ViewModel), `widgets/` (ekranın parçaları).
 ## Veri akışı
 
 ```
-Ekran (View) ──çağırır──▶ ExpensesCubit ──kaydeder──▶ ExpenseRepository ──▶ telefon hafızası
+Ekran (View) ──çağırır──▶ ExpensesCubit ──kaydeder──▶ ExpenseRepository ──▶ Firestore (Ders 18'den beri)
      ▲                         │
      └────yeni state───────────┘
 ```
@@ -79,7 +87,13 @@ deep link parser) bu reponun ilk commit'indedir (`b8b3616`). Ders 4'ten
 itibaren uygulamanın tüm yönlendirmesi **auto_route** ile yapılır; ekranlar
 ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir: `git log --oneline`.
 
-| Ders | Konu | Ana sayfadaki kart |
+Ders ekranlarına ana sayfadaki **Dersler** kartından ya da üst çubuktaki
+kep simgesinden ulaşılır (`views/view_lessons/`). Dersler konuya göre
+gruplanır; üstteki süzgeç tek konuyu bırakır, arama ada, açıklamaya ve ders
+numarasına bakar ("bloc", "14"). Katalog `lesson_catalog.dart`'tadır: yeni
+bir ders eklemek bu listeye bir satır eklemektir.
+
+| Ders | Konu | Dersler ekranındaki kart |
 |---|---|---|
 | 4 | auto_route, tipli rotalar, deep link beyaz listesi | — |
 | 5 | Assets: PDF, görsel, ses | Belgeler |
@@ -95,12 +109,14 @@ ve veri katmanı aynı kalır. Her ders ayrı bir commit'tir: `git log --oneline
 | 15 | MVVM: ChangeNotifier + provider, döviz yönetimi | Döviz yönetimi |
 | 16 | retrofit: tüm anotasyonlar, interceptor, CallAdapter | Retrofit ile ağ |
 | 17 | Sürüme bağlı görsel önbelleği, bellek denetimi; base64, S3, SFTP | Görsel önbelleği |
+| 18 | Firebase: Google ile giriş, Remote Config, zorunlu güncelleme, Crashlytics, App Check, Analytics, Firestore | Firebase |
 
 **Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
 veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
 currency-api (Ders 15), Anadolu Ajansı ve TRT Haber RSS (Ders 15),
 jsonplaceholder ve httpbin (Ders 16), AWS Open Data S3 ve Rebex SFTP test
-sunucusu (Ders 17).
+sunucusu (Ders 17), Firebase (Ders 18; Analytics'e yalnızca ekran ve eylem
+adı gider, tutar, not ya da e-posta gitmez).
 
 **İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı). Konum, IP ve
 Wi-Fi bilgileri yalnızca ekranda gösterilir: kaydedilmez, gönderilmez,
@@ -647,6 +663,41 @@ Ekranda: her görselin nereden geldiği (bellek / disk / kaynak) ve süresi,
 *Diski boşalt*, *Bir dosyayı boz* (bozuk dosyanın fark edilip yeniden
 indirilmesi) ve *Yeni sürüm çıkmış gibi yap* (sürüm temizliği).
 
+### Ders 18 — Firebase
+
+Ana sayfa → Dersler → *Firebase* (`views/view_firebase/`). Çekirdek
+`core/firebase/` ve `core/analytics/` altında. Kurulum `flutterfire configure`
+ile yapıldı (`firebase_options.dart`, `google-services.json`).
+
+**Açılış sırası** (`widgets/app_gate.dart`): önce sürüm denetimi, sonra giriş,
+sonra uygulama. Hepsi aynı `MaterialApp.router` içinde, path kullanmadan.
+
+| Parça | Ne yapar |
+|---|---|
+| Google ile giriş | `google_sign_in` 7 → `idToken` → `GoogleAuthProvider.credential` → Firebase Auth. İptal, ağ hatası, çok deneme gibi durumlar ayrı metinle gösterilir |
+| Remote Config | `remoteconfig.template.json` tek kaynaktır: `firebase deploy --only remoteconfig` ile yayınlanır, aynı dosya uygulamada varsayılan olarak okunur. Renkler, köşe yarıçapı, yazı ölçeği (`tasarim`) ve TR/EN metinler (`dil_metinleri`) buradan gelir; `onConfigUpdated` ile uygulama yeniden başlamadan değişir |
+| Zorunlu güncelleme | `min_surum` yüklü sürümden büyükse uygulama kapanır, yalnızca güncelleme ekranı kalır. `son_surum` büyükse kapatılabilir bir kart çıkar. Güncelleme adresi beyaz listedeki alan adlarından olmalıdır |
+| Crashlytics | `FlutterError.onError` ve `PlatformDispatcher.onError` hataları yakalar; kullanıcı olarak yalnızca uid yazılır. Rapor bir sonraki açılışta gönderilir |
+| App Check | Debug derlemede debug sağlayıcı (token CLI ile kaydedildi), yayında Play Integrity |
+| Analytics | `AppEvent` kataloğunda her olayın sabit bir anahtarı vardır (`harcama_eklendi`, `ders_acildi` ...). Parametreler yalnızca `ekran` ve `secenek`; ekran açılışları rota gözlemcisiyle `screen_view` olur. Test, kataloğun tamamının kodda kullanıldığını ve harcama olaylarına kişisel veri girmediğini denetler |
+
+**Firestore** (eur3, `kullanicilar/{uid}/...`): her kullanıcı yalnızca kendi
+verisini okur ve yazar. Koleksiyonlar ilişkilidir: kategoriler, ödeme
+yöntemleri ve etiketler referanstır; mağazalar, bütçeler ve harcamalar bunlara
+kimlikle bağlanır. Kurallar (`firestore.rules`) alan adlarını ve türlerini
+denetler, `exists()` ile bağlı kaydın gerçekten var olduğuna bakar.
+
+Örnek veri `tool/firestore_seed_uret.py` ile üretilir (sabit tohum, her
+seferinde aynı çıktı): 520 harcama (Haziran–Kasım 2026), 24 mağaza, 5 ödeme
+yöntemi, 8 etiket, 30 aylık bütçe. Panelde *Örnek veriyi yeniden yaz* önce
+referansları, sonra bağlı kayıtları 400'lük toplu yazmalarla gönderir
+(Firestore sınırı 500); eski seed kayıtları silinir, kullanıcının kendi
+eklediği harcamalara dokunulmaz. Ana sayfa giriş yapılınca harcamaları
+Firestore'dan okur (`FirestoreExpenseRepository`).
+
+Testlerde Firebase yoktur: `configureDependencies()` yerel karşılıkları verir
+(`LocalAuthRepository`, `LocalConfigSource`, `MemoryFinanceStore` ...).
+
 ## Komutlar
 
 ```bash
@@ -655,4 +706,6 @@ dart run build_runner build     # rota tablosu değişince (app_router.gr.dart)
 flutter analyze
 flutter test
 flutter run                     # bağlı Android/iOS cihaz ya da emülatör
+python3 tool/firestore_seed_uret.py           # örnek veriyi yeniden üret
+firebase deploy --only remoteconfig,firestore # şablon, kurallar, indeksler
 ```

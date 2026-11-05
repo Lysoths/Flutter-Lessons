@@ -15,6 +15,8 @@ import 'package:flutter_ders/app/models/image_demo_sources.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 /// Asset'teki gerçek PNG'ler (base64 çözülmüş).
 final List<Uint8List> _pngs = [
   for (final g
@@ -291,7 +293,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_imageCache'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_imageCache'));
     await tester.scrollUntilVisible(
       card,
       200,

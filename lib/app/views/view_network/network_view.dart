@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
@@ -132,7 +133,10 @@ FutureBuilder(
                       onPressed:
                           snapshot.connectionState == ConnectionState.waiting
                           ? null
-                          : _recheck,
+                          : () {
+                              track(AppEvent.networkChecked);
+                              _recheck();
+                            },
                       icon: const Icon(Icons.refresh_rounded),
                       label: const Text('Tekrar kontrol et'),
                     ),

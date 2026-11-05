@@ -1,0 +1,21 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "harcamalar",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "kategoriId", "order": "ASCENDING" },
+        { "fieldPath": "tarih", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "harcamalar",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "etiketIdleri", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "tarih", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

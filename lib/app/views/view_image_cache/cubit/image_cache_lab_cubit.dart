@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/painting.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_cubit.dart';
 import 'package:flutter_ders/app/core/cache/app_image_cache.dart';
 import 'package:flutter_ders/app/core/cache/cached_image_provider.dart';
@@ -57,6 +58,7 @@ class ImageCacheLabCubit extends BaseViewModelCubit<ImageCacheLabState> {
 
   /// Seçili kaynağın bütün görsellerini ekrana gelmeden önce hazırlar.
   Future<void> precacheAll() async {
+    track(AppEvent.precached, state.kind.name);
     await Future.wait(state.sources.map(precache));
     final failed = state.sources
         .where((s) => state.items[s.key]?.phase == ItemPhase.failed)
@@ -70,6 +72,7 @@ class ImageCacheLabCubit extends BaseViewModelCubit<ImageCacheLabState> {
 
   /// Bellek denetleyicisini zorlamak için 24 büyük karo yükler.
   Future<void> stressTest() async {
+    track(AppEvent.stressTest);
     _say('Yük testi: 24 karo yükleniyor…');
     await Future.wait(kS3StressSources.map(precache));
     final s = memory.sample();
@@ -130,6 +133,7 @@ class ImageCacheLabCubit extends BaseViewModelCubit<ImageCacheLabState> {
 
   /// Çözülmüş görselleri bellekten atar (ekrandakiler kalır).
   void clearMemory() {
+    track(AppEvent.memoryCleared);
     memory.trim(TrimReason.manual);
     _resetItems();
     _say('Bellek önbelleği boşaltıldı; sıradaki yükleme diskten gelir.');
@@ -137,6 +141,7 @@ class ImageCacheLabCubit extends BaseViewModelCubit<ImageCacheLabState> {
 
   /// Diski ve belleği boşaltır.
   Future<void> clearDisk() async {
+    track(AppEvent.diskCleared);
     await cache.clearDisk();
     PaintingBinding.instance.imageCache
       ..clear()
@@ -147,6 +152,7 @@ class ImageCacheLabCubit extends BaseViewModelCubit<ImageCacheLabState> {
 
   /// Seçili sekmedeki ilk disk dosyasını bozar; sonra yeniden yükler.
   Future<void> corruptFirst() async {
+    track(AppEvent.fileCorrupted);
     for (final s in state.sources) {
       if (await cache.corrupt(s)) {
         PaintingBinding.instance.imageCache.clear();
@@ -164,6 +170,7 @@ class ImageCacheLabCubit extends BaseViewModelCubit<ImageCacheLabState> {
   /// "Yeni sürüm çıktı" senaryosu: kayıtlı sürüm eskisiyle değiştirilir,
   /// denetim yeniden çalışır.
   Future<void> simulateUpgrade() async {
+    track(AppEvent.upgradeSimulated);
     await cache.pretendOldVersion('0.9.0+1');
     final check = await cache.ensureReady();
     _resetItems();

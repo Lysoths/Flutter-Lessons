@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/box_3d.dart';
 import 'package:flutter_ders/app/views/view_animation_control/widgets/curve_option.dart';
@@ -107,6 +108,7 @@ class _Object3DPanelState extends State<Object3DPanel>
   }
 
   void _setCurve(CurveOption option) {
+    track(AppEvent.curveSelected, option.name);
     setState(() {
       _curve = option;
       _curved.dispose();
@@ -212,7 +214,10 @@ class _Object3DPanelState extends State<Object3DPanel>
               ),
           ],
           selected: {_shape},
-          onSelectionChanged: (s) => setState(() => _shape = s.first),
+          onSelectionChanged: (s) {
+            track(AppEvent.shapeSelected, s.first.name);
+            setState(() => _shape = s.first);
+          },
         ),
         const Gap(8),
         Card(

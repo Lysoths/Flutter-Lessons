@@ -1,5 +1,6 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_bloc.dart';
 import 'package:flutter_ders/app/core/repository/tips_repository.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/tips_event.dart';
@@ -48,6 +49,7 @@ class TipsBloc extends BaseViewModelBloc<TipsEvent, TipsState> {
   }
 
   void _selectCategory(TipsCategorySelected event, Emitter<TipsState> emit) {
+    track(AppEvent.tipCategorySelected, event.category?.name ?? 'tumu');
     emit(
       state.copyWith(
         category: event.category,

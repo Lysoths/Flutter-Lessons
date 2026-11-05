@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/helper/mock_socket.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_network/widgets/network_cards.dart';
@@ -59,6 +60,7 @@ class _SocketSectionState extends State<SocketSection> {
   }
 
   Future<void> _connect() async {
+    track(AppEvent.socketConnected);
     setState(() => _connecting = true);
     final uri = await _server.start();
     final client = await MockSocketClient.connect(uri);
@@ -82,6 +84,7 @@ class _SocketSectionState extends State<SocketSection> {
   void _send() {
     final text = _text.text.trim();
     if (text.isEmpty) return;
+    track(AppEvent.socketMessage);
     _client?.send(text);
     _text.clear();
   }

@@ -1,5 +1,6 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_bloc.dart';
 import 'package:flutter_ders/app/core/repository/live_rates_repository.dart';
 import 'package:flutter_ders/app/helper/mock_socket.dart';
@@ -27,6 +28,7 @@ class LiveRatesBloc extends BaseViewModelBloc<LiveRatesEvent, LiveRatesState> {
     LiveConnectRequested event,
     Emitter<LiveRatesState> emit,
   ) async {
+    track(AppEvent.liveToggled, 'baglan');
     emit(state.copyWith(status: LiveStatus.connecting));
     await emit.forEach<SocketMessage>(
       repository.connect(),
@@ -51,7 +53,10 @@ class LiveRatesBloc extends BaseViewModelBloc<LiveRatesEvent, LiveRatesState> {
   Future<void> _disconnect(
     LiveDisconnectRequested event,
     Emitter<LiveRatesState> emit,
-  ) => repository.disconnect();
+  ) {
+    track(AppEvent.liveToggled, 'kes');
+    return repository.disconnect();
+  }
 
   void _send(LiveMessageSent event, Emitter<LiveRatesState> emit) {
     final text = event.text.trim();

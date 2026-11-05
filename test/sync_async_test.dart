@@ -6,6 +6,8 @@ import 'package:flutter_ders/app/helper/sync_async_demo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 // DERS 10 — Sync ve async.
 void main() {
   test('busyWork işlemciyi istenen süre meşgul eder', () {
@@ -43,7 +45,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_syncAsync'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_syncAsync'));
     await tester.scrollUntilVisible(
       card,
       200,

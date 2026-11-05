@@ -1,3 +1,4 @@
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_change_notifier_view_model.dart';
 import 'package:flutter_ders/app/core/repository/currency_repository.dart';
 import 'package:flutter_ders/app/models/currency/currency_info.dart';
@@ -49,6 +50,7 @@ class HistoryViewModel extends BaseChangeNotifierViewModel {
 
   /// Aralığı değiştirir ve yükler.
   Future<void> showPeriod(HistoryPeriod period) async {
+    track(AppEvent.periodSelected, period.name);
     if (period == _period && _history != null) return;
     _period = period;
     await load();

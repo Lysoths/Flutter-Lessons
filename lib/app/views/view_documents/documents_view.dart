@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -59,7 +60,10 @@ class DocumentsView extends StatelessWidget {
                 child: _DocumentTile(
                   document: d,
                   accent: _accent(kind),
-                  onTap: () => context.router.push(_routeFor(d)),
+                  onTap: () {
+                    track(AppEvent.documentOpened, d.kind.name);
+                    context.router.push(_routeFor(d));
+                  },
                 ),
               ),
           ],

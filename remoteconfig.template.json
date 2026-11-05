@@ -1,0 +1,46 @@
+{
+  "parameters": {
+    "tasarim": {
+      "defaultValue": {
+        "value": "{\"birincil\":\"#2563EB\",\"vurgu\":\"#D97757\",\"dugme\":\"#0F172A\",\"kose\":12,\"kart_kose\":16,\"yazi_olcegi\":1.0}"
+      },
+      "description": "Tasarım belirteçleri: renkler (#RRGGBB), köşe yarıçapları (pt), yazı ölçeği (0.8-1.4).",
+      "valueType": "JSON"
+    },
+    "dil_metinleri": {
+      "defaultValue": {
+        "value": "{\"tr\":{\"uygulama.ad\":\"Harcama Takibim\",\"auth.baslik\":\"Hoş geldin\",\"auth.alt_baslik\":\"Devam etmek için Google hesabınla giriş yap.\",\"auth.google\":\"Google ile devam et\",\"auth.bilgi\":\"Uygulama yalnızca hesabının adını ve e-posta adresini görür; şifren Google'da kalır.\",\"auth.cikis\":\"Çıkış yap\",\"hata.iptal\":\"Giriş iptal edildi.\",\"hata.ag\":\"İnternet bağlantısı yok.\",\"hata.cok_deneme\":\"Çok fazla deneme yapıldı. Biraz sonra tekrar dene.\",\"hata.hesap_kapali\":\"Bu hesap devre dışı bırakılmış.\",\"hata.yontem_kapali\":\"Google ile giriş Firebase konsolunda açık değil.\",\"hata.yapilandirma\":\"Google girişi yapılandırılmamış (SHA-1 ya da Web client ID eksik).\",\"hata.app_check\":\"Uygulama doğrulanamadı (App Check).\",\"hata.bilinmeyen\":\"Bir hata oluştu. Tekrar dene.\",\"guncelleme.zorunlu_baslik\":\"Güncelleme gerekli\",\"guncelleme.zorunlu_metin\":\"Bu sürüm artık desteklenmiyor. Devam etmek için uygulamayı güncelle.\",\"guncelleme.istege_baslik\":\"Yeni sürüm var\",\"guncelleme.istege_metin\":\"Yeni özellikler ve düzeltmeler için güncelleyebilirsin.\",\"guncelleme.guncelle\":\"Güncelle\",\"guncelleme.sonra\":\"Sonra\",\"guncelleme.yuklu\":\"Yüklü sürüm\",\"guncelleme.en_dusuk\":\"En düşük sürüm\",\"guncelleme.en_son\":\"En son sürüm\"},\"en\":{\"uygulama.ad\":\"My Expenses\",\"auth.baslik\":\"Welcome\",\"auth.alt_baslik\":\"Sign in with your Google account to continue.\",\"auth.google\":\"Continue with Google\",\"auth.bilgi\":\"The app only sees your account name and email; your password stays with Google.\",\"auth.cikis\":\"Sign out\",\"hata.iptal\":\"Sign-in was cancelled.\",\"hata.ag\":\"No internet connection.\",\"hata.cok_deneme\":\"Too many attempts. Try again later.\",\"hata.hesap_kapali\":\"This account has been disabled.\",\"hata.yontem_kapali\":\"Google sign-in is not enabled in the Firebase console.\",\"hata.yapilandirma\":\"Google sign-in is not configured (missing SHA-1 or Web client ID).\",\"hata.app_check\":\"The app could not be verified (App Check).\",\"hata.bilinmeyen\":\"Something went wrong. Try again.\",\"guncelleme.zorunlu_baslik\":\"Update required\",\"guncelleme.zorunlu_metin\":\"This version is no longer supported. Update the app to continue.\",\"guncelleme.istege_baslik\":\"New version available\",\"guncelleme.istege_metin\":\"Update for new features and fixes.\",\"guncelleme.guncelle\":\"Update\",\"guncelleme.sonra\":\"Later\",\"guncelleme.yuklu\":\"Installed version\",\"guncelleme.en_dusuk\":\"Minimum version\",\"guncelleme.en_son\":\"Latest version\"}}"
+      },
+      "description": "Arayüz metinleri; dil kodu → anahtar → metin.",
+      "valueType": "JSON"
+    },
+    "varsayilan_dil": {
+      "defaultValue": {
+        "value": "cihaz"
+      },
+      "description": "tr, en ya da cihaz (cihaz dili desteklenmiyorsa tr).",
+      "valueType": "STRING"
+    },
+    "min_surum": {
+      "defaultValue": {
+        "value": "1.0.0"
+      },
+      "description": "Bunun altındaki sürümler zorunlu güncelleme ekranında kilitlenir.",
+      "valueType": "STRING"
+    },
+    "son_surum": {
+      "defaultValue": {
+        "value": "1.0.0"
+      },
+      "description": "Bunun altındaki sürümlere kapatılabilir güncelleme uyarısı çıkar.",
+      "valueType": "STRING"
+    },
+    "guncelleme_adresi": {
+      "defaultValue": {
+        "value": "https://play.google.com/store/apps/details?id=com.ogzhner.flutter_ders"
+      },
+      "description": "Güncelle düğmesinin açtığı adres (yalnız play.google.com).",
+      "valueType": "STRING"
+    }
+  }
+}

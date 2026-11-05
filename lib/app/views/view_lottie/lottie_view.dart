@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/models/lottie_item.dart';
 import 'package:flutter_ders/app/models/lottie_json_info.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -90,7 +91,10 @@ class _LottieViewState extends State<LottieView> {
                   key: Key('lottieChip_${a.id}'),
                   label: Text(a.title),
                   selected: a == _selected,
-                  onSelected: (_) => _select(a),
+                  onSelected: (_) {
+                    track(AppEvent.lottieSelected, a.id);
+                    _select(a);
+                  },
                 ),
             ],
           ),

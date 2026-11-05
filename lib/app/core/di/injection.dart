@@ -1,17 +1,25 @@
 import 'dart:io';
+import 'dart:ui' show PlatformDispatcher;
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_ders/app/core/analytics/app_analytics.dart';
 import 'package:flutter_ders/app/core/cache/app_image_cache.dart';
 import 'package:flutter_ders/app/core/cache/image_fetchers.dart';
 import 'package:flutter_ders/app/core/cache/image_memory_controller.dart';
 import 'package:flutter_ders/app/core/device/device_info_source.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/device/sensor_source.dart';
+import 'package:flutter_ders/app/core/firebase/app_config_cubit.dart';
+import 'package:flutter_ders/app/core/firebase/finance_store.dart';
+import 'package:flutter_ders/app/core/firebase/firebase_services.dart';
+import 'package:flutter_ders/app/core/firebase/session_cubit.dart';
 import 'package:flutter_ders/app/core/network/retrofit_client.dart';
 import 'package:flutter_ders/app/core/repository/app_info_repository.dart';
 import 'package:flutter_ders/app/core/repository/currency_repository.dart';
 import 'package:flutter_ders/app/core/repository/expense_repository.dart';
+import 'package:flutter_ders/app/core/repository/firestore_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/json_sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/live_rates_repository.dart';
 import 'package:flutter_ders/app/core/repository/local_expense_repository.dart';
@@ -27,6 +35,7 @@ import 'package:flutter_ders/app/core/repository/tips_repository.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/app_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/network_info_bloc.dart';
+import 'package:flutter_ders/app/views/view_auth/cubit/sign_in_cubit.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/live_rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/rates_bloc.dart';
 import 'package:flutter_ders/app/views/view_bloc_demo/bloc/tips_bloc.dart';
@@ -36,6 +45,8 @@ import 'package:flutter_ders/app/views/view_currency/view_model/news_view_model.
 import 'package:flutter_ders/app/views/view_currency/view_model/rates_view_model.dart';
 import 'package:flutter_ders/app/views/view_device_info/bloc/device_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
+import 'package:flutter_ders/app/views/view_firebase/cubit/firebase_lab_cubit.dart';
+import 'package:flutter_ders/app/views/view_firebase/cubit/firestore_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_image_cache/cubit/image_cache_lab_cubit.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_cubit.dart';
 import 'package:flutter_ders/app/views/view_retrofit/cubit/retrofit_lab_cubit.dart';
@@ -51,13 +62,81 @@ final GetIt getIt = GetIt.instance;
 
 /// Helper'ları, depoları ve view model'leri kaydeder.
 /// Birden çok kez çağrılabilir.
-Future<void> configureDependencies() async {
+///
+/// [firebase]: Firebase başlatıldıysa (main.dart) gerçek servisler, değilse
+/// (testler) yerel sürümler kaydedilir.
+Future<void> configureDependencies({bool firebase = false}) async {
   if (getIt.isRegistered<ExpenseRepository>()) return;
   final prefs = await SharedPreferences.getInstance();
   getIt
-    ..registerSingleton<ExpenseRepository>(LocalExpenseRepository(prefs))
+    // DERS 18 — Firebase servisleri ve uygulama genelindeki iki cubit.
+    ..registerSingleton<AppAnalytics>(
+      firebase ? const FirebaseAppAnalytics() : const NoopAnalytics(),
+    )
+    ..registerLazySingleton<ConfigSource>(
+      firebase ? FirebaseConfigSource.new : LocalConfigSource.new,
+    )
+    ..registerLazySingleton<AuthRepository>(
+      firebase ? FirebaseAuthRepository.new : LocalAuthRepository.new,
+    )
+    ..registerLazySingleton<CrashReporter>(
+      firebase ? FirebaseCrashReporter.new : MemoryCrashReporter.new,
+    )
+    ..registerLazySingleton<AppCheckGuard>(
+      firebase ? FirebaseAppCheckGuard.new : LocalAppCheckGuard.new,
+    )
+    ..registerLazySingleton<AppConfigCubit>(
+      () => AppConfigCubit(
+        source: getIt<ConfigSource>(),
+        template: () => rootBundle.loadString('remoteconfig.template.json'),
+        appVersion: () async => (await PackageInfo.fromPlatform()).version,
+        prefs: SharedPreferences.getInstance,
+        deviceLanguage: PlatformDispatcher.instance.locale.languageCode,
+      ),
+    )
+    ..registerLazySingleton<SessionCubit>(
+      () => SessionCubit(
+        auth: getIt<AuthRepository>(),
+        crash: getIt<CrashReporter>(),
+      ),
+    )
+    ..registerFactory<SignInCubit>(
+      () => SignInCubit(
+        auth: getIt<AuthRepository>(),
+        crash: getIt<CrashReporter>(),
+      ),
+    )
+    ..registerLazySingleton<FinanceStore>(
+      firebase ? FirestoreFinanceStore.new : MemoryFinanceStore.new,
+    )
+    ..registerFactory<FirestoreLabCubit>(
+      () => FirestoreLabCubit(
+        store: getIt<FinanceStore>(),
+        seedSource: () =>
+            rootBundle.loadString('assets/data/firestore_seed.json'),
+        uid: () => getIt<SessionCubit>().state.user?.uid,
+      ),
+    )
+    ..registerFactory<FirebaseLabCubit>(
+      () => FirebaseLabCubit(
+        appCheck: getIt<AppCheckGuard>(),
+        crash: getIt<CrashReporter>(),
+      ),
+    )
+    // DERS 18 — Firebase varken harcamalar giriş yapan kullanıcının
+    // Firestore verisinden gelir; yoksa (testler) telefon hafızasından.
+    ..registerSingleton<ExpenseRepository>(
+      firebase
+          ? FirestoreExpenseRepository(
+              uid: () => getIt<SessionCubit>().state.user?.uid,
+            )
+          : LocalExpenseRepository(prefs),
+    )
     ..registerFactory<ExpensesCubit>(
-      () => ExpensesCubit(repository: getIt<ExpenseRepository>()),
+      () => ExpensesCubit(
+        repository: getIt<ExpenseRepository>(),
+        analytics: getIt<AppAnalytics>(),
+      ),
     )
     // DERS 7 — 500 örnek kayıt JSON dosyasından bir kez okunur; cubit her
     // açılışta yeni.

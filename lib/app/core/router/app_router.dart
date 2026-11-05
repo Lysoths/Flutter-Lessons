@@ -16,8 +16,10 @@ import 'package:flutter_ders/app/views/view_device_info/device_info_view.dart';
 import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
+import 'package:flutter_ders/app/views/view_firebase/firebase_view.dart';
 import 'package:flutter_ders/app/views/view_image_cache/image_cache_view.dart';
 import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart';
+import 'package:flutter_ders/app/views/view_lessons/lessons_view.dart';
 import 'package:flutter_ders/app/views/view_lottie/lottie_view.dart';
 import 'package:flutter_ders/app/views/view_network/network_view.dart';
 import 'package:flutter_ders/app/views/view_new_expense/new_expense_view.dart';
@@ -146,6 +148,10 @@ class AppRouter extends RootStackRouter {
       '/ornek-liste',
       RouteAnimation.slideFromRight,
     ),
+    // Ders dizini. Deep link beyaz listesinde yok.
+    _animated(LessonsRoute.page, '/dersler', RouteAnimation.slideFromRight),
+    // DERS 18 — Firebase. Deep link beyaz listesinde yok.
+    _animated(FirebaseRoute.page, '/firebase', RouteAnimation.slideFromRight),
     // DERS 17 — Görsel önbelleği. Deep link beyaz listesinde yok.
     _animated(
       ImageCacheRoute.page,

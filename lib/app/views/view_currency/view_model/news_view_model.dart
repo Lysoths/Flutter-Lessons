@@ -1,3 +1,4 @@
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_change_notifier_view_model.dart';
 import 'package:flutter_ders/app/core/repository/news_repository.dart';
 import 'package:flutter_ders/app/models/currency/news_article.dart';
@@ -60,11 +61,13 @@ class NewsViewModel extends BaseChangeNotifierViewModel {
   /// Süzgeci değiştirir; aynı koda tekrar basmak süzgeci kaldırır.
   void toggleFilter(String? code) {
     _filter = code == _filter ? null : code;
+    track(AppEvent.newsFiltered, _filter ?? 'tumu');
     notifyListeners();
   }
 
   /// Haber açıldı (modal).
   void markRead(NewsArticle article) {
+    track(AppEvent.newsOpened);
     if (_read.add(article.id)) notifyListeners();
   }
 }

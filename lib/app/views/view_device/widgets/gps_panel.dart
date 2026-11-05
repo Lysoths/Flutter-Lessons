@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/device/location_source.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
@@ -61,6 +62,7 @@ class _GpsPanelState extends State<GpsPanel>
   bool get wantKeepAlive => true;
 
   Future<void> _start() async {
+    track(AppEvent.gpsStarted);
     setState(() => _asking = true);
     // 1. FUTURE: izin bir kez sorulur.
     final access = await _source.requestAccess();
@@ -76,7 +78,10 @@ class _GpsPanelState extends State<GpsPanel>
   }
 
   // Akış null olunca StreamBuilder aboneliği bırakır, GPS durur.
-  void _stop() => setState(() => _stream = null);
+  void _stop() {
+    track(AppEvent.gpsStopped);
+    setState(() => _stream = null);
+  }
 
   @override
   Widget build(BuildContext context) {

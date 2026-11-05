@@ -1,3 +1,4 @@
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_change_notifier_view_model.dart';
 import 'package:flutter_ders/app/views/view_currency/view_model/history_view_model.dart';
 import 'package:flutter_ders/app/views/view_currency/view_model/news_view_model.dart';
@@ -61,6 +62,7 @@ class CurrencyViewModel extends BaseChangeNotifierViewModel {
 
   /// Kullanıcı 1. bölümde bir para birimine dokundu.
   Future<void> selectCurrency(String code) async {
+    track(AppEvent.currencySelected, code);
     rates.select(code);
     await history.showCurrency(code);
   }

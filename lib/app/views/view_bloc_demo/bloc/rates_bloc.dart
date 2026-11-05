@@ -1,5 +1,6 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_bloc.dart';
 import 'package:flutter_ders/app/core/repository/rates_repository.dart';
 import 'package:flutter_ders/app/models/exchange_rates.dart';
@@ -18,7 +19,10 @@ class RatesBloc extends BaseViewModelBloc<RatesEvent, RatesState> {
   /// [repository] üzerinden çalışan Bloc oluşturur.
   RatesBloc({required this.repository}) : super(const RatesInitial()) {
     on<RatesRequested>(_fetch);
-    on<RatesRefreshed>(_fetch, transformer: droppable());
+    on<RatesRefreshed>((e, emit) {
+      track(AppEvent.ratesRefreshed);
+      return _fetch(e, emit);
+    }, transformer: droppable());
   }
 
   /// Kurların geldiği yer.

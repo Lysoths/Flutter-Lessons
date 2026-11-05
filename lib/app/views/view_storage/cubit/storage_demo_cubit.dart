@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_cubit.dart';
 import 'package:flutter_ders/app/core/repository/note_store.dart';
 import 'package:flutter_ders/app/models/storage_note.dart';
@@ -40,18 +41,21 @@ class StorageDemoCubit extends BaseViewModelCubit<StorageDemoState> {
 
   /// Rastgele bir kayıt ekler.
   Future<void> addSample() => _guard(() async {
+    track(AppEvent.storageAdded, store.kind.name);
     await store.add(_sample(DateTime.now()));
     await _refresh();
   });
 
   /// [id] kimlikli kaydı siler.
   Future<void> delete(String id) => _guard(() async {
+    track(AppEvent.storageDeleted, store.kind.name);
     await store.delete(id);
     await _refresh();
   });
 
   /// Bu dersin bütün kayıtlarını siler.
   Future<void> clear() => _guard(() async {
+    track(AppEvent.storageCleared, store.kind.name);
     await store.clear();
     await _refresh();
   });
@@ -63,6 +67,7 @@ class StorageDemoCubit extends BaseViewModelCubit<StorageDemoState> {
   /// Depoyu boşaltıp [count] (verilmezse seçili sayı) kaydı tek seferde
   /// yazar ve okur; her adımın süresini ayrı ölçer.
   Future<void> benchmark([int? count]) => _guard(() async {
+    track(AppEvent.storageBenchmark, store.kind.name);
     final n = count ?? state.benchmarkSize;
     stateChanger(state.copyWith(status: StorageDemoStatus.benchmarking));
     await store.clear();

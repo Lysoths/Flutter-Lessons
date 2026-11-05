@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/models/lottie_item.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -44,6 +45,7 @@ class _LottiePlayerCardState extends State<LottiePlayerCard>
   }
 
   void _toggle() {
+    track(AppEvent.lottieToggled);
     setState(() {
       if (_controller.isAnimating) {
         _controller.stop();

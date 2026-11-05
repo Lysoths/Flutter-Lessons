@@ -26,6 +26,8 @@ import 'package:flutter_ders/app/views/view_bloc_demo/bloc/tips_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 /// Gerçek ağa çıkmadan dio'ya cevap veren bağdaştırıcı.
 class _FakeAdapter implements HttpClientAdapter {
   _FakeAdapter(this.respond);
@@ -338,7 +340,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_bloc'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_bloc'));
     await tester.scrollUntilVisible(
       card,
       200,

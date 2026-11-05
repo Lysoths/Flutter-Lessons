@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/models/document_item.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
@@ -44,6 +45,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
   }
 
   Future<void> _toggle(PlayerState state) async {
+    track(AppEvent.audioToggled, state.playing ? 'durdur' : 'oynat');
     if (state.processingState == ProcessingState.completed) {
       await _player.seek(Duration.zero);
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ders/app/core/firebase/remote_app_config.dart';
 
 /// masterfabric.co renkleri (Tailwind slate/blue paleti + Claude vurgusu).
 /// masterfabric-flutter-duo'daki `MfColors` ile aynıdır.
@@ -54,16 +55,17 @@ class MfColors {
 
 /// Uygulamanın Material teması (duo'daki `AppTheme.light` temel alınmıştır).
 class AppTheme {
-  /// MasterFabric paletiyle açık tema.
-  static ThemeData light() {
-    final scheme = ColorScheme.fromSeed(seedColor: MfColors.blue600).copyWith(
-      primary: MfColors.blue600,
+  /// MasterFabric paletiyle açık tema. DERS 18: renkler ve köşeler
+  /// Remote Config'teki `tasarim` parametresinden ([DesignTokens]) gelir.
+  static ThemeData light([DesignTokens t = const DesignTokens()]) {
+    final scheme = ColorScheme.fromSeed(seedColor: t.primary).copyWith(
+      primary: t.primary,
       onPrimary: Colors.white,
       surface: Colors.white,
       onSurface: MfColors.slate900,
       onSurfaceVariant: MfColors.slate600,
       outlineVariant: MfColors.slate100,
-      secondary: MfColors.claude,
+      secondary: t.accent,
       error: MfColors.red600,
     );
 
@@ -73,7 +75,7 @@ class AppTheme {
       displayColor: MfColors.slate900,
     );
     final fieldBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(t.radius),
       borderSide: const BorderSide(color: MfColors.slate200),
     );
 
@@ -122,11 +124,11 @@ class AppTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: MfColors.slate900,
+          backgroundColor: t.button,
           foregroundColor: Colors.white,
           minimumSize: const Size.fromHeight(50),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(t.radius),
           ),
           textStyle: const TextStyle(fontWeight: FontWeight.w600),
         ),
@@ -138,16 +140,18 @@ class AppTheme {
           minimumSize: const Size.fromHeight(50),
           side: const BorderSide(color: MfColors.slate200),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(t.radius),
           ),
           textStyle: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: MfColors.slate900,
+        backgroundColor: t.button,
         foregroundColor: Colors.white,
         elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(t.cardRadius),
+        ),
       ),
       cardTheme: CardThemeData(
         color: Colors.white,
@@ -155,7 +159,7 @@ class AppTheme {
         elevation: 0,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(t.cardRadius),
           side: const BorderSide(color: MfColors.slate200),
         ),
       ),
@@ -166,7 +170,7 @@ class AppTheme {
         border: fieldBorder,
         enabledBorder: fieldBorder,
         focusedBorder: fieldBorder.copyWith(
-          borderSide: const BorderSide(color: MfColors.blue600, width: 1.5),
+          borderSide: BorderSide(color: t.primary, width: 1.5),
         ),
       ),
       bottomSheetTheme: const BottomSheetThemeData(

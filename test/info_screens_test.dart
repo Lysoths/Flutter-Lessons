@@ -23,6 +23,8 @@ import 'package:flutter_ders/app/views/view_device_info/bloc/device_info_state.d
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 // Belgelerde örnek için ayrılmış adresler (RFC 5737), gerçek değil.
 const _body = '''
 fl=12ab34
@@ -337,6 +339,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
       await tester.pumpAndSettle();
+      await openLessonsHub(tester);
       final card = find.byKey(Key(key));
       await tester.scrollUntilVisible(
         card,
@@ -354,7 +357,7 @@ void main() {
     }
 
     testWidgets('cihaz bilgisi: özet, ekran ve bölümler', (tester) async {
-      await open(tester, 'expensesView_deviceInfo');
+      await open(tester, 'lessons_deviceInfo');
       expect(find.byKey(const Key('deviceInfo_summary')), findsOneWidget);
       expect(find.textContaining('3 alan'), findsOneWidget);
       expect(find.byKey(const Key('info_screen')), findsOneWidget);
@@ -365,7 +368,7 @@ void main() {
     testWidgets('uygulama ve ağ: IP gizli başlar, dokununca görünür', (
       tester,
     ) async {
-      await open(tester, 'expensesView_appNetwork');
+      await open(tester, 'lessons_appNetwork');
       expect(find.text('1.0.0'), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('appNetwork_tabNetwork')));

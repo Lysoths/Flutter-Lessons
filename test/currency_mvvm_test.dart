@@ -20,6 +20,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 const _aaSample = '''﻿<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0"><channel>
 <item>
@@ -394,7 +396,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp(watchNetwork: false));
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_currency'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_currency'));
     await tester.scrollUntilVisible(
       card,
       200,

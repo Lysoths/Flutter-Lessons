@@ -10,6 +10,8 @@ import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 // DERS 11 — Ağ kontrolü.
 void main() {
   /// Animasyonlar için kareleri küçük adımlarla ilerletir.
@@ -175,7 +177,8 @@ void main() {
 
     await tester.pumpWidget(const HarcamaApp());
     await tester.pumpAndSettle();
-    final card = find.byKey(const Key('expensesView_network'));
+    await openLessonsHub(tester);
+    final card = find.byKey(const Key('lessons_network'));
     await tester.scrollUntilVisible(
       card,
       200,

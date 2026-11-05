@@ -1,3 +1,4 @@
+import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/base/base_view_model_cubit.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
 import 'package:flutter_ders/app/views/view_paged_list/cubit/paged_list_state.dart';
@@ -39,12 +40,14 @@ class PagedListCubit extends BaseViewModelCubit<PagedListState> {
 
   /// Aşağı çekip yenileme: liste görünür kalır, 1. sayfa yeniden gelir.
   Future<void> refresh() async {
+    track(AppEvent.pagedRefreshed);
     if (_inFlight) return;
     await _fetch(1, replace: true);
   }
 
   /// Hatadan sonra "Tekrar dene".
   Future<void> retry() async {
+    track(AppEvent.pagedRetried);
     if (_inFlight) return;
     if (state.items.isEmpty) return loadFirstPage();
     stateChanger(state.copyWith(status: PagedListStatus.ready));

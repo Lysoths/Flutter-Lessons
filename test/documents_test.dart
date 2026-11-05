@@ -10,6 +10,8 @@ import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart'
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/lessons.dart';
+
 // DERS 5 — Assets + auto_route.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +48,8 @@ void main() {
 
     testWidgets('ana sayfadan belgeler, oradan görsel açılır', (tester) async {
       await pump(tester);
-      await tester.tap(find.byKey(const Key('expensesView_documents')));
+      await openLessonsHub(tester);
+      await tester.tap(find.byKey(const Key('lessons_documents')));
       await tester.pumpAndSettle();
       expect(find.byType(DocumentsView), findsOneWidget);
       for (final d in kDocuments) {
