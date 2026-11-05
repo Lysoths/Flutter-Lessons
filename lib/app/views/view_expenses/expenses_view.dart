@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ders/app/core/analytics/app_events.dart';
 import 'package:flutter_ders/app/core/router/app_deep_links.dart';
 import 'package:flutter_ders/app/core/router/app_router.dart';
-import 'package:flutter_ders/app/helper/money_format.dart';
 import 'package:flutter_ders/app/models/expense.dart';
 import 'package:flutter_ders/app/theme/app_theme.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
@@ -12,12 +11,12 @@ import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_cubit.dart';
 import 'package:flutter_ders/app/views/view_expenses/cubit/expenses_state.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/category_breakdown_widget.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/category_shortcuts_widget.dart';
-import 'package:flutter_ders/app/views/view_expenses/widgets/expense_tile_widget.dart';
+import 'package:flutter_ders/app/views/view_expenses/widgets/expense_timeline.dart';
 import 'package:flutter_ders/app/views/view_expenses/widgets/month_summary_card.dart';
 import 'package:flutter_ders/app/views/view_lessons/widgets/lessons_entry_card.dart';
 import 'package:flutter_ders/app/widgets/common.dart';
 
-/// Ana ekran: aylık özet, kategori dağılımı ve güne göre gruplu liste.
+/// Ana ekran: aylık özet, kategori dağılımı ve ay → hafta → gün gruplu liste.
 /// [ExpensesCubit] uygulama seviyesinde sağlanır (bkz. `app.dart`).
 ///
 /// DERS 4 — auto_route: @RoutePage() bu sayfa için `ExpensesRoute`
@@ -146,7 +145,7 @@ class ExpensesView extends StatelessWidget {
               const Gap(28),
               const _SectionTitle(
                 'Harcamalar',
-                subtitle: 'Ayrıntı için dokunun, silmek için kaydırın',
+                subtitle: 'Ay ve haftaya dokunup açın · silmek için kaydırın',
               ),
               const Gap(4),
               if (state.expenses.isEmpty)
@@ -155,49 +154,18 @@ class ExpensesView extends StatelessWidget {
                   child: _EmptyCard(),
                 )
               else
-                ..._groupedTiles(context, state.expenses, now),
+                // Ay → hafta → gün; yalnız bu ay ve bu hafta açık başlar.
+                ExpenseTimeline(
+                  expenses: state.expenses,
+                  now: now,
+                  onTap: (e) => _openDetail(context, e),
+                  onDelete: (e) => _delete(context, e.id),
+                ),
             ],
           );
         },
       ),
     );
-  }
-
-  /// Harcamaları gün başlıklarıyla gruplar.
-  List<Widget> _groupedTiles(
-    BuildContext context,
-    List<Expense> expenses,
-    DateTime now,
-  ) {
-    final widgets = <Widget>[];
-    String? lastLabel;
-    for (final expense in expenses) {
-      final label = formatDayLabel(expense.date, now: now);
-      if (label != lastLabel) {
-        widgets.add(
-          Padding(
-            padding: const EdgeInsets.only(top: 14, bottom: 8),
-            child: Text(
-              label.toUpperCase(),
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-          ),
-        );
-        lastLabel = label;
-      }
-      widgets.add(
-        Padding(
-          key: ValueKey(expense.id),
-          padding: const EdgeInsets.only(bottom: 8),
-          child: ExpenseTileWidget(
-            expense: expense,
-            onTap: () => _openDetail(context, expense),
-            onDelete: () => _delete(context, expense.id),
-          ),
-        ),
-      );
-    }
-    return widgets;
   }
 }
 

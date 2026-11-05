@@ -38,7 +38,7 @@ lib/
     ├── theme/                    # MfColors + AppTheme, kategori renkleri
     ├── widgets/                  # ortak parçalar; app_gate: güncelleme → giriş → uygulama
     └── views/
-        ├── view_expenses/        # ana sayfa: özet, kategoriler, liste, Dersler girişi
+        ├── view_expenses/        # ana sayfa: özet, kategoriler, ay → hafta kartlı liste, Dersler girişi
         ├── view_lessons/         # Dersler ekranı: konu süzgeci, arama, ders kataloğu
         ├── view_new_expense/     # yeni harcama formu (alttan açılır)
         ├── view_expense_detail/  # harcama ayrıntısı
