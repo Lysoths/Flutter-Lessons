@@ -24,6 +24,7 @@ lib/
     │   ├── background/           # Ders 19: arka plan servisi, durum takibi, bildirim çizelgesi
     │   ├── analytics/            # olay kataloğu (AppEvent, AppScreen), ekran gözlemcisi
     │   ├── firebase/             # Remote Config, oturum, Crashlytics, App Check, Firestore
+    │   ├── hardware/             # Ders 22: donanım kanalının Dart ucu, tipli profil modeli
     │   ├── base/                 # ViewModel tabanları: Cubit, Bloc, ChangeNotifier
     │   ├── cache/                # sürüme bağlı görsel önbelleği, bellek denetleyicisi
     │   ├── bloc/                 # AppBlocObserver (geçişleri konsola yazar)
@@ -60,10 +61,12 @@ lib/
         ├── view_auth/ view_update/ view_firebase/                                  # Ders 18
         ├── view_background/                                                        # Ders 19
         ├── view_assistant/       # Ders 20: tam ekran sohbet + her ekrandaki balon
-        └── view_bank_sms/        # Ders 21: banka SMS'leri, harcamaya ekle
+        ├── view_bank_sms/        # Ders 21: banka SMS'leri, harcamaya ekle
+        └── view_hardware/        # Ders 22: donanım profili, canlı ölçüm, IMEI denemesi
 android/app/src/main/kotlin/…/
 ├── MainActivity.kt               # kanalları motor hazır olunca kurar, izin cevabını iletir
-└── SmsChannel.kt                 # Ders 21: MethodChannel + EventChannel (Kotlin ucu)
+├── SmsChannel.kt                 # Ders 21: MethodChannel + EventChannel (Kotlin ucu)
+└── HardwareChannel.kt            # Ders 22: donanım profili + saniyelik ölçüm (Kotlin ucu)
 assets/
 ├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
 ├── data/                         # Ders 7: 500 örnek harcama · 13: tasarruf ipuçları · 17: base64 görseller · 18: Firestore seed
@@ -123,6 +126,7 @@ bir ders eklemek bu listeye bir satır eklemektir.
 | 19 | Ön plan servisi: uygulama durumu, 3 sn'de bir GPS, görselli ve düğmeli bildirimler | Arka plan ve bildirimler |
 | 20 | Firebase AI (Gemini): personalı harcama asistanı, function calling, her ekranda balon | Harcama asistanı (Firebase AI) |
 | 21 | Platform channel: Kotlin'de kendi SMS kanalımız, banka SMS'lerinden harcama | Banka SMS'leri (platform channel) |
+| 22 | Platform channel: paketsiz donanım profili, saniyelik ölçüm akışı, IMEI ve hata yolu | Donanım profili (platform channel) |
 
 **Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
 veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
@@ -134,7 +138,8 @@ Developer API (Ders 20; yalnız asistana yazılan mesaj gider, bkz. Güvenlik).
 
 **İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı, Ders 19 arka
 plan); bildirim ve "location" tipli ön plan servisi (Ders 19); SMS okuma ve
-alma (Ders 21; yalnız banka SMS'leri, saklanmaz). Konum, IP ve
+alma (Ders 21; yalnız banka SMS'leri, saklanmaz); telefon durumu (Ders 22;
+yalnız veri ağı türü ve etkin SIM sayısı). Konum, IP ve
 Wi-Fi bilgileri hiçbir yere gönderilmez, konsola yazılmaz. Tek istisna Ders
 19: arka planda alınan konumlar, ders gereği, telefonda uygulamanın kendi
 klasöründe saklanır ve ekrandan silinebilir.
@@ -856,6 +861,52 @@ eklendiği buradan anlaşılır ("Eklendi" rozeti), ikinci kez eklenmez.
   `sms_harcama_eklendi` + kategori gibi eylem adları).
 - Google Play READ_SMS iznini yalnız varsayılan SMS uygulamalarına verir;
   bu ders yerel derleme içindir, mağazaya çıkacak sürümde izin kaldırılmalı.
+
+### Ders 22 — Platform channel: donanım profili
+
+Dersler → *Donanım profili* (`views/view_hardware/`). Ders 14'te
+`device_info_plus` paketinin verdiğini okumuştuk; burada paketin
+vermediklerini de kendi kanalımızla Android API'lerinden topluyoruz.
+
+| Bölüm | Android API |
+|---|---|
+| Kimlik, sistem | `Build`, `Build.VERSION`, `Settings.Secure.ANDROID_ID` |
+| İşlemci | `Runtime`, `Build.SOC_*` (12+), `/sys/devices/system/cpu/*/cpufreq` |
+| RAM, depolama | `ActivityManager.MemoryInfo`, `StatFs` |
+| Pil | `ACTION_BATTERY_CHANGED` (yapışkan yayın), `BatteryManager` |
+| Ekran | `Display.Mode`, `DisplayMetrics`, `HdrCapabilities` |
+| Kameralar | `CameraManager` → `CameraCharacteristics` (izin gerekmez) |
+| Sensörler, özellikler | `SensorManager`, `PackageManager.hasSystemFeature` |
+| SIM ve ağ | `TelephonyManager`; ağ türü ve etkin SIM için READ_PHONE_STATE |
+
+**İki kanal türü bir arada.** `profil` tek seferlik büyük bir harita döner
+(`MethodChannel`); sorgular ana iş parçacığını kilitlemesin diye Kotlin'de
+ayrı bir iş parçacığında çalışır. Canlı kart ise `EventChannel`'dan saniyede
+bir gelen ölçümle güncellenir: pil, sıcaklık, akım, boş RAM ve her çekirdeğin
+anlık hızı. Ekran kapanınca dinleme biter, Kotlin'deki zamanlayıcı durur.
+
+**Haritadan tipli modele.** Kanal yalnız temel tipleri taşır; Kotlin'in
+`Map<String, Any?>`'ı Dart'a `Map<Object?, Object?>` gelir.
+`hardware_profile.dart` her alanı tipiyle okur (`ChannelMap`): alan yoksa ya
+da tipi beklenmedikse `null` olur, uygulama çökmez. Testteki örnek harita
+Kotlin'in döndürdüğü biçimdir; iki taraf arasındaki sözleşmeyi dener.
+Okunamayan çekirdek frekansı listeden atılmaz, yerinde `null` kalır; yoksa
+çekirdek numaraları kayardı.
+
+**IMEI ve hata yolu.** Android 10'dan beri IMEI yalnız sistem ve operatör
+uygulamalarına verilir (READ_PRIVILEGED_PHONE_STATE). IMEI kullanıcıyı
+uygulamalar arasında izlemeye yarayan kalıcı bir donanım kimliği olduğu için
+normal uygulamalara bilerek kapatıldı; bu koruma aşılmaya çalışılmaz. Kanal
+resmi `getImei()` çağrısını yapar, Android `SecurityException` atar, Kotlin bunu
+`result.error("sistem_izni", ...)` olarak döner, Dart'ta `PlatformException`
+olarak yakalanıp ekranda açıklanır. Kanalın hata yolu da bir cevaptır.
+Kendi IMEI'ni görmek için tuş takımında `*#06#`. Uygulamaya özel kimlik
+gerekiyorsa doğru araç Android ID'dir; ekranda gizli durur, göz düğmesiyle
+açılır.
+
+**Gizlilik.** Hiçbir değer saklanmaz, gönderilmez; Analytics'e yalnız eylem
+adı gider. Bloc gözlemcisi her durumu konsola yazdığı için `HardwareState` ve
+`DeviceProfile` yalnız sayıları yazar (kimlik, operatör log'a düşmez).
 
 ## Güvenlik: projenin Gemini kotasını başkası kullanmasın
 

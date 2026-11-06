@@ -20,6 +20,7 @@ import 'package:flutter_ders/app/views/view_documents/documents_view.dart';
 import 'package:flutter_ders/app/views/view_expense_detail/expense_detail_view.dart';
 import 'package:flutter_ders/app/views/view_expenses/expenses_view.dart';
 import 'package:flutter_ders/app/views/view_firebase/firebase_view.dart';
+import 'package:flutter_ders/app/views/view_hardware/hardware_view.dart';
 import 'package:flutter_ders/app/views/view_image_cache/image_cache_view.dart';
 import 'package:flutter_ders/app/views/view_image_viewer/image_viewer_view.dart';
 import 'package:flutter_ders/app/views/view_lessons/lessons_view.dart';
@@ -69,6 +70,7 @@ part 'app_router.gr.dart';
 //   BackgroundView       → BackgroundRoute()               (Ders 19)
 //   AssistantView        → AssistantRoute()                (Ders 20)
 //   BankSmsView          → BankSmsRoute()                  (Ders 21)
+//   HardwareView         → HardwareRoute()                 (Ders 22)
 //
 // Uygulama içinde geçişler bu sınıflarla yapılır (yazı/yol yok):
 //   context.router.push(ExpenseDetailRoute(expense: e));
@@ -156,6 +158,9 @@ class AppRouter extends RootStackRouter {
     ),
     // Ders dizini. Deep link beyaz listesinde yok.
     _animated(LessonsRoute.page, '/dersler', RouteAnimation.slideFromRight),
+    // DERS 22 — Donanım profili. Cihaz kimliği gösterir: deep link beyaz
+    // listesinde yok.
+    _animated(HardwareRoute.page, '/donanim', RouteAnimation.slideFromRight),
     // DERS 21 — Banka SMS'leri. Kişisel veri gösterir: deep link beyaz
     // listesinde yok, yalnız uygulama içinden açılır.
     _animated(BankSmsRoute.page, '/banka-sms', RouteAnimation.slideFromRight),

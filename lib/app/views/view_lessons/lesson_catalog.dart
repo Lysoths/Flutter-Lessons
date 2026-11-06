@@ -219,6 +219,15 @@ const kLessons = <Lesson>[
     route: BankSmsRoute(),
   ),
   Lesson(
+    id: 'hardware',
+    number: 22,
+    topic: LessonTopic.device,
+    title: 'Donanım profili (platform channel)',
+    subtitle: 'Pil sağlığı, çekirdekler, kameralar, sensörler, SIM, IMEI',
+    icon: Icons.developer_board_rounded,
+    route: HardwareRoute(),
+  ),
+  Lesson(
     id: 'bloc',
     number: 13,
     topic: LessonTopic.architecture,

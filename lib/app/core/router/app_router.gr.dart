@@ -417,6 +417,22 @@ class FirebaseRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HardwareView]
+class HardwareRoute extends PageRouteInfo<void> {
+  const HardwareRoute({List<PageRouteInfo>? children})
+    : super(HardwareRoute.name, initialChildren: children);
+
+  static const String name = 'HardwareRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HardwareView();
+    },
+  );
+}
+
+/// generated route for
 /// [HiveStorageView]
 class HiveStorageRoute extends PageRouteInfo<void> {
   const HiveStorageRoute({List<PageRouteInfo>? children})

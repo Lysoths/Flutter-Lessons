@@ -19,6 +19,10 @@
          verir; bu ders yerel derleme içindir. -->
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <!-- DERS 22 — Donanım kanalı: veri ağı türü (5G/4G) ve etkin SIM sayısı
+         için. IMEI bu izinle de okunamaz; Android 10+ onu yalnız sistem
+         uygulamalarına verir. -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <application
         android:label="flutter_ders"
         android:name="${applicationName}"

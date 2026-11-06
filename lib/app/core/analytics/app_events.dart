@@ -97,7 +97,10 @@ enum AppScreen {
   assistant('asistan'),
 
   /// Ders 21 — banka SMS'leri.
-  bankSms('banka_sms');
+  bankSms('banka_sms'),
+
+  /// Ders 22 — donanım profili.
+  hardware('donanim');
 
   const AppScreen(this.key);
 
@@ -359,7 +362,21 @@ enum AppEvent {
   smsRecorded('sms_harcama_eklendi', AppScreen.bankSms),
 
   /// SMS'ten eklenen harcama geri alındı.
-  smsUndone('sms_harcama_geri_alindi', AppScreen.bankSms);
+  smsUndone('sms_harcama_geri_alindi', AppScreen.bankSms),
+
+  // Ders 22 — donanım profili. Hiçbir donanım değeri, kimlik ya da operatör
+  // gönderilmez.
+  /// Profil yeniden okundu.
+  hardwareRefreshed('donanim_yenilendi', AppScreen.hardware),
+
+  /// IMEI denendi (seçenek: okundu | engellendi).
+  hardwareImeiTried('donanim_imei_denendi', AppScreen.hardware),
+
+  /// Telefon izni istendi (seçenek: verildi | verilmedi).
+  hardwarePhoneAccess('donanim_telefon_izni', AppScreen.hardware),
+
+  /// Android ID gösterildi.
+  hardwareIdRevealed('donanim_kimlik_gosterildi', AppScreen.hardware);
 
   const AppEvent(this.key, this.screen);
 

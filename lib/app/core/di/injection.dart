@@ -22,6 +22,7 @@ import 'package:flutter_ders/app/core/firebase/app_config_cubit.dart';
 import 'package:flutter_ders/app/core/firebase/finance_store.dart';
 import 'package:flutter_ders/app/core/firebase/firebase_services.dart';
 import 'package:flutter_ders/app/core/firebase/session_cubit.dart';
+import 'package:flutter_ders/app/core/hardware/hardware_source.dart';
 import 'package:flutter_ders/app/core/network/retrofit_client.dart';
 import 'package:flutter_ders/app/core/repository/app_info_repository.dart';
 import 'package:flutter_ders/app/core/repository/currency_repository.dart';
@@ -79,6 +80,13 @@ Future<void> configureDependencies({bool firebase = false}) async {
   if (getIt.isRegistered<ExpenseRepository>()) return;
   final prefs = await SharedPreferences.getInstance();
   getIt
+    // DERS 22 — Kendi donanım kanalımız. Testlerde kanal yok; testler kendi
+    // örnek profilini kaydeder.
+    ..registerLazySingleton<HardwareSource>(
+      () => firebase
+          ? ChannelHardwareSource(isAndroid: Platform.isAndroid)
+          : MemoryHardwareSource(profileMap: const {}),
+    )
     // DERS 21 — Kendi yazdığımız SMS kanalı. Testlerde kanal yok: bellekteki
     // gelen kutusu kaydedilir.
     ..registerLazySingleton<SmsSource>(
