@@ -12,6 +12,9 @@ import 'package:flutter_ders/app/core/cache/image_memory_controller.dart';
 import 'package:flutter_ders/app/core/di/injection.dart';
 import 'package:flutter_ders/app/core/firebase/app_config_cubit.dart';
 import 'package:flutter_ders/app/core/firebase/firebase_services.dart';
+// Bu dosya repoda YOKTUR (.gitignore): Firebase anahtarı yalnız yerel
+// derlemede durur. Kendi anahtarınızı koyunuz: `flutterfire configure` ya da
+// `lib/firebase_options.example.dart` dosyasını bu adla kopyalayıp doldurun.
 import 'package:flutter_ders/firebase_options.dart';
 
 /// Bağımlılıkları kurar, ardından [HarcamaApp]'i çalıştırır.

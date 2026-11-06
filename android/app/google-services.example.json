@@ -1,0 +1,30 @@
+{
+  "_not": "ORNEK DOSYA - KENDI FIREBASE ANAHTARINIZI KOYUNUZ. Gercek google-services.json bu repoda yoktur (.gitignore); proje sahibinin anahtari yalniz yerel derlemede durur. 'flutterfire configure' ile ya da Firebase konsolu > Proje ayarlari > Android uygulamasi > google-services.json indirerek kendi dosyanizi bu klasore koyunuz. Gercek anahtari asla commitlemeyin.",
+  "project_info": {
+    "project_number": "000000000000",
+    "project_id": "kendi-proje-kimliginiz",
+    "storage_bucket": "kendi-proje-kimliginiz.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "android_client_info": {
+          "package_name": "com.ogzhner.flutter_ders"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "KENDI_API_ANAHTARINIZ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

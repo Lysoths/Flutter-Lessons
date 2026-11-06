@@ -799,11 +799,9 @@ Firebase AI kotasını harcamaya çalışabilir. Bu yüzden:
 
 - İki dosya **repoya girmez** (`.gitignore`); her geliştirici kendi Firebase
   projesiyle üretir (bkz. Kurulum).
-- Ders 18–20 commitlerinde duran anahtar git geçmişinde kalır; yenilenmedi.
-  Onu bulan biri bu projeye istek atabilir ama App Check zorunlu olduğundan
-  AI Logic (ve zorunlu kılınan diğer servisler) resmi uygulama dışındaki
-  istekleri reddeder (doğrulandı: belirteçsiz istek → 401). Anahtarın
-  Google Cloud'da paket adı + SHA-1 ve API listesiyle kısıtlanması önerilir.
+- Anahtar git geçmişinden de temizlendi; GitHub'daki hiçbir commit'te yok.
+  Ek olarak App Check zorunlu olduğundan AI Logic, resmi uygulama dışındaki
+  istekleri reddeder (doğrulandı: belirteçsiz istek → 401).
 - Gemini Developer API anahtarı uygulamada hiç durmaz; Firebase AI Logic'in
   sunucusunda kalır.
 
@@ -853,7 +851,11 @@ flutterfire configure --project=<firebase-proje-kimligin> --platforms=android
 ```
 
 Bu komut `lib/firebase_options.dart` ve `android/app/google-services.json`
-dosyalarını üretir (ikisi de `.gitignore`'da). Ardından konsolda: Google ile
+dosyalarını üretir (ikisi de `.gitignore`'da). Komut yerine örnek dosyalar da
+kullanılabilir: `lib/firebase_options.example.dart` ve
+`android/app/google-services.example.json` dosyalarını `.example` olmadan
+kopyalayıp **kendi anahtarınızı koyunuz**. Proje sahibinin anahtarı yalnız
+kendi bilgisayarındaki yerel derlemede durur, GitHub'da yoktur. Ardından konsolda: Google ile
 giriş (Authentication), Firestore (`firebase deploy --only firestore`),
 Remote Config (`firebase deploy --only remoteconfig`), App Check ve AI Logic
 (Gemini Developer API) açılır; Güvenlik bölümündeki adımlar uygulanır.
