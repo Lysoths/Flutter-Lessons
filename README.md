@@ -799,9 +799,11 @@ Firebase AI kotasını harcamaya çalışabilir. Bu yüzden:
 
 - İki dosya **repoya girmez** (`.gitignore`); her geliştirici kendi Firebase
   projesiyle üretir (bkz. Kurulum).
-- Bir süre repoda (Ders 18–20 commitlerinde) duran anahtar Google Cloud'da
-  **yenilenir**; yenilenince git geçmişindeki değer geçersiz olur. Geçmiş
-  yeniden yazılmaz.
+- Ders 18–20 commitlerinde duran anahtar git geçmişinde kalır; yenilenmedi.
+  Onu bulan biri bu projeye istek atabilir ama App Check zorunlu olduğundan
+  AI Logic (ve zorunlu kılınan diğer servisler) resmi uygulama dışındaki
+  istekleri reddeder (doğrulandı: belirteçsiz istek → 401). Anahtarın
+  Google Cloud'da paket adı + SHA-1 ve API listesiyle kısıtlanması önerilir.
 - Gemini Developer API anahtarı uygulamada hiç durmaz; Firebase AI Logic'in
   sunucusunda kalır.
 
