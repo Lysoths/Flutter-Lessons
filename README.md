@@ -791,12 +791,19 @@ builder Navigator'ın dışında olduğundan panel kendi `Overlay`'ini taşır
 
 ## Güvenlik: projenin Gemini kotasını başkası kullanmasın
 
-Bu repo herkese açık. `lib/firebase_options.dart` ve
-`android/app/google-services.json` içindeki API anahtarı gizli değildir:
-Firebase'de bu anahtar yalnız projeyi tanıtır, yetki vermez. Repoyu klonlayan
-biri aynı ayarlarla uygulamayı derleyip bu projenin Firebase AI kotasını
-harcamaya çalışabilir. Gemini Developer API anahtarı ise uygulamada hiç durmaz;
-Firebase AI Logic'in sunucusunda kalır.
+Bu repo herkese açık. Firebase'in istemci ayarları
+(`lib/firebase_options.dart`, `android/app/google-services.json`) bir API
+anahtarı taşır. Bu anahtar yalnız projeyi tanıtır, tek başına yetki vermez;
+ama repoda durursa onu bulan biri uygulamayı bu projeye bağlı derleyip
+Firebase AI kotasını harcamaya çalışabilir. Bu yüzden:
+
+- İki dosya **repoya girmez** (`.gitignore`); her geliştirici kendi Firebase
+  projesiyle üretir (bkz. Kurulum).
+- Bir süre repoda (Ders 18–20 commitlerinde) duran anahtar Google Cloud'da
+  **yenilenir**; yenilenince git geçmişindeki değer geçersiz olur. Geçmiş
+  yeniden yazılmaz.
+- Gemini Developer API anahtarı uygulamada hiç durmaz; Firebase AI Logic'in
+  sunucusunda kalır.
 
 **Kodda alınan önlemler**
 
@@ -831,6 +838,23 @@ sınırlar atlatılabilir, sunucu tarafındakiler atlatılamaz):
 
 Debug belirteci bir kez sızarsa konsolda App Check → Debug belirteçleri'nden
 silinip yenisi kaydedilir.
+
+## Kurulum (kendi Firebase projenle)
+
+Firebase ayar dosyaları repoda yok; derlemeden önce üretilir:
+
+```bash
+npm install -g firebase-tools        # ya da npm --prefix ~/.npm-global
+dart pub global activate flutterfire_cli
+firebase login
+flutterfire configure --project=<firebase-proje-kimligin> --platforms=android
+```
+
+Bu komut `lib/firebase_options.dart` ve `android/app/google-services.json`
+dosyalarını üretir (ikisi de `.gitignore`'da). Ardından konsolda: Google ile
+giriş (Authentication), Firestore (`firebase deploy --only firestore`),
+Remote Config (`firebase deploy --only remoteconfig`), App Check ve AI Logic
+(Gemini Developer API) açılır; Güvenlik bölümündeki adımlar uygulanır.
 
 ## Komutlar
 
