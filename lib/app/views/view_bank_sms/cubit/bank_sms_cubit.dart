@@ -102,20 +102,32 @@ final class BankSmsState extends Equatable {
   ];
 
   /// [month] ayında, TL olarak hesaptan çıkan toplam.
-  double spentIn(DateTime month) => _sum(month, outgoing: true);
+  double spentIn(DateTime month) => _sum(outgoing: true, month: month);
 
   /// [month] ayında hesaba giren toplam.
-  double receivedIn(DateTime month) => _sum(month, outgoing: false);
+  double receivedIn(DateTime month) => _sum(outgoing: false, month: month);
 
-  double _sum(DateTime month, {required bool outgoing}) => items
+  /// Okunan bütün dönemde ([days] gün) hesaptan çıkan toplam.
+  double get spentTotal => _sum(outgoing: true);
+
+  /// Okunan bütün dönemde hesaba giren toplam.
+  double get receivedTotal => _sum(outgoing: false);
+
+  /// Para hareketi olan SMS sayısı (bilgi ve kod hariç).
+  int get transactionCount => items
+      .where((s) => s.kind != BankSmsKind.info && s.kind != BankSmsKind.otp)
+      .length;
+
+  double _sum({required bool outgoing, DateTime? month}) => items
       .where(
         (s) =>
             s.amount != null &&
             s.currency == 'TL' &&
             s.kind != BankSmsKind.info &&
+            s.kind != BankSmsKind.otp &&
             s.kind.outgoing == outgoing &&
-            s.date.year == month.year &&
-            s.date.month == month.month,
+            (month == null ||
+                (s.date.year == month.year && s.date.month == month.month)),
       )
       .fold(0, (sum, s) => sum + s.amount!);
 
@@ -143,9 +155,15 @@ final class BankSmsState extends Equatable {
   // AppBlocObserver her geçişi konsola yazar; SMS metni, tutar ve banka
   // log'a düşmesin diye yalnız sayılar yazılır.
   @override
-  String toString() =>
-      'BankSmsState(${status.name}, ${items.length} SMS, '
-      '${filter.name}, canlı: $liveCount)';
+  String toString() {
+    // Yalnız tür başına sayı: sınıflandırmayı içerik görmeden denetlemek için.
+    final kinds = <String, int>{};
+    for (final s in items) {
+      kinds[s.kind.name] = (kinds[s.kind.name] ?? 0) + 1;
+    }
+    return 'BankSmsState(${status.name}, ${items.length} SMS, '
+        '${filter.name}, canlı: $liveCount, türler: $kinds)';
+  }
 
   @override
   List<Object?> get props => [

@@ -125,7 +125,8 @@ class SmsMessage extends StatelessWidget {
   }
 }
 
-/// Bu ayın özeti: giden, gelen, SMS ve banka sayısı, dinleme durumu.
+/// Okunan dönemin özeti: giden, gelen; altında bu ay, SMS / işlem / banka
+/// sayısı ve dinleme durumu.
 class SmsSummaryCard extends StatelessWidget {
   /// Oluşturur.
   const SmsSummaryCard({required this.state, required this.month, super.key});
@@ -170,7 +171,7 @@ class SmsSummaryCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '${formatMonth(month)} · SMS özeti',
+                  'Son ${state.days} gün · SMS özeti',
                   style: t.titleSmall?.copyWith(color: Colors.white),
                 ),
               ),
@@ -182,26 +183,45 @@ class SmsSummaryCard extends StatelessWidget {
             children: [
               figure(
                 'Giden',
-                formatMoney(state.spentIn(month)),
+                formatMoney(state.spentTotal),
                 const Color(0xFFFCA5A5),
                 const Key('bankSms_spent'),
               ),
               const SizedBox(width: 12),
               figure(
                 'Gelen',
-                formatMoney(state.receivedIn(month)),
+                formatMoney(state.receivedTotal),
                 const Color(0xFF6EE7B7),
                 const Key('bankSms_received'),
               ),
             ],
           ),
           const Gap(12),
+          // Bu ayı ayrıca göster: dönem toplamı tek başına "bu ay" sanılmasın.
           Text(
-            '${state.items.length} SMS · ${state.bankCount} banka · '
-            'son ${state.days} gün',
+            '${formatMonth(month)}: giden '
+            '${formatMoney(state.spentIn(month))} · gelen '
+            '${formatMoney(state.receivedIn(month))}',
+            key: const Key('bankSms_month'),
+            style: t.bodySmall?.copyWith(color: Colors.white70),
+          ),
+          const Gap(4),
+          Text(
+            '${state.items.length} SMS · ${state.transactionCount} işlem · '
+            '${state.bankCount} banka',
             key: const Key('bankSms_counts'),
             style: t.bodySmall?.copyWith(color: MfColors.slate400),
           ),
+          if (state.items.isNotEmpty && state.transactionCount == 0) ...[
+            const Gap(8),
+            Text(
+              "Bu SMS'lerde para hareketi yok; çoğu kampanya ve bilgi "
+              'mesajı. Bankalar kart harcamalarını genelde uygulama '
+              'bildirimiyle yollar, SMS ile değil.',
+              key: const Key('bankSms_noTransactions'),
+              style: t.bodySmall?.copyWith(color: MfColors.slate400),
+            ),
+          ],
         ],
       ),
     );

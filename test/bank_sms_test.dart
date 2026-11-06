@@ -261,6 +261,25 @@ void main() {
       expect(log, contains('5 SMS'));
     });
 
+    // Telefonda görülen: bu ay işlem SMS'i yokken kart "0" gösteriyordu ve
+    // önceki ayların işlemleri hiç görünmüyordu.
+    test('özet okunan dönemin tamamı; bu ay ayrıca', () async {
+      final old = RawSms(
+        id: 9,
+        sender: 'AKBANK',
+        body: 'Kartinizla 300,00 TL harcama yapildi.',
+        date: DateTime(_today.year, _today.month - 1, 10, 12),
+      );
+      source = MemorySmsSource(state: SmsAccess.granted, messages: [old, _otp]);
+      await cubit.close(); // setUp'takini kapat, yenisini kur.
+      cubit = BankSmsCubit(source: source, expenses: expenses);
+      await cubit.init();
+      final month = DateTime(_today.year, _today.month);
+      expect(cubit.state.spentTotal, 300);
+      expect(cubit.state.spentIn(month), 0);
+      expect(cubit.state.transactionCount, 1);
+    });
+
     test('süzgeçler', () async {
       source.state = SmsAccess.granted;
       await cubit.init();
