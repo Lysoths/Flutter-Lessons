@@ -263,11 +263,13 @@ abstract final class BankSmsParser {
     final bank = bankOf(sms.sender);
     if (bank == null) return null;
     final text = _fold(sms.body);
-    final kind = _kindOf(text);
-    if (kind == BankSmsKind.otp) {
+    final money = _amountOf(sms.body);
+    final kind = classify(text, hasAmount: money != null);
+    if (kind == BankSmsKind.otp || kind == BankSmsKind.info) {
+      // Kampanya / bilgi SMS'indeki "100.000 TL'ye varan kredi" gibi
+      // tutarlar işlem değildir; gösterilmez, toplama girmez.
       return BankSms(raw: sms, bank: bank, kind: kind, live: live);
     }
-    final money = _amountOf(sms.body);
     return BankSms(
       raw: sms,
       bank: bank,
@@ -292,38 +294,87 @@ abstract final class BankSmsParser {
     return s.split('').map((c) => map[c] ?? c.toLowerCase()).join();
   }
 
-  // Sıra önemli: "iade" metninde "harcama" da geçebilir, şifre SMS'inde
-  // "islem" de geçer.
+  // ── Sınıflandırma ──────────────────────────────────────────────────────
+  //
+  // Bankalar aynı gönderen adıyla hem işlem hem kampanya SMS'i yollar.
+  // Kampanyada da "kredi", "havale", "hesabınıza", "TL" geçer:
+  //   "Size özel 100.000 TL'ye varan krediniz hazır! Başvurun, tutar
+  //    hesabınıza anında aktarılsın. Havale/EFT ücretsiz."
+  // Bu yüzden anahtar kelime tek başına yetmez. Bir SMS'in işlem sayılması
+  // için üç şart birlikte aranır:
+  //   1. işlem türünü söyleyen bir kelime (harcama, havale, iade ...),
+  //   2. işlemin GERÇEKLEŞTİĞİNİ söyleyen geçmiş zaman
+  //      ("yapılmıştır", "gönderildi", "aktarılmıştır" — kampanyalar
+  //      "yapacağınız", "aktarılsın", "başvurun" der),
+  //   3. bir tutar.
+  // Biri eksikse SMS "Bilgi"dir; tutarı gösterilmez, toplama girmez.
+  //
+  // Kelimeler kelime başında aranır: "eft" "teftiş"in, "atm" "katma"nın
+  // içinde eşleşmesin. Kısa kelimelerin sonu da sınırlıdır.
+
+  /// Doğrulama kodu kelimeleri. Yalnız yanında 4–8 haneli bir kod varsa
+  /// sayılır: "şifrenizi kimseyle paylaşmayın" altlığı her SMS'te olabilir.
+  static const _otpWords = [
+    'sifre',
+    'dogrulama kod',
+    'onay kod',
+    'tek kullanimlik',
+    'guvenlik kod',
+    '3d secure',
+    'otp',
+  ];
+
+  /// İşlemin gerçekleştiğini söyleyen geçmiş zaman ekleri.
+  static const _doneWords = [
+    'yapilmistir',
+    'yapildi',
+    'gerceklesmistir',
+    'gerceklesti',
+    'gerceklestirilmistir',
+    'gerceklestirildi',
+    'gonderilmistir',
+    'gonderildi',
+    'gonderdi',
+    'cekilmistir',
+    'cekildi',
+    'odenmistir',
+    'odendi',
+    'aktarilmistir',
+    'aktarildi',
+    'yatirilmistir',
+    'yatirildi',
+    'gelmistir',
+    'tahsil edilmistir',
+    'tahsil edildi',
+    'onaylanmistir',
+    'onaylandi',
+    'iade edilmistir',
+    'iade edildi',
+    'provizyon alin',
+    'harcamanizin',
+  ];
+
+  // Sıra önemli: iade metninde "harcama", gelen para metninde "havale"
+  // de geçer; özelden genele doğru aranır.
   static const _rules = <(BankSmsKind, List<String>)>[
-    (
-      BankSmsKind.otp,
-      [
-        'sifre',
-        'dogrulama kodu',
-        'onay kodu',
-        'tek kullanimlik',
-        'guvenlik kodu',
-        '3d secure',
-        'otp',
-      ],
-    ),
     (BankSmsKind.refund, ['iade']),
     (BankSmsKind.withdrawal, ['nakit cek', 'para cek', 'atm']),
     (
       BankSmsKind.incoming,
       [
         'hesabiniza',
-        'yatirildi',
         'gelen havale',
         'gelen eft',
         'gelen fast',
+        'size gonderdi',
         'gonderdi',
-        'tarafindan',
+        'yatirildi',
+        'yatirilmistir',
       ],
     ),
     (
       BankSmsKind.transferOut,
-      ['havale', 'eft', 'fast', 'gonderildi', 'transfer'],
+      ['havale', 'eft', 'fast', 'transfer', 'gonderildi', 'gonderilmistir'],
     ),
     (BankSmsKind.bill, ['fatura', 'otomatik odeme', 'talimat']),
     (
@@ -332,22 +383,70 @@ abstract final class BankSmsParser {
         'harcama',
         'alisveris',
         'isyeri',
-        'islem yapil',
+        'islem',
         'provizyon',
-        'odeme yapil',
-        'tutarinda islem',
-        'kartinizla',
-        'kartinizdan',
+        'odeme',
+        'kartiniz',
       ],
     ),
   ];
 
-  static BankSmsKind _kindOf(String folded) {
+  /// Sonu da sınırlı aranan kısa kelimeler.
+  static const _shortWords = {'atm', 'eft', 'fast', 'otp'};
+
+  static final _patterns = <String, RegExp>{};
+
+  /// [word] katlanmış metinde kelime başında geçiyor mu?
+  static bool _has(String folded, String word) =>
+      _find(folded, word).isNotEmpty;
+
+  static Iterable<RegExpMatch> _find(String folded, String word) {
+    final p = _patterns.putIfAbsent(word, () {
+      final tail = _shortWords.contains(word) ? '(?![a-z])' : '';
+      return RegExp('(?<![a-z0-9])${RegExp.escape(word)}$tail');
+    });
+    return p.allMatches(folded);
+  }
+
+  // 4–8 haneli tek başına sayı: daha uzun sayının (MERSİS, telefon) parçası
+  // ya da bir tutar ("1.250 TL") olmamalı. Cümle sonu noktası serbest.
+  static final _code = RegExp(
+    r'(?<![\d.,])\d{4,8}(?!\d|[.,]\d)(?!\s*(?:tl|try|₺))',
+  );
+
+  static bool _isOtp(String folded) {
+    // Kodlar bütün metinde aranır (metni kesmek uzun bir sayıyı "kod"
+    // parçasına çevirirdi); sonra kelimeye yakın olan var mı bakılır.
+    final codes = _code.allMatches(folded).toList();
+    if (codes.isEmpty) return false;
+    for (final w in _otpWords) {
+      for (final m in _find(folded, w)) {
+        final near = codes.any(
+          (c) => c.end >= m.start - 30 && c.start <= m.end + 40,
+        );
+        if (near) return true;
+      }
+    }
+    return false;
+  }
+
+  /// Katlanmış (küçük harf, Türkçe harfsiz) metnin türü. Test edilebilsin
+  /// diye açık.
+  static BankSmsKind classify(String folded, {required bool hasAmount}) {
+    final done = _doneWords.any((w) => _has(folded, w));
+    // Tamamlanmış bir işlemin altlığındaki "şifrenizi paylaşmayın" OTP
+    // sayılmaz; kod yanında olmalı.
+    if (!done && _isOtp(folded)) return BankSmsKind.otp;
+    if (!done || !hasAmount) return BankSmsKind.info;
     for (final (kind, words) in _rules) {
-      if (words.any(folded.contains)) return kind;
+      if (words.any((w) => _has(folded, w))) return kind;
     }
     return BankSmsKind.info;
   }
+
+  /// Ham metni sınıflandırır (testler ve hata ayıklama için).
+  static BankSmsKind kindOf(String body) =>
+      classify(_fold(body), hasAmount: _amountOf(body) != null);
 
   // Sayı: 1.234,56 · 1,234.56 · 250,00 · 250 · 99.90
   static const _num =

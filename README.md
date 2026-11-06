@@ -833,6 +833,15 @@ tür (harcama, nakit çekim, giden/gelen para, fatura, iade, bilgi), tutar
 işyeri. Yabancı para harcamaları gösterilir ama TL karşılığı belli olmadığı
 için harcamaya çevrilmez.
 
+Bankalar kampanyayı da aynı gönderen adıyla yollar ve kampanyada da
+"kredi", "havale", "hesabınıza", "TL" geçer. Bu yüzden bir SMS ancak üç şart
+birlikte varsa işlem sayılır: türü söyleyen kelime, işlemin gerçekleştiğini
+söyleyen geçmiş zaman ("yapılmıştır", "gönderildi"; kampanya "yapacağınız",
+"aktarılsın" der) ve tutar. Biri eksikse SMS *Bilgi* olur, tutarı toplama
+girmez. Kelimeler kelime başında aranır ("eft" "teftiş"te eşleşmez);
+doğrulama kodu ancak yanında 4–8 haneli bir kod varsa sayılır, yoksa her
+SMS'in altındaki "şifrenizi paylaşmayın" yüzünden metin gizlenirdi.
+
 **Harcamaya ekle.** Satıra dokununca ayrıntı açılır; kategori işyerinden
 tahmin edilir (Migros → Yemek, Shell → Ulaşım ...), değiştirilebilir. Kayıt
 tarihi SMS'in tam zamanıdır: hiçbir şey saklanmadan aynı SMS'in daha önce

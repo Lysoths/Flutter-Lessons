@@ -132,6 +132,81 @@ void main() {
       expect(s.recordable, isFalse);
     });
 
+    // Telefonda görülen hata: Garanti'nin kredi kampanyası "Giden para"
+    // sayılmıştı. Kampanyalar da "kredi", "havale", "hesabınıza", "TL"
+    // içerir; işlem sayılmak için geçmiş zaman + tutar gerekir.
+    group('kampanya ve bilgi SMSleri işlem sayılmaz', () {
+      const campaigns = [
+        "Size ozel 150.000 TL'ye varan Ihtiyac Kredisi! Garanti BBVA "
+            "Mobil'den hemen basvurun, kredi tutari hesabiniza aninda "
+            'aktarilsin. Havale/EFT/FAST ucretsiz. Ret icin RET yaz 3340',
+        'Kredi kartinizla yapacaginiz 2.000 TL ve uzeri harcamalara 200 TL '
+            'bonus! Kampanyaya katilmak icin KATIL yazip 4700e gonderin.',
+        'Maasinizi bankamiza tasiyin, 15.000 TL promosyon hesabiniza '
+            'yatirilsin. Detayli bilgi: garantibbva.com.tr',
+        'Faizsiz 10.000 TL nakit avans firsati! Kartinizin sifresini '
+            'kimseyle paylasmayin. Mersis: 0879001756600379',
+        'Ekstreniz kesildi. Donem borcunuz 4.250,30 TL, son odeme tarihi '
+            '15.11.2026.',
+      ];
+      for (final body in campaigns) {
+        test(body.substring(0, 30), () {
+          final s = BankSmsParser.parse(_sms('GARANTIBBVA', body, 1))!;
+          expect(s.kind, BankSmsKind.info);
+          expect(s.amount, isNull);
+          expect(s.recordable, isFalse);
+        });
+      }
+    });
+
+    test('gerçek işlemler, altlıkta "şifre" geçse de', () {
+      expect(
+        BankSmsParser.kindOf(
+          '1234 ile biten kartinizla 250,00 TL harcama yapilmistir. '
+          'Sifrenizi kimseyle paylasmayin.',
+        ),
+        BankSmsKind.purchase,
+      );
+      expect(
+        BankSmsParser.kindOf(
+          'Hesabinizdan AYSE K. adina 1.000,00 TL FAST gonderilmistir.',
+        ),
+        BankSmsKind.transferOut,
+      );
+      expect(
+        BankSmsParser.kindOf('ATM\'den 500 TL nakit cekilmistir.'),
+        BankSmsKind.withdrawal,
+      );
+      expect(
+        BankSmsParser.kindOf('MIGROS 120,00 TL iade edilmistir.'),
+        BankSmsKind.refund,
+      );
+      expect(
+        BankSmsParser.kindOf('Hesabiniza 3.500,00 TL EFT gelmistir.'),
+        BankSmsKind.incoming,
+      );
+      // Kelime içinde geçen "eft" / "atm" işlem türü sayılmaz.
+      expect(
+        BankSmsParser.kindOf('Teftis sonucu 50 TL katma deger odenmistir.'),
+        isNot(anyOf(BankSmsKind.transferOut, BankSmsKind.withdrawal)),
+      );
+    });
+
+    test('doğrulama kodu ancak kod yanındaysa', () {
+      expect(
+        BankSmsParser.kindOf('Dogrulama kodunuz: 7731 . Kimseyle paylasmayin'),
+        BankSmsKind.otp,
+      );
+      expect(
+        BankSmsParser.kindOf('482913 tek kullanimlik sifrenizdir.'),
+        BankSmsKind.otp,
+      );
+      expect(
+        BankSmsParser.kindOf('Sifrenizi kimseyle paylasmayin. Iyi gunler.'),
+        BankSmsKind.info,
+      );
+    });
+
     test('banka dışı SMS ve bozuk kanal verisi', () {
       expect(BankSmsParser.parse(_friend), isNull);
       expect(RawSms.fromChannel({'adres': 'AKBANK'}), isNull);
@@ -357,7 +432,11 @@ void main() {
       source.state = SmsAccess.granted;
       await pumpView(tester);
       source.deliver(
-        _sms('ZIRAAT', 'Kartinizla SHELL isyerinde 900,00 TL harcama.', 120),
+        _sms(
+          'ZIRAAT',
+          'Kartinizla SHELL isyerinde 900,00 TL harcama yapildi.',
+          120,
+        ),
       );
       await tester.pumpAndSettle();
       expect(find.text('SHELL'), findsOneWidget);
