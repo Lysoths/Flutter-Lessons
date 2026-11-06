@@ -94,7 +94,10 @@ enum AppScreen {
   background('arka_plan'),
 
   /// Ders 20 — harcama asistanı.
-  assistant('asistan');
+  assistant('asistan'),
+
+  /// Ders 21 — banka SMS'leri.
+  bankSms('banka_sms');
 
   const AppScreen(this.key);
 
@@ -340,7 +343,23 @@ enum AppEvent {
   assistantReset('asistan_sifirla', AppScreen.assistant),
 
   /// Yüzen balondan asistan açıldı.
-  assistantBubbleOpened('asistan_balon_acildi', AppScreen.assistant);
+  assistantBubbleOpened('asistan_balon_acildi', AppScreen.assistant),
+
+  // Ders 21 — banka SMS'leri. SMS metni, banka, tutar ve işyeri gönderilmez.
+  /// SMS izni istendi (seçenek: verildi | verilmedi).
+  smsAccessRequested('sms_izin', AppScreen.bankSms),
+
+  /// Gelen kutusu okundu.
+  smsRefreshed('sms_yenilendi', AppScreen.bankSms),
+
+  /// Ekran açıkken yeni banka SMS'i geldi (seçenek: tür).
+  smsReceived('sms_geldi', AppScreen.bankSms),
+
+  /// SMS'ten harcama eklendi (seçenek: kategori).
+  smsRecorded('sms_harcama_eklendi', AppScreen.bankSms),
+
+  /// SMS'ten eklenen harcama geri alındı.
+  smsUndone('sms_harcama_geri_alindi', AppScreen.bankSms);
 
   const AppEvent(this.key, this.screen);
 

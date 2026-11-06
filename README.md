@@ -32,6 +32,7 @@ lib/
     │   ├── network/              # retrofit servisleri, ortak Dio, kayıt interceptor'u
     │   ├── repository/           # Model katmanı: harcama, örnek veri, kur, haber,
     │   │                         # ağ, uygulama bilgisi, not depoları (prefs/Hive/sqflite)
+    │   ├── sms/                  # Ders 21: SMS kanalının Dart ucu, banka SMS ayrıştırıcı
     │   └── router/               # auto_route tablosu, deep link beyaz listesi, geçişler
     ├── helper/                   # para/tarih/ölçü biçimleri, ağ kontrolü, sahte socket
     ├── models/                   # Expense, belgeler, Lottie, kur, haber, trace ...
@@ -58,7 +59,11 @@ lib/
         ├── view_image_cache/                                                       # Ders 17
         ├── view_auth/ view_update/ view_firebase/                                  # Ders 18
         ├── view_background/                                                        # Ders 19
-        └── view_assistant/       # Ders 20: tam ekran sohbet + her ekrandaki balon
+        ├── view_assistant/       # Ders 20: tam ekran sohbet + her ekrandaki balon
+        └── view_bank_sms/        # Ders 21: banka SMS'leri, harcamaya ekle
+android/app/src/main/kotlin/…/
+├── MainActivity.kt               # kanalları motor hazır olunca kurar, izin cevabını iletir
+└── SmsChannel.kt                 # Ders 21: MethodChannel + EventChannel (Kotlin ucu)
 assets/
 ├── belgeler/                     # Ders 5: örnek PDF, görsel, ses
 ├── data/                         # Ders 7: 500 örnek harcama · 13: tasarruf ipuçları · 17: base64 görseller · 18: Firestore seed
@@ -117,6 +122,7 @@ bir ders eklemek bu listeye bir satır eklemektir.
 | 18 | Firebase: Google ile giriş, Remote Config, zorunlu güncelleme, Crashlytics, App Check, Analytics, Firestore | Firebase |
 | 19 | Ön plan servisi: uygulama durumu, 3 sn'de bir GPS, görselli ve düğmeli bildirimler | Arka plan ve bildirimler |
 | 20 | Firebase AI (Gemini): personalı harcama asistanı, function calling, her ekranda balon | Harcama asistanı (Firebase AI) |
+| 21 | Platform channel: Kotlin'de kendi SMS kanalımız, banka SMS'lerinden harcama | Banka SMS'leri (platform channel) |
 
 **Kullanılan dış servisler** (hepsi ücretsiz, anahtar istemez, isteğe kişisel
 veri eklenmez): Frankfurter (Ders 13), Cloudflare trace (Ders 14),
@@ -127,7 +133,8 @@ adı gider, tutar, not ya da e-posta gitmez), Firebase AI Logic / Gemini
 Developer API (Ders 20; yalnız asistana yazılan mesaj gider, bkz. Güvenlik).
 
 **İzinler:** internet; konum (Ders 12 GPS, Ders 14 Wi-Fi adı, Ders 19 arka
-plan); bildirim ve "location" tipli ön plan servisi (Ders 19). Konum, IP ve
+plan); bildirim ve "location" tipli ön plan servisi (Ders 19); SMS okuma ve
+alma (Ders 21; yalnız banka SMS'leri, saklanmaz). Konum, IP ve
 Wi-Fi bilgileri hiçbir yere gönderilmez, konsola yazılmaz. Tek istisna Ders
 19: arka planda alınan konumlar, ders gereği, telefonda uygulamanın kendi
 klasöründe saklanır ve ekrandan silinebilir.
@@ -788,6 +795,58 @@ sayfaların üstünde durur; balon oradadır. Sohbet uygulama genelindeki tek
 builder Navigator'ın dışında olduğundan panel kendi `Overlay`'ini taşır
 (metin alanı menüsü bunu ister). Tam ekran açıkken balon gizlenir
 (`TopRouteObserver`).
+
+### Ders 21 — Platform channel: banka SMS'leri
+
+Dersler → *Banka SMS'leri* (`views/view_bank_sms/`). Paket yok: Dart ile
+Kotlin arasındaki kanalı kendimiz kurduk.
+
+**Neden kanal?** Flutter ekranı kendi motoruyla çizer; SMS, GPS, pil gibi
+işletim sistemi verilerine doğrudan erişemez. Bunlar Android'in Kotlin/Java
+API'lerindedir. Platform channel aynı uygulamanın iki parçası arasında
+mesajlaşmadır; ağ yoktur, sunucu yoktur. `geolocator` gibi eklentilerin
+içinde de aynı mekanizma çalışır, burada onu elle yazıyoruz.
+
+```
+Dart (sms_source.dart)                 kanal adı              Kotlin (SmsChannel.kt)
+MethodChannel.invokeMethod('gelenKutusu') ─► "flutter_ders/sms" ─► onMethodCall
+      Future<List> ◄──────────────────────────── result.success(liste)
+EventChannel.receiveBroadcastStream() ◄── "flutter_ders/sms/gelen" ◄── BroadcastReceiver
+      Stream<RawSms> (her yeni SMS bir olay)
+```
+
+| Kanal | Metot / olay | Ne yapar |
+|---|---|---|
+| `MethodChannel` | `izinDurumu`, `izinIste` | READ_SMS + RECEIVE_SMS; cevap `onRequestPermissionsResult`'tan gelir |
+| `MethodChannel` | `gelenKutusu(gun, sinir, gonderenler)` | SMS sağlayıcısından son 90 gün; sorgu ayrı iş parçacığında |
+| `MethodChannel` | `ayarlariAc` | "bir daha sorma" sonrası uygulama ayarları |
+| `EventChannel` | dinleme | ekran açıkken gelen SMS anında listeye düşer; çok parçalı SMS birleştirilir |
+
+Kanal ve metot adları iki tarafta birebir aynı olmalı; yazım hatası
+derlemede değil, çalışırken `MissingPluginException` olarak çıkar. Kotlin
+dosyası değişince hot restart yetmez, tam `flutter run` gerekir.
+
+**Ayrıştırma saf Dart'ta** (`core/sms/bank_sms.dart`): gönderen beyaz
+listesi (19 banka; kısa adlar — TEB, ING, QNB — yalnız tam eşleşir),
+tür (harcama, nakit çekim, giden/gelen para, fatura, iade, bilgi), tutar
+(`1.234,56`, `1,234.56`, `TL 250`, `USD 49.99`), kart son dört hane ve
+işyeri. Yabancı para harcamaları gösterilir ama TL karşılığı belli olmadığı
+için harcamaya çevrilmez.
+
+**Harcamaya ekle.** Satıra dokununca ayrıntı açılır; kategori işyerinden
+tahmin edilir (Migros → Yemek, Shell → Ulaşım ...), değiştirilebilir. Kayıt
+tarihi SMS'in tam zamanıdır: hiçbir şey saklanmadan aynı SMS'in daha önce
+eklendiği buradan anlaşılır ("Eklendi" rozeti), ikinci kez eklenmez.
+
+**Gizlilik.**
+- Banka adı listesi Kotlin'e gönderilir; banka dışı SMS'ler kanaldan hiç
+  geçmez.
+- Doğrulama kodu (şifre, OTP) içeren SMS'lerin metni ekranda gizlenir.
+- Liste yalnız bellekte durur, ekran kapanınca silinir; dosyaya, log'a,
+  Analytics'e SMS metni, banka, tutar ya da işyeri gitmez (yalnız
+  `sms_harcama_eklendi` + kategori gibi eylem adları).
+- Google Play READ_SMS iznini yalnız varsayılan SMS uygulamalarına verir;
+  bu ders yerel derleme içindir, mağazaya çıkacak sürümde izin kaldırılmalı.
 
 ## Güvenlik: projenin Gemini kotasını başkası kullanmasın
 

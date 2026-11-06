@@ -39,6 +39,7 @@ import 'package:flutter_ders/app/core/repository/note_stores/sqflite_note_store.
 import 'package:flutter_ders/app/core/repository/rates_repository.dart';
 import 'package:flutter_ders/app/core/repository/sample_expense_repository.dart';
 import 'package:flutter_ders/app/core/repository/tips_repository.dart';
+import 'package:flutter_ders/app/core/sms/sms_source.dart';
 import 'package:flutter_ders/app/helper/network_checker.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/app_info_bloc.dart';
 import 'package:flutter_ders/app/views/view_app_network/bloc/network_info_bloc.dart';
@@ -78,6 +79,13 @@ Future<void> configureDependencies({bool firebase = false}) async {
   if (getIt.isRegistered<ExpenseRepository>()) return;
   final prefs = await SharedPreferences.getInstance();
   getIt
+    // DERS 21 — Kendi yazdığımız SMS kanalı. Testlerde kanal yok: bellekteki
+    // gelen kutusu kaydedilir.
+    ..registerLazySingleton<SmsSource>(
+      () => firebase
+          ? ChannelSmsSource(isAndroid: Platform.isAndroid)
+          : MemorySmsSource(),
+    )
     // DERS 20 — Firebase AI ile harcama asistanı. Model adı Remote
     // Config'ten okunur; her sohbet yeni bir oturumdur. Testlerde ağ yok:
     // testler kendi senaryolu oturumunu kaydeder.

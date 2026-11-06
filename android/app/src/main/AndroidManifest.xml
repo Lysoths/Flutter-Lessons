@@ -12,6 +12,13 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- DERS 21 — Banka SMS'leri: gelen kutusunu okumak (READ_SMS) ve ekran
+         açıkken yeni geleni anında görmek (RECEIVE_SMS). İkisi de "tehlikeli"
+         izin; kullanıcı onaylar. SMS'ler saklanmaz, hiçbir yere gönderilmez.
+         Not: Google Play bu izinleri yalnız varsayılan SMS uygulamalarına
+         verir; bu ders yerel derleme içindir. -->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <application
         android:label="flutter_ders"
         android:name="${applicationName}"

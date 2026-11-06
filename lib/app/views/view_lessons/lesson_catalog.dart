@@ -210,6 +210,15 @@ const kLessons = <Lesson>[
     route: BackgroundRoute(),
   ),
   Lesson(
+    id: 'bankSms',
+    number: 21,
+    topic: LessonTopic.device,
+    title: "Banka SMS'leri (platform channel)",
+    subtitle: 'Kotlin ile kendi kanalımız: gelen kutusu, anlık SMS, harcama',
+    icon: Icons.sms_rounded,
+    route: BankSmsRoute(),
+  ),
+  Lesson(
     id: 'bloc',
     number: 13,
     topic: LessonTopic.architecture,

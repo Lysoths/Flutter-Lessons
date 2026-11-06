@@ -190,6 +190,22 @@ class BackgroundRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BankSmsView]
+class BankSmsRoute extends PageRouteInfo<void> {
+  const BankSmsRoute({List<PageRouteInfo>? children})
+    : super(BankSmsRoute.name, initialChildren: children);
+
+  static const String name = 'BankSmsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BankSmsView();
+    },
+  );
+}
+
+/// generated route for
 /// [BlocDemoView]
 class BlocDemoRoute extends PageRouteInfo<void> {
   const BlocDemoRoute({List<PageRouteInfo>? children})
